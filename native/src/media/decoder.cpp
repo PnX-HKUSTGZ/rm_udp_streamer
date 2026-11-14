@@ -37,7 +37,8 @@ bool same_format(const FrameInfo &a, const FrameInfo &b) {
 std::string MediaConfig::validate() const {
     if (decoder != "auto" && decoder != "software" && decoder != "cuda" && decoder != "d3d11va")
         return "decoder must be auto, software, cuda or d3d11va";
-    if (transfer != "yuv" && transfer != "rgba") return "transfer must be yuv or rgba";
+    if (transfer != "yuv" && transfer != "rgba" && transfer != "gpu") return "transfer must be yuv, rgba or gpu";
+    if (transfer == "gpu" && decoder != "cuda") return "GPU transfer currently requires explicit CUDA decoding";
     if (device.empty() || device.size() > 3 || device.find_first_not_of("0123456789") != std::string::npos)
         return "device must be a numeric adapter index (0..999)";
     if (max_pixels < 256 || max_pixels > 4096 * 2304) return "max_pixels outside 256..9437184";

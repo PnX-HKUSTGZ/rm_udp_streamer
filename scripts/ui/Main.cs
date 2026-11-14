@@ -36,7 +36,7 @@ public partial class Main : Control
             _surface.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
             _surface.Call("set_session", _session.Native);
             _address.Text = _options.Address; _port.Value = _options.Port; _device.Value = _options.Device;
-            _decoder.Select(Array.IndexOf(Decoders, _options.Decoder)); _transfer.Select(_options.Transfer == "yuv" ? 0 : 1);
+            _decoder.Select(Array.IndexOf(Decoders, _options.Decoder)); _transfer.Select(_options.Transfer == "yuv" ? 0 : _options.Transfer == "rgba" ? 1 : 2);
             Refresh();
             if (_options.Start) Toggle();
         }
@@ -68,7 +68,7 @@ public partial class Main : Control
         foreach (string value in new[] { "自动", "软件", "NVIDIA CUDA", "Windows D3D11" }) _decoder.AddItem(value);
         modes.AddChild(Text("设备序号")); _device = new SpinBox { MinValue=0, MaxValue=999, Step=1, Value=0 }; modes.AddChild(_device);
         modes.AddChild(Text("画面传输")); _transfer = new OptionButton(); modes.AddChild(_transfer);
-        _transfer.AddItem("CPU YUV"); _transfer.AddItem("CPU RGBA");
+        _transfer.AddItem("CPU YUV"); _transfer.AddItem("CPU RGBA"); _transfer.AddItem("GPU CUDA / OpenGL");
         _videoArea = new Control { SizeFlagsVertical = SizeFlags.ExpandFill, CustomMinimumSize = new Vector2(0,200) }; layout.AddChild(_videoArea);
         var black = new ColorRect { Color = new Color("080c12"), MouseFilter = MouseFilterEnum.Ignore };
         _videoArea.AddChild(black); black.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
@@ -88,7 +88,7 @@ public partial class Main : Control
         else
         {
             _lastComplete=_lastDecoded=_lastSubmitted=0; _rateTime=0; _receiveFps=_decodeFps=_submitFps=0;
-            _session.Start(_address.Text.Trim(), (int)_port.Value, Decoders[_decoder.Selected], ((int)_device.Value).ToString(), _transfer.Selected==0 ? "yuv" : "rgba");
+            _session.Start(_address.Text.Trim(), (int)_port.Value, Decoders[_decoder.Selected], ((int)_device.Value).ToString(), _transfer.Selected==0 ? "yuv" : _transfer.Selected==1 ? "rgba" : "gpu");
         }
         Refresh();
     }

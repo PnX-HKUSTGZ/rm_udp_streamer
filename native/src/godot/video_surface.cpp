@@ -34,9 +34,26 @@ void fragment() {
 void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
     (void)keep_alive;
     try {
+        if(close_only) {
+            if(state->gpu){state->gpu->close();session->record_gpu_retirement(state->gpu->metrics());}
+            session->release_gpu();
+            return;
+        }
+        if(poll_only) {
+            if(state->gpu)state->gpu->poll();
+            state->busy.store(false);return;
+        }
         if (state->active.load() && session.is_valid() && session->core().accepts(frame->info)) {
             auto publication = std::make_shared<RmUploadState::Publication>();
             publication->info = frame->info; publication->path = frame->path;
+            if(frame->gpu_source.frame) {
+                if(!state->gpu) {
+                    std::lock_guard<std::mutex> lock(state->mutex);state->gpu=std::make_shared<RmCudaGlBridge>();
+                }
+                publication->gpu=state->gpu->upload(frame->gpu_source);
+                if(!publication->gpu){frame.reset();state->busy.store(false);return;}
+                publication->textures=publication->gpu->textures;publication->path="gpu_cuda_gl_nv12";
+            } else {
             auto layout = frame->path + ":" + std::to_string(frame->info.width) + ":" + std::to_string(frame->info.height);
             bool recreate = layout != state->layout;
             if (recreate) { state->textures.clear(); state->layout = layout; }
@@ -51,12 +68,23 @@ void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
                 else state->textures[i]->update(image);
                 if (state->textures[i].is_null()) throw std::runtime_error("Cannot allocate video texture");
             }
-            publication->textures = state->textures;
+            for(const auto &texture:state->textures)publication->textures.push_back(texture);
+            }
             std::lock_guard<std::mutex> lock(state->mutex);
-            if (state->active.load() && session->core().accepts(frame->info)) { state->published = std::move(publication); ++state->submitted; }
+            if (state->active.load() && session->core().accepts(frame->info)) {
+                session->core().presented(frame->info,publication->path);
+                state->published = std::move(publication); ++state->submitted;
+            }
         }
     } catch (const std::exception &error) {
-        std::lock_guard<std::mutex> lock(state->mutex); state->error = error.what();
+        {std::lock_guard<std::mutex> lock(state->mutex); state->error = error.what();}
+        if(session.is_valid())session->core().presentation_failed(error.what());
+        if(close_only) {
+            // Never destroy a resource whose fence failed. Bounded to one
+            // quarantined bridge per session; its retained holder blocks restart.
+            static auto *quarantine=new std::vector<Ref<RmCpuUpload>>;
+            quarantine->push_back(keep_alive);return;
+        }
     }
     frame.reset(); state->busy.store(false);
 }
@@ -72,18 +100,33 @@ RmVideoSurface::RmVideoSurface() {
     Ref<Shader> shader; shader.instantiate(); shader->set_code(yuv_shader);
     material_.instantiate(); material_->set_shader(shader);
 }
-RmVideoSurface::~RmVideoSurface() { upload_->active.store(false); }
+RmVideoSurface::~RmVideoSurface() { detach_picture();retire_upload(); }
 void RmVideoSurface::set_session(const Ref<RmVideoSession> &session) { clear(); session_ = session; }
 void RmVideoSurface::clear() {
-    upload_->active.store(false);
-    upload_ = std::make_shared<RmUploadState>(); shown_.reset(); set_material(Ref<Material>()); queue_redraw();
+    detach_picture();retire_upload();upload_ = std::make_shared<RmUploadState>();queue_redraw();
+}
+void RmVideoSurface::detach_picture() {
+    // Clear RS canvas commands now, before releasing the GPU publication. A
+    // deferred queue_redraw alone could leave a future consumer of the old RID.
+    RenderingServer::get_singleton()->canvas_item_clear(get_canvas_item());
+    set_material(Ref<Material>());
     material_->set_shader_parameter("plane_u", Variant()); material_->set_shader_parameter("plane_v", Variant());
+    shown_.reset();
+}
+void RmVideoSurface::retire_upload() {
+    upload_->active.store(false);
+    {std::lock_guard<std::mutex> lock(upload_->mutex);upload_->published.reset();}
+    if(upload_->gpu_registered) {
+        Ref<RmCpuUpload> work;work.instantiate();work->state=upload_;work->session=session_;work->close_only=true;
+        RenderingServer::get_singleton()->call_on_render_thread(callable_mp(work.ptr(),&RmCpuUpload::run).bind(work));
+    }
 }
 Dictionary RmVideoSurface::get_metrics() const {
     Dictionary result;
     result["submitted"] = int64_t(upload_->submitted.load());
     result["upload_pending"] = upload_->busy.load();
-    { std::lock_guard<std::mutex> lock(upload_->mutex); result["error"] = String(upload_->error.c_str()); }
+    { std::lock_guard<std::mutex> lock(upload_->mutex); result["error"] = String(upload_->error.c_str());
+      if(upload_->gpu) {auto metrics=upload_->gpu->metrics();for(const auto &key:metrics.keys())result[key]=metrics[key];}}
     if (shown_) {
         result["shown_sequence"] = int64_t(shown_->info.output_sequence);
         result["shown_generation"] = int64_t(shown_->info.stream_generation);
@@ -96,13 +139,18 @@ Dictionary RmVideoSurface::get_metrics() const {
 void RmVideoSurface::_process(double) {
     if (session_.is_null()) return;
     session_->poll_stop();
+    if(upload_->gpu_registered) {
+        auto status=session_->core().snapshot();
+        if(status.state=="Stopping"||status.state=="Stopped"||status.state=="Faulted")clear();
+    }
     if (shown_ && !session_->core().accepts(shown_->info)) {
-        shown_.reset(); set_material(Ref<Material>()); queue_redraw();
+        detach_picture();queue_redraw();
     }
     std::shared_ptr<RmUploadState::Publication> publication;
     { std::lock_guard<std::mutex> lock(upload_->mutex); publication = std::exchange(upload_->published, {}); }
     if (publication) {
         if (session_->core().accepts(publication->info)) {
+            detach_picture();
             shown_ = std::move(publication);
             if (shown_->path == "cpu_rgba") set_material(Ref<Material>());
             else {
@@ -113,7 +161,7 @@ void RmVideoSurface::_process(double) {
                 bool full = info.range == AVCOL_RANGE_JPEG;
                 material_->set_shader_parameter("levels", Vector4(full ? 0 : 16.0/255, full ? 1 : 255.0/219, 128.0/255, full ? 1 : 255.0/224));
                 material_->set_shader_parameter("coefficients", Vector4(2*(1-kr), -2*kb*(1-kb)/kg, -2*kr*(1-kr)/kg, 2*(1-kb)));
-                material_->set_shader_parameter("nv12", shown_->path == "cpu_nv12");
+                material_->set_shader_parameter("nv12", shown_->path == "cpu_nv12" || shown_->path == "gpu_cuda_gl_nv12");
                 material_->set_shader_parameter("plane_u", shown_->textures[1]);
                 material_->set_shader_parameter("plane_v", shown_->textures.back());
                 bool left = info.chroma == AVCHROMA_LOC_LEFT || info.chroma == AVCHROMA_LOC_TOPLEFT || info.chroma == AVCHROMA_LOC_BOTTOMLEFT || info.chroma == AVCHROMA_LOC_UNSPECIFIED;
@@ -128,10 +176,15 @@ void RmVideoSurface::_process(double) {
     if (!upload_->busy.load()) {
         auto frame = session_->core().take_frame();
         if (frame) {
+            if(frame->gpu_source.frame&&!upload_->gpu_registered) {session_->retain_gpu();upload_->gpu_registered=true;}
             upload_->busy.store(true);
             Ref<RmCpuUpload> work; work.instantiate(); work->state = upload_; work->frame = std::move(frame);
             work->session = session_;
             RenderingServer::get_singleton()->call_on_render_thread(callable_mp(work.ptr(), &RmCpuUpload::run).bind(work));
+        } else if(upload_->gpu_registered) {
+            upload_->busy.store(true);
+            Ref<RmCpuUpload> work;work.instantiate();work->state=upload_;work->session=session_;work->poll_only=true;
+            RenderingServer::get_singleton()->call_on_render_thread(callable_mp(work.ptr(),&RmCpuUpload::run).bind(work));
         }
     }
 }

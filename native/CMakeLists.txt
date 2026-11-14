@@ -46,7 +46,7 @@ if(RM_BUILD_GODOT)
     set(GODOTCPP_USE_HOT_RELOAD OFF CACHE BOOL "" FORCE)
     set(GODOTCPP_DISABLE_EXCEPTIONS OFF CACHE BOOL "" FORCE)
     add_subdirectory("${GODOT_CPP_DIR}" godot-cpp)
-    add_library(rm_video SHARED src/godot/video_session.cpp src/godot/video_surface.cpp)
+    add_library(rm_video SHARED src/godot/video_session.cpp src/godot/video_surface.cpp src/godot/cuda_gl_bridge.cpp)
     target_link_libraries(rm_video PRIVATE rm_media godot::cpp)
     set_target_properties(rm_video PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../addons/rm_video/bin"

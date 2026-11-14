@@ -57,16 +57,30 @@ bool MediaSession::accepts(const FrameInfo &info) const {
     return !quit_.load() && state_.state != "Faulted" && info.stream_generation == state_.accepted_stream &&
         info.resource_generation == state_.accepted_resource && info.decoded_ms && monotonic_ms()-info.decoded_ms < 2000;
 }
+void MediaSession::presented(const FrameInfo &info,const std::string &path) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    if(!quit_.load()&&info.stream_generation==state_.accepted_stream&&info.resource_generation==state_.accepted_resource)state_.path=path;
+}
+void MediaSession::presentation_failed(const std::string &error) {
+    quit_.store(true);
+    std::lock_guard<std::mutex> lock(mutex_);state_.error=error;state_.state="Faulted";
+    state_.accepted_stream=state_.accepted_resource=0;latest_.reset();
+}
 void MediaSession::run(MediaConfig config) noexcept {
     try {
         std::unique_ptr<Decoder> decoder;
         decoder = std::make_unique<Decoder>(config, [&](FrameLease frame) {
             if (quit_.load()) return;
-            auto prepared = decoder->prepare_cpu(std::move(frame));
+            std::shared_ptr<PreparedFrame> prepared;
+            if(config.transfer=="gpu") {
+                prepared=std::make_shared<PreparedFrame>();prepared->info=frame.info;
+                prepared->path="gpu_pending";prepared->gpu_source=std::move(frame);
+            } else prepared = decoder->prepare_cpu(std::move(frame));
             std::lock_guard<std::mutex> lock(mutex_);
             if (quit_.load()) return;
             if (latest_) ++state_.mailbox_replaced;
-            state_.format = prepared->info; state_.path = prepared->path;
+            state_.format = prepared->info;
+            if(prepared->path!="gpu_pending"||state_.path.empty())state_.path=prepared->path;
             state_.accepted_stream = prepared->info.stream_generation; state_.accepted_resource = prepared->info.resource_generation;
             state_.last_frame_ms = monotonic_ms(); ++state_.prepared;
             latest_ = std::move(prepared); state_.state = "Running"; state_.recovery_reason.clear();

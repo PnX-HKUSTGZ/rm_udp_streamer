@@ -32,6 +32,8 @@ void RmVideoSession::_bind_methods() {
 }
 bool RmVideoSession::start(const Dictionary &values) {
     try {
+        if(gpu_holders_.load())throw std::runtime_error("Previous GPU resources have not retired; clear the surface and wait before restarting");
+        {std::lock_guard<std::mutex> lock(gpu_mutex_);retired_gpu_.clear();}
         integer(values, "version", 1, 1, 1);
         rm::TransportConfig config;
         config.bind_address = string(values, "bind_address", "0.0.0.0");
@@ -67,8 +69,12 @@ void RmVideoSession::poll_stop() { receiver_.poll_stop(); }
 Dictionary RmVideoSession::snapshot() const {
     auto state = receiver_.snapshot(); const auto &s = state.receiver.transport;
     Dictionary result;
-    result["running"] = !state.worker_done;
-    result["state"] = String(state.state.c_str()); result["worker_done"] = state.worker_done;
+    unsigned gpu_pending=gpu_holders_.load();
+    result["render_pending"]=int64_t(gpu_pending);
+    {std::lock_guard<std::mutex> lock(gpu_mutex_);result["gpu_retirement"]=retired_gpu_.duplicate();}
+    result["running"] = !state.worker_done || gpu_pending>0;
+    result["state"] = String((state.worker_done&&gpu_pending&&state.state!="Faulted"?"Stopping":state.state.c_str()));
+    result["worker_done"] = state.worker_done && !gpu_pending;
     result["bound_port"] = state.receiver.bound_port; result["socket_buffer_bytes"] = state.receiver.socket_buffer_bytes;
     result["error"] = String((config_error_.empty() ? state.error : config_error_).c_str());
     result["source"] = s.source_locked ? String(s.source.text().c_str()) : String();
@@ -106,6 +112,7 @@ static void initialize(ModuleInitializationLevel level) {
     if (level == MODULE_INITIALIZATION_LEVEL_SCENE) {
         ClassDB::register_class<RmVideoSession>();
         ClassDB::register_class<RmCpuUpload>();
+        ClassDB::register_class<RmGlTexture>();
         ClassDB::register_class<RmVideoSurface>();
     }
 }

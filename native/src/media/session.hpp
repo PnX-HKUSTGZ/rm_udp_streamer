@@ -27,6 +27,8 @@ public:
     void stop();
     std::shared_ptr<PreparedFrame> take_frame();
     bool accepts(const FrameInfo &) const;
+    void presented(const FrameInfo &, const std::string &path);
+    void presentation_failed(const std::string &error);
     MediaSnapshot snapshot() const;
 private:
     UdpReceiver receiver_;
