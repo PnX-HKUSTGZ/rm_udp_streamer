@@ -1,0 +1,98 @@
+[
+  {
+    "case": "linux-probe1080-software-0-yuv-0",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-probe1080-cuda-0-yuv-0",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-bars709-software-0-yuv-0",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-bars709-cuda-0-yuv-0",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-bars601full-software-0-yuv-0",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-bars601full-cuda-0-yuv-0",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-noaud-b-software-0-yuv-0",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-noaud-b-cuda-0-yuv-0",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-main10-software-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Main10 requires explicit"
+  },
+  {
+    "case": "linux-main10-software-0-rgba-1",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-main10-cuda-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Main10 requires explicit"
+  },
+  {
+    "case": "linux-main10-cuda-0-rgba-1",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-sar-software-0-yuv-0",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-sar-cuda-0-yuv-0",
+    "exit": 0,
+    "passed": true,
+    "expected_rejection": null
+  },
+  {
+    "case": "linux-hdr-software-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "HDR PQ/HLG"
+  },
+  {
+    "case": "linux-hdr-cuda-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "HDR PQ/HLG"
+  }
+]

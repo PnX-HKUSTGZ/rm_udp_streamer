@@ -1,0 +1,14 @@
+{
+  "errors": [],
+  "labels": "RM 视频接收\n正在播放\n监听地址\n端口\n解码\n设备序号\n画面传输\n等待可解码的视频画面\n来源：127.0.0.1:56872\n解码：d3d11va · NVIDIA GeForce RTX 5070 Laptop GPU LUID=0:92297  |  传输：cpu_nv12  |  640 × 360\n渲染：NVIDIA GeForce RTX 5070 Laptop GPU\n重组 60.0 · 解码 60.0 · 新画面提交 47.8 帧/秒  |  缺失 0 · 异常包 0 · 显示替换 26 · 像素回读 359\n\n",
+  "presentation": {
+    "error": "",
+    "height": 360,
+    "path": "cpu_nv12",
+    "shown_generation": 1,
+    "shown_sequence": 359,
+    "submitted": 333,
+    "upload_pending": false,
+    "width": 640
+  }
+}
