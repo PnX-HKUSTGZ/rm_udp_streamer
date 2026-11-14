@@ -2,6 +2,8 @@
 
 版本和产物校验值以 [dependencies.lock.json](dependencies.lock.json) 为准。M0 使用 C++17、Godot Mono 4.7.2、.NET 8.0.428；两平台独立构建，Linux 文件放在 `/home/lqx/code`。
 
+正式工程入口为 `native/CMakeLists.txt`。依赖缓存准备好后，在接收器仓库执行 `python build/build_project.py`（Ubuntu 使用 `python3`），会构建原生扩展与 C# 工程。也可用 `--cache`、`--cmake`、`--dotnet` 指定工具位置。构建输出在被忽略的 `out/<平台>` 与 `addons/rm_video/bin`，打开根 `project.godot` 运行。
+
 ## FFmpeg
 
 `build_ffmpeg.py` 在 Linux 构建最小 LGPL FFmpeg：只启用 HEVC 解码/parser、swscale、CUDA，Windows 额外启用 D3D11VA。关闭自动发现外部依赖、GPL 和 nonfree 组件。生成静态 `libavcodec.a`、`libavutil.a`、`libswscale.a` 与完整配置清单。GPU 驱动由系统提供，不随应用打包。

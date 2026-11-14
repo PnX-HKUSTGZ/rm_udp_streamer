@@ -1,0 +1,7 @@
+.godot/
+.vs/
+out/
+dist/
+addons/rm_video/bin/
+*.user
+__pycache__/
