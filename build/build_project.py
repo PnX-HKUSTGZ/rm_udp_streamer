@@ -43,6 +43,11 @@ def main():
     if not cmake:
         raise RuntimeError('CMake is missing; prepare the build tools or pass --cmake')
     output = repo / 'out' / platform
+    # Neither Godot nor MSBuild should discover staged export source projects.
+    for name in ['out', 'dist']:
+        folder = repo / name
+        folder.mkdir(exist_ok=True)
+        (folder / '.gdignore').touch()
     command = [cmake, '-S', str(repo / 'native'), '-B', str(output), '-DCMAKE_BUILD_TYPE=Release',
                '-DGODOT_CPP_DIR=' + (cache / 'godot-cpp').as_posix(),
                '-DFFMPEG_ROOT=' + (cache / ('ffmpeg-static-' + platform)).as_posix()]
