@@ -83,6 +83,7 @@ void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
             // Never destroy a resource whose fence failed. Bounded to one
             // quarantined bridge per session; its retained holder blocks restart.
             static auto *quarantine=new std::vector<Ref<RmCpuUpload>>;
+            RmCudaGlBridge::unsafe_retirement.store(true);
             quarantine->push_back(keep_alive);return;
         }
     }

@@ -57,6 +57,8 @@ bool RmVideoSession::start(const Dictionary &values) {
         rm::MediaConfig media;
         media.decoder = string(values, "decoder", "auto"); media.device = string(values, "device", "0");
         media.transfer = string(values, "transfer", "yuv");
+        if(media.transfer=="gpu"&&RmCudaGlBridge::unsafe_retirement.load())
+            throw std::runtime_error("Previous GPU retirement failed; restart the application before allocating more GPU bridge resources");
         media.max_pixels = int(integer(values, "max_pixels", media.max_pixels, 256, 4096*2304));
         media.allow_10bit_to_8bit = boolean(values, "allow_10bit_to_8bit", false);
         config_error_.clear();

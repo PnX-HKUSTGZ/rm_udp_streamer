@@ -51,6 +51,7 @@ class RmCudaGlBridge {
     void poll_current();
 public:
     // All methods except metrics run on the Godot render thread.
+    static std::atomic<bool> unsafe_retirement;
     std::shared_ptr<RmGpuPublication> upload(const rm::FrameLease &);
     void poll();
     void close(); // Called only after all canvas consumers and publications detach.

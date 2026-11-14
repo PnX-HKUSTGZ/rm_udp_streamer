@@ -111,6 +111,9 @@ def main():
     if not windows:executable.chmod(executable.stat().st_mode|0o111)
     shutil.copy2(repo/'build/dependencies.lock.json',output/'dependencies.lock.json')
     shutil.copy2(repo/'docs/m2-media.md',output/'CAPABILITIES.md')
+    documentation=output/'docs';documentation.mkdir(exist_ok=True)
+    for name in ['m2-media.md','m3-recovery.md','m4-gpu.md','m5-backends.md','m6-release.md']:
+        if (repo/'docs'/name).is_file():shutil.copy2(repo/'docs'/name,documentation/name)
     (output/'README.txt').write_text(
         'RM Video Receiver '+args.label+'\nCommit: '+commit+'\n\n'
         'Run '+executable.name+' and choose the local IPv4 listening address and UDP port (3334 by default).\n'
@@ -119,7 +122,9 @@ def main():
         'GPU drivers and desktop OS libraries are supplied by the operating system.\n'
         'Linux baseline: Ubuntu 24.04 x86_64, glibc 2.39 or compatible, X11/Wayland desktop, Vulkan/OpenGL drivers, fontconfig and standard .NET native dependencies.\n'
         'WSL was tested with WSLg/llvmpipe. This does not certify native Ubuntu GPU interoperability.\n'
-        'Software decoding is selectable. CPU transfer is not a zero-readback GPU bridge. Performance depends on the measured configuration.\n'
+        'Software decoding is selectable. CPU transfer reads back hardware pixels; performance depends on the measured configuration.\n'
+        'D2 GPU path: Windows NVIDIA, same-device CUDA and Compatibility/OpenGL, NV12 8-bit. Other tested modes retain CPU transfer.\n'
+        'For GPU mode start with --rendering-method gl_compatibility -- --start --decoder cuda --transfer gpu\n'
         'For deployment/diagnostics append -- --start --bind 127.0.0.1 --port 3334 --decoder software\n'
         'Optional: --duration 60 --metrics new-file.ndjson --snapshot new-file.png (new files only).\n'
         'Use -- --help for all receiver options. Normal launch opens the interactive interface.\n'
@@ -133,7 +138,7 @@ def main():
         '.NET runtime: MIT and its distributed third-party notices in the runtime files.\n'
         'FFmpeg n8.1.3: LGPL-2.1-or-later, static libavcodec/libavutil/libswscale in rm_video. GPL/nonfree disabled.\n'
         'Pinned source and build configuration are listed in dependencies.lock.json.\n'
-        'Source/relink release materials are being completed for D3. D1 is a local validation package; do not redistribute it as the final release.\n',encoding='utf-8')
+        'Source/relink release materials are being completed for D3. D1/D2 are local validation packages; do not redistribute them as the final release.\n',encoding='utf-8')
     manifest={'label':args.label,'platform':platform,'commit':commit,'template_sha512':asset['sha512'],'native_sha256':digest(native),'files':{}}
     for file in sorted(output.rglob('*')):
         if file.is_file():manifest['files'][file.relative_to(output).as_posix()]={'bytes':file.stat().st_size,'sha256':digest(file)}

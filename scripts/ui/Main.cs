@@ -170,6 +170,8 @@ public partial class Main : Control
         _surface.Call("clear"); _session!.Stop();
         while (!_session.Snapshot()["worker_done"].AsBool())
         { _session.Native.Call("poll_stop"); await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); }
+        var stopped = new Godot.Collections.Dictionary { ["event"] = "stopped", ["core"] = _session.Snapshot() };
+        _diagnostics?.WriteLine(Json.Stringify(stopped)); GD.Print("RM_STOPPED ", Json.Stringify(stopped));
         GetTree().Quit(exitCode);
     }
     public override void _ExitTree() { _diagnostics?.Dispose(); _session?.Dispose(); _session=null; }

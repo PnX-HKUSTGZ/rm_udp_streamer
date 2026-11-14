@@ -14,6 +14,7 @@ typedef rm::gpu::Stream CUstream;
 }
 using namespace godot;
 using namespace rm::gpu;
+std::atomic<bool> RmCudaGlBridge::unsafe_retirement{false};
 namespace {
 constexpr unsigned texture_2d=0x0DE1;
 }
