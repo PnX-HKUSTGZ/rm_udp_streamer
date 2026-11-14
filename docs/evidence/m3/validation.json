@@ -1,0 +1,265 @@
+{
+  "implementation": "2b722b4",
+  "native_recovery": {
+    "linux-recovery-cuda.log": {
+      "checks": [
+        "PASS gap_cached_parameters frames=89",
+        "PASS new_generation_rejects_old_parameters",
+        "PASS explicit_error_recovery",
+        "PASS cra_join frames=90 skipped_rasl=1 fixture_rasl=3",
+        "PASS range_bitdepth_resolution_generation"
+      ],
+      "sha256": "e34cf704ec44239ee3c1884cf6ff6db84c90e68fc5e3832ed65d05969c7224ac"
+    },
+    "linux-recovery-software.log": {
+      "checks": [
+        "PASS gap_cached_parameters frames=89",
+        "PASS new_generation_rejects_old_parameters",
+        "PASS explicit_error_recovery",
+        "PASS cra_join frames=90 skipped_rasl=1 fixture_rasl=3",
+        "PASS range_bitdepth_resolution_generation"
+      ],
+      "sha256": "997985e6959fb1a258a3e60a396e0b806340cce7830a0f0d075f6a6903e87bfb"
+    },
+    "recovery-cuda.log": {
+      "checks": [
+        "PASS gap_cached_parameters frames=89",
+        "PASS new_generation_rejects_old_parameters",
+        "PASS explicit_error_recovery",
+        "PASS cra_join frames=90 skipped_rasl=1 fixture_rasl=3",
+        "PASS range_bitdepth_resolution_generation"
+      ],
+      "sha256": "a0a979a9c805f0fbc2e4f4fa599387cbb11064c7f1a896413883321d99f08355"
+    },
+    "recovery-d3d11-0.log": {
+      "checks": [
+        "PASS gap_cached_parameters frames=89",
+        "PASS new_generation_rejects_old_parameters",
+        "PASS explicit_error_recovery",
+        "PASS cra_join frames=90 skipped_rasl=1 fixture_rasl=3",
+        "PASS range_bitdepth_resolution_generation"
+      ],
+      "sha256": "c8eb457ebe69774be3c0509c33ebcd32a24baf8ec04893d2d096bb9adf898c3f"
+    },
+    "recovery-d3d11-1.log": {
+      "checks": [
+        "PASS gap_cached_parameters frames=89",
+        "PASS new_generation_rejects_old_parameters",
+        "PASS explicit_error_recovery",
+        "PASS cra_join frames=90 skipped_rasl=1 fixture_rasl=3",
+        "PASS range_bitdepth_resolution_generation"
+      ],
+      "sha256": "521234323393c546b22b0c19ae0b7fe2effdce3b261f834838d9a5c928ef5643"
+    },
+    "recovery-software.log": {
+      "checks": [
+        "PASS gap_cached_parameters frames=89",
+        "PASS new_generation_rejects_old_parameters",
+        "PASS explicit_error_recovery",
+        "PASS cra_join frames=90 skipped_rasl=1 fixture_rasl=3",
+        "PASS range_bitdepth_resolution_generation"
+      ],
+      "sha256": "a200c2d29f81c410c8a469a934df9f58a72906e788c3d9b26781613d2fb4f86b"
+    }
+  },
+  "graphics": {
+    "linux-recovery-cuda-0.json": {
+      "errors": [],
+      "cycles": 12,
+      "recoveries": 15,
+      "decode_errors": 1,
+      "format_changes": 5,
+      "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "final_dimensions": [
+        1280,
+        720
+      ]
+    },
+    "linux-recovery-software-0.json": {
+      "errors": [],
+      "cycles": 12,
+      "recoveries": 21,
+      "decode_errors": 1,
+      "format_changes": 5,
+      "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "final_dimensions": [
+        1280,
+        720
+      ]
+    },
+    "windows-recovery-cuda-0.json": {
+      "errors": [],
+      "cycles": 12,
+      "recoveries": 19,
+      "decode_errors": 1,
+      "format_changes": 5,
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "final_dimensions": [
+        1280,
+        720
+      ]
+    },
+    "windows-recovery-software-0.json": {
+      "errors": [],
+      "cycles": 12,
+      "recoveries": 19,
+      "decode_errors": 1,
+      "format_changes": 6,
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "final_dimensions": [
+        1280,
+        720
+      ]
+    }
+  },
+  "performance": {
+    "linux-perf-cuda.json": {
+      "errors": [],
+      "sender": {
+        "groups": 600,
+        "seconds": 9.98419240399997,
+        "fps": 60.09499574143041
+      },
+      "decoded": 599,
+      "submitted": 597,
+      "steady_submit_fps_avg": 59.70380469017612,
+      "steady_submit_fps_min": 59.356136820925556,
+      "per_second_submit_fps": [
+        59.582919563058596,
+        59.582919563058596,
+        59.356136820925556,
+        59.7609561752988,
+        59.880239520958085,
+        60.18054162487462,
+        59.582919563058596
+      ],
+      "decoder": "cuda",
+      "device": "cuda:0",
+      "path": "cpu_nv12",
+      "render_device": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "queue_peak_bytes": 85209,
+      "queue_dropped": 0,
+      "readback_bytes": 1876930560
+    },
+    "linux-perf-software.json": {
+      "errors": [],
+      "sender": {
+        "groups": 600,
+        "seconds": 9.983629113999996,
+        "fps": 60.0983863832264
+      },
+      "decoded": 599,
+      "submitted": 599,
+      "steady_submit_fps_avg": 59.40373194253642,
+      "steady_submit_fps_min": 58.415841584158414,
+      "per_second_submit_fps": [
+        58.415841584158414,
+        59.05905905905906,
+        59.880239520958085,
+        58.94105894105895,
+        59.46481665014867,
+        60.42296072507553,
+        59.642147117296226
+      ],
+      "decoder": "software",
+      "device": "CPU",
+      "path": "cpu_yuv420p",
+      "render_device": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "queue_peak_bytes": 70057,
+      "queue_dropped": 0,
+      "readback_bytes": 0
+    },
+    "windows-perf-cuda.json": {
+      "errors": [],
+      "sender": {
+        "groups": 600,
+        "seconds": 9.984042400000362,
+        "fps": 60.09589863119754
+      },
+      "decoded": 599,
+      "submitted": 540,
+      "steady_submit_fps_avg": 52.98919964934938,
+      "steady_submit_fps_min": 43.91217564870259,
+      "per_second_submit_fps": [
+        59.7609561752988,
+        60.18054162487462,
+        59.82053838484547,
+        46.35108481262327,
+        43.91217564870259,
+        47.952047952047955,
+        52.94705294705295
+      ],
+      "decoder": "cuda",
+      "device": "cuda:0",
+      "path": "cpu_nv12",
+      "render_device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "queue_peak_bytes": 70057,
+      "queue_dropped": 0,
+      "readback_bytes": 1876930560
+    },
+    "windows-perf-software.json": {
+      "errors": [],
+      "sender": {
+        "groups": 600,
+        "seconds": 9.984250299999985,
+        "fps": 60.09464726660558
+      },
+      "decoded": 599,
+      "submitted": 582,
+      "steady_submit_fps_avg": 58.70384159330289,
+      "steady_submit_fps_min": 56.97445972495088,
+      "per_second_submit_fps": [
+        57.17151454363089,
+        59.940059940059946,
+        57.94205794205795,
+        56.97445972495088,
+        58.99705014749263,
+        59.98033431661751,
+        59.92141453831041
+      ],
+      "decoder": "software",
+      "device": "CPU",
+      "path": "cpu_yuv420p",
+      "render_device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "queue_peak_bytes": 70057,
+      "queue_dropped": 0,
+      "readback_bytes": 0
+    }
+  },
+  "packages": {
+    "windows": {
+      "errors": [],
+      "exit": 0,
+      "path": "D:\\Code\\udp_streamer_godot\\rm_udp_streamer\\dist\\D1-windows-v3",
+      "environment": {
+        "PATH": "C:\\Windows\\System32",
+        "DOTNET_ROOT": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-m3-recovery\\nonexistent-runtime",
+        "DOTNET_MULTILEVEL_LOOKUP": "0"
+      },
+      "decoded": 662,
+      "submitted": 653,
+      "backend": "d3d11va",
+      "device": "NVIDIA GeForce RTX 5070 Laptop GPU LUID=0:92297",
+      "render": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "pixel_path": "cpu_nv12",
+      "screenshot_sha256": "b06c3e36829187929218d481707f341820178f65e08ea6541e6ab52e65f86037"
+    },
+    "linux": {
+      "errors": [],
+      "exit": 0,
+      "path": "/home/lqx/code/rm_udp_streamer/dist/D1-linux-v2",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "DOTNET_ROOT": "/home/lqx/code/processing/2026-11-15-m3-recovery/nonexistent-runtime",
+        "DOTNET_MULTILEVEL_LOOKUP": "0"
+      },
+      "decoded": 674,
+      "submitted": 667,
+      "backend": "cuda",
+      "device": "cuda:0",
+      "render": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "pixel_path": "cpu_nv12",
+      "screenshot_sha256": "a99cac42407527d4096ad910f3721f609910b80723481850504c783961bb64d8"
+    }
+  }
+}
