@@ -4,6 +4,8 @@
 
 正式工程入口为 `native/CMakeLists.txt`。依赖缓存准备好后，在接收器仓库执行 `python build/build_project.py`（Ubuntu 使用 `python3`），会构建原生扩展与 C# 工程。也可用 `--cache`、`--cmake`、`--dotnet` 指定工具位置。构建输出在被忽略的 `out/<平台>` 与 `addons/rm_video/bin`，打开根 `project.godot` 运行。
 
+首次打开前须运行上述构建入口。它在构建成功后合并生成 `.godot/extension_list.cfg`，让引擎在启动阶段发现扩展。固定的 Linux Godot 4.7.2 在第一次文件扫描中才发现扩展类时会在退出时崩溃；仅注册一个空原生类也能复现，启动阶段加载同一扩展则正常。这是已验证的构建兼容处理，并非修改引擎。删除 `.godot` 缓存后请重新运行构建入口；不要跳过它只复制 DLL/SO 后打开全新工程。
+
 ## FFmpeg
 
 `build_ffmpeg.py` 在 Linux 构建最小 LGPL FFmpeg：只启用 HEVC 解码/parser、swscale、CUDA，Windows 额外启用 D3D11VA。关闭自动发现外部依赖、GPL 和 nonfree 组件。生成静态 `libavcodec.a`、`libavutil.a`、`libswscale.a` 与完整配置清单。GPU 驱动由系统提供，不随应用打包。

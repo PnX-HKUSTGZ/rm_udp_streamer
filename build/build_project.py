@@ -6,6 +6,25 @@ from pathlib import Path
 import shutil
 import subprocess
 
+def prepare_extension_discovery(repo):
+    """Register built extensions before the editor's first filesystem scan.
+
+    The pinned Linux editor crashes on shutdown when it first discovers an
+    extension class during that scan (also reproduced with an empty class).
+    Its normal startup extension list avoids the late-registration path.
+    Preserve other installed extensions when preparing a new checkout.
+    """
+    manifest = repo / '.godot/extension_list.cfg'
+    manifest.parent.mkdir(parents=True, exist_ok=True)
+    entries = manifest.read_text(encoding='utf-8').splitlines() if manifest.exists() else []
+    for descriptor in sorted((repo / 'addons').rglob('*.gdextension')):
+        entry = 'res://' + descriptor.relative_to(repo).as_posix()
+        if entry not in entries:
+            entries.append(entry)
+    pending = manifest.with_suffix('.cfg.tmp')
+    pending.write_text('\n'.join(entries) + '\n', encoding='utf-8')
+    pending.replace(manifest)
+
 def main():
     repo = Path(__file__).resolve().parent.parent
     parser = argparse.ArgumentParser(description=__doc__)
@@ -36,6 +55,7 @@ def main():
                     '-DCMAKE_MAKE_PROGRAM=' + Path(make).as_posix()]
     subprocess.run(command, check=True)
     subprocess.run([cmake, '--build', str(output), '--parallel', str(args.jobs)], check=True)
+    prepare_extension_discovery(repo)
     if not args.native_only:
         dotnet = args.dotnet or shutil.which('dotnet')
         env = os.environ.copy()
