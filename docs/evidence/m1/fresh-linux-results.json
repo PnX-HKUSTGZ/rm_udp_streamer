@@ -1,0 +1,14 @@
+[
+  {
+    "step": "build",
+    "exit": 0
+  },
+  {
+    "step": "first-import",
+    "exit": 0
+  },
+  {
+    "step": "ui",
+    "exit": 0
+  }
+]

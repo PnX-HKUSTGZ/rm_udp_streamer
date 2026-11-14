@@ -1,0 +1,17 @@
+{
+  "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+  "errors": [],
+  "godot": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "port_rebound": true,
+  "ui_labels": "RM 视频接收\n正在接收 · 协议模式\n监听地址\n端口\n等待视频画面\n当前阶段：协议接收与诊断，解码尚未启用\n来源：127.0.0.1:40923\n数据包 1 · 完整传输组 1 · 重组缓冲 0 KiB · 超时 0 · 异常包 0 · 来源不符 0\n\n"
+}

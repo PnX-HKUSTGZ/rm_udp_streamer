@@ -1,0 +1,21 @@
+{
+  "checkout": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-m1-transport\\verified-fresh-windows-1794680405",
+  "commit": "9136f529a3ad161c7aadfea001eca7709cd7c6fb",
+  "results": [
+    {
+      "step": "build",
+      "exit": 0,
+      "engine_error": false
+    },
+    {
+      "step": "first-import",
+      "exit": 0,
+      "engine_error": false
+    },
+    {
+      "step": "ui",
+      "exit": 0,
+      "engine_error": false
+    }
+  ]
+}
