@@ -217,6 +217,8 @@ void Decoder::receive() {
         if (!description) throw std::runtime_error("Unknown decoded pixel layout");
         if (f.color_trc == AVCOL_TRC_SMPTE2084 || f.color_trc == AVCOL_TRC_ARIB_STD_B67)
             throw std::runtime_error("HDR PQ/HLG is not supported by the SDR presenter");
+        if (f.color_primaries != AVCOL_PRI_UNSPECIFIED && f.color_primaries != AVCOL_PRI_BT709)
+            throw std::runtime_error("Unsupported SDR color primaries: display gamut conversion is not implemented");
         if (description->comp[0].depth > 8 && !config_.allow_10bit_to_8bit)
             throw std::runtime_error("Main10 requires explicit allow_10bit_to_8bit conversion");
         if (f.width != last_width_ || f.height != last_height_ || f.format != last_format_) {
@@ -233,7 +235,8 @@ void Decoder::receive() {
         info.bit_depth = description->comp[0].depth;
         info.range = f.color_range; info.matrix = f.colorspace; info.primaries = f.color_primaries;
         info.transfer = f.color_trc; info.chroma = f.chroma_location;
-        info.color_defaulted = info.range == AVCOL_RANGE_UNSPECIFIED || info.matrix == AVCOL_SPC_UNSPECIFIED;
+        info.color_defaulted = info.range == AVCOL_RANGE_UNSPECIFIED || info.matrix == AVCOL_SPC_UNSPECIFIED ||
+            info.primaries == AVCOL_PRI_UNSPECIFIED || info.transfer == AVCOL_TRC_UNSPECIFIED || info.chroma == AVCHROMA_LOC_UNSPECIFIED;
         if (info.range == AVCOL_RANGE_UNSPECIFIED) info.range = AVCOL_RANGE_MPEG;
         if (info.matrix == AVCOL_SPC_UNSPECIFIED) info.matrix = info.height >= 720 ? AVCOL_SPC_BT709 : AVCOL_SPC_SMPTE170M;
         if (info.matrix != AVCOL_SPC_BT709 && info.matrix != AVCOL_SPC_SMPTE170M &&
