@@ -219,6 +219,10 @@ void Decoder::receive() {
             throw std::runtime_error("HDR PQ/HLG is not supported by the SDR presenter");
         if (f.color_primaries != AVCOL_PRI_UNSPECIFIED && f.color_primaries != AVCOL_PRI_BT709)
             throw std::runtime_error("Unsupported SDR color primaries: display gamut conversion is not implemented");
+        if (f.color_trc != AVCOL_TRC_UNSPECIFIED && f.color_trc != AVCOL_TRC_BT709 &&
+            f.color_trc != AVCOL_TRC_SMPTE170M && f.color_trc != AVCOL_TRC_IEC61966_2_1 &&
+            f.color_trc != AVCOL_TRC_BT2020_10 && f.color_trc != AVCOL_TRC_BT2020_12)
+            throw std::runtime_error("Unsupported transfer function: nonlinear SDR input is required");
         if (description->comp[0].depth > 8 && !config_.allow_10bit_to_8bit)
             throw std::runtime_error("Main10 requires explicit allow_10bit_to_8bit conversion");
         if (f.width != last_width_ || f.height != last_height_ || f.format != last_format_) {
