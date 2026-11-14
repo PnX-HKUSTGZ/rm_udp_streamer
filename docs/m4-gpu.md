@@ -1,6 +1,6 @@
 # M4：CUDA / OpenGL GPU 视频路径
 
-2026-11-15。核心实现 `bfd2334`；本阶段尚待独立审查。D1 的 CPU YUV/RGBA 路径继续可用。
+2026-11-15。核心实现 `bfd2334`，最终 D2 包实现 `aa2753e`；本阶段尚待独立审查。D1 的 CPU YUV/RGBA 路径继续可用。
 
 ## 支持范围与使用
 
@@ -35,4 +35,10 @@ RmVideoReceiver.exe --rendering-method gl_compatibility -- --start --decoder cud
 
 截图保存会产生一次整窗读回，用于 QA；该行为与视频传输的逐帧像素回读分开。30 分钟长期运行、50 次完整 GPU 生命周期、最终设备回退矩阵与发布材料仍分别在 M5/M6 执行。
 
-原始材料位于外层 `processing/2026-11-15-m4-gpu`，正式 D2 包与后续审查结果在本阶段完成时追加到本报告。
+## D2 独立包
+
+Windows `dist/D2-windows` 和 WSL `/home/lqx/code/rm_udp_streamer/dist/D2-linux` 均已导出并验证，manifest 记录 `aa2753e`。测试在空工作目录、移除 SDK 的 PATH、无效 DOTNET_ROOT 下运行真正的 C# 主界面，不使用编辑器脚本注入。
+
+Windows 包以 CUDA/GL GPU 模式收到真实视频，664 解码/615 提交，视频像素回读 0；停止后的 615 次 CUDA 源释放、615 个消费者 fence、615 次退役一致，live sources/slots 与 render_pending 全部为 0。WSL 包以 CUDA CPU NV12 模式显示 611 解码/604 提交，实际路径明确可见，两包均正常退出并释放端口，截图已检查。保留 D1/D2 的本地验证用途，完整可分发材料在 M6 完成。
+
+证据摘要：[validation.json](evidence/m4/validation.json)。原始材料位于外层 `processing/2026-11-15-m4-gpu`，其中带 private 的性能/恢复日志对应最终双纹理实现；早期 apitrace 和注册/注销试验仅用于问题定位，不计入最终验收。

@@ -1,0 +1,489 @@
+{
+  "implementation": "aa2753e",
+  "core": "bfd2334",
+  "colors": [
+    {
+      "sample": "bars709",
+      "max_error": 3
+    },
+    {
+      "sample": "bars601full",
+      "max_error": 1
+    },
+    {
+      "sample": "sar",
+      "max_error": 3
+    }
+  ],
+  "recovery": {
+    "errors": [],
+    "recoveries": 23,
+    "input_errors": 1,
+    "cpu_readback_bytes": 0,
+    "cycles": 18,
+    "gpu_cycles": 9,
+    "gpu_retirements": [
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      }
+    ]
+  },
+  "destruction": {
+    "errors": [],
+    "cycles": 12,
+    "retirements": [
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      },
+      {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 1,
+        "gpu_copies": 1,
+        "gpu_copy_bytes": 345600,
+        "gpu_display_copy_bytes": 345600,
+        "gpu_retired": 1,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 1
+      }
+    ]
+  },
+  "rejections": {
+    "linux-reject-wslgl.json": {
+      "checks": [],
+      "reason": "query CUDA devices for current OpenGL context: CUDA_ERROR_OPERATING_SYSTEM",
+      "readbacks": 0,
+      "render_pending_after_stop": 0,
+      "retirement": {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 0,
+        "gpu_copies": 0,
+        "gpu_copy_bytes": 0,
+        "gpu_display_copy_bytes": 0,
+        "gpu_retired": 0,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 0
+      }
+    },
+    "windows-reject-main10.json": {
+      "checks": [],
+      "reason": "CUDA/OpenGL GPU path currently requires NV12 8-bit with even crop origin; select CPU transfer",
+      "readbacks": 0,
+      "render_pending_after_stop": 0,
+      "retirement": {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 118,
+        "gpu_copies": 118,
+        "gpu_copy_bytes": 40780800,
+        "gpu_display_copy_bytes": 40780800,
+        "gpu_retired": 118,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 118
+      }
+    },
+    "windows-reject-renderer.json": {
+      "checks": [],
+      "reason": "GPU transfer requires Compatibility/OpenGL; restart with --rendering-method gl_compatibility or select CPU transfer",
+      "readbacks": 0,
+      "render_pending_after_stop": 0,
+      "retirement": {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 0,
+        "gpu_copies": 0,
+        "gpu_copy_bytes": 0,
+        "gpu_display_copy_bytes": 0,
+        "gpu_retired": 0,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 0
+      }
+    }
+  },
+  "performance": {
+    "windows-perf-cpu": {
+      "errors": [],
+      "decoded": 599,
+      "submitted": 595,
+      "steady_average_fps": 59.81449085052058,
+      "lowest_one_second_fps": 58.881256133464184,
+      "readback_bytes": 1876930560,
+      "presentation": {
+        "error": "",
+        "height": 1080,
+        "path": "cpu_nv12",
+        "shown_generation": 1,
+        "shown_resource": 3,
+        "shown_sequence": 599,
+        "submitted": 595,
+        "upload_pending": false,
+        "width": 1920
+      },
+      "retirement": {}
+    },
+    "windows-perf-gpu-private": {
+      "errors": [],
+      "decoded": 599,
+      "submitted": 560,
+      "steady_average_fps": 57.806621949479094,
+      "lowest_one_second_fps": 51.0,
+      "readback_bytes": 0,
+      "presentation": {
+        "error": "",
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 559,
+        "gpu_copies": 560,
+        "gpu_copy_bytes": 1741824000,
+        "gpu_display_copy_bytes": 1741824000,
+        "gpu_retired": 559,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 3,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 560,
+        "height": 1080,
+        "path": "gpu_cuda_gl_nv12",
+        "shown_generation": 1,
+        "shown_resource": 3,
+        "shown_sequence": 599,
+        "submitted": 560,
+        "upload_pending": false,
+        "width": 1920
+      },
+      "retirement": {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 560,
+        "gpu_copies": 560,
+        "gpu_copy_bytes": 1741824000,
+        "gpu_display_copy_bytes": 1741824000,
+        "gpu_retired": 560,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 560
+      }
+    },
+    "linux-cpu-regression": {
+      "errors": [],
+      "decoded": 599,
+      "submitted": 597,
+      "steady_average_fps": 61.39019299228027,
+      "lowest_one_second_fps": 58.11623246492986,
+      "readback_bytes": 1876930560,
+      "presentation": {
+        "error": "",
+        "height": 1080,
+        "path": "cpu_nv12",
+        "shown_generation": 1,
+        "shown_resource": 3,
+        "shown_sequence": 599,
+        "submitted": 597,
+        "upload_pending": false,
+        "width": 1920
+      },
+      "retirement": {}
+    }
+  },
+  "packages": {
+    "windows-gpu-package": {
+      "errors": [],
+      "exit": 0,
+      "path": "D:\\Code\\udp_streamer_godot\\rm_udp_streamer\\dist\\D2-windows",
+      "decoded": 664,
+      "submitted": 615,
+      "readbacks": 0,
+      "mode": "gpu_cuda_gl_nv12",
+      "stopped": true,
+      "retirement": {
+        "external_gl_errors": 0,
+        "gpu_busy_drops": 0,
+        "gpu_consumer_fences": 615,
+        "gpu_copies": 615,
+        "gpu_copy_bytes": 212544000,
+        "gpu_display_copy_bytes": 212544000,
+        "gpu_retired": 615,
+        "gpu_slot_limit": 3,
+        "gpu_slots_live": 0,
+        "gpu_sources_live": 0,
+        "gpu_sources_released": 615
+      },
+      "screenshot_sha256": "d9c8b6d03e942bf560e9a2a317792672560a28bc7d562869f3c1dd6e6db1195d"
+    },
+    "linux-cpu-package": {
+      "errors": [],
+      "exit": 0,
+      "path": "/home/lqx/code/rm_udp_streamer/dist/D2-linux",
+      "decoded": 611,
+      "submitted": 604,
+      "readbacks": 611,
+      "mode": "cpu_nv12",
+      "stopped": true,
+      "retirement": {},
+      "screenshot_sha256": "fc80d0711123f60bb623aaee5b0d3e8d7924079b65df69af811673bbc9c5edb5"
+    }
+  }
+}
