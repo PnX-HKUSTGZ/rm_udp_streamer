@@ -87,12 +87,12 @@ public partial class Main : Control
         var data = _session.Snapshot(); var presentation = _surface.Call("get_metrics").AsGodotDictionary();
         _running = data["running"].AsBool(); string state=data["state"].AsString(); long age=data["frame_age_ms"].AsInt64();
         _state.Text = state switch { "Starting"=>"正在启动", "WaitingConfig"=>"等待参数与关键帧", "Running"=>age>500 ? "画面信号过期" : "正在播放",
-            "Stopping"=>"正在停止", "Faulted"=>"接收失败", _=>"已停止" };
+            "Recovering"=>"恢复中 · 等待关键帧", "Stopping"=>"正在停止", "Faulted"=>"接收失败", _=>"已停止" };
         _toggle.Text = _running ? "停止接收" : "开始接收"; _toggle.Disabled=state=="Stopping";
         _address.Editable = !_running; _port.Editable = !_running; _device.Editable=!_running;
         _decoder.Disabled=_running; _transfer.Disabled=_running;
         bool displayed=presentation.ContainsKey("shown_sequence"); _placeholder.Visible=!displayed;
-        _placeholder.Text = _running ? "等待可解码的视频画面" : "等待视频画面";
+        _placeholder.Text = _running ? age>2000 ? "视频信号已中断" : "等待可解码的视频画面" : "等待视频画面";
         string source = data["source"].AsString(); _source.Text = "来源："+(source.Length==0 ? "等待数据" : source);
         _path.Text = $"解码：{data["decoder"]} · {data["decode_device"]}  |  传输：{data["mode"]}  |  {data["width"]} × {data["height"]}";
         if (data["color_defaulted"].AsBool()) _path.Text += " · 未标注颜色采用 SDR 默认值";
@@ -105,9 +105,10 @@ public partial class Main : Control
             _lastComplete=complete; _lastDecoded=decoded; _lastSubmitted=submitted; _rateTime=0;
         }
         _metrics.Text = $"重组 {_receiveFps:F1} · 解码 {_decodeFps:F1} · 新画面提交 {_submitFps:F1} 帧/秒"+
-            $"  |  缺失 {data["missing"]} · 异常包 {data["invalid"]} · 显示替换 {data["mailbox_replaced"]} · 像素回读 {data["cpu_readbacks"]}";
+            $"  |  缺失 {data["missing"]} · 恢复 {data["recoveries"]} · 显示替换 {data["mailbox_replaced"]} · 像素回读 {data["cpu_readbacks"]}";
         string failure=data["error"].AsString(), uploadError=presentation["error"].AsString();
-        _error.Text = failure.Length>0 ? failure : uploadError.Length>0 ? uploadError : data["fallback"].AsString();
+        _error.Text = failure.Length>0 ? failure : uploadError.Length>0 ? uploadError :
+            state=="Recovering" ? data["recovery_reason"].AsString() : data["fallback"].AsString();
     }
     public override void _Process(double delta)
     {

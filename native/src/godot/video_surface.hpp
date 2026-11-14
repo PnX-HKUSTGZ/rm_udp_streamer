@@ -33,6 +33,7 @@ protected:
 public:
     std::shared_ptr<RmUploadState> state;
     std::shared_ptr<rm::PreparedFrame> frame;
+    godot::Ref<RmVideoSession> session;
     void run(const godot::Ref<RmCpuUpload> &keep_alive);
 };
 

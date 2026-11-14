@@ -34,7 +34,7 @@ void fragment() {
 void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
     (void)keep_alive;
     try {
-        if (state->active.load()) {
+        if (state->active.load() && session.is_valid() && session->core().accepts(frame->info)) {
             auto publication = std::make_shared<RmUploadState::Publication>();
             publication->info = frame->info; publication->path = frame->path;
             auto layout = frame->path + ":" + std::to_string(frame->info.width) + ":" + std::to_string(frame->info.height);
@@ -53,7 +53,7 @@ void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
             }
             publication->textures = state->textures;
             std::lock_guard<std::mutex> lock(state->mutex);
-            if (state->active.load()) { state->published = std::move(publication); ++state->submitted; }
+            if (state->active.load() && session->core().accepts(frame->info)) { state->published = std::move(publication); ++state->submitted; }
         }
     } catch (const std::exception &error) {
         std::lock_guard<std::mutex> lock(state->mutex); state->error = error.what();
@@ -77,6 +77,7 @@ void RmVideoSurface::set_session(const Ref<RmVideoSession> &session) { clear(); 
 void RmVideoSurface::clear() {
     upload_->active.store(false);
     upload_ = std::make_shared<RmUploadState>(); shown_.reset(); set_material(Ref<Material>()); queue_redraw();
+    material_->set_shader_parameter("plane_u", Variant()); material_->set_shader_parameter("plane_v", Variant());
 }
 Dictionary RmVideoSurface::get_metrics() const {
     Dictionary result;
@@ -86,6 +87,7 @@ Dictionary RmVideoSurface::get_metrics() const {
     if (shown_) {
         result["shown_sequence"] = int64_t(shown_->info.output_sequence);
         result["shown_generation"] = int64_t(shown_->info.stream_generation);
+        result["shown_resource"] = int64_t(shown_->info.resource_generation);
         result["width"] = shown_->info.width; result["height"] = shown_->info.height;
         result["path"] = String(shown_->path.c_str());
     }
@@ -94,11 +96,13 @@ Dictionary RmVideoSurface::get_metrics() const {
 void RmVideoSurface::_process(double) {
     if (session_.is_null()) return;
     session_->poll_stop();
+    if (shown_ && !session_->core().accepts(shown_->info)) {
+        shown_.reset(); set_material(Ref<Material>()); queue_redraw();
+    }
     std::shared_ptr<RmUploadState::Publication> publication;
     { std::lock_guard<std::mutex> lock(upload_->mutex); publication = std::exchange(upload_->published, {}); }
     if (publication) {
-        auto snapshot = session_->core().snapshot();
-        if (publication->info.stream_generation == snapshot.receiver.transport.generation && snapshot.state != "Stopping" && snapshot.state != "Stopped") {
+        if (session_->core().accepts(publication->info)) {
             shown_ = std::move(publication);
             if (shown_->path == "cpu_rgba") set_material(Ref<Material>());
             else {
@@ -126,6 +130,7 @@ void RmVideoSurface::_process(double) {
         if (frame) {
             upload_->busy.store(true);
             Ref<RmCpuUpload> work; work.instantiate(); work->state = upload_; work->frame = std::move(frame);
+            work->session = session_;
             RenderingServer::get_singleton()->call_on_render_thread(callable_mp(work.ptr(), &RmCpuUpload::run).bind(work));
         }
     }

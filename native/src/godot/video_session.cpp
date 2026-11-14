@@ -74,6 +74,10 @@ Dictionary RmVideoSession::snapshot() const {
     result["source"] = s.source_locked ? String(s.source.text().c_str()) : String();
     result["mode"] = String(state.path.c_str()); result["decoder"] = String(state.backend.c_str());
     result["decode_device"] = String(state.device.c_str()); result["fallback"] = String(state.fallback.c_str());
+    result["recovery_reason"] = String(state.recovery_reason.c_str());
+    result["recoveries"] = int64_t(state.recoveries); result["decode_errors"] = int64_t(state.decode_errors);
+    result["format_changes"] = int64_t(state.format_changes);
+    result["accepted_stream"] = int64_t(state.accepted_stream); result["accepted_resource"] = int64_t(state.accepted_resource);
     result["ffmpeg"] = av_version_info(); result["avcodec_abi"] = int64_t(avcodec_version());
     result["last_frame_ms"] = state.last_frame_ms; result["started_ms"] = state.started_ms;
     result["frame_age_ms"] = state.last_frame_ms ? rm::monotonic_ms()-state.last_frame_ms : int64_t(-1);
@@ -94,7 +98,7 @@ Dictionary RmVideoSession::snapshot() const {
 #undef METRIC
 #define METRIC(field) result[#field] = int64_t(state.decode.field)
     METRIC(parser_packets); METRIC(decoded); METRIC(hardware_frames); METRIC(cpu_readbacks);
-    METRIC(cpu_readback_bytes); METRIC(converted_rgba); METRIC(skipped_until_key); METRIC(resets);
+    METRIC(cpu_readback_bytes); METRIC(converted_rgba); METRIC(skipped_until_key); METRIC(skipped_rasl); METRIC(resets);
 #undef METRIC
     return result;
 }

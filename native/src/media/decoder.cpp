@@ -14,32 +14,24 @@ extern "C" {
 
 namespace rm {
 namespace {
-void check(int code, const char *operation) {
+void check(int code, const char *operation, MediaFailure kind = MediaFailure::Input) {
     if (code >= 0) return;
     char text[AV_ERROR_MAX_STRING_SIZE]{};
     av_strerror(code, text, sizeof(text));
-    throw std::runtime_error(std::string(operation) + ": " + text);
+    bool device_error = code == AVERROR(ENOMEM) || code == AVERROR_EXTERNAL || code == AVERROR(EIO);
+    throw MediaError(device_error ? MediaFailure::Backend : kind, std::string(operation) + ": " + text);
 }
 AvFrameRef make_frame() {
     auto *frame = av_frame_alloc();
     if (!frame) throw std::bad_alloc();
     return AvFrameRef(frame, [](AVFrame *p) { av_frame_free(&p); });
 }
-struct Nal { size_t start, end; int type; };
-std::vector<Nal> nals(const uint8_t *data, size_t size) {
-    std::vector<Nal> result;
-    for (size_t i = 0; i + 4 < size;) {
-        size_t prefix = 0;
-        if (!data[i] && !data[i+1]) {
-            if (data[i+2] == 1) prefix = 3;
-            else if (!data[i+2] && data[i+3] == 1) prefix = 4;
-        }
-        if (!prefix) { ++i; continue; }
-        if (!result.empty()) result.back().end = i;
-        result.push_back({i, size, int((data[i+prefix] >> 1) & 63)});
-        i += prefix + 2;
-    }
-    return result;
+bool same_format(const FrameInfo &a, const FrameInfo &b) {
+    return a.coded_width==b.coded_width && a.coded_height==b.coded_height && a.width==b.width && a.height==b.height &&
+        a.crop_left==b.crop_left && a.crop_top==b.crop_top && a.crop_right==b.crop_right && a.crop_bottom==b.crop_bottom &&
+        a.bit_depth==b.bit_depth && a.sample_aspect.num==b.sample_aspect.num && a.sample_aspect.den==b.sample_aspect.den &&
+        a.range==b.range && a.matrix==b.matrix && a.primaries==b.primaries && a.transfer==b.transfer && a.chroma==b.chroma &&
+        a.pixel_format==b.pixel_format && a.hardware==b.hardware && a.device==b.device && a.decoder==b.decoder;
 }
 }
 std::string MediaConfig::validate() const {
@@ -112,7 +104,7 @@ void Decoder::open(const std::string &backend) {
             }
         }
         if (hardware_format_ == AV_PIX_FMT_NONE) throw std::runtime_error("Backend absent from fixed FFmpeg build");
-        check(av_hwdevice_ctx_create(&device_, type, config_.device.c_str(), nullptr, 0), "create hardware device");
+        check(av_hwdevice_ctx_create(&device_, type, config_.device.c_str(), nullptr, 0), "create hardware device", MediaFailure::Backend);
         codec_->hw_device_ctx = av_buffer_ref(device_);
         if (!codec_->hw_device_ctx) throw std::bad_alloc();
         codec_->opaque = this; codec_->get_format = choose_format;
@@ -140,18 +132,34 @@ void Decoder::open(const std::string &backend) {
     codec_->thread_count = 2; codec_->thread_type = FF_THREAD_SLICE;
     codec_->apply_cropping = 0;
     codec_->err_recognition = AV_EF_CAREFUL;
-    check(avcodec_open2(codec_, decoder, nullptr), "open HEVC decoder");
+    check(avcodec_open2(codec_, decoder, nullptr), "open HEVC decoder", MediaFailure::Backend);
 }
 void Decoder::reset(uint64_t generation) {
     if (parser_) av_parser_close(parser_);
     parser_ = av_parser_init(AV_CODEC_ID_HEVC);
     if (!parser_) throw std::bad_alloc();
     avcodec_flush_buffers(codec_);
+    if (generation_ != generation) { parameters_.clear(); validated_parameters_.clear(); validated_generation_ = 0; }
     generation_ = generation; ++resources_; ++counters_.resets;
-    parser_bytes_ = 0; awaiting_key_ = true;
-    // Conservative recovery: never combine stale parameter sets with a new
-    // stream. The sender must repeat a coherent VPS/SPS/PPS at an IDR.
-    for (auto &parameter : parameters_) parameter.clear();
+    parser_bytes_ = 0; awaiting_key_ = true; discard_rasl_ = false;
+    auto configuration = parameters_.all();
+    if (!configuration.empty()) {
+        int length = static_cast<int>(configuration.size());
+        configuration.resize(configuration.size()+AV_INPUT_BUFFER_PADDING_SIZE, 0);
+        uint8_t *output = nullptr; int output_size = 0;
+        int consumed = av_parser_parse2(parser_, codec_, &output, &output_size, configuration.data(), length,
+            AV_NOPTS_VALUE, AV_NOPTS_VALUE, -1);
+        check(consumed, "restore parser parameters");
+        if (consumed != length || output_size) throw MediaError(MediaFailure::Input, "Invalid cached parser configuration");
+        parser_bytes_ = length;
+    }
+}
+void Decoder::recover() {
+    // Failed parameter updates must not poison subsequent recovery. Only a
+    // bundle that has produced a valid frame may replace the recovery cache.
+    if (validated_generation_ == generation_) parameters_ = validated_parameters_;
+    else parameters_.clear();
+    reset(generation_);
 }
 void Decoder::feed(EncodedGroup group) {
     if (generation_ != group.generation || group.discontinuity_before) reset(group.generation);
@@ -163,34 +171,30 @@ void Decoder::feed(EncodedGroup group) {
         int used = av_parser_parse2(parser_, codec_, &payload, &length, group.bytes.data()+offset,
             static_cast<int>(size-offset), AV_NOPTS_VALUE, AV_NOPTS_VALUE, -1);
         check(used, "parse HEVC");
-        if (!used && !length) throw std::runtime_error("HEVC parser made no progress");
+        if (!used && !length) throw MediaError(MediaFailure::Input, "HEVC parser made no progress");
         offset += used; parser_bytes_ += used;
-        if (parser_bytes_ > 8 * 1024 * 1024) throw std::runtime_error("HEVC access unit exceeds parser budget");
+        if (parser_bytes_ > 8 * 1024 * 1024) throw MediaError(MediaFailure::Input, "HEVC access unit exceeds parser budget");
         if (length) { send(payload, length); parser_bytes_ = 0; }
     }
 }
 void Decoder::send(const uint8_t *data, int size) {
     if (!size) return;
     ++counters_.parser_packets;
-    auto units = nals(data, size);
-    bool idr = false;
-    for (const auto &nal : units) {
-        if (nal.type >= 32 && nal.type <= 34) {
-            if (nal.end - nal.start > 65536) throw std::runtime_error("Oversized HEVC parameter set");
-            parameters_[nal.type-32].assign(data+nal.start, data+nal.end);
-        }
-        idr |= nal.type == 19 || nal.type == 20;
-    }
+    auto picture = parameters_.observe(data, size);
     std::vector<uint8_t> prefixed;
     if (awaiting_key_) {
-        if (!idr || parameters_[0].empty() || parameters_[1].empty() || parameters_[2].empty()) {
+        auto configuration = parameters_.for_picture(picture.pps_id);
+        if (picture.random_access < 16 || picture.random_access > 21 || configuration.empty()) {
             ++counters_.skipped_until_key; return;
         }
-        for (const auto &parameter : parameters_) prefixed.insert(prefixed.end(), parameter.begin(), parameter.end());
+        prefixed = std::move(configuration);
         prefixed.insert(prefixed.end(), data, data+size);
         data = prefixed.data(); size = static_cast<int>(prefixed.size());
         awaiting_key_ = false;
+        discard_rasl_ = picture.random_access == 21 || picture.random_access <= 18;
     }
+    if (discard_rasl_ && picture.rasl) { ++counters_.skipped_rasl; return; }
+    if (discard_rasl_ && picture.has_vcl && !picture.leading && picture.random_access < 0) discard_rasl_ = false;
     check(av_new_packet(packet_, size), "allocate parser packet");
     std::memcpy(packet_->data, data, size);
     int result = avcodec_send_packet(codec_, packet_);
@@ -206,35 +210,34 @@ void Decoder::receive() {
         auto source = make_frame(); av_frame_move_ref(source.get(), scratch_);
         auto &f = *source;
         if (f.width <= 0 || f.height <= 0 || int64_t(f.width)*f.height > config_.max_pixels)
-            throw std::runtime_error("Decoded image exceeds pixel budget");
-        if (f.flags & AV_FRAME_FLAG_CORRUPT) throw std::runtime_error("Corrupt HEVC output requires recovery");
+            throw MediaError(MediaFailure::Unsupported, "Decoded image exceeds pixel budget");
+        if (f.flags & AV_FRAME_FLAG_CORRUPT) throw MediaError(MediaFailure::Input, "Corrupt HEVC output requires recovery");
         bool hardware = f.hw_frames_ctx != nullptr;
         if (backend_ != "software" && (!hardware || f.format != hardware_format_))
-            throw std::runtime_error("Requested hardware decoder did not produce hardware frames");
+            throw MediaError(MediaFailure::Backend, "Requested hardware decoder did not produce hardware frames");
         auto pixel_format = static_cast<AVPixelFormat>(f.format);
         if (hardware) pixel_format = reinterpret_cast<AVHWFramesContext *>(f.hw_frames_ctx->data)->sw_format;
         auto *description = av_pix_fmt_desc_get(pixel_format);
-        if (!description) throw std::runtime_error("Unknown decoded pixel layout");
+        if (!description) throw MediaError(MediaFailure::Unsupported, "Unknown decoded pixel layout");
         if (f.color_trc == AVCOL_TRC_SMPTE2084 || f.color_trc == AVCOL_TRC_ARIB_STD_B67)
-            throw std::runtime_error("HDR PQ/HLG is not supported by the SDR presenter");
+            throw MediaError(MediaFailure::Unsupported, "HDR PQ/HLG is not supported by the SDR presenter");
         if (f.color_primaries != AVCOL_PRI_UNSPECIFIED && f.color_primaries != AVCOL_PRI_BT709)
-            throw std::runtime_error("Unsupported SDR color primaries: display gamut conversion is not implemented");
+            throw MediaError(MediaFailure::Unsupported, "Unsupported SDR color primaries: display gamut conversion is not implemented");
         if (f.color_trc != AVCOL_TRC_UNSPECIFIED && f.color_trc != AVCOL_TRC_BT709 &&
             f.color_trc != AVCOL_TRC_SMPTE170M && f.color_trc != AVCOL_TRC_IEC61966_2_1 &&
             f.color_trc != AVCOL_TRC_BT2020_10 && f.color_trc != AVCOL_TRC_BT2020_12)
-            throw std::runtime_error("Unsupported transfer function: nonlinear SDR input is required");
+            throw MediaError(MediaFailure::Unsupported, "Unsupported transfer function: nonlinear SDR input is required");
         if (description->comp[0].depth > 8 && !config_.allow_10bit_to_8bit)
-            throw std::runtime_error("Main10 requires explicit allow_10bit_to_8bit conversion");
-        if (f.width != last_width_ || f.height != last_height_ || f.format != last_format_) {
-            ++resources_; last_width_ = f.width; last_height_ = f.height; last_format_ = f.format;
-        }
+            throw MediaError(MediaFailure::Unsupported, "Main10 requires explicit allow_10bit_to_8bit conversion");
         FrameInfo info;
-        info.stream_generation = generation_; info.resource_generation = resources_; info.output_sequence = ++output_sequence_;
+        info.stream_generation = generation_; info.output_sequence = ++output_sequence_;
         info.coded_width = f.width; info.coded_height = f.height;
+        if (f.crop_left+f.crop_right >= size_t(f.width) || f.crop_top+f.crop_bottom >= size_t(f.height))
+            throw MediaError(MediaFailure::Input, "Invalid visible crop");
         info.crop_left = static_cast<int>(f.crop_left); info.crop_top = static_cast<int>(f.crop_top);
         info.crop_right = static_cast<int>(f.crop_right); info.crop_bottom = static_cast<int>(f.crop_bottom);
         info.width = f.width-info.crop_left-info.crop_right; info.height = f.height-info.crop_top-info.crop_bottom;
-        if (info.width <= 0 || info.height <= 0) throw std::runtime_error("Invalid visible crop");
+        if (info.width <= 0 || info.height <= 0) throw MediaError(MediaFailure::Input, "Invalid visible crop");
         info.sample_aspect = f.sample_aspect_ratio.num > 0 && f.sample_aspect_ratio.den > 0 ? f.sample_aspect_ratio : AVRational{1,1};
         info.bit_depth = description->comp[0].depth;
         info.range = f.color_range; info.matrix = f.colorspace; info.primaries = f.color_primaries;
@@ -245,12 +248,17 @@ void Decoder::receive() {
         if (info.matrix == AVCOL_SPC_UNSPECIFIED) info.matrix = info.height >= 720 ? AVCOL_SPC_BT709 : AVCOL_SPC_SMPTE170M;
         if (info.matrix != AVCOL_SPC_BT709 && info.matrix != AVCOL_SPC_SMPTE170M &&
             info.matrix != AVCOL_SPC_BT470BG && info.matrix != AVCOL_SPC_BT2020_NCL)
-            throw std::runtime_error("Unsupported SDR matrix; refusing incorrect colors");
+            throw MediaError(MediaFailure::Unsupported, "Unsupported SDR matrix; refusing incorrect colors");
         info.hardware = hardware; info.decoder = backend_; info.device = identity_;
         info.pixel_format = av_get_pix_fmt_name(pixel_format);
+        if (!same_format(info, last_format_)) { ++resources_; ++counters_.format_changes; last_format_ = info; }
+        info.resource_generation = resources_;
         info.decoded_ms = monotonic_ms(); info.media_pts = f.pts;
         ++counters_.decoded; if (hardware) ++counters_.hardware_frames;
         output_({std::move(info), std::move(source)});
+        if (validated_generation_ != generation_ || validated_parameters_.revision() != parameters_.revision()) {
+            validated_parameters_ = parameters_; validated_generation_ = generation_;
+        }
     }
 }
 void Decoder::finish() {
@@ -265,7 +273,7 @@ std::shared_ptr<PreparedFrame> Decoder::prepare_cpu(FrameLease lease) {
     auto source = lease.frame;
     if (source->hw_frames_ctx) {
         auto downloaded = make_frame();
-        check(av_hwframe_transfer_data(downloaded.get(), source.get(), 0), "download hardware frame");
+        check(av_hwframe_transfer_data(downloaded.get(), source.get(), 0), "download hardware frame", MediaFailure::Backend);
         check(av_frame_copy_props(downloaded.get(), source.get()), "copy frame metadata");
         ++counters_.cpu_readbacks;
         int bytes = av_image_get_buffer_size(static_cast<AVPixelFormat>(downloaded->format), downloaded->width, downloaded->height, 1);

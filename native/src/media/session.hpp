@@ -9,9 +9,11 @@ namespace rm {
 struct MediaSnapshot {
     ReceiverSnapshot receiver;
     DecodeCounters decode;
-    std::string state = "Stopped", error, backend, device, path, fallback;
+    std::string state = "Stopped", error, backend, device, path, fallback, recovery_reason;
     FrameInfo format;
     uint64_t mailbox_replaced = 0, prepared = 0;
+    uint64_t recoveries = 0, decode_errors = 0, format_changes = 0;
+    uint64_t accepted_stream = 0, accepted_resource = 0;
     bool worker_done = true;
     Millis last_frame_ms = 0, started_ms = 0;
 };
@@ -24,6 +26,7 @@ public:
     void poll_stop();
     void stop();
     std::shared_ptr<PreparedFrame> take_frame();
+    bool accepts(const FrameInfo &) const;
     MediaSnapshot snapshot() const;
 private:
     UdpReceiver receiver_;

@@ -1,5 +1,6 @@
 #pragma once
 #include "transport/protocol.hpp"
+#include "hevc_config.hpp"
 #include <functional>
 #include <memory>
 #include <string>
@@ -55,7 +56,7 @@ struct PreparedFrame {
 struct DecodeCounters {
     uint64_t parser_packets = 0, decoded = 0, hardware_frames = 0;
     uint64_t cpu_readbacks = 0, cpu_readback_bytes = 0, converted_rgba = 0;
-    uint64_t skipped_until_key = 0, resets = 0, precision_reduced = 0;
+    uint64_t skipped_until_key = 0, skipped_rasl = 0, resets = 0, precision_reduced = 0, format_changes = 0;
 };
 
 class Decoder {
@@ -67,6 +68,8 @@ public:
     Decoder &operator=(const Decoder &) = delete;
     void feed(EncodedGroup group);
     void finish();
+    void recover();
+    bool waiting_for_key() const { return awaiting_key_; }
     std::shared_ptr<PreparedFrame> prepare_cpu(FrameLease lease);
     const DecodeCounters &counters() const { return counters_; }
     const std::string &backend() const { return backend_; }
@@ -86,9 +89,11 @@ private:
     std::string backend_, identity_, fallback_;
     uint64_t generation_ = 0, resources_ = 1, output_sequence_ = 0;
     size_t parser_bytes_ = 0;
-    int last_width_ = 0, last_height_ = 0, last_format_ = -1;
-    bool awaiting_key_ = true;
-    std::vector<uint8_t> parameters_[3];
+    FrameInfo last_format_;
+    bool awaiting_key_ = true, discard_rasl_ = false;
+    HevcConfiguration parameters_;
+    HevcConfiguration validated_parameters_;
+    uint64_t validated_generation_ = 0;
     void open(const std::string &backend);
     void close_codec();
     void reset(uint64_t generation);
