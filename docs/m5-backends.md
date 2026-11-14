@@ -1,6 +1,6 @@
 # M5：设备矩阵与自动回退
 
-2026-11-15，实现 `fb6eea8`。Windows 16 组、WSL Ubuntu 11 组真实 HEVC 图形验证全部通过；尚待 gpt-6-astra 独立审查。具体配置、实际设备、各段结果及退役计数见 [validation.json](evidence/m5/validation.json)。
+2026-11-15，主体实现 `fb6eea8`，异常路径补充 `b8bde42`。Windows 16 组、WSL Ubuntu 11 组真实 HEVC 图形验证全部通过；最终补丁又在两平台复跑组合回退通过。尚待 gpt-6-astra 独立审查。具体配置、实际设备、各段结果及退役计数见 [validation.json](evidence/m5/validation.json)。
 
 ## 选择策略
 
