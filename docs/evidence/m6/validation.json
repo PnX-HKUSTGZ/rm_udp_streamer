@@ -3865,11 +3865,904 @@
     "windows-relink-original.log": {
       "sha256": "933900c119f263f39d3d12ebd63cd7faa4229f4a52aa9442d36a22591fd38a76",
       "bytes": 5736
+    },
+    "windows-final-audit.json": {
+      "sha256": "271e8ab45d08fac3c7a6cbd9071ede6871532bdc8a5a9103d049ec466da88864",
+      "bytes": 3229
+    },
+    "windows-final-package-os.ndjson": {
+      "sha256": "5ae9b0130263c16d5210bcdaf6d62412b066a51acf275fac07409cab7564f72e",
+      "bytes": 293
+    },
+    "windows-final-package.json": {
+      "sha256": "3b4d01abbfe03de9f021c51e89504211fe66f1b6821f36804fc50a5023319f35",
+      "bytes": 7156
+    },
+    "windows-final-package.json.ndjson": {
+      "sha256": "bfcf0953455e41f712ffb92109d1cb499661167b3831dc71ec8fa93359912138",
+      "bytes": 22872
+    },
+    "windows-final-package.json.png": {
+      "sha256": "e7c6af1e6e9bf8114283fca9003f4b38b6fffe72e80c8bd532eebc901ec4ccd0",
+      "bytes": 137617
+    },
+    "windows-final-package.log": {
+      "sha256": "b4079da3c5f46aafc10eba55600a89e5e0aa141ff67e2550d60a3fe5eaaa6131",
+      "bytes": 5736
+    },
+    "windows-runtime-continuity.json": {
+      "sha256": "4fe0a8de8056dd08c2bebadd3222c19a8bd4f20f2c31bdb7a5b7cea9fd9f9c05",
+      "bytes": 5098
+    },
+    "linux-final-audit.json": {
+      "sha256": "66859cddaf91f2cce59e8b3e329e93a453c06d722d6563af65734a06d67c9c10",
+      "bytes": 3168
+    },
+    "linux-final-package-os.ndjson": {
+      "sha256": "5e752551806cf20a625ec2d873be5373d7ff9b6bd588bcef43b1102d03f96049",
+      "bytes": 185
+    },
+    "linux-final-package.json": {
+      "sha256": "633b40e34efe711537a84d3c43090dd3b95b9fc746b8d1dfb2f621d475fe1b62",
+      "bytes": 5953
+    },
+    "linux-final-package.json.ndjson": {
+      "sha256": "8064583eaedd9c3d8c20297450c1d9f6d264361ee2f6e76c096ed693e38e8544",
+      "bytes": 21332
+    },
+    "linux-final-package.json.png": {
+      "sha256": "65d9aa929e10fd12619c3f3e39a6d102e5a7919f386c2c0cfd315af279a09650",
+      "bytes": 117210
+    },
+    "linux-final-package.log": {
+      "sha256": "650b7f594158fff981c7a28d43ddd93eceb1f8a7f25b6738cc3d26fccdfae5ad",
+      "bytes": 5165
+    },
+    "linux-runtime-continuity.json": {
+      "sha256": "33eab0f4475e1d29ebe8b3909e6ac5c4977c288eb2eb3a9686fe0a66fb87ef41",
+      "bytes": 807
     }
   },
   "excluded_trials": [
     "windows-port-conflict headless: unsupported desktop rendering mode, timed test never receives frame_post_draw; replaced with GUI case",
     "windows-lifecycle.json OS samples measured console launcher; native 60-cycle results valid, OS memory conclusions use windows-lifecycle-process-v2.json instead",
     "windows-lifecycle-process.json: 32-frame test stopped before the next IRAP after a cold-start queue expiry, so it produced no GPU frame. Missing GPU metrics were incorrectly labeled leaks by the first harness. The final continuous-stream harness reaches at least 30 submissions before each stop and passes all 60 cycles."
-  ]
+  ],
+  "final_exports": {
+    "code_commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
+    "status": "Implementation acceptance complete; awaiting independent M6 review",
+    "continuity": "Long-run runtime sources/configuration unchanged. Linux native binary identical; Windows native identical after masking only PE timestamps/checksum. Final C# assemblies/resource packs also receive an actual GUI receive/stop test.",
+    "post_review_plan": "Only documentation/evidence and manifest metadata will be refreshed after PASS. Every non-document package file must retain its hash. ZIP checksums will be recorded outside the package to avoid self-reference.",
+    "platforms": {
+      "windows": {
+        "audit": {
+          "errors": [],
+          "commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
+          "candidate_commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+          "file_count": 466,
+          "bytes": 227975998,
+          "native_sha256": "600c43e9b491892f6274bd28004baf73caf38af98a7b99e23eb0136ce0a3fbf0",
+          "candidate_native_sha256": "5e0b3345a5103bd1b9923c56a8df12190fcb63a275431ece6e0d209be35b8efd",
+          "native_identical_to_long_run": false,
+          "runtime_source_identical_to_long_run": true,
+          "changed_from_candidate": [
+            "build-manifest.json",
+            "CAPABILITIES.md",
+            "data_RmUdpStreamer_windows_x86_64/RmUdpStreamer.dll",
+            "docs/m6-release.md",
+            "README.txt",
+            "relink/application-source/build/export_project.py",
+            "relink/libraries/libgodot-cpp.windows.template_release.x86_64.a",
+            "relink/relink-manifest.json",
+            "rm_video.dll",
+            "RmVideoReceiver.pck"
+          ],
+          "added_from_candidate": [
+            "docs/.gdignore",
+            "docs/architecture.md",
+            "docs/building.md",
+            "docs/evidence/m0/linux-godot-gl-static.json",
+            "docs/evidence/m0/linux-godot-vulkan-static.json",
+            "docs/evidence/m0/linux-static-decode.json",
+            "docs/evidence/m0/probe-source-sha256.json",
+            "docs/evidence/m0/review.md",
+            "docs/evidence/m0/windows-gl-static.json",
+            "docs/evidence/m0/windows-static-decode.json",
+            "docs/evidence/m0/windows-vulkan-static-gpu0.json",
+            "docs/evidence/m0/windows-vulkan-static-gpu1.json",
+            "docs/evidence/m1/fresh-linux-results.json",
+            "docs/evidence/m1/fresh-linux-ui.json",
+            "docs/evidence/m1/fresh-windows-results.json",
+            "docs/evidence/m1/fresh-windows-ui.json",
+            "docs/evidence/m1/protocol-results.json",
+            "docs/evidence/m1/review.md",
+            "docs/evidence/m2/color-results.json",
+            "docs/evidence/m2/linux-color-contract-results.json",
+            "docs/evidence/m2/linux-decode-results.json",
+            "docs/evidence/m2/linux-ui-sender.json",
+            "docs/evidence/m2/review.md",
+            "docs/evidence/m2/validation.json",
+            "docs/evidence/m2/windows-color-contract-results.json",
+            "docs/evidence/m2/windows-decode-results.json",
+            "docs/evidence/m2/windows-ui-sender.json",
+            "docs/evidence/m3/review.md",
+            "docs/evidence/m3/validation.json",
+            "docs/evidence/m4/review.md",
+            "docs/evidence/m4/validation.json",
+            "docs/evidence/m5/review.md",
+            "docs/evidence/m5/validation.json",
+            "docs/evidence/m6/validation.json",
+            "docs/implementation-plan.md",
+            "docs/m0-capabilities.md",
+            "docs/m1-transport.md"
+          ],
+          "native_dependencies": [
+            "bcrypt.dll",
+            "KERNEL32.dll",
+            "msvcrt.dll",
+            "WS2_32.dll"
+          ],
+          "dotnet": {
+            "tfm": "net8.0",
+            "includedFrameworks": [
+              {
+                "name": "Microsoft.NETCore.App",
+                "version": "8.0.34"
+              }
+            ],
+            "configProperties": {
+              "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
+              "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false
+            }
+          },
+          "source_members": {
+            "ffmpeg": 10259,
+            "nv-codec-headers": 13
+          },
+          "godot_library_entries": 102,
+          "godot_license_texts": 19,
+          "manifest_sha256": "bd012b7ec5793729c0121a38d8dcbf6129520ee24ac90656a3f361aef0c0fe8a"
+        },
+        "continuity": {
+          "platform": "windows",
+          "candidate_native_sha256": "5e0b3345a5103bd1b9923c56a8df12190fcb63a275431ece6e0d209be35b8efd",
+          "final_native_sha256": "600c43e9b491892f6274bd28004baf73caf38af98a7b99e23eb0136ce0a3fbf0",
+          "identical_bytes": false,
+          "normalized_identical": true,
+          "normalized_sha256": "cfe994e42ca57e680579a017ab3c7b8187002bf5551cf03351772a03c539d267",
+          "ignored_fields": {
+            "coff_timestamp": 136,
+            "optional_checksum": 216,
+            "export_timestamp": 6630916
+          },
+          "sections": [
+            {
+              "name": ".text",
+              "identical": true,
+              "candidate": {
+                "offset": 1024,
+                "bytes": 5738496,
+                "sha256": "61a28a0fc317a61d7ced729bd33a20cc084af144ce3a1d7a93109d1294953285"
+              },
+              "final": {
+                "offset": 1024,
+                "bytes": 5738496,
+                "sha256": "61a28a0fc317a61d7ced729bd33a20cc084af144ce3a1d7a93109d1294953285"
+              }
+            },
+            {
+              "name": ".data",
+              "identical": true,
+              "candidate": {
+                "offset": 5739520,
+                "bytes": 10240,
+                "sha256": "b0e34b47f0048f67afb1510b7f53786911fc4a1fedfd9a689842bf5b2d8fe74f"
+              },
+              "final": {
+                "offset": 5739520,
+                "bytes": 10240,
+                "sha256": "b0e34b47f0048f67afb1510b7f53786911fc4a1fedfd9a689842bf5b2d8fe74f"
+              }
+            },
+            {
+              "name": ".rdata",
+              "identical": true,
+              "candidate": {
+                "offset": 5749760,
+                "bytes": 500736,
+                "sha256": "0479c2b656900cfcd76220720822a210b059c7e123c240da4568daf31a9d378d"
+              },
+              "final": {
+                "offset": 5749760,
+                "bytes": 500736,
+                "sha256": "0479c2b656900cfcd76220720822a210b059c7e123c240da4568daf31a9d378d"
+              }
+            },
+            {
+              "name": ".pdata",
+              "identical": true,
+              "candidate": {
+                "offset": 6250496,
+                "bytes": 131072,
+                "sha256": "9dba7c4a8b38de70ff3ad0613eeb4437c59eb2329dd2126fe80c0db15a581bfd"
+              },
+              "final": {
+                "offset": 6250496,
+                "bytes": 131072,
+                "sha256": "9dba7c4a8b38de70ff3ad0613eeb4437c59eb2329dd2126fe80c0db15a581bfd"
+              }
+            },
+            {
+              "name": ".xdata",
+              "identical": true,
+              "candidate": {
+                "offset": 6381568,
+                "bytes": 249344,
+                "sha256": "3887281f13f033ebdf466fb3dcbde087e4de570ce16234c521e3cf33ed9be004"
+              },
+              "final": {
+                "offset": 6381568,
+                "bytes": 249344,
+                "sha256": "3887281f13f033ebdf466fb3dcbde087e4de570ce16234c521e3cf33ed9be004"
+              }
+            },
+            {
+              "name": ".bss",
+              "identical": true,
+              "candidate": {
+                "offset": 0,
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              },
+              "final": {
+                "offset": 0,
+                "bytes": 0,
+                "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              }
+            },
+            {
+              "name": ".edata",
+              "identical": false,
+              "candidate": {
+                "offset": 6630912,
+                "bytes": 512,
+                "sha256": "acaf54531c7e98c9cc0a8b84fce9a8a437b52a63b89295fb1938d0a04a0ab53d"
+              },
+              "final": {
+                "offset": 6630912,
+                "bytes": 512,
+                "sha256": "fac2f601ebc674294a15a40ac082d698fd352f9a929a7f5553290c47e49857ba"
+              }
+            },
+            {
+              "name": ".idata",
+              "identical": true,
+              "candidate": {
+                "offset": 6631424,
+                "bytes": 6656,
+                "sha256": "1023f415a46e5179e23df3296ac1e6a8ae7c7cb2d13be10a1c35f0cda6602435"
+              },
+              "final": {
+                "offset": 6631424,
+                "bytes": 6656,
+                "sha256": "1023f415a46e5179e23df3296ac1e6a8ae7c7cb2d13be10a1c35f0cda6602435"
+              }
+            },
+            {
+              "name": ".tls",
+              "identical": true,
+              "candidate": {
+                "offset": 6638080,
+                "bytes": 512,
+                "sha256": "076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560"
+              },
+              "final": {
+                "offset": 6638080,
+                "bytes": 512,
+                "sha256": "076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560"
+              }
+            },
+            {
+              "name": ".reloc",
+              "identical": true,
+              "candidate": {
+                "offset": 6638592,
+                "bytes": 19968,
+                "sha256": "545f763c95730bf16460cc414dcda0f069afec3bb322db4478704cbd38ecadd0"
+              },
+              "final": {
+                "offset": 6638592,
+                "bytes": 19968,
+                "sha256": "545f763c95730bf16460cc414dcda0f069afec3bb322db4478704cbd38ecadd0"
+              }
+            }
+          ],
+          "candidate_commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+          "final_commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
+          "runtime_paths_compared": [
+            "native",
+            "scripts",
+            "scenes",
+            "shaders",
+            "addons",
+            "RmUdpStreamer.csproj",
+            "project.godot",
+            "global.json",
+            "export_presets.cfg"
+          ],
+          "runtime_diff_empty": true,
+          "note": "C# assembly and resource package may differ due export staging paths. Runtime sources, project options and dependencies are identical; final standalone GUI has its own receive/stop validation."
+        },
+        "smoke": {
+          "errors": [],
+          "exit": 0,
+          "package": "D:\\Code\\udp_streamer_godot\\rm_udp_streamer\\dist\\D3-windows",
+          "package_commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
+          "native_sha256": "600c43e9b491892f6274bd28004baf73caf38af98a7b99e23eb0136ce0a3fbf0",
+          "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+          "requested_seconds": 10,
+          "sent": 576,
+          "sender_elapsed": 9.600475499999447,
+          "sender_fps": 59.99702827219684,
+          "natural_wraps": [],
+          "os_sampling": [
+            {
+              "seconds": 0.5144378000004508,
+              "rss": 2392064,
+              "private": 3112960,
+              "threads": 4,
+              "handles": 28,
+              "gpu_global_memory_MiB_and_utilization": "GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a, 0, 0"
+            },
+            {
+              "seconds": 12.985990299999685,
+              "rss": 416276480,
+              "private": 677085184,
+              "threads": 68,
+              "handles": 879
+            }
+          ],
+          "warmup_seconds": 180,
+          "trend": {},
+          "final": {
+            "core": {
+              "accepted_presentation": 0,
+              "accepted_resource": 3,
+              "accepted_stream": 1,
+              "avcodec_abi": 4070503,
+              "backend_attempts": 1,
+              "backend_failures": 0,
+              "backend_switches": 0,
+              "bit_depth": 8,
+              "bound_port": 61296,
+              "budget_rejected": 0,
+              "bytes": 17565208,
+              "color_defaulted": true,
+              "complete": 553,
+              "conflicts": 0,
+              "consumed": 553,
+              "converted_rgba": 0,
+              "cpu_readback_bytes": 0,
+              "cpu_readbacks": 0,
+              "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+              "decode_errors": 0,
+              "decoded": 552,
+              "decoder": "cuda",
+              "duplicate": 0,
+              "error": "",
+              "fallback": "",
+              "ffmpeg": "n8.1.3",
+              "foreign": 0,
+              "format_changes": 1,
+              "frame_age_ms": 11,
+              "generation": 1,
+              "gpu_attempts": 1,
+              "gpu_disabled": false,
+              "gpu_retirement": {},
+              "hardware": true,
+              "hardware_frames": 552,
+              "height": 1080,
+              "invalid": 0,
+              "last_frame_ms": 1794692405926,
+              "last_packet_ms": 1794692405923,
+              "late": 0,
+              "mailbox_replaced": 6,
+              "matrix": 1,
+              "missing": 0,
+              "mode": "gpu_cuda_gl_nv12",
+              "ordered": 553,
+              "out_of_window": 0,
+              "oversized": 0,
+              "packets": 12798,
+              "parser_packets": 552,
+              "peak_pending_bytes": 70108,
+              "peak_pending_frames": 1,
+              "peak_queue_bytes": 70057,
+              "pending_bytes": 0,
+              "pending_frames": 0,
+              "pixel_format": "nv12",
+              "precision_reduced": false,
+              "prepared": 552,
+              "presentation_fallbacks": 0,
+              "queue_bytes": 0,
+              "queue_dropped": 0,
+              "queue_expired": 0,
+              "queue_frames": 0,
+              "range": 1,
+              "recoveries": 0,
+              "recovery_reason": "",
+              "render_pending": 1,
+              "requested_decoder": "cuda",
+              "requested_transfer": "gpu",
+              "resets": 1,
+              "resource_generation": 3,
+              "restarts": 0,
+              "running": true,
+              "skipped_rasl": 0,
+              "skipped_until_key": 0,
+              "socket_buffer_bytes": 2097152,
+              "source": "127.0.0.1:51335",
+              "started_ms": 1794692395829,
+              "state": "Running",
+              "timeouts": 0,
+              "width": 1920,
+              "worker_done": false
+            },
+            "render_device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+            "seconds": 10.1875766666668,
+            "surface": {
+              "error": "",
+              "external_gl_errors": 0,
+              "gpu_busy_drops": 0,
+              "gpu_consumer_fences": 543,
+              "gpu_copies": 545,
+              "gpu_copy_bytes": 1695168000,
+              "gpu_display_copy_bytes": 1695168000,
+              "gpu_retired": 542,
+              "gpu_slot_limit": 3,
+              "gpu_slots_live": 3,
+              "gpu_sources_live": 1,
+              "gpu_sources_released": 544,
+              "height": 1080,
+              "path": "gpu_cuda_gl_nv12",
+              "shown_generation": 1,
+              "shown_presentation": 0,
+              "shown_resource": 3,
+              "shown_sequence": 548,
+              "submitted": 545,
+              "upload_pending": false,
+              "width": 1920
+            }
+          },
+          "stopped": {
+            "core": {
+              "accepted_presentation": 0,
+              "accepted_resource": 0,
+              "accepted_stream": 0,
+              "avcodec_abi": 4070503,
+              "backend_attempts": 1,
+              "backend_failures": 0,
+              "backend_switches": 0,
+              "bit_depth": 8,
+              "bound_port": 0,
+              "budget_rejected": 0,
+              "bytes": 0,
+              "color_defaulted": true,
+              "complete": 0,
+              "conflicts": 0,
+              "consumed": 0,
+              "converted_rgba": 0,
+              "cpu_readback_bytes": 0,
+              "cpu_readbacks": 0,
+              "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+              "decode_errors": 0,
+              "decoded": 553,
+              "decoder": "cuda",
+              "duplicate": 0,
+              "error": "",
+              "fallback": "",
+              "ffmpeg": "n8.1.3",
+              "foreign": 0,
+              "format_changes": 1,
+              "frame_age_ms": 62,
+              "generation": 1,
+              "gpu_attempts": 1,
+              "gpu_disabled": false,
+              "gpu_retirement": {
+                "external_gl_errors": 0,
+                "gpu_busy_drops": 0,
+                "gpu_consumer_fences": 545,
+                "gpu_copies": 545,
+                "gpu_copy_bytes": 1695168000,
+                "gpu_display_copy_bytes": 1695168000,
+                "gpu_retired": 545,
+                "gpu_slot_limit": 3,
+                "gpu_slots_live": 0,
+                "gpu_sources_live": 0,
+                "gpu_sources_released": 545
+              },
+              "hardware": true,
+              "hardware_frames": 553,
+              "height": 1080,
+              "invalid": 0,
+              "last_frame_ms": 1794692405943,
+              "last_packet_ms": 0,
+              "late": 0,
+              "mailbox_replaced": 7,
+              "matrix": 1,
+              "missing": 0,
+              "mode": "gpu_cuda_gl_nv12",
+              "ordered": 0,
+              "out_of_window": 0,
+              "oversized": 0,
+              "packets": 0,
+              "parser_packets": 553,
+              "peak_pending_bytes": 0,
+              "peak_pending_frames": 0,
+              "peak_queue_bytes": 0,
+              "pending_bytes": 0,
+              "pending_frames": 0,
+              "pixel_format": "nv12",
+              "precision_reduced": false,
+              "prepared": 553,
+              "presentation_fallbacks": 0,
+              "queue_bytes": 0,
+              "queue_dropped": 0,
+              "queue_expired": 0,
+              "queue_frames": 0,
+              "range": 1,
+              "recoveries": 0,
+              "recovery_reason": "",
+              "render_pending": 0,
+              "requested_decoder": "cuda",
+              "requested_transfer": "gpu",
+              "resets": 1,
+              "resource_generation": 3,
+              "restarts": 0,
+              "running": false,
+              "skipped_rasl": 0,
+              "skipped_until_key": 0,
+              "socket_buffer_bytes": 2097152,
+              "source": "",
+              "started_ms": 1794692395829,
+              "state": "Stopped",
+              "timeouts": 0,
+              "width": 1920,
+              "worker_done": true
+            },
+            "event": "stopped"
+          },
+          "records_path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-m6-release\\windows-final-package.json.ndjson",
+          "environment": {
+            "PATH": "C:\\Windows\\System32",
+            "DOTNET_ROOT": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-m6-release\\no-installed-runtime",
+            "DOTNET_MULTILEVEL_LOOKUP": "0"
+          }
+        }
+      },
+      "linux": {
+        "audit": {
+          "errors": [],
+          "commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
+          "candidate_commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+          "file_count": 456,
+          "bytes": 194351261,
+          "native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671",
+          "candidate_native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671",
+          "native_identical_to_long_run": true,
+          "runtime_source_identical_to_long_run": true,
+          "changed_from_candidate": [
+            "CAPABILITIES.md",
+            "README.txt",
+            "RmVideoReceiver.pck",
+            "data_RmUdpStreamer_linuxbsd_x86_64/RmUdpStreamer.dll",
+            "docs/m6-release.md",
+            "relink/application-source/build/export_project.py"
+          ],
+          "added_from_candidate": [
+            "docs/.gdignore",
+            "docs/architecture.md",
+            "docs/building.md",
+            "docs/evidence/m0/linux-godot-gl-static.json",
+            "docs/evidence/m0/linux-godot-vulkan-static.json",
+            "docs/evidence/m0/linux-static-decode.json",
+            "docs/evidence/m0/probe-source-sha256.json",
+            "docs/evidence/m0/review.md",
+            "docs/evidence/m0/windows-gl-static.json",
+            "docs/evidence/m0/windows-static-decode.json",
+            "docs/evidence/m0/windows-vulkan-static-gpu0.json",
+            "docs/evidence/m0/windows-vulkan-static-gpu1.json",
+            "docs/evidence/m1/fresh-linux-results.json",
+            "docs/evidence/m1/fresh-linux-ui.json",
+            "docs/evidence/m1/fresh-windows-results.json",
+            "docs/evidence/m1/fresh-windows-ui.json",
+            "docs/evidence/m1/protocol-results.json",
+            "docs/evidence/m1/review.md",
+            "docs/evidence/m2/color-results.json",
+            "docs/evidence/m2/linux-color-contract-results.json",
+            "docs/evidence/m2/linux-decode-results.json",
+            "docs/evidence/m2/linux-ui-sender.json",
+            "docs/evidence/m2/review.md",
+            "docs/evidence/m2/validation.json",
+            "docs/evidence/m2/windows-color-contract-results.json",
+            "docs/evidence/m2/windows-decode-results.json",
+            "docs/evidence/m2/windows-ui-sender.json",
+            "docs/evidence/m3/review.md",
+            "docs/evidence/m3/validation.json",
+            "docs/evidence/m4/review.md",
+            "docs/evidence/m4/validation.json",
+            "docs/evidence/m5/review.md",
+            "docs/evidence/m5/validation.json",
+            "docs/evidence/m6/validation.json",
+            "docs/implementation-plan.md",
+            "docs/m0-capabilities.md",
+            "docs/m1-transport.md"
+          ],
+          "native_dependencies": [
+            "\tlinux-vdso.so.1 (0x00007a4a5299b000)",
+            "\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007a4a5288e000)",
+            "\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007a4a51c00000)",
+            "\t/lib64/ld-linux-x86-64.so.2 (0x00007a4a5299d000)"
+          ],
+          "dotnet": {
+            "tfm": "net8.0",
+            "includedFrameworks": [
+              {
+                "name": "Microsoft.NETCore.App",
+                "version": "8.0.34"
+              }
+            ],
+            "configProperties": {
+              "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
+              "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false
+            }
+          },
+          "source_members": {
+            "ffmpeg": 10259,
+            "nv-codec-headers": 13
+          },
+          "godot_library_entries": 102,
+          "godot_license_texts": 19,
+          "manifest_sha256": "1bbd4414b9c6185b3e3fabb01399e4cce3ce414a932e077a659dc0e8a6476737"
+        },
+        "continuity": {
+          "platform": "linux",
+          "candidate_native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671",
+          "final_native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671",
+          "identical_bytes": true,
+          "candidate_commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+          "final_commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
+          "runtime_paths_compared": [
+            "native",
+            "scripts",
+            "scenes",
+            "shaders",
+            "addons",
+            "RmUdpStreamer.csproj",
+            "project.godot",
+            "global.json",
+            "export_presets.cfg"
+          ],
+          "runtime_diff_empty": true,
+          "note": "C# assembly and resource package may differ due export staging paths. Runtime sources, project options and dependencies are identical; final standalone GUI has its own receive/stop validation."
+        },
+        "smoke": {
+          "errors": [],
+          "exit": 0,
+          "package": "/home/lqx/code/rm_udp_streamer/dist/D3-linux",
+          "package_commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
+          "native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671",
+          "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+          "requested_seconds": 10,
+          "sent": 442,
+          "sender_elapsed": 7.3669893040000005,
+          "sender_fps": 59.997372299700565,
+          "natural_wraps": [],
+          "os_sampling": [
+            {
+              "seconds": 0.00189606900001138,
+              "rss": 339968,
+              "private": 36864,
+              "threads": 1,
+              "handles": 3,
+              "gpu_global_memory_MiB_and_utilization": "GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a, 0, 0"
+            }
+          ],
+          "warmup_seconds": 180,
+          "trend": {},
+          "final": {
+            "core": {
+              "accepted_presentation": 0,
+              "accepted_resource": 3,
+              "accepted_stream": 1,
+              "avcodec_abi": 4070503,
+              "backend_attempts": 1,
+              "backend_failures": 0,
+              "backend_switches": 0,
+              "bit_depth": 8,
+              "bound_port": 36600,
+              "budget_rejected": 0,
+              "bytes": 13726016,
+              "color_defaulted": true,
+              "complete": 432,
+              "conflicts": 0,
+              "consumed": 432,
+              "converted_rgba": 0,
+              "cpu_readback_bytes": 1350512640,
+              "cpu_readbacks": 431,
+              "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+              "decode_errors": 0,
+              "decoded": 431,
+              "decoder": "cuda",
+              "duplicate": 0,
+              "error": "",
+              "fallback": "",
+              "ffmpeg": "n8.1.3",
+              "foreign": 0,
+              "format_changes": 1,
+              "frame_age_ms": 1,
+              "generation": 1,
+              "gpu_attempts": 0,
+              "gpu_disabled": false,
+              "gpu_retirement": {},
+              "hardware": true,
+              "hardware_frames": 431,
+              "height": 1080,
+              "invalid": 0,
+              "last_frame_ms": 117756,
+              "last_packet_ms": 117752,
+              "late": 0,
+              "mailbox_replaced": 5,
+              "matrix": 1,
+              "missing": 0,
+              "mode": "cpu_nv12",
+              "ordered": 432,
+              "out_of_window": 0,
+              "oversized": 0,
+              "packets": 10001,
+              "parser_packets": 431,
+              "peak_pending_bytes": 70108,
+              "peak_pending_frames": 1,
+              "peak_queue_bytes": 85209,
+              "pending_bytes": 0,
+              "pending_frames": 0,
+              "pixel_format": "nv12",
+              "precision_reduced": false,
+              "prepared": 431,
+              "presentation_fallbacks": 0,
+              "queue_bytes": 0,
+              "queue_dropped": 0,
+              "queue_expired": 0,
+              "queue_frames": 0,
+              "range": 1,
+              "recoveries": 0,
+              "recovery_reason": "",
+              "render_pending": 0,
+              "requested_decoder": "cuda",
+              "requested_transfer": "yuv",
+              "resets": 1,
+              "resource_generation": 3,
+              "restarts": 0,
+              "running": true,
+              "skipped_rasl": 0,
+              "skipped_until_key": 0,
+              "socket_buffer_bytes": 4194304,
+              "source": "127.0.0.1:45936",
+              "started_ms": 107621,
+              "state": "Running",
+              "timeouts": 0,
+              "width": 1920,
+              "worker_done": false
+            },
+            "render_device": "llvmpipe (LLVM 20.1.2, 256 bits)",
+            "seconds": 10.1522897575759,
+            "surface": {
+              "error": "",
+              "height": 1080,
+              "path": "cpu_nv12",
+              "shown_generation": 1,
+              "shown_presentation": 0,
+              "shown_resource": 3,
+              "shown_sequence": 427,
+              "submitted": 425,
+              "upload_pending": false,
+              "width": 1920
+            }
+          },
+          "stopped": {
+            "core": {
+              "accepted_presentation": 0,
+              "accepted_resource": 0,
+              "accepted_stream": 0,
+              "avcodec_abi": 4070503,
+              "backend_attempts": 1,
+              "backend_failures": 0,
+              "backend_switches": 0,
+              "bit_depth": 8,
+              "bound_port": 0,
+              "budget_rejected": 0,
+              "bytes": 0,
+              "color_defaulted": true,
+              "complete": 0,
+              "conflicts": 0,
+              "consumed": 0,
+              "converted_rgba": 0,
+              "cpu_readback_bytes": 1350512640,
+              "cpu_readbacks": 431,
+              "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+              "decode_errors": 0,
+              "decoded": 431,
+              "decoder": "cuda",
+              "duplicate": 0,
+              "error": "",
+              "fallback": "",
+              "ffmpeg": "n8.1.3",
+              "foreign": 0,
+              "format_changes": 1,
+              "frame_age_ms": 65,
+              "generation": 1,
+              "gpu_attempts": 0,
+              "gpu_disabled": false,
+              "gpu_retirement": {},
+              "hardware": true,
+              "hardware_frames": 431,
+              "height": 1080,
+              "invalid": 0,
+              "last_frame_ms": 117756,
+              "last_packet_ms": 0,
+              "late": 0,
+              "mailbox_replaced": 5,
+              "matrix": 1,
+              "missing": 0,
+              "mode": "cpu_nv12",
+              "ordered": 0,
+              "out_of_window": 0,
+              "oversized": 0,
+              "packets": 0,
+              "parser_packets": 431,
+              "peak_pending_bytes": 0,
+              "peak_pending_frames": 0,
+              "peak_queue_bytes": 0,
+              "pending_bytes": 0,
+              "pending_frames": 0,
+              "pixel_format": "nv12",
+              "precision_reduced": false,
+              "prepared": 431,
+              "presentation_fallbacks": 0,
+              "queue_bytes": 0,
+              "queue_dropped": 0,
+              "queue_expired": 0,
+              "queue_frames": 0,
+              "range": 1,
+              "recoveries": 0,
+              "recovery_reason": "",
+              "render_pending": 0,
+              "requested_decoder": "cuda",
+              "requested_transfer": "yuv",
+              "resets": 1,
+              "resource_generation": 3,
+              "restarts": 0,
+              "running": false,
+              "skipped_rasl": 0,
+              "skipped_until_key": 0,
+              "socket_buffer_bytes": 4194304,
+              "source": "",
+              "started_ms": 107621,
+              "state": "Stopped",
+              "timeouts": 0,
+              "width": 1920,
+              "worker_done": true
+            },
+            "event": "stopped"
+          },
+          "records_path": "/home/lqx/code/processing/2026-11-15-m6-release/linux-final-package.json.ndjson",
+          "environment": {
+            "PATH": "/usr/bin:/bin",
+            "DOTNET_ROOT": "/home/lqx/code/processing/2026-11-15-m6-release/no-installed-runtime",
+            "DOTNET_MULTILEVEL_LOOKUP": "0"
+          }
+        }
+      }
+    }
+  }
 }
