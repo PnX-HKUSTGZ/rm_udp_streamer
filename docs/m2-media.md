@@ -1,6 +1,6 @@
 # M2：HEVC 解码与 CPU 呈现
 
-实现提交 `48a7ecf`，2026-11-15。本阶段已实现，待 gpt-6-astra 独立完成度审查；M3 恢复/独立导出和 M4 GPU bridge 尚未完成。
+实现提交 `be62ebd`，2026-11-15。**M2 已通过 gpt-6-astra 独立审查**，两个颜色契约问题修正后完成独立回归，见 [审查记录](evidence/m2/review.md)。M3 恢复/独立导出和 M4 GPU bridge 尚未完成。
 
 ## 实现范围
 
@@ -15,9 +15,9 @@
 
 ## 已执行验证
 
-Windows 32 个解码案例、WSL 16 个案例全部通过：软件、CUDA，以及 Windows Intel/NVIDIA D3D11VA。每个成功案例输出 120 帧；8 位输出按统一 Y/U/V 排列逐帧摘要完全匹配软件参考。包含 1080p60、BT.709、全范围 BT.601、无 AUD 且含 B 帧、Main10 显式转换/默认拒绝、非方形像素比例和 HDR 拒绝。测试故意以不同长度拆分传输组，跨越 NAL/图像边界。
+Windows 40 个解码案例、WSL 20 个案例全部通过：软件、CUDA，以及 Windows Intel/NVIDIA D3D11VA。每个成功案例输出 120 帧；8 位输出按统一 Y/U/V 排列逐帧摘要完全匹配软件参考。包含 1080p60、BT.709、全范围 BT.601、无 AUD 且含 B 帧、Main10 显式转换/默认拒绝、非方形像素比例、HDR/宽色域 SDR/LINEAR 拒绝。测试故意以不同长度拆分传输组，跨越 NAL/图像边界。
 
-Windows 的独立平面检查覆盖负 stride、可见裁剪、奇数尺寸、NV12 双通道布局与无边界输入的解析器预算。两平台图形矩阵共 14 张色条/灰阶/比例截图与 FFmpeg 软件参考比较，采样最大通道误差为 3/255；RGBA 为 0，包含 Mobile/Vulkan 与 Compatibility/OpenGL。
+两平台独立平面检查覆盖负 stride、可见裁剪、奇数尺寸、NV12 双通道布局与无边界输入的解析器预算。两平台图形矩阵共 14 张色条/灰阶/比例截图与 FFmpeg 软件参考比较，采样最大通道误差为 3/255；RGBA 为 0，包含 Mobile/Vulkan 与 Compatibility/OpenGL。
 
 两平台完整 C# 界面通过真实 `stream_sender/sender.py` 文件循环输入（640×360、60 fps、360 帧），实际视频可见，停止后端口可重新绑定。WSL 为 llvmpipe/WSLg 显示与 CUDA 解码，不能代替原生 Ubuntu GPU 互通验收。
 

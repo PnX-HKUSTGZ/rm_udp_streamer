@@ -1,0 +1,50 @@
+[
+  {
+    "case": "linux-bt2020-sdr-software-0-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "linux-bt2020-sdr-software-0-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "linux-bt2020-sdr-cuda-0-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "linux-bt2020-sdr-cuda-0-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "linux-linear-sdr-software-0-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported transfer function: nonlinear SDR input is required"
+  },
+  {
+    "case": "linux-linear-sdr-software-0-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported transfer function: nonlinear SDR input is required"
+  },
+  {
+    "case": "linux-linear-sdr-cuda-0-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported transfer function: nonlinear SDR input is required"
+  },
+  {
+    "case": "linux-linear-sdr-cuda-0-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported transfer function: nonlinear SDR input is required"
+  }
+]

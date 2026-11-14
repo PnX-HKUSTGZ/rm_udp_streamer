@@ -1,0 +1,238 @@
+{
+  "implementation_commit": "be62ebd",
+  "samples": {
+    "bars601full.hevc": {
+      "bytes": 12662,
+      "sha256": "7946a3258ff7aff7f767d2e744e3006dfa30891b4aa78ee62625bf1218c5a63c"
+    },
+    "bars709.hevc": {
+      "bytes": 12426,
+      "sha256": "eabbab3ffaa53805dbfcbbcf93eae387e7e22a0605c76c17a443478eb03297ee"
+    },
+    "hdr.hevc": {
+      "bytes": 12336,
+      "sha256": "d4b2cb9277f73216f7a8251d520fb68f925e826c415ac73737b24d0ecf5f582a"
+    },
+    "linear.hevc": {
+      "bytes": 12426,
+      "sha256": "217066bcbe7bdacff1500a1589330feb9b25d02a5a4dd04236dfc4c581d158dc"
+    },
+    "main10.hevc": {
+      "bytes": 12323,
+      "sha256": "6b9a9a6598a71a5e9225a8d1b2aa6565ab56ced8641c34e8c86eeb9a15f4a375"
+    },
+    "noaud-b.hevc": {
+      "bytes": 11638,
+      "sha256": "4dbfafd70032de1d9b1d6a8e0ca4961d8709c3bca4bf7c4b10af78582f43e7f9"
+    },
+    "sar.hevc": {
+      "bytes": 12428,
+      "sha256": "75d1c8a93abbe58238b7f0eeca1e2cdd93fc3c8f0f53fbce57b7c43a54362499"
+    },
+    "wide2020.hevc": {
+      "bytes": 12428,
+      "sha256": "1c426b712179b9405d570e39e8c61f0238c36efe9783f0b83ab9da7c7efb0ccb"
+    },
+    "probe1080.hevc": {
+      "bytes": 3787225,
+      "sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6"
+    }
+  },
+  "matrices": {
+    "windows-decode-results.json": {
+      "cases": 40,
+      "passed": 40
+    },
+    "linux-decode-results.json": {
+      "cases": 20,
+      "passed": 20
+    },
+    "color-results.json": {
+      "cases": 14,
+      "passed": 14
+    }
+  },
+  "graphics": [
+    {
+      "case": "linux-bars601full-software-0-yuv-mobile",
+      "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 355,
+      "path": "cpu_yuv420p",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "linux-bars709-cuda-0-yuv-mobile",
+      "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "decoded": 299,
+      "hardware_frames": 299,
+      "submitted": 297,
+      "path": "cpu_nv12",
+      "device": "cuda:0",
+      "readback_bytes": 105630720
+    },
+    {
+      "case": "linux-bars709-software-0-rgba-mobile",
+      "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 359,
+      "path": "cpu_rgba",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "linux-bars709-software-0-yuv-gl_compatibility",
+      "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 356,
+      "path": "cpu_yuv420p",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "linux-bars709-software-0-yuv-mobile",
+      "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 359,
+      "path": "cpu_yuv420p",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "linux-probe1080-cuda-0-yuv-mobile",
+      "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "decoded": 359,
+      "hardware_frames": 359,
+      "submitted": 356,
+      "path": "cpu_nv12",
+      "device": "cuda:0",
+      "readback_bytes": 1124904960
+    },
+    {
+      "case": "linux-probe1080-software-0-yuv-mobile",
+      "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 358,
+      "path": "cpu_yuv420p",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "linux-sar-software-0-yuv-mobile",
+      "adapter": "llvmpipe (LLVM 20.1.2, 256 bits)",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 359,
+      "path": "cpu_yuv420p",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "windows-bars601full-software-0-yuv-mobile",
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 294,
+      "path": "cpu_yuv420p",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "windows-bars709-cuda-0-yuv-mobile",
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "decoded": 359,
+      "hardware_frames": 359,
+      "submitted": 354,
+      "path": "cpu_nv12",
+      "device": "cuda:0",
+      "readback_bytes": 126827520
+    },
+    {
+      "case": "windows-bars709-d3d11va-0-yuv-mobile",
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "decoded": 359,
+      "hardware_frames": 359,
+      "submitted": 354,
+      "path": "cpu_nv12",
+      "device": "NVIDIA GeForce RTX 5070 Laptop GPU LUID=0:92297",
+      "readback_bytes": 126827520
+    },
+    {
+      "case": "windows-bars709-d3d11va-1-yuv-mobile",
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "decoded": 359,
+      "hardware_frames": 359,
+      "submitted": 351,
+      "path": "cpu_nv12",
+      "device": "Intel(R) Arc(TM) 140T GPU (16GB) LUID=0:90554",
+      "readback_bytes": 126827520
+    },
+    {
+      "case": "windows-bars709-rgba",
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 292,
+      "path": "cpu_rgba",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "windows-bars709-software-0-yuv-gl_compatibility",
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 277,
+      "path": "cpu_yuv420p",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "windows-bars709-yuv",
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 353,
+      "path": "cpu_yuv420p",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "windows-cuda-0-yuv-mobile",
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "decoded": 359,
+      "hardware_frames": 359,
+      "submitted": 280,
+      "path": "cpu_nv12",
+      "device": "cuda:0",
+      "readback_bytes": 1124904960
+    },
+    {
+      "case": "windows-sar-software-0-yuv-mobile",
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 323,
+      "path": "cpu_yuv420p",
+      "device": "CPU",
+      "readback_bytes": 0
+    },
+    {
+      "case": "windows-software-0-yuv-mobile",
+      "adapter": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "decoded": 359,
+      "hardware_frames": 0,
+      "submitted": 350,
+      "path": "cpu_yuv420p",
+      "device": "CPU",
+      "readback_bytes": 0
+    }
+  ],
+  "time_scope": "functional runs, not sustained performance certification"
+}

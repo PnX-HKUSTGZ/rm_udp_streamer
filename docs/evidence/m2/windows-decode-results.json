@@ -190,5 +190,53 @@
     "exit": 2,
     "passed": true,
     "expected_rejection": "HDR PQ/HLG"
+  },
+  {
+    "case": "windows-wide2020-software-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported SDR color primaries"
+  },
+  {
+    "case": "windows-wide2020-cuda-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported SDR color primaries"
+  },
+  {
+    "case": "windows-wide2020-d3d11va-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported SDR color primaries"
+  },
+  {
+    "case": "windows-wide2020-d3d11va-1-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported SDR color primaries"
+  },
+  {
+    "case": "windows-linear-software-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported transfer function"
+  },
+  {
+    "case": "windows-linear-cuda-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported transfer function"
+  },
+  {
+    "case": "windows-linear-d3d11va-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported transfer function"
+  },
+  {
+    "case": "windows-linear-d3d11va-1-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported transfer function"
   }
 ]

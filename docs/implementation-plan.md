@@ -1,6 +1,6 @@
 # 实施计划与验收门槛
 
-日期：2026-11-15。架构依据：[GPU 帧目标架构](architecture.md)。M0、M1 已通过 gpt-6-astra 独立审查；结果见 [M0 能力报告](m0-capabilities.md)、[M1 协议报告](m1-transport.md)。当前进入 M2，其余阶段尚未完成。
+日期：2026-11-15。架构依据：[GPU 帧目标架构](architecture.md)。M0、M1、M2 已通过 gpt-6-astra 独立审查；结果见 [M0 能力报告](m0-capabilities.md)、[M1 协议报告](m1-transport.md)、[M2 媒体报告](m2-media.md)。当前进入 M3，其余阶段尚未完成。
 
 用户约束：Windows + Ubuntu，Intel 核显/NVIDIA 显卡/AMD 核显等主流设备；Ubuntu 优先使用本机 WSL，代码放在 `/home/lqx/code` 下。
 
@@ -136,4 +136,4 @@ M0 对 GPU 互通只做受控可行性验证，不把所有后端实现提前塞
 
 临时测试工程、样本、故障注入与性能脚本放在 Windows/WSL 对应的 `processing` 目录。测试任务报告要能关联生产提交；平台间使用 Git 传递源码，构建产物保持独立。
 
-当前任务是 **M2：解码与 CPU 呈现闭环**。M1 的独立审查见 [审查记录](evidence/m1/review.md)。本阶段完成 FFmpeg 解码、帧租约、CPU YUV/RGBA 与真实显示后，再由 gpt-6-astra 独立审查，获通过后进入 M3。
+当前任务是 **M3：恢复与兼容版交付**。M2 的独立审查见 [审查记录](evidence/m2/review.md)。本阶段完成丢包/断流/格式与代际恢复、启停/路径切换和两平台独立导出 D1 后，再由 gpt-6-astra 独立审查，获通过后进入 M4。

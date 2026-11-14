@@ -1,0 +1,98 @@
+[
+  {
+    "case": "windows-bt2020-sdr-software-0-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "windows-bt2020-sdr-software-0-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "windows-bt2020-sdr-cuda-0-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "windows-bt2020-sdr-cuda-0-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "windows-bt2020-sdr-d3d11va-0-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "[D3D11VA @ 0000023128b7ee00] Using device 8086:7d51 (Intel(R) Arc(TM) 140T GPU (16GB)).\nUnsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "windows-bt2020-sdr-d3d11va-0-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "[D3D11VA @ 000002118667ee00] Using device 8086:7d51 (Intel(R) Arc(TM) 140T GPU (16GB)).\nUnsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "windows-bt2020-sdr-d3d11va-1-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "[D3D11VA @ 0000019d0d29ee00] Using device 10de:2d18 (NVIDIA GeForce RTX 5070 Laptop GPU).\nUnsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "windows-bt2020-sdr-d3d11va-1-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "[D3D11VA @ 0000020a8479ee00] Using device 10de:2d18 (NVIDIA GeForce RTX 5070 Laptop GPU).\nUnsupported SDR color primaries: display gamut conversion is not implemented"
+  },
+  {
+    "case": "windows-linear-sdr-software-0-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported transfer function: nonlinear SDR input is required"
+  },
+  {
+    "case": "windows-linear-sdr-software-0-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported transfer function: nonlinear SDR input is required"
+  },
+  {
+    "case": "windows-linear-sdr-cuda-0-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported transfer function: nonlinear SDR input is required"
+  },
+  {
+    "case": "windows-linear-sdr-cuda-0-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "Unsupported transfer function: nonlinear SDR input is required"
+  },
+  {
+    "case": "windows-linear-sdr-d3d11va-0-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "[D3D11VA @ 00000255cf87ee00] Using device 8086:7d51 (Intel(R) Arc(TM) 140T GPU (16GB)).\nUnsupported transfer function: nonlinear SDR input is required"
+  },
+  {
+    "case": "windows-linear-sdr-d3d11va-0-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "[D3D11VA @ 000002ac1a37ee00] Using device 8086:7d51 (Intel(R) Arc(TM) 140T GPU (16GB)).\nUnsupported transfer function: nonlinear SDR input is required"
+  },
+  {
+    "case": "windows-linear-sdr-d3d11va-1-yuv",
+    "passed": true,
+    "exit": 2,
+    "output": "[D3D11VA @ 0000018cc398ee00] Using device 10de:2d18 (NVIDIA GeForce RTX 5070 Laptop GPU).\nUnsupported transfer function: nonlinear SDR input is required"
+  },
+  {
+    "case": "windows-linear-sdr-d3d11va-1-rgba",
+    "passed": true,
+    "exit": 2,
+    "output": "[D3D11VA @ 000002131c20ee00] Using device 10de:2d18 (NVIDIA GeForce RTX 5070 Laptop GPU).\nUnsupported transfer function: nonlinear SDR input is required"
+  }
+]

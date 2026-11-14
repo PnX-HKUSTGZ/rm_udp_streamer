@@ -94,5 +94,29 @@
     "exit": 2,
     "passed": true,
     "expected_rejection": "HDR PQ/HLG"
+  },
+  {
+    "case": "linux-wide2020-software-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported SDR color primaries"
+  },
+  {
+    "case": "linux-wide2020-cuda-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported SDR color primaries"
+  },
+  {
+    "case": "linux-linear-software-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported transfer function"
+  },
+  {
+    "case": "linux-linear-cuda-0-yuv-0",
+    "exit": 2,
+    "passed": true,
+    "expected_rejection": "Unsupported transfer function"
   }
 ]
