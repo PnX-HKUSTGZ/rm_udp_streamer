@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.IO;
 
 public partial class Main : Control
 {
@@ -14,6 +15,10 @@ public partial class Main : Control
     private double _elapsed, _rateTime;
     private long _lastComplete, _lastDecoded, _lastSubmitted;
     private double _receiveFps, _decodeFps, _submitFps;
+    private RuntimeOptions _options = new();
+    private StreamWriter? _diagnostics;
+    private double _uptime, _diagnosticTime;
+    private bool _readyLogged, _finishing;
     private static readonly string[] Decoders = { "auto", "software", "cuda", "d3d11va" };
 
     public override void _Ready()
@@ -21,14 +26,21 @@ public partial class Main : Control
         BuildInterface();
         try
         {
+            _options = RuntimeOptions.Parse(OS.GetCmdlineUserArgs());
+            if (_options.Help) { GD.Print(RuntimeOptions.Usage); GetTree().Quit(); return; }
+            if (_options.Metrics.Length > 0)
+                _diagnostics = new StreamWriter(new FileStream(_options.Metrics, FileMode.CreateNew, System.IO.FileAccess.Write, FileShare.Read)) { AutoFlush = true };
             _session = new VideoSessionClient();
             _surface = (Control)ClassDB.Instantiate("RmVideoSurface").AsGodotObject();
             _videoArea.AddChild(_surface); _videoArea.MoveChild(_surface, 1);
             _surface.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
             _surface.Call("set_session", _session.Native);
+            _address.Text = _options.Address; _port.Value = _options.Port; _device.Value = _options.Device;
+            _decoder.Select(Array.IndexOf(Decoders, _options.Decoder)); _transfer.Select(_options.Transfer == "yuv" ? 0 : 1);
             Refresh();
+            if (_options.Start) Toggle();
         }
-        catch (Exception error) { _error.Text = error.Message; _toggle.Disabled = true; }
+        catch (Exception error) { _error.Text = error.Message; _toggle.Disabled = true; GD.PushError(error.Message); GetTree().Quit(2); }
     }
     private static Label Text(string value, int size = 16)
     {
@@ -112,8 +124,53 @@ public partial class Main : Control
     }
     public override void _Process(double delta)
     {
+        _uptime += delta; _diagnosticTime += delta;
         _elapsed += delta; _rateTime += delta;
-        if (_elapsed < .25) return; _elapsed=0; Refresh();
+        if (_elapsed < .25) return; _elapsed = 0;
+        if (_session != null && !_finishing)
+        {
+            try
+            {
+                var data = _session.Snapshot();
+                if (_options.Start && !_readyLogged && data["state"].AsString() != "Starting")
+                { _readyLogged = true; GD.Print("RM_READY ", Json.Stringify(data)); }
+                if (_diagnostics != null && _diagnosticTime >= 1) { RecordDiagnostics(); _diagnosticTime = 0; }
+                if (_options.Duration > 0 && _uptime >= _options.Duration) { _finishing = true; FinishTimedRun(); }
+            }
+            catch (Exception error) { GD.PushError(error.Message); _session.Stop(); GetTree().Quit(2); }
+        }
+        Refresh();
     }
-    public override void _ExitTree() { _session?.Dispose(); _session=null; }
+    private Godot.Collections.Dictionary RecordDiagnostics()
+    {
+        var record = new Godot.Collections.Dictionary {
+            ["seconds"] = _uptime, ["core"] = _session!.Snapshot(),
+            ["surface"] = _surface.Call("get_metrics"), ["render_device"] = RenderingServer.GetVideoAdapterName()
+        };
+        _diagnostics?.WriteLine(Json.Stringify(record)); return record;
+    }
+    private async void FinishTimedRun()
+    {
+        int exitCode = 0;
+        try
+        {
+            await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
+            if (_options.Snapshot.Length > 0)
+            {
+                if (File.Exists(_options.Snapshot)) throw new IOException("Snapshot output already exists");
+                using var image = GetViewport().GetTexture().GetImage();
+                if (image.SavePng(_options.Snapshot) != Error.Ok) throw new IOException("Could not write snapshot");
+            }
+            var final = RecordDiagnostics();
+            GD.Print("RM_FINAL ", Json.Stringify(final));
+            if (_session!.Snapshot()["error"].AsString().Length > 0 ||
+                _surface.Call("get_metrics").AsGodotDictionary()["error"].AsString().Length > 0) exitCode = 2;
+        }
+        catch (Exception error) { GD.PushError(error.Message); exitCode = 2; }
+        _surface.Call("clear"); _session!.Stop();
+        while (!_session.Snapshot()["worker_done"].AsBool())
+        { _session.Native.Call("poll_stop"); await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); }
+        GetTree().Quit(exitCode);
+    }
+    public override void _ExitTree() { _diagnostics?.Dispose(); _session?.Dispose(); _session=null; }
 }

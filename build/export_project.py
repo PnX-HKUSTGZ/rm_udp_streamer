@@ -120,6 +120,9 @@ def main():
         'Linux baseline: Ubuntu 24.04 x86_64, glibc 2.39 or compatible, X11/Wayland desktop, Vulkan/OpenGL drivers, fontconfig and standard .NET native dependencies.\n'
         'WSL was tested with WSLg/llvmpipe. This does not certify native Ubuntu GPU interoperability.\n'
         'Software decoding is selectable. CPU transfer is not a zero-readback GPU bridge. Performance depends on the measured configuration.\n'
+        'For deployment/diagnostics append -- --start --bind 127.0.0.1 --port 3334 --decoder software\n'
+        'Optional: --duration 60 --metrics new-file.ndjson --snapshot new-file.png (new files only).\n'
+        'Use -- --help for all receiver options. Normal launch opens the interactive interface.\n'
         'Unsupported HDR, wide-gamut primaries and LINEAR/LOG transfer input are rejected. See CAPABILITIES.md.\n',encoding='utf-8')
     notice=output/'licenses';notice.mkdir(exist_ok=True)
     for filename in ['LICENSE.md','LICENSE.txt','LICENSE']:
