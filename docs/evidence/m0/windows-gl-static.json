@@ -1,6 +1,9 @@
 {
+  "cuda_copy_cycles": 12,
+  "cuda_copy_passed": true,
   "diagnostic_screenshot_readbacks": 6,
   "dotnet": "8.0.34",
+  "gl_import_passed": true,
   "godot": {
     "build": "official",
     "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
@@ -18,7 +21,6 @@
     "api_version": "3.3.0 NVIDIA 591.74",
     "rendering_device": false
   },
-  "gpu_import_passed": true,
   "headless": false,
   "import_cycles": [
     {
@@ -217,7 +219,7 @@
       "retired": true
     },
     {
-      "consumer_fence": 37146,
+      "consumer_fence": 37148,
       "cuda_interop": {
         "context_destroy_result": 0,
         "context_result": 0,

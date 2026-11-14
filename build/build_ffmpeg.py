@@ -27,6 +27,7 @@ def main():
     parser.add_argument('--target', choices=['linux', 'windows'], required=True)
     parser.add_argument('--cross-tools', type=Path, help='Extracted MinGW tools root (contains usr/bin)')
     parser.add_argument('--jobs', type=int, default=8)
+    parser.add_argument('--verify-only', action='store_true', help='Check pinned, clean source checkouts without building')
     args = parser.parse_args()
     cache = args.cache.resolve()
     source = cache / 'ffmpeg-source'
@@ -35,6 +36,12 @@ def main():
         actual = subprocess.check_output(['git', '-C', path, 'rev-parse', 'HEAD'], text=True).strip()
         if actual != revision:
             raise RuntimeError(f'{path} revision {actual} != pinned {revision}')
+        dirty = subprocess.check_output(['git', '-C', path, 'status', '--porcelain', '--untracked-files=normal'], text=True)
+        if dirty.strip():
+            raise RuntimeError(f'{path} contains unrecorded source changes:\n{dirty}')
+    if args.verify_only:
+        print('Pinned source checkouts are clean', flush=True)
+        return
     prefix = cache / ('ffmpeg-static-' + args.target)
     build = cache / ('ffmpeg-build-' + args.target)
     sdk_headers = cache / 'nvcodec-sdk'

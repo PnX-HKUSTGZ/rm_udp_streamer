@@ -15,9 +15,9 @@
     "adapter_name": "llvmpipe (LLVM 20.1.2, 256 bits)",
     "adapter_vendor": "Unknown",
     "api_version": "1.4.318",
-    "logical_device": 913009248,
-    "physical_device": 910598496,
-    "queue": 913015056,
+    "logical_device": 210791984,
+    "physical_device": 203510144,
+    "queue": 210797792,
     "queue_family": 0,
     "rendering_device": true
   },

@@ -15,9 +15,9 @@
     "adapter_name": "Intel(R) Arc(TM) 140T GPU (16GB)",
     "adapter_vendor": "Intel",
     "api_version": "1.4.303",
-    "logical_device": 2566134193928,
-    "physical_device": 2566088267680,
-    "queue": 2566136516280,
+    "logical_device": 1436731073912,
+    "physical_device": 1436730343952,
+    "queue": 1436733078536,
     "queue_family": 0,
     "rendering_device": true
   },

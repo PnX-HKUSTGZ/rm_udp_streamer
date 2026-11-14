@@ -15,9 +15,9 @@
     "adapter_name": "NVIDIA GeForce RTX 5070 Laptop GPU",
     "adapter_vendor": "NVIDIA",
     "api_version": "1.4.325",
-    "logical_device": 1878774888688,
-    "physical_device": 1878728562816,
-    "queue": 1876937738832,
+    "logical_device": 2314798675904,
+    "physical_device": 2314741800064,
+    "queue": 2312876870560,
     "queue_family": 0,
     "rendering_device": true
   },
