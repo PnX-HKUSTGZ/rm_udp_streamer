@@ -1,0 +1,170 @@
+{
+  "platform": "windows",
+  "candidate_native_sha256": "5e0b3345a5103bd1b9923c56a8df12190fcb63a275431ece6e0d209be35b8efd",
+  "final_native_sha256": "600c43e9b491892f6274bd28004baf73caf38af98a7b99e23eb0136ce0a3fbf0",
+  "identical_bytes": false,
+  "normalized_identical": true,
+  "normalized_sha256": "cfe994e42ca57e680579a017ab3c7b8187002bf5551cf03351772a03c539d267",
+  "ignored_fields": {
+    "coff_timestamp": 136,
+    "optional_checksum": 216,
+    "export_timestamp": 6630916
+  },
+  "sections": [
+    {
+      "name": ".text",
+      "identical": true,
+      "candidate": {
+        "offset": 1024,
+        "bytes": 5738496,
+        "sha256": "61a28a0fc317a61d7ced729bd33a20cc084af144ce3a1d7a93109d1294953285"
+      },
+      "final": {
+        "offset": 1024,
+        "bytes": 5738496,
+        "sha256": "61a28a0fc317a61d7ced729bd33a20cc084af144ce3a1d7a93109d1294953285"
+      }
+    },
+    {
+      "name": ".data",
+      "identical": true,
+      "candidate": {
+        "offset": 5739520,
+        "bytes": 10240,
+        "sha256": "b0e34b47f0048f67afb1510b7f53786911fc4a1fedfd9a689842bf5b2d8fe74f"
+      },
+      "final": {
+        "offset": 5739520,
+        "bytes": 10240,
+        "sha256": "b0e34b47f0048f67afb1510b7f53786911fc4a1fedfd9a689842bf5b2d8fe74f"
+      }
+    },
+    {
+      "name": ".rdata",
+      "identical": true,
+      "candidate": {
+        "offset": 5749760,
+        "bytes": 500736,
+        "sha256": "0479c2b656900cfcd76220720822a210b059c7e123c240da4568daf31a9d378d"
+      },
+      "final": {
+        "offset": 5749760,
+        "bytes": 500736,
+        "sha256": "0479c2b656900cfcd76220720822a210b059c7e123c240da4568daf31a9d378d"
+      }
+    },
+    {
+      "name": ".pdata",
+      "identical": true,
+      "candidate": {
+        "offset": 6250496,
+        "bytes": 131072,
+        "sha256": "9dba7c4a8b38de70ff3ad0613eeb4437c59eb2329dd2126fe80c0db15a581bfd"
+      },
+      "final": {
+        "offset": 6250496,
+        "bytes": 131072,
+        "sha256": "9dba7c4a8b38de70ff3ad0613eeb4437c59eb2329dd2126fe80c0db15a581bfd"
+      }
+    },
+    {
+      "name": ".xdata",
+      "identical": true,
+      "candidate": {
+        "offset": 6381568,
+        "bytes": 249344,
+        "sha256": "3887281f13f033ebdf466fb3dcbde087e4de570ce16234c521e3cf33ed9be004"
+      },
+      "final": {
+        "offset": 6381568,
+        "bytes": 249344,
+        "sha256": "3887281f13f033ebdf466fb3dcbde087e4de570ce16234c521e3cf33ed9be004"
+      }
+    },
+    {
+      "name": ".bss",
+      "identical": true,
+      "candidate": {
+        "offset": 0,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "final": {
+        "offset": 0,
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "name": ".edata",
+      "identical": false,
+      "candidate": {
+        "offset": 6630912,
+        "bytes": 512,
+        "sha256": "acaf54531c7e98c9cc0a8b84fce9a8a437b52a63b89295fb1938d0a04a0ab53d"
+      },
+      "final": {
+        "offset": 6630912,
+        "bytes": 512,
+        "sha256": "fac2f601ebc674294a15a40ac082d698fd352f9a929a7f5553290c47e49857ba"
+      }
+    },
+    {
+      "name": ".idata",
+      "identical": true,
+      "candidate": {
+        "offset": 6631424,
+        "bytes": 6656,
+        "sha256": "1023f415a46e5179e23df3296ac1e6a8ae7c7cb2d13be10a1c35f0cda6602435"
+      },
+      "final": {
+        "offset": 6631424,
+        "bytes": 6656,
+        "sha256": "1023f415a46e5179e23df3296ac1e6a8ae7c7cb2d13be10a1c35f0cda6602435"
+      }
+    },
+    {
+      "name": ".tls",
+      "identical": true,
+      "candidate": {
+        "offset": 6638080,
+        "bytes": 512,
+        "sha256": "076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560"
+      },
+      "final": {
+        "offset": 6638080,
+        "bytes": 512,
+        "sha256": "076a27c79e5ace2a3d47f9dd2e83e4ff6ea8872b3c2218f66c92b89b55f36560"
+      }
+    },
+    {
+      "name": ".reloc",
+      "identical": true,
+      "candidate": {
+        "offset": 6638592,
+        "bytes": 19968,
+        "sha256": "545f763c95730bf16460cc414dcda0f069afec3bb322db4478704cbd38ecadd0"
+      },
+      "final": {
+        "offset": 6638592,
+        "bytes": 19968,
+        "sha256": "545f763c95730bf16460cc414dcda0f069afec3bb322db4478704cbd38ecadd0"
+      }
+    }
+  ],
+  "candidate_commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+  "final_commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
+  "runtime_paths_compared": [
+    "native",
+    "scripts",
+    "scenes",
+    "shaders",
+    "addons",
+    "RmUdpStreamer.csproj",
+    "project.godot",
+    "global.json",
+    "export_presets.cfg"
+  ],
+  "runtime_diff_empty": true,
+  "note": "C# assembly and resource package may differ due export staging paths. Runtime sources, project options and dependencies are identical; final standalone GUI has its own receive/stop validation."
+}

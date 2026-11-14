@@ -1,0 +1,306 @@
+{
+  "errors": [],
+  "platforms": {
+    "windows": {
+      "long_records": 1756,
+      "os_records": 186,
+      "sender_seconds": 1869.5835974000001,
+      "sent": 112175,
+      "rates": {
+        "decoded": 60.00158098055615,
+        "submitted": 55.33858000003324
+      },
+      "five_minute_memory": [
+        {
+          "seconds": [
+            180,
+            480
+          ],
+          "n": 30,
+          "private_MiB_mean": 678.01015625,
+          "private_MiB_min": 657.25390625,
+          "private_MiB_max": 694.6796875,
+          "threads": [
+            57,
+            60
+          ],
+          "handles": [
+            855,
+            867
+          ]
+        },
+        {
+          "seconds": [
+            480,
+            780
+          ],
+          "n": 30,
+          "private_MiB_mean": 680.0494791666666,
+          "private_MiB_min": 653.171875,
+          "private_MiB_max": 715.125,
+          "threads": [
+            57,
+            58
+          ],
+          "handles": [
+            853,
+            858
+          ]
+        },
+        {
+          "seconds": [
+            780,
+            1080
+          ],
+          "n": 29,
+          "private_MiB_mean": 677.0079471982758,
+          "private_MiB_min": 655.4609375,
+          "private_MiB_max": 700.9453125,
+          "threads": [
+            57,
+            57
+          ],
+          "handles": [
+            854,
+            856
+          ]
+        },
+        {
+          "seconds": [
+            1080,
+            1380
+          ],
+          "n": 30,
+          "private_MiB_mean": 678.8778645833333,
+          "private_MiB_min": 651.87109375,
+          "private_MiB_max": 712.33984375,
+          "threads": [
+            57,
+            57
+          ],
+          "handles": [
+            854,
+            856
+          ]
+        },
+        {
+          "seconds": [
+            1380,
+            1680
+          ],
+          "n": 30,
+          "private_MiB_mean": 677.4598958333333,
+          "private_MiB_min": 647.4765625,
+          "private_MiB_max": 706.7734375,
+          "threads": [
+            56,
+            57
+          ],
+          "handles": [
+            854,
+            856
+          ]
+        },
+        {
+          "seconds": [
+            1680,
+            1980
+          ],
+          "n": 19,
+          "private_MiB_mean": 688.4142680921053,
+          "private_MiB_min": 653.6796875,
+          "private_MiB_max": 707.421875,
+          "threads": [
+            56,
+            57
+          ],
+          "handles": [
+            854,
+            856
+          ]
+        }
+      ],
+      "maxima": {
+        "pending_bytes": 59476,
+        "pending_frames": 1,
+        "queue_bytes": 70057,
+        "queue_frames": 1,
+        "frame_age_ms": 20
+      },
+      "lifecycle_min_submitted": 30,
+      "lifecycle_total_submitted": 1800,
+      "fault_phases": [
+        "corrupt",
+        "final_recovery",
+        "gap_no_repeated_parameters",
+        "normal",
+        "overload",
+        "range",
+        "restart_resolution",
+        "silence",
+        "startup"
+      ],
+      "overload_queue_drop_increase": 1748,
+      "relink_version": "n8.1.3-relink-validation"
+    },
+    "linux": {
+      "long_records": 1835,
+      "os_records": 187,
+      "sender_seconds": 1869.250265721,
+      "sent": 112155,
+      "rates": {
+        "decoded": 59.958017667339874,
+        "submitted": 59.29761669107854
+      },
+      "five_minute_memory": [
+        {
+          "seconds": [
+            180,
+            480
+          ],
+          "n": 30,
+          "private_MiB_mean": 268.20221354166665,
+          "private_MiB_min": 247.0078125,
+          "private_MiB_max": 274.79296875,
+          "threads": [
+            72,
+            73
+          ],
+          "handles": [
+            70,
+            70
+          ]
+        },
+        {
+          "seconds": [
+            480,
+            780
+          ],
+          "n": 30,
+          "private_MiB_mean": 283.3776041666667,
+          "private_MiB_min": 274.80859375,
+          "private_MiB_max": 286.97265625,
+          "threads": [
+            72,
+            73
+          ],
+          "handles": [
+            70,
+            70
+          ]
+        },
+        {
+          "seconds": [
+            780,
+            1080
+          ],
+          "n": 30,
+          "private_MiB_mean": 287.1686197916667,
+          "private_MiB_min": 286.984375,
+          "private_MiB_max": 287.35546875,
+          "threads": [
+            72,
+            72
+          ],
+          "handles": [
+            70,
+            70
+          ]
+        },
+        {
+          "seconds": [
+            1080,
+            1380
+          ],
+          "n": 30,
+          "private_MiB_mean": 288.866015625,
+          "private_MiB_min": 285.83203125,
+          "private_MiB_max": 291.3828125,
+          "threads": [
+            72,
+            72
+          ],
+          "handles": [
+            70,
+            70
+          ]
+        },
+        {
+          "seconds": [
+            1380,
+            1680
+          ],
+          "n": 30,
+          "private_MiB_mean": 289.7233072916667,
+          "private_MiB_min": 289.66796875,
+          "private_MiB_max": 289.7421875,
+          "threads": [
+            72,
+            72
+          ],
+          "handles": [
+            70,
+            70
+          ]
+        },
+        {
+          "seconds": [
+            1680,
+            1980
+          ],
+          "n": 19,
+          "private_MiB_mean": 289.7421875,
+          "private_MiB_min": 289.7421875,
+          "private_MiB_max": 289.7421875,
+          "threads": [
+            72,
+            72
+          ],
+          "handles": [
+            70,
+            70
+          ]
+        }
+      ],
+      "maxima": {
+        "pending_bytes": 32787,
+        "pending_frames": 1,
+        "queue_bytes": 59433,
+        "queue_frames": 1,
+        "frame_age_ms": 736
+      },
+      "lifecycle_min_submitted": 29,
+      "lifecycle_total_submitted": 1836,
+      "fault_phases": [
+        "corrupt",
+        "final_recovery",
+        "gap_no_repeated_parameters",
+        "normal",
+        "range",
+        "restart_resolution",
+        "silence",
+        "startup"
+      ],
+      "overload_queue_drop_increase": 1780,
+      "relink_version": "n8.1.3-relink-validation"
+    }
+  },
+  "sources": {
+    "ffmpeg": {
+      "commit": "1041abdc962f4cc4f394aa8de9dc5236c0c3b9e7",
+      "tracked_files": 10140,
+      "archive_files": 10140,
+      "missing": [],
+      "extra": [],
+      "mismatch": []
+    },
+    "nv-codec-headers": {
+      "commit": "f2053071ea93137255b6dcf42e9b4c9e0965a44e",
+      "tracked_files": 10,
+      "archive_files": 10,
+      "missing": [],
+      "extra": [],
+      "mismatch": []
+    }
+  }
+}

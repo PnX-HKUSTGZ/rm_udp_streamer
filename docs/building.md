@@ -42,3 +42,5 @@ Linux的输出目录改为`dist/D3-linux`，其余参数按实际路径。导出
 最终包包含完整许可清单、对应源码、可重链接对象和操作脚本。`relink/relink_native.py`可选择新的FFmpeg前缀；为避免覆盖正在运行的库，输出必须是新路径。先关闭应用并备份，再替换包内DLL/SO。重链接后的库需重新验证实际解码与生命周期。
 
 `manifest.json`覆盖包中每个交付文件；`build-manifest.json`记录真正使用的工具版本/路径/摘要与库摘要。导出产物不提交到Git，审查与性能证据按阶段提交到docs/evidence。
+
+D3在独立审查后仅更新随包文档，运行文件、依赖及重链接对象/库均保持已测摘要。`manifest.json`保留导出`commit`并另记审查文档`evidence_commit`。最终ZIP逐成员核对大小与SHA256，Linux压缩包在Linux生成并保留执行权限；包旁`D3-delivery-*.json`和`SHA256SUMS.txt`记录归档验证及摘要。

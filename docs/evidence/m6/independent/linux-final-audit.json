@@ -1,0 +1,84 @@
+{
+  "errors": [],
+  "commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
+  "candidate_commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+  "file_count": 456,
+  "bytes": 194351261,
+  "native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671",
+  "candidate_native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671",
+  "native_identical_to_long_run": true,
+  "runtime_source_identical_to_long_run": true,
+  "changed_from_candidate": [
+    "CAPABILITIES.md",
+    "README.txt",
+    "RmVideoReceiver.pck",
+    "data_RmUdpStreamer_linuxbsd_x86_64/RmUdpStreamer.dll",
+    "docs/m6-release.md",
+    "relink/application-source/build/export_project.py"
+  ],
+  "added_from_candidate": [
+    "docs/.gdignore",
+    "docs/architecture.md",
+    "docs/building.md",
+    "docs/evidence/m0/linux-godot-gl-static.json",
+    "docs/evidence/m0/linux-godot-vulkan-static.json",
+    "docs/evidence/m0/linux-static-decode.json",
+    "docs/evidence/m0/probe-source-sha256.json",
+    "docs/evidence/m0/review.md",
+    "docs/evidence/m0/windows-gl-static.json",
+    "docs/evidence/m0/windows-static-decode.json",
+    "docs/evidence/m0/windows-vulkan-static-gpu0.json",
+    "docs/evidence/m0/windows-vulkan-static-gpu1.json",
+    "docs/evidence/m1/fresh-linux-results.json",
+    "docs/evidence/m1/fresh-linux-ui.json",
+    "docs/evidence/m1/fresh-windows-results.json",
+    "docs/evidence/m1/fresh-windows-ui.json",
+    "docs/evidence/m1/protocol-results.json",
+    "docs/evidence/m1/review.md",
+    "docs/evidence/m2/color-results.json",
+    "docs/evidence/m2/linux-color-contract-results.json",
+    "docs/evidence/m2/linux-decode-results.json",
+    "docs/evidence/m2/linux-ui-sender.json",
+    "docs/evidence/m2/review.md",
+    "docs/evidence/m2/validation.json",
+    "docs/evidence/m2/windows-color-contract-results.json",
+    "docs/evidence/m2/windows-decode-results.json",
+    "docs/evidence/m2/windows-ui-sender.json",
+    "docs/evidence/m3/review.md",
+    "docs/evidence/m3/validation.json",
+    "docs/evidence/m4/review.md",
+    "docs/evidence/m4/validation.json",
+    "docs/evidence/m5/review.md",
+    "docs/evidence/m5/validation.json",
+    "docs/evidence/m6/validation.json",
+    "docs/implementation-plan.md",
+    "docs/m0-capabilities.md",
+    "docs/m1-transport.md"
+  ],
+  "native_dependencies": [
+    "\tlinux-vdso.so.1 (0x00007601002ae000)",
+    "\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007601001a1000)",
+    "\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007600ff600000)",
+    "\t/lib64/ld-linux-x86-64.so.2 (0x00007601002b0000)"
+  ],
+  "dotnet": {
+    "tfm": "net8.0",
+    "includedFrameworks": [
+      {
+        "name": "Microsoft.NETCore.App",
+        "version": "8.0.34"
+      }
+    ],
+    "configProperties": {
+      "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
+      "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false
+    }
+  },
+  "source_members": {
+    "ffmpeg": 10259,
+    "nv-codec-headers": 13
+  },
+  "godot_library_entries": 102,
+  "godot_license_texts": 19,
+  "manifest_sha256": "1bbd4414b9c6185b3e3fabb01399e4cce3ce414a932e077a659dc0e8a6476737"
+}

@@ -1,0 +1,3 @@
+{"seconds": 0.0009912039999999678, "rss": 356352, "private": 40960, "threads": 1, "handles": 3, "gpu_global_memory_MiB_and_utilization": "GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a, 0, 0"}
+{"seconds": 10.278045144, "rss": 518144000, "private": 213344256, "threads": 73, "handles": 70}
+{"seconds": 20.278810219, "rss": 523358208, "private": 218296320, "threads": 73, "handles": 70}

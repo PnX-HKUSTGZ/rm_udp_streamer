@@ -3930,9 +3930,8 @@
   ],
   "final_exports": {
     "code_commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
-    "status": "Implementation acceptance complete; awaiting independent M6 review",
+    "status": "PASS after independent M6 review; runtime content frozen",
     "continuity": "Long-run runtime sources/configuration unchanged. Linux native binary identical; Windows native identical after masking only PE timestamps/checksum. Final C# assemblies/resource packs also receive an actual GUI receive/stop test.",
-    "post_review_plan": "Only documentation/evidence and manifest metadata will be refreshed after PASS. Every non-document package file must retain its hash. ZIP checksums will be recorded outside the package to avoid self-reference.",
     "platforms": {
       "windows": {
         "audit": {
@@ -4763,6 +4762,16 @@
           }
         }
       }
-    }
+    },
+    "finalization_policy": "Only documentation/evidence and manifest metadata will be refreshed after PASS. Every non-document package file must retain its hash. ZIP checksums will be recorded outside the package to avoid self-reference."
+  },
+  "independent_review": {
+    "result": "PASS",
+    "model": "gpt-6-astra",
+    "date": "2026-11-15",
+    "reviewed_commit": "669a4a6310f3ea6c83b9497158843de2a9727d07",
+    "report": "review.md",
+    "evidence_index": "independent/index.json",
+    "scope": "M6 technical acceptance for the measured Windows/WSL matrix. Release archive integrity is separately recorded beside the ZIPs."
   }
 }

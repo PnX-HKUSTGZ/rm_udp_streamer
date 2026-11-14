@@ -1,6 +1,6 @@
 # 实施计划与验收门槛
 
-日期：2026-11-15。架构依据：[GPU 帧目标架构](architecture.md)。M0–M5 已通过 gpt-6-astra 独立审查；结果见各阶段报告与 evidence 下的审查记录。当前进入 M6，发布与稳定性验收尚未完成。
+日期：2026-11-15。架构依据：[GPU 帧目标架构](architecture.md)。M0–M6 已逐阶段通过 gpt-6-astra 独立审查；结果见各阶段报告与 evidence 下的审查记录。本轮 Windows/WSL D3 发布与稳定性技术验收完成，性能和未测设备边界见 [D3 报告](m6-release.md)。下文保留初始计划及环境基线，不能将候选/未来设备项视为已验收。
 
 用户约束：Windows + Ubuntu，Intel 核显/NVIDIA 显卡/AMD 核显等主流设备；Ubuntu 优先使用本机 WSL，代码放在 `/home/lqx/code` 下。
 
@@ -136,4 +136,4 @@ M0 对 GPU 互通只做受控可行性验证，不把所有后端实现提前塞
 
 临时测试工程、样本、故障注入与性能脚本放在 Windows/WSL 对应的 `processing` 目录。测试任务报告要能关联生产提交；平台间使用 Git 传递源码，构建产物保持独立。
 
-当前任务是 **M6：发布与稳定性**。M5 的独立审查见 [审查记录](evidence/m5/review.md)。本阶段完成长时间稳定性、真实生命周期、最终独立包与许可材料后由gpt-6-astra独立审查。
+**M0–M6 的阶段技术验收均已完成**。M6 最终独立审查见 [审查记录](evidence/m6/review.md)，D3 支持范围与长测结果见 [发布报告](m6-release.md)。最终压缩归档保持运行文件不变，交付完整性以包旁的 `D3-delivery-*.json` 和 `SHA256SUMS.txt` 为准。

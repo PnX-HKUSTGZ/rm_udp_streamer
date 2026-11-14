@@ -1,0 +1,74 @@
+{
+  "source": "processing/2026-11-15-m6-review",
+  "model": "gpt-6-astra",
+  "files": {
+    "independent-evidence-initial.json": {
+      "bytes": 10214,
+      "sha256": "338e37fc18a8bae1351d9c429ffe11e125f5ff586693f1bdcde5457fc8d9c289"
+    },
+    "independent-evidence.json": {
+      "bytes": 10235,
+      "sha256": "2179d10e2b42ff05c730a827302e6ad95c1ddfc0a8dc539e0ec0484866627cc5"
+    },
+    "independent-evidence.log": {
+      "bytes": 7001,
+      "sha256": "31877351fb421fe54789af97ffb85ead370db245a813c02fcf3472ee2a350a26"
+    },
+    "linux-final-audit.json": {
+      "bytes": 3168,
+      "sha256": "c2ae579ba62cb396a0c81e4046837333ca361ca05d97d732a465bc3cd3c05d57"
+    },
+    "linux-independent-smoke-os.ndjson": {
+      "bytes": 379,
+      "sha256": "1cc56c1a943f13201b37fb40aee24442227bb5c6aac98dad05e476e0958473da"
+    },
+    "linux-independent-smoke.json": {
+      "bytes": 6241,
+      "sha256": "7de65b08929e026cc51bfda41289534b99cf4d558a9c6243cbc268b6bedba48e"
+    },
+    "linux-independent-smoke.json.ndjson": {
+      "bytes": 38677,
+      "sha256": "b1737373d6996582751f188c0598a17661fd9f5723c0e59baa05edc579d933de"
+    },
+    "linux-independent-smoke.json.png": {
+      "bytes": 125941,
+      "sha256": "be69ea5c54d69f7a9765003624480948f840430df78378f8b489e9c611ce0dbc"
+    },
+    "linux-independent-smoke.log": {
+      "bytes": 5173,
+      "sha256": "f299c1601912b4699a74220798b4466a1c820ccb582faa66e8bec05815f90f74"
+    },
+    "linux-runtime-continuity.json": {
+      "bytes": 807,
+      "sha256": "33eab0f4475e1d29ebe8b3909e6ac5c4977c288eb2eb3a9686fe0a66fb87ef41"
+    },
+    "windows-final-audit.json": {
+      "bytes": 3229,
+      "sha256": "271e8ab45d08fac3c7a6cbd9071ede6871532bdc8a5a9103d049ec466da88864"
+    },
+    "windows-independent-smoke-os.ndjson": {
+      "bytes": 399,
+      "sha256": "895b1fddd757a11beb20b2e18cd5124469d6c7def1e6509aad8ee7735ab887a6"
+    },
+    "windows-independent-smoke.json": {
+      "bytes": 7337,
+      "sha256": "936b8dad2eff3b87b2e364b0aaeb9ca511430c78761834ad98ec6f78bc7b9e46"
+    },
+    "windows-independent-smoke.json.ndjson": {
+      "bytes": 44498,
+      "sha256": "70029a1673606945424f7bc9b8d18983c5f1307b30141ffd6a972635ebcbeefe"
+    },
+    "windows-independent-smoke.json.png": {
+      "bytes": 130366,
+      "sha256": "675b157fea53635bf9a991f3aa25edd8a7be5671300c0096aab25aedeccfc9c1"
+    },
+    "windows-independent-smoke.log": {
+      "bytes": 5761,
+      "sha256": "8f2d30e7e165c1f750d8f61fade5fe6d4859ac6ec6a06566a3f56e7daa7e0b59"
+    },
+    "windows-runtime-continuity.json": {
+      "bytes": 5098,
+      "sha256": "4fe0a8de8056dd08c2bebadd3222c19a8bd4f20f2c31bdb7a5b7cea9fd9f9c05"
+    }
+  }
+}

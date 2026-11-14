@@ -1,0 +1,21 @@
+{
+  "platform": "linux",
+  "candidate_native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671",
+  "final_native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671",
+  "identical_bytes": true,
+  "candidate_commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+  "final_commit": "c8dcaa00c17cf6008d75b3c55b6ef9e41c6a0a72",
+  "runtime_paths_compared": [
+    "native",
+    "scripts",
+    "scenes",
+    "shaders",
+    "addons",
+    "RmUdpStreamer.csproj",
+    "project.godot",
+    "global.json",
+    "export_presets.cfg"
+  ],
+  "runtime_diff_empty": true,
+  "note": "C# assembly and resource package may differ due export staging paths. Runtime sources, project options and dependencies are identical; final standalone GUI has its own receive/stop validation."
+}

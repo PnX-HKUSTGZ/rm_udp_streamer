@@ -1,0 +1,3 @@
+# Preserve independent review evidence exactly across Windows/Linux checkouts.
+docs/evidence/m6/independent/** -text
+docs/evidence/m6/review.md -text
