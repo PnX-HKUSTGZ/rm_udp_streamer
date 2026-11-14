@@ -1,0 +1,3875 @@
+{
+  "date": "2026-11-15",
+  "candidate_commit": "84bbd2e",
+  "runtime_core_commit": "b8bde42",
+  "scope": "Windows NVIDIA RTX5070 Laptop GPU + Intel Arc140T and WSL Ubuntu-24.04/WSLg. Native Ubuntu and AMD remain unverified.",
+  "concurrent_long_runs": true,
+  "long_run_warmup_note": "Source rebuild work completed during initial warmup; both platform streams ran concurrently. Rates here are stability measurements, not an isolated performance comparison.",
+  "memory_definitions": {
+    "windows": "PrivateUsage committed process bytes; WorkingSetSize RSS",
+    "linux": "RssAnon anonymous resident bytes; VmRSS RSS; fd count used as handle count"
+  },
+  "platforms": {
+    "windows": {
+      "package": {
+        "errors": [],
+        "commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+        "file_count": 429,
+        "bytes": 227582090,
+        "notices": [
+          "licenses\\.NET-LICENSE.TXT",
+          "licenses\\.NET-THIRD-PARTY-NOTICES.TXT",
+          "licenses\\FFmpeg-COPYING.LGPLv2.1",
+          "licenses\\FFmpeg-COPYING.LGPLv3",
+          "licenses\\FFmpeg-LICENSE.md",
+          "licenses\\godot-cpp-LICENSE.txt",
+          "licenses\\Godot-engine-notices.json",
+          "licenses\\Godot-LICENSE.txt",
+          "licenses\\Godot-THIRD-PARTY.txt",
+          "licenses\\nv-codec-headers-notices.txt",
+          "licenses\\THIRD_PARTY.txt",
+          "licenses\\runtime-gcc\\COPYING",
+          "licenses\\runtime-gcc\\COPYING.LIB",
+          "licenses\\runtime-gcc\\COPYING.RUNTIME",
+          "licenses\\runtime-gcc\\COPYING3",
+          "licenses\\runtime-gcc\\COPYING3.LIB",
+          "licenses\\runtime-mingw-w64\\COPYING",
+          "licenses\\runtime-mingw-w64\\COPYING.MinGW-w64-runtime.txt",
+          "licenses\\runtime-mingw-w64\\COPYING.MinGW-w64.txt",
+          "licenses\\runtime-mingw-w64\\ddk-readme.txt",
+          "licenses\\runtime-mingw-w64\\direct-x-COPYING.lib",
+          "licenses\\runtime-mingw-w64\\direct-x-readme.txt",
+          "licenses\\runtime-mingw-w64\\DISCLAIMER",
+          "licenses\\runtime-mingw-w64\\DISCLAIMER.PD",
+          "licenses\\runtime-winpthreads\\COPYING"
+        ],
+        "godot_library_entries": 102,
+        "godot_license_texts": 19,
+        "source_members": {
+          "ffmpeg": 10259,
+          "nv-codec-headers": 13
+        },
+        "native_dependencies": [
+          "bcrypt.dll",
+          "KERNEL32.dll",
+          "msvcrt.dll",
+          "WS2_32.dll"
+        ],
+        "dotnet": {
+          "tfm": "net8.0",
+          "includedFrameworks": [
+            {
+              "name": "Microsoft.NETCore.App",
+              "version": "8.0.34"
+            }
+          ],
+          "configProperties": {
+            "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
+            "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false
+          }
+        },
+        "build": {
+          "godot_cpp": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+          "ffmpeg_archives": {
+            "ffmpeg-static-windows/lib/libavcodec.a": "d89d2e40afd14f4f272f0d8a13855fffa0b0f021f14f2adf42a40145511b4e72",
+            "ffmpeg-static-windows/lib/libavutil.a": "ed2670824abd2f2263cfa47eff0c395e498e4b34c95d53682db5d56eaac358db",
+            "ffmpeg-static-windows/lib/libswscale.a": "cf4a6cb853e32ffe327a5673ecb3d33470f6e1fda07c6856602b0569da0436d7"
+          },
+          "tools": {
+            "cmake": {
+              "path": "D:\\Code\\udp_streamer_godot\\.tools\\rm-video\\python-tools\\cmake\\data\\bin\\cmake.exe",
+              "version": "cmake version 4.1.3",
+              "sha256": "1f05d7f71d2ab38403b35b5e7245dc5eac087255d206da4ad9638edbe311b2e4"
+            },
+            "cxx": {
+              "path": "C:\\Program Files\\mingw64\\bin\\g++.exe",
+              "version": "15.2.0",
+              "sha256": "623808bccbd6d596d98251c116eb51ba94ec46c9d90d451982cefa6f8246c342"
+            },
+            "dotnet": {
+              "path": "C:\\Program Files\\dotnet\\dotnet.exe",
+              "version": "8.0.428",
+              "sha256": "d20cc5cd62faf6a593a19149cb7b6ecd7d3ce7b06c19e6682767eb09e83ff6a2"
+            }
+          },
+          "configure_command": [
+            "D:\\Code\\udp_streamer_godot\\.tools\\rm-video\\python-tools\\cmake\\data\\bin\\cmake.exe",
+            "-S",
+            "D:\\Code\\udp_streamer_godot\\rm_udp_streamer\\native",
+            "-B",
+            "D:\\Code\\udp_streamer_godot\\rm_udp_streamer\\out\\windows",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DGODOT_CPP_DIR=D:/Code/udp_streamer_godot/.tools/rm-video/godot-cpp",
+            "-DFFMPEG_ROOT=D:/Code/udp_streamer_godot/.tools/rm-video/ffmpeg-static-windows",
+            "-DCMAKE_CXX_COMPILER=C:/Program Files/mingw64/bin/g++.EXE",
+            "-DCMAKE_CXX_FLAGS=",
+            "-DCMAKE_CXX_FLAGS_RELEASE=-O3 -DNDEBUG",
+            "-DCMAKE_SHARED_LINKER_FLAGS=",
+            "-DCMAKE_SHARED_LINKER_FLAGS_RELEASE=",
+            "-G",
+            "MinGW Makefiles",
+            "-DCMAKE_MAKE_PROGRAM=C:/Program Files/mingw64/bin/mingw32-make.exe"
+          ],
+          "native_sha256": "5e0b3345a5103bd1b9923c56a8df12190fcb63a275431ece6e0d209be35b8efd"
+        }
+      },
+      "long_run": {
+        "errors": [],
+        "exit": 0,
+        "package": "D:\\Code\\udp_streamer_godot\\rm_udp_streamer\\dist\\D3-windows-rc1",
+        "package_commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+        "native_sha256": "5e0b3345a5103bd1b9923c56a8df12190fcb63a275431ece6e0d209be35b8efd",
+        "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+        "requested_seconds": 1870,
+        "sent": 112175,
+        "sender_elapsed": 1869.5835974000001,
+        "sender_fps": 59.99999152538564,
+        "natural_wraps": [
+          {
+            "sent": 65536,
+            "seconds": 1092.2672233000012
+          }
+        ],
+        "warmup_seconds": 180,
+        "trend": {
+          "rss": {
+            "first_5min_mean": 461084672.0,
+            "last_5min_mean": 463305523.2,
+            "change": 2220851.199999988,
+            "slope_per_minute": 61864.87716332022,
+            "min": 429506560,
+            "max": 499785728
+          },
+          "private": {
+            "first_5min_mean": 710945177.6,
+            "last_5min_mean": 713701649.0666667,
+            "change": 2756471.4666666985,
+            "slope_per_minute": 83077.72455507203,
+            "min": 678928384,
+            "max": 749862912
+          },
+          "threads": {
+            "first_5min_mean": 58.06666666666667,
+            "last_5min_mean": 56.96666666666667,
+            "change": -1.1000000000000014,
+            "slope_per_minute": -0.03583253033128149,
+            "min": 56,
+            "max": 60
+          },
+          "handles": {
+            "first_5min_mean": 859.6666666666666,
+            "last_5min_mean": 855.8,
+            "change": -3.8666666666666742,
+            "slope_per_minute": -0.10957403001327698,
+            "min": 853,
+            "max": 867
+          }
+        },
+        "final": {
+          "core": {
+            "accepted_presentation": 0,
+            "accepted_resource": 3,
+            "accepted_stream": 1,
+            "avcodec_abi": 4070503,
+            "backend_attempts": 1,
+            "backend_failures": 0,
+            "backend_switches": 0,
+            "bit_depth": 8,
+            "bound_port": 50132,
+            "budget_rejected": 0,
+            "bytes": 3560361942,
+            "color_defaulted": true,
+            "complete": 112154,
+            "conflicts": 0,
+            "consumed": 112154,
+            "converted_rgba": 0,
+            "cpu_readback_bytes": 0,
+            "cpu_readbacks": 0,
+            "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+            "decode_errors": 0,
+            "decoded": 112152,
+            "decoder": "cuda",
+            "duplicate": 0,
+            "error": "",
+            "fallback": "",
+            "ffmpeg": "n8.1.3",
+            "foreign": 0,
+            "format_changes": 1,
+            "frame_age_ms": 16,
+            "generation": 1,
+            "gpu_attempts": 1,
+            "gpu_disabled": false,
+            "gpu_retirement": {},
+            "hardware": true,
+            "hardware_frames": 112152,
+            "height": 1080,
+            "invalid": 0,
+            "last_frame_ms": 1794691541916,
+            "last_packet_ms": 1794691541930,
+            "late": 0,
+            "mailbox_replaced": 8701,
+            "matrix": 1,
+            "missing": 0,
+            "mode": "gpu_cuda_gl_nv12",
+            "ordered": 112154,
+            "out_of_window": 0,
+            "oversized": 0,
+            "packets": 2593571,
+            "parser_packets": 112152,
+            "peak_pending_bytes": 70108,
+            "peak_pending_frames": 1,
+            "peak_queue_bytes": 70057,
+            "pending_bytes": 0,
+            "pending_frames": 0,
+            "pixel_format": "nv12",
+            "precision_reduced": false,
+            "prepared": 112152,
+            "presentation_fallbacks": 0,
+            "queue_bytes": 0,
+            "queue_dropped": 0,
+            "queue_expired": 0,
+            "queue_frames": 0,
+            "range": 1,
+            "recoveries": 0,
+            "recovery_reason": "",
+            "render_pending": 1,
+            "requested_decoder": "cuda",
+            "requested_transfer": "gpu",
+            "resets": 1,
+            "resource_generation": 3,
+            "restarts": 0,
+            "running": true,
+            "skipped_rasl": 0,
+            "skipped_until_key": 0,
+            "socket_buffer_bytes": 2097152,
+            "source": "127.0.0.1:59280",
+            "started_ms": 1794689671791,
+            "state": "Running",
+            "timeouts": 0,
+            "width": 1920,
+            "worker_done": false
+          },
+          "render_device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+          "seconds": 1870.20165933195,
+          "surface": {
+            "error": "",
+            "external_gl_errors": 0,
+            "gpu_busy_drops": 0,
+            "gpu_consumer_fences": 103448,
+            "gpu_copies": 103450,
+            "gpu_copy_bytes": 321770880000,
+            "gpu_display_copy_bytes": 321770880000,
+            "gpu_retired": 103447,
+            "gpu_slot_limit": 3,
+            "gpu_slots_live": 3,
+            "gpu_sources_live": 1,
+            "gpu_sources_released": 103449,
+            "height": 1080,
+            "path": "gpu_cuda_gl_nv12",
+            "shown_generation": 1,
+            "shown_presentation": 0,
+            "shown_resource": 3,
+            "shown_sequence": 112148,
+            "submitted": 103450,
+            "upload_pending": false,
+            "width": 1920
+          }
+        },
+        "stopped": {
+          "core": {
+            "accepted_presentation": 0,
+            "accepted_resource": 0,
+            "accepted_stream": 0,
+            "avcodec_abi": 4070503,
+            "backend_attempts": 1,
+            "backend_failures": 0,
+            "backend_switches": 0,
+            "bit_depth": 8,
+            "bound_port": 0,
+            "budget_rejected": 0,
+            "bytes": 0,
+            "color_defaulted": true,
+            "complete": 0,
+            "conflicts": 0,
+            "consumed": 0,
+            "converted_rgba": 0,
+            "cpu_readback_bytes": 0,
+            "cpu_readbacks": 0,
+            "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+            "decode_errors": 0,
+            "decoded": 112153,
+            "decoder": "cuda",
+            "duplicate": 0,
+            "error": "",
+            "fallback": "",
+            "ffmpeg": "n8.1.3",
+            "foreign": 0,
+            "format_changes": 1,
+            "frame_age_ms": 75,
+            "generation": 1,
+            "gpu_attempts": 1,
+            "gpu_disabled": false,
+            "gpu_retirement": {
+              "external_gl_errors": 0,
+              "gpu_busy_drops": 0,
+              "gpu_consumer_fences": 103450,
+              "gpu_copies": 103450,
+              "gpu_copy_bytes": 321770880000,
+              "gpu_display_copy_bytes": 321770880000,
+              "gpu_retired": 103450,
+              "gpu_slot_limit": 3,
+              "gpu_slots_live": 0,
+              "gpu_sources_live": 0,
+              "gpu_sources_released": 103450
+            },
+            "hardware": true,
+            "hardware_frames": 112153,
+            "height": 1080,
+            "invalid": 0,
+            "last_frame_ms": 1794691541933,
+            "last_packet_ms": 0,
+            "late": 0,
+            "mailbox_replaced": 8702,
+            "matrix": 1,
+            "missing": 0,
+            "mode": "gpu_cuda_gl_nv12",
+            "ordered": 0,
+            "out_of_window": 0,
+            "oversized": 0,
+            "packets": 0,
+            "parser_packets": 112153,
+            "peak_pending_bytes": 0,
+            "peak_pending_frames": 0,
+            "peak_queue_bytes": 0,
+            "pending_bytes": 0,
+            "pending_frames": 0,
+            "pixel_format": "nv12",
+            "precision_reduced": false,
+            "prepared": 112153,
+            "presentation_fallbacks": 0,
+            "queue_bytes": 0,
+            "queue_dropped": 0,
+            "queue_expired": 0,
+            "queue_frames": 0,
+            "range": 1,
+            "recoveries": 0,
+            "recovery_reason": "",
+            "render_pending": 0,
+            "requested_decoder": "cuda",
+            "requested_transfer": "gpu",
+            "resets": 1,
+            "resource_generation": 3,
+            "restarts": 0,
+            "running": false,
+            "skipped_rasl": 0,
+            "skipped_until_key": 0,
+            "socket_buffer_bytes": 2097152,
+            "source": "",
+            "started_ms": 1794689671791,
+            "state": "Stopped",
+            "timeouts": 0,
+            "width": 1920,
+            "worker_done": true
+          },
+          "event": "stopped"
+        },
+        "environment": {
+          "PATH": "C:\\Windows\\System32",
+          "DOTNET_ROOT": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-m6-release\\no-installed-runtime",
+          "DOTNET_MULTILEVEL_LOOKUP": "0"
+        }
+      },
+      "steady_rates": {
+        "decode_fps": 60.00158098055615,
+        "new_texture_fps": 55.33858000003324,
+        "new_texture_p10_fps": 45.93750000003199
+      },
+      "lifecycle": {
+        "count": 60,
+        "gpu": true,
+        "decoded": 1875,
+        "submitted": 1800,
+        "all_worker_done": true,
+        "render_pending_max_after_stop": 0,
+        "os_samples": [
+          {
+            "seconds": 1.2800001059076749e-05,
+            "rss": 2109440,
+            "private": 3850240,
+            "threads": 4,
+            "handles": 5
+          },
+          {
+            "seconds": 0.3224456000007194,
+            "rss": 55390208,
+            "private": 58015744,
+            "threads": 24,
+            "handles": 329
+          },
+          {
+            "seconds": 0.6418760000015027,
+            "rss": 55390208,
+            "private": 58015744,
+            "threads": 24,
+            "handles": 329
+          },
+          {
+            "seconds": 0.9680494000003819,
+            "rss": 55390208,
+            "private": 58015744,
+            "threads": 24,
+            "handles": 329
+          },
+          {
+            "seconds": 1.2866044000002148,
+            "rss": 55390208,
+            "private": 58015744,
+            "threads": 24,
+            "handles": 329
+          },
+          {
+            "seconds": 1.6037902000007307,
+            "rss": 55390208,
+            "private": 58015744,
+            "threads": 24,
+            "handles": 329
+          },
+          {
+            "seconds": 1.9239802000010968,
+            "rss": 55390208,
+            "private": 58015744,
+            "threads": 24,
+            "handles": 329
+          },
+          {
+            "seconds": 2.247408200000791,
+            "rss": 55390208,
+            "private": 58015744,
+            "threads": 24,
+            "handles": 329
+          },
+          {
+            "seconds": 2.5664600000000064,
+            "rss": 71819264,
+            "private": 70574080,
+            "threads": 25,
+            "handles": 396
+          },
+          {
+            "seconds": 2.895992900001147,
+            "rss": 84709376,
+            "private": 88571904,
+            "threads": 32,
+            "handles": 485
+          },
+          {
+            "seconds": 3.22016000000076,
+            "rss": 110456832,
+            "private": 143282176,
+            "threads": 38,
+            "handles": 573
+          },
+          {
+            "seconds": 3.5463083000013285,
+            "rss": 328007680,
+            "private": 430489600,
+            "threads": 67,
+            "handles": 875
+          },
+          {
+            "seconds": 3.873600400000214,
+            "rss": 351784960,
+            "private": 580448256,
+            "threads": 68,
+            "handles": 884
+          },
+          {
+            "seconds": 4.198429699999906,
+            "rss": 321277952,
+            "private": 543264768,
+            "threads": 67,
+            "handles": 869
+          },
+          {
+            "seconds": 4.5272880000011355,
+            "rss": 358129664,
+            "private": 648376320,
+            "threads": 68,
+            "handles": 884
+          },
+          {
+            "seconds": 4.858418499999971,
+            "rss": 314593280,
+            "private": 607645696,
+            "threads": 67,
+            "handles": 866
+          },
+          {
+            "seconds": 5.182049000000916,
+            "rss": 355487744,
+            "private": 715808768,
+            "threads": 68,
+            "handles": 884
+          },
+          {
+            "seconds": 5.513208800000939,
+            "rss": 323280896,
+            "private": 569507840,
+            "threads": 67,
+            "handles": 867
+          },
+          {
+            "seconds": 5.837457700001323,
+            "rss": 362352640,
+            "private": 675381248,
+            "threads": 68,
+            "handles": 884
+          },
+          {
+            "seconds": 6.162821500000064,
+            "rss": 319897600,
+            "private": 571277312,
+            "threads": 67,
+            "handles": 867
+          },
+          {
+            "seconds": 6.51514700000007,
+            "rss": 358678528,
+            "private": 675241984,
+            "threads": 68,
+            "handles": 884
+          },
+          {
+            "seconds": 6.842755100000431,
+            "rss": 336052224,
+            "private": 580034560,
+            "threads": 67,
+            "handles": 871
+          },
+          {
+            "seconds": 7.1915019000007305,
+            "rss": 364773376,
+            "private": 674832384,
+            "threads": 68,
+            "handles": 884
+          },
+          {
+            "seconds": 7.518988000001627,
+            "rss": 337735680,
+            "private": 650280960,
+            "threads": 67,
+            "handles": 871
+          },
+          {
+            "seconds": 7.8461317000001145,
+            "rss": 360701952,
+            "private": 742526976,
+            "threads": 68,
+            "handles": 884
+          },
+          {
+            "seconds": 8.180083600000216,
+            "rss": 362799104,
+            "private": 742526976,
+            "threads": 67,
+            "handles": 878
+          },
+          {
+            "seconds": 8.514106200000242,
+            "rss": 366481408,
+            "private": 740044800,
+            "threads": 68,
+            "handles": 884
+          },
+          {
+            "seconds": 8.845825400001559,
+            "rss": 366440448,
+            "private": 739983360,
+            "threads": 66,
+            "handles": 871
+          },
+          {
+            "seconds": 9.181654300000446,
+            "rss": 364814336,
+            "private": 670539776,
+            "threads": 67,
+            "handles": 879
+          },
+          {
+            "seconds": 9.5073296999999,
+            "rss": 364814336,
+            "private": 670539776,
+            "threads": 67,
+            "handles": 879
+          },
+          {
+            "seconds": 9.847712700000557,
+            "rss": 368513024,
+            "private": 670543872,
+            "threads": 67,
+            "handles": 879
+          },
+          {
+            "seconds": 10.177953300000809,
+            "rss": 368513024,
+            "private": 670543872,
+            "threads": 66,
+            "handles": 873
+          },
+          {
+            "seconds": 10.517533700000058,
+            "rss": 365404160,
+            "private": 671498240,
+            "threads": 67,
+            "handles": 879
+          },
+          {
+            "seconds": 10.839557200000854,
+            "rss": 365408256,
+            "private": 671498240,
+            "threads": 66,
+            "handles": 879
+          },
+          {
+            "seconds": 11.174177500000951,
+            "rss": 369020928,
+            "private": 603901952,
+            "threads": 67,
+            "handles": 879
+          },
+          {
+            "seconds": 11.526744100001451,
+            "rss": 329474048,
+            "private": 559919104,
+            "threads": 65,
+            "handles": 861
+          },
+          {
+            "seconds": 11.860803600000509,
+            "rss": 366092288,
+            "private": 603889664,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 12.18534820000059,
+            "rss": 269922304,
+            "private": 502812672,
+            "threads": 63,
+            "handles": 858
+          },
+          {
+            "seconds": 12.526339600000938,
+            "rss": 369664000,
+            "private": 604033024,
+            "threads": 67,
+            "handles": 878
+          },
+          {
+            "seconds": 12.852207300000373,
+            "rss": 271745024,
+            "private": 508977152,
+            "threads": 66,
+            "handles": 861
+          },
+          {
+            "seconds": 13.184001999999964,
+            "rss": 366260224,
+            "private": 604016640,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 13.523332600001595,
+            "rss": 315633664,
+            "private": 551735296,
+            "threads": 66,
+            "handles": 862
+          },
+          {
+            "seconds": 13.850428000001557,
+            "rss": 369905664,
+            "private": 604033024,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 14.178579100000206,
+            "rss": 306614272,
+            "private": 545742848,
+            "threads": 66,
+            "handles": 862
+          },
+          {
+            "seconds": 14.504554700000881,
+            "rss": 366632960,
+            "private": 603762688,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 14.838990500000364,
+            "rss": 268615680,
+            "private": 507822080,
+            "threads": 66,
+            "handles": 845
+          },
+          {
+            "seconds": 15.169640699999945,
+            "rss": 370159616,
+            "private": 603099136,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 15.496463100000256,
+            "rss": 267534336,
+            "private": 497049600,
+            "threads": 66,
+            "handles": 843
+          },
+          {
+            "seconds": 15.849523700000645,
+            "rss": 366972928,
+            "private": 604078080,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 16.17925970000033,
+            "rss": 309927936,
+            "private": 543481856,
+            "threads": 66,
+            "handles": 860
+          },
+          {
+            "seconds": 16.508442100001048,
+            "rss": 370311168,
+            "private": 604082176,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 16.84393900000032,
+            "rss": 308842496,
+            "private": 545828864,
+            "threads": 66,
+            "handles": 862
+          },
+          {
+            "seconds": 17.1688094000001,
+            "rss": 367108096,
+            "private": 604139520,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 17.498116200000368,
+            "rss": 325275648,
+            "private": 556175360,
+            "threads": 66,
+            "handles": 862
+          },
+          {
+            "seconds": 17.827799000000596,
+            "rss": 370384896,
+            "private": 603131904,
+            "threads": 67,
+            "handles": 878
+          },
+          {
+            "seconds": 18.148280200000954,
+            "rss": 307896320,
+            "private": 543723520,
+            "threads": 66,
+            "handles": 860
+          },
+          {
+            "seconds": 18.482028500000524,
+            "rss": 367288320,
+            "private": 603500544,
+            "threads": 67,
+            "handles": 878
+          },
+          {
+            "seconds": 18.819778099999894,
+            "rss": 309088256,
+            "private": 544342016,
+            "threads": 66,
+            "handles": 860
+          },
+          {
+            "seconds": 19.14689830000134,
+            "rss": 371023872,
+            "private": 603504640,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 19.477925800001685,
+            "rss": 313487360,
+            "private": 547373056,
+            "threads": 66,
+            "handles": 862
+          },
+          {
+            "seconds": 19.802859200000967,
+            "rss": 367104000,
+            "private": 603496448,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 20.129857200001425,
+            "rss": 322768896,
+            "private": 554745856,
+            "threads": 66,
+            "handles": 860
+          },
+          {
+            "seconds": 20.45516680000037,
+            "rss": 370864128,
+            "private": 603631616,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 20.777121500001158,
+            "rss": 334741504,
+            "private": 569798656,
+            "threads": 66,
+            "handles": 867
+          },
+          {
+            "seconds": 21.101176500000292,
+            "rss": 367726592,
+            "private": 603627520,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 21.425311100001636,
+            "rss": 330084352,
+            "private": 560230400,
+            "threads": 66,
+            "handles": 862
+          },
+          {
+            "seconds": 21.752111400001013,
+            "rss": 371380224,
+            "private": 603897856,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 22.08547560000079,
+            "rss": 324980736,
+            "private": 558141440,
+            "threads": 66,
+            "handles": 862
+          },
+          {
+            "seconds": 22.41472849999991,
+            "rss": 367800320,
+            "private": 603787264,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 22.73838070000056,
+            "rss": 352514048,
+            "private": 582520832,
+            "threads": 66,
+            "handles": 867
+          },
+          {
+            "seconds": 23.060462900000857,
+            "rss": 372768768,
+            "private": 603803648,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 23.38792530000137,
+            "rss": 348508160,
+            "private": 579780608,
+            "threads": 66,
+            "handles": 867
+          },
+          {
+            "seconds": 23.71462260000044,
+            "rss": 368828416,
+            "private": 602939392,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 24.043941200001427,
+            "rss": 338251776,
+            "private": 565600256,
+            "threads": 66,
+            "handles": 865
+          },
+          {
+            "seconds": 24.37942000000112,
+            "rss": 372613120,
+            "private": 603062272,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 24.70374990000164,
+            "rss": 322138112,
+            "private": 553910272,
+            "threads": 66,
+            "handles": 862
+          },
+          {
+            "seconds": 25.03018190000148,
+            "rss": 369332224,
+            "private": 603951104,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 25.35334050000165,
+            "rss": 328855552,
+            "private": 556314624,
+            "threads": 66,
+            "handles": 860
+          },
+          {
+            "seconds": 25.69252830000005,
+            "rss": 365891584,
+            "private": 577425408,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 26.021552500000325,
+            "rss": 341151744,
+            "private": 575631360,
+            "threads": 66,
+            "handles": 867
+          },
+          {
+            "seconds": 26.345179500000086,
+            "rss": 361234432,
+            "private": 598331392,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 26.675537000000986,
+            "rss": 363872256,
+            "private": 594755584,
+            "threads": 67,
+            "handles": 867
+          },
+          {
+            "seconds": 27.007655900000827,
+            "rss": 367144960,
+            "private": 602279936,
+            "threads": 67,
+            "handles": 878
+          },
+          {
+            "seconds": 27.334976300000562,
+            "rss": 362160128,
+            "private": 600825856,
+            "threads": 67,
+            "handles": 873
+          },
+          {
+            "seconds": 27.656350200000816,
+            "rss": 365871104,
+            "private": 602271744,
+            "threads": 67,
+            "handles": 878
+          },
+          {
+            "seconds": 27.980356900001425,
+            "rss": 363003904,
+            "private": 596066304,
+            "threads": 66,
+            "handles": 867
+          },
+          {
+            "seconds": 28.30371340000056,
+            "rss": 366780416,
+            "private": 602402816,
+            "threads": 67,
+            "handles": 878
+          },
+          {
+            "seconds": 28.632996100001037,
+            "rss": 358150144,
+            "private": 599625728,
+            "threads": 67,
+            "handles": 867
+          },
+          {
+            "seconds": 28.9745352000009,
+            "rss": 364969984,
+            "private": 625512448,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 29.29687030000059,
+            "rss": 366764032,
+            "private": 624148480,
+            "threads": 67,
+            "handles": 873
+          },
+          {
+            "seconds": 29.617440300000453,
+            "rss": 370925568,
+            "private": 625528832,
+            "threads": 67,
+            "handles": 880
+          },
+          {
+            "seconds": 29.946230900000955,
+            "rss": 336277504,
+            "private": 593371136,
+            "threads": 66,
+            "handles": 867
+          },
+          {
+            "seconds": 30.288108800001282,
+            "rss": 365096960,
+            "private": 625709056,
+            "threads": 67,
+            "handles": 882
+          },
+          {
+            "seconds": 30.609508800000185,
+            "rss": 358858752,
+            "private": 614563840,
+            "threads": 66,
+            "handles": 869
+          },
+          {
+            "seconds": 30.931932900000902,
+            "rss": 371884032,
+            "private": 625852416,
+            "threads": 67,
+            "handles": 882
+          },
+          {
+            "seconds": 31.254837899999984,
+            "rss": 364703744,
+            "private": 622256128,
+            "threads": 67,
+            "handles": 869
+          },
+          {
+            "seconds": 31.582678400000077,
+            "rss": 369942528,
+            "private": 625840128,
+            "threads": 67,
+            "handles": 882
+          },
+          {
+            "seconds": 31.910183700001653,
+            "rss": 367607808,
+            "private": 645685248,
+            "threads": 67,
+            "handles": 875
+          },
+          {
+            "seconds": 32.23897390000093,
+            "rss": 371437568,
+            "private": 648966144,
+            "threads": 67,
+            "handles": 882
+          },
+          {
+            "seconds": 32.56661890000032,
+            "rss": 368144384,
+            "private": 647356416,
+            "threads": 66,
+            "handles": 867
+          },
+          {
+            "seconds": 32.893840500000806,
+            "rss": 370085888,
+            "private": 648912896,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 33.22458160000133,
+            "rss": 371888128,
+            "private": 647540736,
+            "threads": 66,
+            "handles": 872
+          },
+          {
+            "seconds": 33.55140130000109,
+            "rss": 374280192,
+            "private": 648921088,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 33.89456659999996,
+            "rss": 365289472,
+            "private": 645234688,
+            "threads": 66,
+            "handles": 873
+          },
+          {
+            "seconds": 34.226430900000196,
+            "rss": 369152000,
+            "private": 649187328,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 34.556556000001365,
+            "rss": 373469184,
+            "private": 649199616,
+            "threads": 66,
+            "handles": 874
+          },
+          {
+            "seconds": 34.880790799999886,
+            "rss": 373932032,
+            "private": 649199616,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 35.20479650000016,
+            "rss": 370462720,
+            "private": 649187328,
+            "threads": 66,
+            "handles": 874
+          },
+          {
+            "seconds": 35.5312085000005,
+            "rss": 370905088,
+            "private": 649187328,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 35.85198459999992,
+            "rss": 368656384,
+            "private": 645570560,
+            "threads": 66,
+            "handles": 874
+          },
+          {
+            "seconds": 36.18089650000002,
+            "rss": 372281344,
+            "private": 649195520,
+            "threads": 66,
+            "handles": 878
+          },
+          {
+            "seconds": 36.51283670000157,
+            "rss": 367419392,
+            "private": 647737344,
+            "threads": 66,
+            "handles": 873
+          },
+          {
+            "seconds": 36.839321200000995,
+            "rss": 370012160,
+            "private": 649183232,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 37.16510830000152,
+            "rss": 373977088,
+            "private": 647639040,
+            "threads": 65,
+            "handles": 867
+          },
+          {
+            "seconds": 37.507077900001605,
+            "rss": 374890496,
+            "private": 649322496,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 37.82741590000114,
+            "rss": 369750016,
+            "private": 645996544,
+            "threads": 66,
+            "handles": 868
+          },
+          {
+            "seconds": 38.15645940000104,
+            "rss": 372150272,
+            "private": 649588736,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 38.48598510000011,
+            "rss": 368791552,
+            "private": 643928064,
+            "threads": 66,
+            "handles": 868
+          },
+          {
+            "seconds": 38.816694900000584,
+            "rss": 372621312,
+            "private": 649601024,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 39.14586500000041,
+            "rss": 370262016,
+            "private": 649592832,
+            "threads": 66,
+            "handles": 874
+          },
+          {
+            "seconds": 39.46793490000164,
+            "rss": 371027968,
+            "private": 649764864,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 39.8038331000007,
+            "rss": 375382016,
+            "private": 649773056,
+            "threads": 66,
+            "handles": 874
+          },
+          {
+            "seconds": 40.124998200000846,
+            "rss": 375435264,
+            "private": 649773056,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 40.45024379999995,
+            "rss": 369442816,
+            "private": 649764864,
+            "threads": 66,
+            "handles": 874
+          },
+          {
+            "seconds": 40.772999800001344,
+            "rss": 369635328,
+            "private": 649891840,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 41.09693650000008,
+            "rss": 374931456,
+            "private": 650862592,
+            "threads": 66,
+            "handles": 874
+          },
+          {
+            "seconds": 41.42262750000009,
+            "rss": 374960128,
+            "private": 650862592,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 41.75953060000029,
+            "rss": 371867648,
+            "private": 650088448,
+            "threads": 66,
+            "handles": 874
+          },
+          {
+            "seconds": 42.090110000001005,
+            "rss": 372060160,
+            "private": 650215424,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 42.419420600001104,
+            "rss": 375750656,
+            "private": 650149888,
+            "threads": 66,
+            "handles": 878
+          },
+          {
+            "seconds": 42.745166900000186,
+            "rss": 375750656,
+            "private": 650149888,
+            "threads": 66,
+            "handles": 880
+          },
+          {
+            "seconds": 43.07320260000051,
+            "rss": 215912448,
+            "private": 433922048,
+            "threads": 1,
+            "handles": 458
+          }
+        ],
+        "render": "NVIDIA GeForce RTX 5070 Laptop GPU",
+        "gpu_retired": 1800
+      },
+      "fault_injection": {
+        "final": {
+          "accepted_presentation": 0,
+          "accepted_resource": 25,
+          "accepted_stream": 2,
+          "avcodec_abi": 4070503,
+          "backend_attempts": 1,
+          "backend_failures": 0,
+          "backend_switches": 0,
+          "bit_depth": 8,
+          "bound_port": 63490,
+          "budget_rejected": 0,
+          "bytes": 329457,
+          "color_defaulted": false,
+          "complete": 2640,
+          "conflicts": 0,
+          "consumed": 891,
+          "converted_rgba": 0,
+          "cpu_readback_bytes": 0,
+          "cpu_readbacks": 0,
+          "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+          "decode_errors": 1,
+          "decoded": 756,
+          "decoder": "cuda",
+          "duplicate": 0,
+          "error": "",
+          "fallback": "",
+          "ffmpeg": "n8.1.3",
+          "foreign": 0,
+          "format_changes": 4,
+          "frame_age_ms": 89,
+          "generation": 2,
+          "gpu_attempts": 1,
+          "gpu_disabled": false,
+          "gpu_retirement": {},
+          "hardware": true,
+          "hardware_frames": 756,
+          "height": 720,
+          "invalid": 0,
+          "last_frame_ms": 1794691828042,
+          "last_packet_ms": 1794691828035,
+          "late": 0,
+          "mailbox_replaced": 20,
+          "matrix": 1,
+          "missing": 2,
+          "mode": "gpu_cuda_gl_nv12",
+          "ordered": 2639,
+          "out_of_window": 0,
+          "oversized": 0,
+          "packets": 2740,
+          "parser_packets": 871,
+          "peak_pending_bytes": 3638,
+          "peak_pending_frames": 3,
+          "peak_queue_bytes": 3635,
+          "pending_bytes": 0,
+          "pending_frames": 0,
+          "pixel_format": "nv12",
+          "precision_reduced": false,
+          "prepared": 756,
+          "presentation_fallbacks": 0,
+          "queue_bytes": 0,
+          "queue_dropped": 1748,
+          "queue_expired": 0,
+          "queue_frames": 0,
+          "range": 1,
+          "recoveries": 19,
+          "recovery_reason": "",
+          "render_pending": 1,
+          "requested_decoder": "cuda",
+          "requested_transfer": "gpu",
+          "resets": 20,
+          "resource_generation": 25,
+          "restarts": 1,
+          "running": true,
+          "skipped_rasl": 0,
+          "skipped_until_key": 114,
+          "socket_buffer_bytes": 2097152,
+          "source": "127.0.0.1:50753",
+          "started_ms": 1794691811481,
+          "state": "Running",
+          "timeouts": 1,
+          "width": 1280,
+          "worker_done": false
+        },
+        "presentation": {
+          "error": "",
+          "external_gl_errors": 0,
+          "gpu_busy_drops": 0,
+          "gpu_consumer_fences": 733,
+          "gpu_copies": 734,
+          "gpu_copy_bytes": 610329600,
+          "gpu_display_copy_bytes": 610329600,
+          "gpu_retired": 733,
+          "gpu_slot_limit": 3,
+          "gpu_slots_live": 3,
+          "gpu_sources_live": 0,
+          "gpu_sources_released": 734,
+          "height": 720,
+          "path": "gpu_cuda_gl_nv12",
+          "shown_generation": 2,
+          "shown_presentation": 0,
+          "shown_resource": 25,
+          "shown_sequence": 756,
+          "submitted": 734,
+          "upload_pending": false,
+          "width": 1280
+        },
+        "cycles": 18,
+        "errors": []
+      },
+      "port_conflict": {
+        "core": {
+          "accepted_presentation": 0,
+          "accepted_resource": 0,
+          "accepted_stream": 0,
+          "avcodec_abi": 4070503,
+          "backend_attempts": 0,
+          "backend_failures": 0,
+          "backend_switches": 0,
+          "bit_depth": 8,
+          "bound_port": 0,
+          "budget_rejected": 0,
+          "bytes": 0,
+          "color_defaulted": false,
+          "complete": 0,
+          "conflicts": 0,
+          "consumed": 0,
+          "converted_rgba": 0,
+          "cpu_readback_bytes": 0,
+          "cpu_readbacks": 0,
+          "decode_device": "",
+          "decode_errors": 0,
+          "decoded": 0,
+          "decoder": "",
+          "duplicate": 0,
+          "error": "bind failed (OS error 10048)",
+          "fallback": "",
+          "ffmpeg": "n8.1.3",
+          "foreign": 0,
+          "format_changes": 0,
+          "frame_age_ms": -1,
+          "generation": 0,
+          "gpu_attempts": 0,
+          "gpu_disabled": false,
+          "gpu_retirement": {},
+          "hardware": false,
+          "hardware_frames": 0,
+          "height": 0,
+          "invalid": 0,
+          "last_frame_ms": 0,
+          "last_packet_ms": 0,
+          "late": 0,
+          "mailbox_replaced": 0,
+          "matrix": 2,
+          "missing": 0,
+          "mode": "",
+          "ordered": 0,
+          "out_of_window": 0,
+          "oversized": 0,
+          "packets": 0,
+          "parser_packets": 0,
+          "peak_pending_bytes": 0,
+          "peak_pending_frames": 0,
+          "peak_queue_bytes": 0,
+          "pending_bytes": 0,
+          "pending_frames": 0,
+          "pixel_format": "",
+          "precision_reduced": false,
+          "prepared": 0,
+          "presentation_fallbacks": 0,
+          "queue_bytes": 0,
+          "queue_dropped": 0,
+          "queue_expired": 0,
+          "queue_frames": 0,
+          "range": 0,
+          "recoveries": 0,
+          "recovery_reason": "",
+          "render_pending": 0,
+          "requested_decoder": "auto",
+          "requested_transfer": "yuv",
+          "resets": 0,
+          "resource_generation": 0,
+          "restarts": 0,
+          "running": false,
+          "skipped_rasl": 0,
+          "skipped_until_key": 0,
+          "socket_buffer_bytes": 0,
+          "source": "",
+          "started_ms": 1794691833029,
+          "state": "Faulted",
+          "timeouts": 0,
+          "width": 0,
+          "worker_done": true
+        },
+        "event": "stopped"
+      },
+      "modified_ffmpeg": {
+        "actual_version": "n8.1.3-relink-validation",
+        "decoded": 547,
+        "submitted": 473,
+        "native_sha256": "6bbd5892626d25d44be59578fb8bf76f54205178dee8ff30be78b9c01ad756b1",
+        "stopped": {
+          "core": {
+            "accepted_presentation": 0,
+            "accepted_resource": 0,
+            "accepted_stream": 0,
+            "avcodec_abi": 4070503,
+            "backend_attempts": 1,
+            "backend_failures": 0,
+            "backend_switches": 0,
+            "bit_depth": 8,
+            "bound_port": 0,
+            "budget_rejected": 0,
+            "bytes": 0,
+            "color_defaulted": true,
+            "complete": 0,
+            "conflicts": 0,
+            "consumed": 0,
+            "converted_rgba": 0,
+            "cpu_readback_bytes": 0,
+            "cpu_readbacks": 0,
+            "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+            "decode_errors": 0,
+            "decoded": 547,
+            "decoder": "cuda",
+            "duplicate": 0,
+            "error": "",
+            "fallback": "",
+            "ffmpeg": "n8.1.3-relink-validation",
+            "foreign": 0,
+            "format_changes": 1,
+            "frame_age_ms": 53,
+            "generation": 1,
+            "gpu_attempts": 1,
+            "gpu_disabled": false,
+            "gpu_retirement": {
+              "external_gl_errors": 0,
+              "gpu_busy_drops": 0,
+              "gpu_consumer_fences": 473,
+              "gpu_copies": 473,
+              "gpu_copy_bytes": 1471219200,
+              "gpu_display_copy_bytes": 1471219200,
+              "gpu_retired": 473,
+              "gpu_slot_limit": 3,
+              "gpu_slots_live": 0,
+              "gpu_sources_live": 0,
+              "gpu_sources_released": 473
+            },
+            "hardware": true,
+            "hardware_frames": 547,
+            "height": 1080,
+            "invalid": 0,
+            "last_frame_ms": 1794691859765,
+            "last_packet_ms": 0,
+            "late": 0,
+            "mailbox_replaced": 73,
+            "matrix": 1,
+            "missing": 0,
+            "mode": "gpu_cuda_gl_nv12",
+            "ordered": 0,
+            "out_of_window": 0,
+            "oversized": 0,
+            "packets": 0,
+            "parser_packets": 547,
+            "peak_pending_bytes": 0,
+            "peak_pending_frames": 0,
+            "peak_queue_bytes": 0,
+            "pending_bytes": 0,
+            "pending_frames": 0,
+            "pixel_format": "nv12",
+            "precision_reduced": false,
+            "prepared": 547,
+            "presentation_fallbacks": 0,
+            "queue_bytes": 0,
+            "queue_dropped": 0,
+            "queue_expired": 0,
+            "queue_frames": 0,
+            "range": 1,
+            "recoveries": 0,
+            "recovery_reason": "",
+            "render_pending": 0,
+            "requested_decoder": "cuda",
+            "requested_transfer": "gpu",
+            "resets": 1,
+            "resource_generation": 3,
+            "restarts": 0,
+            "running": false,
+            "skipped_rasl": 0,
+            "skipped_until_key": 0,
+            "socket_buffer_bytes": 2097152,
+            "source": "",
+            "started_ms": 1794691849717,
+            "state": "Stopped",
+            "timeouts": 0,
+            "width": 1920,
+            "worker_done": true
+          },
+          "event": "stopped"
+        }
+      }
+    },
+    "linux": {
+      "package": {
+        "errors": [],
+        "commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+        "file_count": 419,
+        "bytes": 193966372,
+        "notices": [
+          "licenses/GCC-GPL-3.txt",
+          "licenses/.NET-THIRD-PARTY-NOTICES.TXT",
+          "licenses/.NET-LICENSE.TXT",
+          "licenses/Godot-engine-notices.json",
+          "licenses/Godot-THIRD-PARTY.txt",
+          "licenses/FFmpeg-COPYING.LGPLv3",
+          "licenses/Godot-LICENSE.txt",
+          "licenses/nv-codec-headers-notices.txt",
+          "licenses/godot-cpp-LICENSE.txt",
+          "licenses/GCC-LGPL-2.1.txt",
+          "licenses/GCC-runtime-copyright.txt",
+          "licenses/FFmpeg-COPYING.LGPLv2.1",
+          "licenses/GCC-LGPL-3.txt",
+          "licenses/FFmpeg-LICENSE.md",
+          "licenses/THIRD_PARTY.txt"
+        ],
+        "godot_library_entries": 102,
+        "godot_license_texts": 19,
+        "source_members": {
+          "ffmpeg": 10259,
+          "nv-codec-headers": 13
+        },
+        "native_dependencies": [
+          "\tlinux-vdso.so.1 (0x0000714b29df5000)",
+          "\tlibm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x0000714b29517000)",
+          "\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x0000714b29200000)",
+          "\t/lib64/ld-linux-x86-64.so.2 (0x0000714b29df7000)"
+        ],
+        "dotnet": {
+          "tfm": "net8.0",
+          "includedFrameworks": [
+            {
+              "name": "Microsoft.NETCore.App",
+              "version": "8.0.34"
+            }
+          ],
+          "configProperties": {
+            "System.Reflection.Metadata.MetadataUpdater.IsSupported": false,
+            "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": false
+          }
+        },
+        "build": {
+          "godot_cpp": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+          "ffmpeg_archives": {
+            "ffmpeg-static-linux/lib/libavutil.a": "98df7bca52574cbbf85715a3d132eb2fc2920545f21a3a03977f631510f805d2",
+            "ffmpeg-static-linux/lib/libswscale.a": "d37d7d8b770378c18d9597f9b769a6467f7c5ed8e011d58127b89414eeeec91c",
+            "ffmpeg-static-linux/lib/libavcodec.a": "eb53a877e9736da89356f79fe77570900bf590dace9ec1de723c9ad5d90b04f1"
+          },
+          "tools": {
+            "cmake": {
+              "path": "/usr/bin/cmake",
+              "version": "cmake version 3.28.3",
+              "sha256": "1c5227af4edd22d8d689def545e18ee458260c0fd579eba2187967f38817e638"
+            },
+            "cxx": {
+              "path": "/usr/bin/x86_64-linux-gnu-g++-13",
+              "version": "13.3.0",
+              "sha256": "1353e9bdd29a7295c7226bf6c63abccce056d8cac31f112e5cdbecc3f28c2769"
+            },
+            "dotnet": {
+              "path": "/home/lqx/code/.tools/rm-video/dotnet-8.0.428/dotnet",
+              "version": "8.0.428",
+              "sha256": "c74333747814ad5fdf5fe643393922001ff2e9019b53e8c075115ee26c9afef2"
+            }
+          },
+          "configure_command": [
+            "/usr/bin/cmake",
+            "-S",
+            "/home/lqx/code/rm_udp_streamer/native",
+            "-B",
+            "/home/lqx/code/rm_udp_streamer/out/linux",
+            "-DCMAKE_BUILD_TYPE=Release",
+            "-DGODOT_CPP_DIR=/home/lqx/code/.tools/rm-video/godot-cpp",
+            "-DFFMPEG_ROOT=/home/lqx/code/.tools/rm-video/ffmpeg-static-linux",
+            "-DCMAKE_CXX_COMPILER=/usr/bin/c++",
+            "-DCMAKE_CXX_FLAGS=",
+            "-DCMAKE_CXX_FLAGS_RELEASE=-O3 -DNDEBUG",
+            "-DCMAKE_SHARED_LINKER_FLAGS=",
+            "-DCMAKE_SHARED_LINKER_FLAGS_RELEASE="
+          ],
+          "native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671"
+        }
+      },
+      "long_run": {
+        "errors": [],
+        "exit": 0,
+        "package": "/home/lqx/code/rm_udp_streamer/dist/D3-linux-rc1",
+        "package_commit": "84bbd2e1a77b3aac97c3127bb96421f105eaeb22",
+        "native_sha256": "2b9b50af1d163ebc00fb01309008ea17043a4536daf5143ad61c43348a981671",
+        "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+        "requested_seconds": 1870,
+        "sent": 112155,
+        "sender_elapsed": 1869.250265721,
+        "sender_fps": 59.99999147077291,
+        "natural_wraps": [
+          {
+            "sent": 65536,
+            "seconds": 1092.266821874
+          }
+        ],
+        "warmup_seconds": 180,
+        "trend": {
+          "rss": {
+            "first_5min_mean": 586315366.4,
+            "last_5min_mean": 608986180.2666667,
+            "change": 22670813.866666675,
+            "slope_per_minute": 875718.5979254713,
+            "min": 563986432,
+            "max": 610709504
+          },
+          "private": {
+            "first_5min_mean": 281230404.26666665,
+            "last_5min_mean": 303816704.0,
+            "change": 22586299.73333335,
+            "slope_per_minute": 872513.8218836428,
+            "min": 259006464,
+            "max": 305537024
+          },
+          "threads": {
+            "first_5min_mean": 72.03333333333333,
+            "last_5min_mean": 72.0,
+            "change": -0.03333333333333144,
+            "slope_per_minute": -0.0017731650549939304,
+            "min": 72,
+            "max": 73
+          },
+          "handles": {
+            "first_5min_mean": 70.0,
+            "last_5min_mean": 70.0,
+            "change": 0.0,
+            "slope_per_minute": 0.0,
+            "min": 70,
+            "max": 70
+          }
+        },
+        "final": {
+          "core": {
+            "accepted_presentation": 0,
+            "accepted_resource": 4,
+            "accepted_stream": 1,
+            "avcodec_abi": 4070503,
+            "backend_attempts": 1,
+            "backend_failures": 0,
+            "backend_switches": 0,
+            "bit_depth": 8,
+            "bound_port": 47040,
+            "budget_rejected": 0,
+            "bytes": 3559808627,
+            "color_defaulted": true,
+            "complete": 112137,
+            "conflicts": 0,
+            "consumed": 112136,
+            "converted_rgba": 0,
+            "cpu_readback_bytes": 351205355520,
+            "cpu_readbacks": 112083,
+            "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+            "decode_errors": 0,
+            "decoded": 112083,
+            "decoder": "cuda",
+            "duplicate": 0,
+            "error": "",
+            "fallback": "",
+            "ffmpeg": "n8.1.3",
+            "foreign": 0,
+            "format_changes": 1,
+            "frame_age_ms": 7,
+            "generation": 1,
+            "gpu_attempts": 0,
+            "gpu_disabled": false,
+            "gpu_retirement": {},
+            "hardware": true,
+            "hardware_frames": 112083,
+            "height": 1080,
+            "invalid": 0,
+            "last_frame_ms": 1975870,
+            "last_packet_ms": 1975863,
+            "late": 0,
+            "mailbox_replaced": 1227,
+            "matrix": 1,
+            "missing": 0,
+            "mode": "cpu_nv12",
+            "ordered": 112137,
+            "out_of_window": 0,
+            "oversized": 0,
+            "packets": 2593169,
+            "parser_packets": 112134,
+            "peak_pending_bytes": 70108,
+            "peak_pending_frames": 1,
+            "peak_queue_bytes": 94431,
+            "pending_bytes": 0,
+            "pending_frames": 0,
+            "pixel_format": "nv12",
+            "precision_reduced": false,
+            "prepared": 112083,
+            "presentation_fallbacks": 0,
+            "queue_bytes": 0,
+            "queue_dropped": 0,
+            "queue_expired": 1,
+            "queue_frames": 0,
+            "range": 1,
+            "recoveries": 1,
+            "recovery_reason": "",
+            "render_pending": 0,
+            "requested_decoder": "cuda",
+            "requested_transfer": "yuv",
+            "resets": 2,
+            "resource_generation": 4,
+            "restarts": 0,
+            "running": true,
+            "skipped_rasl": 0,
+            "skipped_until_key": 51,
+            "socket_buffer_bytes": 4194304,
+            "source": "127.0.0.1:58689",
+            "started_ms": 106018,
+            "state": "Running",
+            "timeouts": 0,
+            "width": 1920,
+            "worker_done": false
+          },
+          "render_device": "llvmpipe (LLVM 20.1.2, 256 bits)",
+          "seconds": 1870.21893700338,
+          "surface": {
+            "error": "",
+            "height": 1080,
+            "path": "cpu_nv12",
+            "shown_generation": 1,
+            "shown_presentation": 0,
+            "shown_resource": 4,
+            "shown_sequence": 112079,
+            "submitted": 110853,
+            "upload_pending": false,
+            "width": 1920
+          }
+        },
+        "stopped": {
+          "core": {
+            "accepted_presentation": 0,
+            "accepted_resource": 0,
+            "accepted_stream": 0,
+            "avcodec_abi": 4070503,
+            "backend_attempts": 1,
+            "backend_failures": 0,
+            "backend_switches": 0,
+            "bit_depth": 8,
+            "bound_port": 0,
+            "budget_rejected": 0,
+            "bytes": 0,
+            "color_defaulted": true,
+            "complete": 0,
+            "conflicts": 0,
+            "consumed": 0,
+            "converted_rgba": 0,
+            "cpu_readback_bytes": 351205355520,
+            "cpu_readbacks": 112083,
+            "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+            "decode_errors": 0,
+            "decoded": 112083,
+            "decoder": "cuda",
+            "duplicate": 0,
+            "error": "",
+            "fallback": "",
+            "ffmpeg": "n8.1.3",
+            "foreign": 0,
+            "format_changes": 1,
+            "frame_age_ms": 102,
+            "generation": 1,
+            "gpu_attempts": 0,
+            "gpu_disabled": false,
+            "gpu_retirement": {},
+            "hardware": true,
+            "hardware_frames": 112083,
+            "height": 1080,
+            "invalid": 0,
+            "last_frame_ms": 1975870,
+            "last_packet_ms": 0,
+            "late": 0,
+            "mailbox_replaced": 1227,
+            "matrix": 1,
+            "missing": 0,
+            "mode": "cpu_nv12",
+            "ordered": 0,
+            "out_of_window": 0,
+            "oversized": 0,
+            "packets": 0,
+            "parser_packets": 112134,
+            "peak_pending_bytes": 0,
+            "peak_pending_frames": 0,
+            "peak_queue_bytes": 0,
+            "pending_bytes": 0,
+            "pending_frames": 0,
+            "pixel_format": "nv12",
+            "precision_reduced": false,
+            "prepared": 112083,
+            "presentation_fallbacks": 0,
+            "queue_bytes": 0,
+            "queue_dropped": 0,
+            "queue_expired": 0,
+            "queue_frames": 0,
+            "range": 1,
+            "recoveries": 1,
+            "recovery_reason": "",
+            "render_pending": 0,
+            "requested_decoder": "cuda",
+            "requested_transfer": "yuv",
+            "resets": 2,
+            "resource_generation": 4,
+            "restarts": 0,
+            "running": false,
+            "skipped_rasl": 0,
+            "skipped_until_key": 51,
+            "socket_buffer_bytes": 4194304,
+            "source": "",
+            "started_ms": 106018,
+            "state": "Stopped",
+            "timeouts": 0,
+            "width": 1920,
+            "worker_done": true
+          },
+          "event": "stopped"
+        },
+        "environment": {
+          "PATH": "/usr/bin:/bin",
+          "DOTNET_ROOT": "/home/lqx/code/processing/2026-11-15-m6-release/no-installed-runtime",
+          "DOTNET_MULTILEVEL_LOOKUP": "0"
+        }
+      },
+      "steady_rates": {
+        "decode_fps": 59.958017667339874,
+        "new_texture_fps": 59.29761669107854,
+        "new_texture_p10_fps": 57.75420333057618
+      },
+      "lifecycle": {
+        "count": 60,
+        "gpu": false,
+        "decoded": 1860,
+        "submitted": 1836,
+        "all_worker_done": true,
+        "render_pending_max_after_stop": 0,
+        "os_samples": [
+          {
+            "seconds": 1.694500000049004e-05,
+            "rss": 4096,
+            "private": 4096,
+            "threads": 1,
+            "handles": 3
+          },
+          {
+            "seconds": 0.25031208200000066,
+            "rss": 61378560,
+            "private": 14315520,
+            "threads": 18,
+            "handles": 9
+          },
+          {
+            "seconds": 0.5006920680000002,
+            "rss": 61378560,
+            "private": 14315520,
+            "threads": 18,
+            "handles": 9
+          },
+          {
+            "seconds": 0.7511794070000004,
+            "rss": 62595072,
+            "private": 15024128,
+            "threads": 18,
+            "handles": 10
+          },
+          {
+            "seconds": 1.0016780570000003,
+            "rss": 244301824,
+            "private": 88907776,
+            "threads": 64,
+            "handles": 24
+          },
+          {
+            "seconds": 1.2521907640000007,
+            "rss": 290144256,
+            "private": 104861696,
+            "threads": 68,
+            "handles": 56
+          },
+          {
+            "seconds": 1.5030591760000007,
+            "rss": 290910208,
+            "private": 105095168,
+            "threads": 67,
+            "handles": 56
+          },
+          {
+            "seconds": 1.7536166070000005,
+            "rss": 290910208,
+            "private": 105095168,
+            "threads": 67,
+            "handles": 56
+          },
+          {
+            "seconds": 2.004028173,
+            "rss": 350670848,
+            "private": 115363840,
+            "threads": 68,
+            "handles": 58
+          },
+          {
+            "seconds": 2.2548428980000006,
+            "rss": 408297472,
+            "private": 139927552,
+            "threads": 70,
+            "handles": 66
+          },
+          {
+            "seconds": 2.5056834080000003,
+            "rss": 408301568,
+            "private": 139931648,
+            "threads": 70,
+            "handles": 66
+          },
+          {
+            "seconds": 2.756125430000001,
+            "rss": 361160704,
+            "private": 137834496,
+            "threads": 68,
+            "handles": 58
+          },
+          {
+            "seconds": 3.006610296,
+            "rss": 424509440,
+            "private": 152182784,
+            "threads": 70,
+            "handles": 66
+          },
+          {
+            "seconds": 3.257235273000001,
+            "rss": 424509440,
+            "private": 152182784,
+            "threads": 70,
+            "handles": 66
+          },
+          {
+            "seconds": 3.5076921480000003,
+            "rss": 377921536,
+            "private": 153620480,
+            "threads": 68,
+            "handles": 58
+          },
+          {
+            "seconds": 3.7589213630000007,
+            "rss": 423190528,
+            "private": 154116096,
+            "threads": 70,
+            "handles": 66
+          },
+          {
+            "seconds": 4.009504831000001,
+            "rss": 423190528,
+            "private": 154116096,
+            "threads": 70,
+            "handles": 66
+          },
+          {
+            "seconds": 4.2602181009999995,
+            "rss": 372666368,
+            "private": 155348992,
+            "threads": 68,
+            "handles": 58
+          },
+          {
+            "seconds": 4.510749926000001,
+            "rss": 427905024,
+            "private": 155512832,
+            "threads": 70,
+            "handles": 66
+          },
+          {
+            "seconds": 4.7612570000000005,
+            "rss": 427905024,
+            "private": 155512832,
+            "threads": 70,
+            "handles": 66
+          },
+          {
+            "seconds": 5.012198429,
+            "rss": 416538624,
+            "private": 155484160,
+            "threads": 69,
+            "handles": 65
+          },
+          {
+            "seconds": 5.262859362,
+            "rss": 424235008,
+            "private": 155521024,
+            "threads": 70,
+            "handles": 66
+          },
+          {
+            "seconds": 5.51335304,
+            "rss": 424660992,
+            "private": 155586560,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 5.763756928000001,
+            "rss": 424660992,
+            "private": 155586560,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 6.014163192,
+            "rss": 428490752,
+            "private": 156520448,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 6.264593629,
+            "rss": 428916736,
+            "private": 156524544,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 6.515898355000001,
+            "rss": 428916736,
+            "private": 156524544,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 6.766390567,
+            "rss": 424628224,
+            "private": 156405760,
+            "threads": 68,
+            "handles": 65
+          },
+          {
+            "seconds": 7.016809782000001,
+            "rss": 425627648,
+            "private": 156553216,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 7.267259181,
+            "rss": 425627648,
+            "private": 156553216,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 7.5177736490000004,
+            "rss": 413294592,
+            "private": 156434432,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 7.769069682,
+            "rss": 428945408,
+            "private": 156553216,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 8.019464868,
+            "rss": 428945408,
+            "private": 156553216,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 8.270046728,
+            "rss": 401559552,
+            "private": 156405760,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 8.520576933000001,
+            "rss": 425627648,
+            "private": 156553216,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 8.771433703,
+            "rss": 425627648,
+            "private": 156553216,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 9.022037847,
+            "rss": 395776000,
+            "private": 157790208,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 9.272710981,
+            "rss": 430301184,
+            "private": 157908992,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 9.52356891,
+            "rss": 430301184,
+            "private": 157908992,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 9.774078411,
+            "rss": 351735808,
+            "private": 157790208,
+            "threads": 64,
+            "handles": 56
+          },
+          {
+            "seconds": 10.024699367,
+            "rss": 428810240,
+            "private": 159735808,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 10.275191111,
+            "rss": 428810240,
+            "private": 159735808,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 10.525678669,
+            "rss": 397574144,
+            "private": 159588352,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 10.776573148999999,
+            "rss": 432107520,
+            "private": 159715328,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 11.027072154,
+            "rss": 432107520,
+            "private": 159715328,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 11.27756521,
+            "rss": 356855808,
+            "private": 159596544,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 11.528038296,
+            "rss": 428818432,
+            "private": 159744000,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 11.778868477000001,
+            "rss": 428818432,
+            "private": 159744000,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 12.029350448,
+            "rss": 367898624,
+            "private": 161972224,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 12.279815799,
+            "rss": 434483200,
+            "private": 162091008,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 12.530297968000001,
+            "rss": 434483200,
+            "private": 162091008,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 12.780745981,
+            "rss": 355901440,
+            "private": 161955840,
+            "threads": 64,
+            "handles": 56
+          },
+          {
+            "seconds": 13.031304897,
+            "rss": 422588416,
+            "private": 153513984,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 13.281835089,
+            "rss": 422588416,
+            "private": 153513984,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 13.532478179,
+            "rss": 347041792,
+            "private": 156413952,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 13.782993781,
+            "rss": 428924928,
+            "private": 156532736,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 14.033552084000002,
+            "rss": 428924928,
+            "private": 156532736,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 14.284086311000001,
+            "rss": 350371840,
+            "private": 156426240,
+            "threads": 64,
+            "handles": 57
+          },
+          {
+            "seconds": 14.534527166000002,
+            "rss": 425635840,
+            "private": 156561408,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 14.785067969000002,
+            "rss": 425635840,
+            "private": 156561408,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 15.035582530000001,
+            "rss": 347054080,
+            "private": 156426240,
+            "threads": 64,
+            "handles": 56
+          },
+          {
+            "seconds": 15.286064499,
+            "rss": 431001600,
+            "private": 158609408,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 15.537427636999999,
+            "rss": 431001600,
+            "private": 158609408,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 15.787899164,
+            "rss": 359280640,
+            "private": 160284672,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 16.038382470000002,
+            "rss": 429506560,
+            "private": 160432128,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 16.288882684,
+            "rss": 429506560,
+            "private": 160432128,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 16.53943785,
+            "rss": 390537216,
+            "private": 154648576,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 16.789907331000002,
+            "rss": 427159552,
+            "private": 154767360,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 17.040370427,
+            "rss": 427159552,
+            "private": 154767360,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 17.290936375999998,
+            "rss": 348577792,
+            "private": 154632192,
+            "threads": 64,
+            "handles": 56
+          },
+          {
+            "seconds": 17.541354361000003,
+            "rss": 426090496,
+            "private": 157016064,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 17.791935899000002,
+            "rss": 426090496,
+            "private": 157016064,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 18.04249231,
+            "rss": 377364480,
+            "private": 158253056,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 18.293063837,
+            "rss": 430764032,
+            "private": 158371840,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 18.543589406000002,
+            "rss": 430764032,
+            "private": 158371840,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 18.794100317999998,
+            "rss": 360665088,
+            "private": 158330880,
+            "threads": 67,
+            "handles": 59
+          },
+          {
+            "seconds": 19.044656836999998,
+            "rss": 427474944,
+            "private": 158400512,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 19.295312244,
+            "rss": 427474944,
+            "private": 158400512,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 19.546418977000002,
+            "rss": 348893184,
+            "private": 158265344,
+            "threads": 64,
+            "handles": 56
+          },
+          {
+            "seconds": 19.797585941999998,
+            "rss": 432836608,
+            "private": 160444416,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 20.048103116,
+            "rss": 432836608,
+            "private": 160444416,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 20.298713538,
+            "rss": 354349056,
+            "private": 160403456,
+            "threads": 66,
+            "handles": 58
+          },
+          {
+            "seconds": 20.549176875,
+            "rss": 421244928,
+            "private": 152170496,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 20.799895508,
+            "rss": 421244928,
+            "private": 152170496,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 21.050489660000004,
+            "rss": 358518784,
+            "private": 158281728,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 21.301904817,
+            "rss": 430792704,
+            "private": 158400512,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 21.552471596000004,
+            "rss": 430792704,
+            "private": 158400512,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 21.802955204,
+            "rss": 352210944,
+            "private": 158265344,
+            "threads": 64,
+            "handles": 56
+          },
+          {
+            "seconds": 22.053398727999998,
+            "rss": 427474944,
+            "private": 158400512,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 22.303862224,
+            "rss": 427474944,
+            "private": 158400512,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 22.554325177000003,
+            "rss": 354131968,
+            "private": 163504128,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 22.804752870999998,
+            "rss": 439197696,
+            "private": 166805504,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 23.055250952999998,
+            "rss": 439197696,
+            "private": 166805504,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 23.305784674,
+            "rss": 404750336,
+            "private": 166764544,
+            "threads": 67,
+            "handles": 59
+          },
+          {
+            "seconds": 23.556246729,
+            "rss": 421244928,
+            "private": 152170496,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 23.806802173999998,
+            "rss": 421244928,
+            "private": 152170496,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 24.057373157,
+            "rss": 342777856,
+            "private": 152150016,
+            "threads": 64,
+            "handles": 56
+          },
+          {
+            "seconds": 24.307856899,
+            "rss": 430764032,
+            "private": 158371840,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 24.558554117,
+            "rss": 430764032,
+            "private": 158371840,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 24.809107974,
+            "rss": 396316672,
+            "private": 158330880,
+            "threads": 67,
+            "handles": 59
+          },
+          {
+            "seconds": 25.059575443,
+            "rss": 427474944,
+            "private": 158400512,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 25.310045545,
+            "rss": 427474944,
+            "private": 158400512,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 25.56054434,
+            "rss": 393027584,
+            "private": 158359552,
+            "threads": 67,
+            "handles": 59
+          },
+          {
+            "seconds": 25.811319136999998,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 26.061862483,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 26.313006442000002,
+            "rss": 360714240,
+            "private": 161718272,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 26.563540207000003,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 26.814172839,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 27.064792192999995,
+            "rss": 398712832,
+            "private": 162824192,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 27.316126761,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 27.566778409,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 27.817315221,
+            "rss": 360620032,
+            "private": 153415680,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 28.067918938,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 28.319004205,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 28.569476656,
+            "rss": 397631488,
+            "private": 159645696,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 28.82022567,
+            "rss": 432156672,
+            "private": 159764480,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 29.070926086999997,
+            "rss": 432156672,
+            "private": 159764480,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 29.322256853,
+            "rss": 353603584,
+            "private": 159657984,
+            "threads": 64,
+            "handles": 56
+          },
+          {
+            "seconds": 29.573043231999996,
+            "rss": 428867584,
+            "private": 159793152,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 29.824164568,
+            "rss": 428867584,
+            "private": 159793152,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 30.074941126,
+            "rss": 421683200,
+            "private": 159752192,
+            "threads": 68,
+            "handles": 65
+          },
+          {
+            "seconds": 30.325624057999995,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 30.576396205,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 30.827896398,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 31.078486886,
+            "rss": 421711872,
+            "private": 153489408,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 31.329197293999997,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 31.579816037999997,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 31.830488871,
+            "rss": 434814976,
+            "private": 162938880,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 32.081124026,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 32.332010701,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 32.582457075,
+            "rss": 422088704,
+            "private": 153530368,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 32.832930315999995,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 33.083655434,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 33.334109976,
+            "rss": 431792128,
+            "private": 159760384,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 33.584579945,
+            "rss": 432156672,
+            "private": 159764480,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 33.835023197,
+            "rss": 432156672,
+            "private": 159764480,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 34.085735213999996,
+            "rss": 428867584,
+            "private": 159793152,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 34.337009684,
+            "rss": 428867584,
+            "private": 159793152,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 34.58747896,
+            "rss": 428867584,
+            "private": 159793152,
+            "threads": 68,
+            "handles": 66
+          },
+          {
+            "seconds": 34.837928945,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 35.088380101,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 35.338908466999996,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 35.589473208,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 35.839871099999996,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 36.090351362,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 36.340824315999996,
+            "rss": 434970624,
+            "private": 162938880,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 36.591748707,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 36.842325761,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 37.09289339,
+            "rss": 421638144,
+            "private": 153415680,
+            "threads": 67,
+            "handles": 59
+          },
+          {
+            "seconds": 37.34356916,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 37.594872568999996,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 37.845461932999996,
+            "rss": 431185920,
+            "private": 159645696,
+            "threads": 67,
+            "handles": 59
+          },
+          {
+            "seconds": 38.096389752,
+            "rss": 432156672,
+            "private": 159764480,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 38.346908069,
+            "rss": 432156672,
+            "private": 159764480,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 38.597485658,
+            "rss": 400605184,
+            "private": 159645696,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 38.848114216,
+            "rss": 428867584,
+            "private": 159793152,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 39.098582699,
+            "rss": 428867584,
+            "private": 159793152,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 39.349190476,
+            "rss": 406024192,
+            "private": 161746944,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 39.59966984,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 39.850736728,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 40.101228254999995,
+            "rss": 377561088,
+            "private": 153415680,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 40.352305176,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 40.602850734,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 40.853363105999996,
+            "rss": 400809984,
+            "private": 162824192,
+            "threads": 67,
+            "handles": 58
+          },
+          {
+            "seconds": 41.103814592,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 41.354317816,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 41.60487673,
+            "rss": 356782080,
+            "private": 162836480,
+            "threads": 64,
+            "handles": 57
+          },
+          {
+            "seconds": 41.855354139,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 42.105848676,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 42.356594934,
+            "rss": 344121344,
+            "private": 153493504,
+            "threads": 66,
+            "handles": 58
+          },
+          {
+            "seconds": 42.607035021,
+            "rss": 432156672,
+            "private": 159764480,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 42.857502796999995,
+            "rss": 432156672,
+            "private": 159764480,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 43.107989098,
+            "rss": 397709312,
+            "private": 159723520,
+            "threads": 67,
+            "handles": 59
+          },
+          {
+            "seconds": 43.358531099,
+            "rss": 428867584,
+            "private": 159793152,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 43.609700003,
+            "rss": 428867584,
+            "private": 159793152,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 43.860237610999995,
+            "rss": 356671488,
+            "private": 159752192,
+            "threads": 66,
+            "handles": 58
+          },
+          {
+            "seconds": 44.110971811999995,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 44.361467839,
+            "rss": 434257920,
+            "private": 161865728,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 44.611905338,
+            "rss": 434229248,
+            "private": 161837056,
+            "threads": 68,
+            "handles": 66
+          },
+          {
+            "seconds": 44.862909992,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 45.113454256,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 45.364052242999996,
+            "rss": 411230208,
+            "private": 153493504,
+            "threads": 68,
+            "handles": 65
+          },
+          {
+            "seconds": 45.614695461,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 45.865286845,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 46.116446648,
+            "rss": 435335168,
+            "private": 162942976,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 46.367077191999996,
+            "rss": 422182912,
+            "private": 153530368,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 46.617685109,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 46.868338748999996,
+            "rss": 422637568,
+            "private": 153563136,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 47.11882824,
+            "rss": 431259648,
+            "private": 159719424,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 47.369236701,
+            "rss": 432156672,
+            "private": 159764480,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 47.619871093,
+            "rss": 432156672,
+            "private": 159764480,
+            "threads": 69,
+            "handles": 66
+          },
+          {
+            "seconds": 47.870521458,
+            "rss": 365674496,
+            "private": 169775104,
+            "threads": 64,
+            "handles": 56
+          }
+        ],
+        "render": "llvmpipe (LLVM 20.1.2, 256 bits)"
+      },
+      "fault_injection": {
+        "final": {
+          "accepted_presentation": 0,
+          "accepted_resource": 24,
+          "accepted_stream": 2,
+          "avcodec_abi": 4070503,
+          "backend_attempts": 1,
+          "backend_failures": 0,
+          "backend_switches": 0,
+          "bit_depth": 8,
+          "bound_port": 38925,
+          "budget_rejected": 0,
+          "bytes": 329457,
+          "color_defaulted": false,
+          "complete": 2640,
+          "conflicts": 0,
+          "consumed": 858,
+          "converted_rgba": 0,
+          "cpu_readback_bytes": 615690240,
+          "cpu_readbacks": 697,
+          "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+          "decode_errors": 1,
+          "decoded": 697,
+          "decoder": "cuda",
+          "duplicate": 0,
+          "error": "",
+          "fallback": "",
+          "ffmpeg": "n8.1.3",
+          "foreign": 0,
+          "format_changes": 4,
+          "frame_age_ms": 6,
+          "generation": 2,
+          "gpu_attempts": 0,
+          "gpu_disabled": false,
+          "gpu_retirement": {},
+          "hardware": true,
+          "hardware_frames": 697,
+          "height": 720,
+          "invalid": 0,
+          "last_frame_ms": 2067383,
+          "last_packet_ms": 2067378,
+          "late": 0,
+          "mailbox_replaced": 4,
+          "matrix": 1,
+          "missing": 2,
+          "mode": "cpu_nv12",
+          "ordered": 2639,
+          "out_of_window": 0,
+          "oversized": 0,
+          "packets": 2740,
+          "parser_packets": 839,
+          "peak_pending_bytes": 3638,
+          "peak_pending_frames": 3,
+          "peak_queue_bytes": 3635,
+          "pending_bytes": 0,
+          "pending_frames": 0,
+          "pixel_format": "nv12",
+          "precision_reduced": false,
+          "prepared": 697,
+          "presentation_fallbacks": 0,
+          "queue_bytes": 0,
+          "queue_dropped": 1780,
+          "queue_expired": 1,
+          "queue_frames": 0,
+          "range": 1,
+          "recoveries": 18,
+          "recovery_reason": "",
+          "render_pending": 0,
+          "requested_decoder": "cuda",
+          "requested_transfer": "yuv",
+          "resets": 19,
+          "resource_generation": 24,
+          "restarts": 1,
+          "running": true,
+          "skipped_rasl": 0,
+          "skipped_until_key": 141,
+          "socket_buffer_bytes": 4194304,
+          "source": "127.0.0.1:46573",
+          "started_ms": 2050594,
+          "state": "Running",
+          "timeouts": 1,
+          "width": 1280,
+          "worker_done": false
+        },
+        "presentation": {
+          "error": "",
+          "height": 720,
+          "path": "cpu_nv12",
+          "shown_generation": 2,
+          "shown_presentation": 0,
+          "shown_resource": 24,
+          "shown_sequence": 697,
+          "submitted": 690,
+          "upload_pending": false,
+          "width": 1280
+        },
+        "cycles": 18,
+        "errors": []
+      },
+      "port_conflict": {
+        "core": {
+          "accepted_presentation": 0,
+          "accepted_resource": 0,
+          "accepted_stream": 0,
+          "avcodec_abi": 4070503,
+          "backend_attempts": 0,
+          "backend_failures": 0,
+          "backend_switches": 0,
+          "bit_depth": 8,
+          "bound_port": 0,
+          "budget_rejected": 0,
+          "bytes": 0,
+          "color_defaulted": false,
+          "complete": 0,
+          "conflicts": 0,
+          "consumed": 0,
+          "converted_rgba": 0,
+          "cpu_readback_bytes": 0,
+          "cpu_readbacks": 0,
+          "decode_device": "",
+          "decode_errors": 0,
+          "decoded": 0,
+          "decoder": "",
+          "duplicate": 0,
+          "error": "bind failed (OS error 98)",
+          "fallback": "",
+          "ffmpeg": "n8.1.3",
+          "foreign": 0,
+          "format_changes": 0,
+          "frame_age_ms": -1,
+          "generation": 0,
+          "gpu_attempts": 0,
+          "gpu_disabled": false,
+          "gpu_retirement": {},
+          "hardware": false,
+          "hardware_frames": 0,
+          "height": 0,
+          "invalid": 0,
+          "last_frame_ms": 0,
+          "last_packet_ms": 0,
+          "late": 0,
+          "mailbox_replaced": 0,
+          "matrix": 2,
+          "missing": 0,
+          "mode": "",
+          "ordered": 0,
+          "out_of_window": 0,
+          "oversized": 0,
+          "packets": 0,
+          "parser_packets": 0,
+          "peak_pending_bytes": 0,
+          "peak_pending_frames": 0,
+          "peak_queue_bytes": 0,
+          "pending_bytes": 0,
+          "pending_frames": 0,
+          "pixel_format": "",
+          "precision_reduced": false,
+          "prepared": 0,
+          "presentation_fallbacks": 0,
+          "queue_bytes": 0,
+          "queue_dropped": 0,
+          "queue_expired": 0,
+          "queue_frames": 0,
+          "range": 0,
+          "recoveries": 0,
+          "recovery_reason": "",
+          "render_pending": 0,
+          "requested_decoder": "auto",
+          "requested_transfer": "yuv",
+          "resets": 0,
+          "resource_generation": 0,
+          "restarts": 0,
+          "running": false,
+          "skipped_rasl": 0,
+          "skipped_until_key": 0,
+          "socket_buffer_bytes": 0,
+          "source": "",
+          "started_ms": 2072027,
+          "state": "Faulted",
+          "timeouts": 0,
+          "width": 0,
+          "worker_done": true
+        },
+        "event": "stopped"
+      },
+      "modified_ffmpeg": {
+        "actual_version": "n8.1.3-relink-validation",
+        "decoded": 549,
+        "submitted": 543,
+        "native_sha256": "84f7f464a6eb87faea757dc1a1fa6512e8ca79e9a6093162a63b1d724fcc4c75",
+        "stopped": {
+          "core": {
+            "accepted_presentation": 0,
+            "accepted_resource": 0,
+            "accepted_stream": 0,
+            "avcodec_abi": 4070503,
+            "backend_attempts": 1,
+            "backend_failures": 0,
+            "backend_switches": 0,
+            "bit_depth": 8,
+            "bound_port": 0,
+            "budget_rejected": 0,
+            "bytes": 0,
+            "color_defaulted": true,
+            "complete": 0,
+            "conflicts": 0,
+            "consumed": 0,
+            "converted_rgba": 0,
+            "cpu_readback_bytes": 1720258560,
+            "cpu_readbacks": 549,
+            "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+            "decode_errors": 0,
+            "decoded": 549,
+            "decoder": "cuda",
+            "duplicate": 0,
+            "error": "",
+            "fallback": "",
+            "ffmpeg": "n8.1.3-relink-validation",
+            "foreign": 0,
+            "format_changes": 1,
+            "frame_age_ms": 71,
+            "generation": 1,
+            "gpu_attempts": 0,
+            "gpu_disabled": false,
+            "gpu_retirement": {},
+            "hardware": true,
+            "hardware_frames": 549,
+            "height": 1080,
+            "invalid": 0,
+            "last_frame_ms": 2085932,
+            "last_packet_ms": 0,
+            "late": 0,
+            "mailbox_replaced": 5,
+            "matrix": 1,
+            "missing": 0,
+            "mode": "cpu_nv12",
+            "ordered": 0,
+            "out_of_window": 0,
+            "oversized": 0,
+            "packets": 0,
+            "parser_packets": 549,
+            "peak_pending_bytes": 0,
+            "peak_pending_frames": 0,
+            "peak_queue_bytes": 0,
+            "pending_bytes": 0,
+            "pending_frames": 0,
+            "pixel_format": "nv12",
+            "precision_reduced": false,
+            "prepared": 549,
+            "presentation_fallbacks": 0,
+            "queue_bytes": 0,
+            "queue_dropped": 0,
+            "queue_expired": 0,
+            "queue_frames": 0,
+            "range": 1,
+            "recoveries": 0,
+            "recovery_reason": "",
+            "render_pending": 0,
+            "requested_decoder": "cuda",
+            "requested_transfer": "yuv",
+            "resets": 1,
+            "resource_generation": 3,
+            "restarts": 0,
+            "running": false,
+            "skipped_rasl": 0,
+            "skipped_until_key": 0,
+            "socket_buffer_bytes": 4194304,
+            "source": "",
+            "started_ms": 2075876,
+            "state": "Stopped",
+            "timeouts": 0,
+            "width": 1920,
+            "worker_done": true
+          },
+          "event": "stopped"
+        }
+      }
+    }
+  },
+  "raw_evidence": {
+    "analyze_live.py": {
+      "sha256": "e43781176b1afe25895c9b5b143ccd827200a2eeb9b8f9658661c6931b8eebdd",
+      "bytes": 1016
+    },
+    "audit_package.py": {
+      "sha256": "b8518a41cdb1124a3e42b1a4e11935dccb80d57a3560d074a0925760116723d8",
+      "bytes": 2851
+    },
+    "build-windows.log": {
+      "sha256": "e81bc261ce94c4b1196c6e82ace70b41234cf228420f8f4a98dad3c474f79934",
+      "bytes": 9049
+    },
+    "engine-notices-probe.json": {
+      "sha256": "e7f3ecb57ee1e1396c2795354cd1554372e6452ec22afe8af173bd3d1695a52d",
+      "bytes": 116347
+    },
+    "engine-notices.log": {
+      "sha256": "6038ffebd796e5e276b58f03c28cf3eba2bbe6d85eea3592e6d3c3d87f0fe143",
+      "bytes": 80
+    },
+    "export-linux-rc1.log": {
+      "sha256": "39e1a28ca43d7cf9669d064f82a03bdbe86a448df3a2b19fb2d69c98796e07df",
+      "bytes": 12589
+    },
+    "export-windows-rc1.log": {
+      "sha256": "ce7c26c473fdbc569799eb8684b3efaa061700f9dc6642c3259ea240b6c26376",
+      "bytes": 13609
+    },
+    "export_linux.py": {
+      "sha256": "5affcddf4b4d6a1849a34284c823c908391c8a7708c223384874d1ff2411380d",
+      "bytes": 1646
+    },
+    "lifecycle-32-frames.gd": {
+      "sha256": "6487b03d245b17be774b1244365a6a84d896a19d1f35b7726b742596a67419f1",
+      "bytes": 4025
+    },
+    "lifecycle.gd": {
+      "sha256": "f3cb6eb01c8070a288260fb37859fe7b08358e71d9b5c1e92640040f0184f281",
+      "bytes": 4196
+    },
+    "linux-lifecycle.json": {
+      "sha256": "9381a4f1299ad5e2b565875004eda6c0c588cdbbff21ba9d3e425c43eb789fbe",
+      "bytes": 335819
+    },
+    "linux-lifecycle.log": {
+      "sha256": "8abd90461c285abfadc9c5d936f9abcf9f1500277ef0f02e5dae325fe16f2899",
+      "bytes": 572
+    },
+    "linux-long-os.ndjson": {
+      "sha256": "b3d95c37b95c1fdcadfbaefff785a388ae64eb1824c11c6e2336b47779158d79",
+      "bytes": 21509
+    },
+    "linux-long.json": {
+      "sha256": "4d432f46607da2db63d41604093ba549b53e0400462e2a0770418094c4db3b6e",
+      "bytes": 36070
+    },
+    "linux-long.json.ndjson": {
+      "sha256": "78ad4d86a3de2ade8132cca80e01aa85e1feeb291db71de83a569b9f0c641c0a",
+      "bytes": 3490024
+    },
+    "linux-long.log": {
+      "sha256": "6f52f6b873f5b8948b68706108869fe235f576f4d1d83cd44882023422addcd3",
+      "bytes": 5230
+    },
+    "linux-package-audit.json": {
+      "sha256": "9a0b6d0e95e9898358773b2ce808f6caa59ff6cf59b72e41d9d5a17e3aa1b054",
+      "bytes": 3169
+    },
+    "linux-port-conflict-gui.json": {
+      "sha256": "ccd7721d5bd01b84b2e6c5038748cd613b2359213e9af6a9fed3655df5d8cfe7",
+      "bytes": 9785
+    },
+    "linux-port-conflict-gui.json.ndjson": {
+      "sha256": "30091b5c5b925926b4acd801090e051b989e305d0ba87addb2a73d1bbabda654",
+      "bytes": 6204
+    },
+    "linux-port-conflict-gui.log": {
+      "sha256": "918260e9f218feb2acd6f628ed06e1b8c2f8db66914636767e1a3a67e8a7cd7b",
+      "bytes": 4683
+    },
+    "linux-rebuild-modified.log": {
+      "sha256": "71b70334119cbf13f86763bf1228f9286cd448574c04a9899c316b16e1b394bd",
+      "bytes": 25473
+    },
+    "linux-rebuild-original.log": {
+      "sha256": "a0d4789b90a7c5d1701095acb82ee3cf5bd306dc5891601c66b27e7aad869317",
+      "bytes": 38897
+    },
+    "linux-recovery-cuda-0.json": {
+      "sha256": "3eadfb58d794a83413eae6d72abfba3f2ef8be8b37771a35fc305b1a152fe5fb",
+      "bytes": 538954
+    },
+    "linux-recovery-cuda-0.log": {
+      "sha256": "adac76f7334a5fd43f25108553e33644df202b3bb6336c86b331bdf2cc1c6c5c",
+      "bytes": 536
+    },
+    "linux-relink-modified-os.ndjson": {
+      "sha256": "06b2b4946a91c915e6392e833341444cd8ca33de283880d8ac95ec91b3adc20b",
+      "bytes": 189
+    },
+    "linux-relink-modified.json": {
+      "sha256": "84d56ccd6f5b230273d0def8ea9a7466bd9fdfcf50d785e7b38c0ee513c8c5d3",
+      "bytes": 6026
+    },
+    "linux-relink-modified.json.ndjson": {
+      "sha256": "f207fc06fa6d1bd3f6a8c18e8c6dc9d18f3e7f7b62e581c15971dbf81f8e9a03",
+      "bytes": 22182
+    },
+    "linux-relink-modified.log": {
+      "sha256": "f7df798c78ecad65af9d4a62532adf64ee4c9050ae3fd3490ce2c01986a7944a",
+      "bytes": 5225
+    },
+    "make_relinked_package.py": {
+      "sha256": "3233bbd994f71aa601e7df296b56a648d5ad67fffa33f92ac15563720cccbc05",
+      "bytes": 1552
+    },
+    "post_long.py": {
+      "sha256": "766d83067bf5825d39535f2920b77053cb1734d2118c4ce795f2137d47223788",
+      "bytes": 1147
+    },
+    "prepare_faults.py": {
+      "sha256": "1972d6963e726c267ffe2dbc06182505b644f4188e87f2da81dc17557bfdebd9",
+      "bytes": 1434
+    },
+    "process_stats.py": {
+      "sha256": "70c469d543f053cd48894fcb82fab489837440d29588675653cbac2e4dcd9ffc",
+      "bytes": 2477
+    },
+    "rebuild_and_relink_linux.py": {
+      "sha256": "1552fac658b404439708dbead1153cc177dde552a61418ae029c8aec6151f170",
+      "bytes": 1582
+    },
+    "recovery_probe.gd": {
+      "sha256": "f19c373acef531038d1e150a9aacfd206f09cdaaece9a92baa6d91fd66802f37",
+      "bytes": 6158
+    },
+    "run_faults.py": {
+      "sha256": "9dcaf5dde4f261f7316ad5eeef4139f19488fffe998775f4fa024504487e36dd",
+      "bytes": 4164
+    },
+    "run_lifecycle.py": {
+      "sha256": "4bbde66a0037849af92a6ecbcd57c535316283061a5da9d67af812badcf09068",
+      "bytes": 1917
+    },
+    "run_linux.py": {
+      "sha256": "b1f0c8866aaa0b779502e39af86750317eaa0fbf78ed6731b4bff1f257aa06ad",
+      "bytes": 753
+    },
+    "run_long.py": {
+      "sha256": "e2cd6d52a6e1ed02c5143dbe175566cbe59f43d2ab0f72746fc1f0937d4346fb",
+      "bytes": 8879
+    },
+    "run_port_conflict.py": {
+      "sha256": "347e99a1fbcc85a999bf67ff286c5112d9f752d76d1072aca36c08be5056f821",
+      "bytes": 1606
+    },
+    "summarize.py": {
+      "sha256": "cb4aa9482a82ae5d285e642923932ab10046855644dee7b32092924a4adf7628",
+      "bytes": 4615
+    },
+    "verify_linux_engine.py": {
+      "sha256": "3eff515b926c2b95c95a7d305bb9c5186e409d8413f01d6ed848facbadb2a20c",
+      "bytes": 1064
+    },
+    "windows-environment.json": {
+      "sha256": "7d829aeb1ee9632be459d452281f50f2d948ff44d0f2c6048d023c8c0c114be3",
+      "bytes": 293
+    },
+    "windows-lifecycle-process-v2.json": {
+      "sha256": "0716853b080cc7884a6ac9cf600086c44c70fb426375a9792ad46c29c6680b40",
+      "bytes": 388461
+    },
+    "windows-lifecycle-process-v2.log": {
+      "sha256": "2cf39d940e3c598c41d1bddc2ea424173980764eea597e96db9c304458bc5022",
+      "bytes": 386
+    },
+    "windows-lifecycle-process.json": {
+      "sha256": "ccd4844cf84071fd0209b3d0a1a983637cd182d7b4641a8e1939f3e7454e474e",
+      "bytes": 9194
+    },
+    "windows-lifecycle-process.log": {
+      "sha256": "d570bdb88e1da227bb7c53fbe74a19ac3e21515f049fc49b86174b06f9161261",
+      "bytes": 188
+    },
+    "windows-lifecycle.json": {
+      "sha256": "23d5915411a0fc0db9fb5fbac84f8a69a9a2c4c0fc855aec6429771ae1548d3e",
+      "bytes": 388393
+    },
+    "windows-lifecycle.log": {
+      "sha256": "2cf39d940e3c598c41d1bddc2ea424173980764eea597e96db9c304458bc5022",
+      "bytes": 386
+    },
+    "windows-long-os.ndjson": {
+      "sha256": "8b486683b7df7f6073b1bd45df1bb3c8b916617319d4cfd381ee5562aeb4b1e1",
+      "bytes": 22052
+    },
+    "windows-long.json": {
+      "sha256": "8b03c83181e6c914b3f1618bade7a7025efbeccfaa1fba3b1f286dec233f7abf",
+      "bytes": 38870
+    },
+    "windows-long.json.ndjson": {
+      "sha256": "3c087ae6161238b5d95aa9f5067685117aaa36b341c6009ef8b8f7c07e022c44",
+      "bytes": 3846219
+    },
+    "windows-long.log": {
+      "sha256": "58ac1fdf9677f8169ff618816b11fe530d6107a66f89020e9a157eaf6295d93e",
+      "bytes": 5817
+    },
+    "windows-package-audit.json": {
+      "sha256": "42345502d2989c5445cea05dc60b08fcfde0e22c0cbf1da8159d942d258ff59d",
+      "bytes": 3994
+    },
+    "windows-port-conflict-gui.json": {
+      "sha256": "68a6d36f917a6baa3a4568f2ac17437c478c48f90a2145b547624ed0cf84e9f7",
+      "bytes": 10202
+    },
+    "windows-port-conflict-gui.json.ndjson": {
+      "sha256": "c243939cb932df7bf2c30d91e352d5564c9049441153c088f61c733d6d4e4b60",
+      "bytes": 6258
+    },
+    "windows-port-conflict-gui.log": {
+      "sha256": "9caf7412c3fa10334d8959df0a853c59d77f140573a9085b63d757d3a95709d7",
+      "bytes": 4719
+    },
+    "windows-port-conflict.json.ndjson": {
+      "sha256": "8a206cd14e1db9c04d080a2723a0126dc2622099cf25b85ab4e7af99b30dc701",
+      "bytes": 3122
+    },
+    "windows-port-conflict.log": {
+      "sha256": "b972b9464dbbd3b3db714759903114c8d9696fe63107994e8fe38db1fc58eb01",
+      "bytes": 1535
+    },
+    "windows-recovery-cuda-0.json": {
+      "sha256": "d8b6f40274bf682ef234033dae02f901b10ea536f241aa3700b92218ba23c37d",
+      "bytes": 552154
+    },
+    "windows-recovery-cuda-0.log": {
+      "sha256": "4ad556878c28f98bd7d3bbf6df0458f9fa43237a59d2e44115ad729e21ffc3c0",
+      "bytes": 351
+    },
+    "windows-relink-modified-os.ndjson": {
+      "sha256": "fb3a6f289b3b96e11aff121653d59fc1253c31dc75071f5faa2c71fdc0bb600b",
+      "bytes": 294
+    },
+    "windows-relink-modified.json": {
+      "sha256": "41a2efd7fc82f19c8fa28bb5698f2e1d03fb89be4d3c643347f108f45c7eb964",
+      "bytes": 7223
+    },
+    "windows-relink-modified.json.ndjson": {
+      "sha256": "c1298b38b83af68d89e900e8ca119664458b9b9176e0fb6b2cca7bed36732278",
+      "bytes": 23071
+    },
+    "windows-relink-modified.log": {
+      "sha256": "4d09d0ac942969cbe48f72dc486822ffca7596224d9fbb0a4f05b27d1af24e86",
+      "bytes": 5791
+    },
+    "windows-relink-original-os.ndjson": {
+      "sha256": "b717d7522c611b2d705363addef194688503004a8f84d5ee6f70f11c1265972b",
+      "bytes": 294
+    },
+    "windows-relink-original.json": {
+      "sha256": "4998820e8e310b10679840e6a126a9101d8248fc020af2bedafccbabbecd1775",
+      "bytes": 7186
+    },
+    "windows-relink-original.json.ndjson": {
+      "sha256": "1ca1cd62abc1c3e295321e34ba6409bd00d7d74a9025c47f2b0ee97262690ffa",
+      "bytes": 22870
+    },
+    "windows-relink-original.log": {
+      "sha256": "933900c119f263f39d3d12ebd63cd7faa4229f4a52aa9442d36a22591fd38a76",
+      "bytes": 5736
+    }
+  },
+  "excluded_trials": [
+    "windows-port-conflict headless: unsupported desktop rendering mode, timed test never receives frame_post_draw; replaced with GUI case",
+    "windows-lifecycle.json OS samples measured console launcher; native 60-cycle results valid, OS memory conclusions use windows-lifecycle-process-v2.json instead",
+    "windows-lifecycle-process.json: 32-frame test stopped before the next IRAP after a cold-start queue expiry, so it produced no GPU frame. Missing GPU metrics were incorrectly labeled leaks by the first harness. The final continuous-stream harness reaches at least 30 submissions before each stop and passes all 60 cycles."
+  ]
+}

@@ -117,9 +117,8 @@ def main():
     if not windows:executable.chmod(executable.stat().st_mode|0o111)
     shutil.copy2(repo/'build/dependencies.lock.json',output/'dependencies.lock.json')
     shutil.copy2(repo/'docs/m6-release.md',output/'CAPABILITIES.md')
-    documentation=output/'docs';documentation.mkdir(exist_ok=True)
-    for name in ['m2-media.md','m3-recovery.md','m4-gpu.md','m5-backends.md','m6-release.md']:
-        if (repo/'docs'/name).is_file():shutil.copy2(repo/'docs'/name,documentation/name)
+    # Keep the evidence referenced by the reports with the distributable docs.
+    shutil.copytree(repo/'docs',output/'docs')
     (output/'README.txt').write_text(
         'RM Video Receiver '+args.label+'\nCommit: '+commit+'\n\n'
         'Run '+executable.name+' and choose the local IPv4 listening address and UDP port (3334 by default).\n'
