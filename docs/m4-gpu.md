@@ -1,6 +1,6 @@
 # M4：CUDA / OpenGL GPU 视频路径
 
-2026-11-15。核心实现 `bfd2334`，最终 D2 包实现 `aa2753e`；本阶段尚待独立审查。D1 的 CPU YUV/RGBA 路径继续可用。
+2026-11-15。核心实现 `bfd2334`，最终 D2 包实现 `aa2753e`；本阶段已获 gpt-6-astra [独立审查 PASS](evidence/m4/review.md)。D1 的 CPU YUV/RGBA 路径继续可用。
 
 ## 支持范围与使用
 

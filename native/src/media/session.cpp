@@ -138,7 +138,10 @@ void MediaSession::run(MediaConfig config) noexcept {
                         invalidate(error.what(), true); decoder->recover();
                     } else if (error.kind == MediaFailure::Backend) {
                         invalidate(error.what(), false);
-                        if (!decoder->fallback_backend(error.what())) {
+                        bool switched = false;
+                        try { switched = decoder->fallback_backend(error.what()); }
+                        catch (...) { update_decoder_status(); throw; }
+                        if (!switched) {
                             update_decoder_status();
                             throw MediaError(MediaFailure::Backend, decoder->backend()+": "+error.what());
                         }

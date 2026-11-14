@@ -283,6 +283,10 @@ void Decoder::send(const uint8_t *data, int size) {
     if (discard_rasl_ && picture.rasl) { ++counters_.skipped_rasl; return; }
     if (discard_rasl_ && picture.has_vcl && !picture.leading && picture.random_access < 0) discard_rasl_ = false;
     check(av_new_packet(packet_, size), "allocate parser packet");
+    struct PacketScope {
+        AVPacket *packet;
+        ~PacketScope() { av_packet_unref(packet); }
+    } packet_scope{packet_};
     std::memcpy(packet_->data, data, size);
     int result = avcodec_send_packet(codec_, packet_);
     if (result == AVERROR(EAGAIN)) { receive(); result = avcodec_send_packet(codec_, packet_); }
