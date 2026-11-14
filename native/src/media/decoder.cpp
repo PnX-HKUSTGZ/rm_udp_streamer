@@ -270,7 +270,7 @@ std::shared_ptr<PreparedFrame> Decoder::prepare_cpu(FrameLease lease) {
     auto prepared = std::make_shared<PreparedFrame>(); prepared->info = lease.info;
     prepared->info.width = source->width; prepared->info.height = source->height;
     auto format = static_cast<AVPixelFormat>(source->format);
-    bool rgba = config_.transfer == "rgba" || (format != AV_PIX_FMT_YUV420P && format != AV_PIX_FMT_NV12);
+    bool rgba = config_.transfer == "rgba" || (format != AV_PIX_FMT_YUV420P && format != AV_PIX_FMT_YUVJ420P && format != AV_PIX_FMT_NV12);
     if (rgba) {
         CpuPlane plane; plane.width = source->width; plane.height = source->height; plane.channels = 4;
         plane.pixels.resize(size_t(plane.width)*plane.height*4);
