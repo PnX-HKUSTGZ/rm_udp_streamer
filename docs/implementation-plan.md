@@ -1,6 +1,6 @@
 # 实施计划与验收门槛
 
-日期：2026-11-15。架构依据：[GPU 帧目标架构](architecture.md)。本文件是后续实施计划，本次仅完成设计、环境核对与工作区准备。
+日期：2026-11-15。架构依据：[GPU 帧目标架构](architecture.md)。M0 已完成实现与验证，等待独立审查；结果见 [M0 能力报告](m0-capabilities.md)。其余阶段尚未完成。
 
 用户约束：Windows + Ubuntu，Intel 核显/NVIDIA 显卡/AMD 核显等主流设备；Ubuntu 优先使用本机 WSL，代码放在 `/home/lqx/code` 下。
 
@@ -77,7 +77,7 @@ M0 对 GPU 互通只做受控可行性验证，不把所有后端实现提前塞
 | 原生 Ubuntu + NVIDIA | CUDA/NVDEC、CPU 与 GPU 呈现 | 与 WSL 分开记录，不以 WSL 结果直接代替 |
 | 任意环境软件模式 | 软件解码正确性与可达到的速率 | 必须可显式选择并显示状态，不假定任意 CPU 都满帧 |
 
-首批常规渲染用 Mobile/Vulkan；Compatibility/OpenGL 验证 CPU 路径。增加 Forward+ 或 D3D12 时记录为新的渲染组合。GPU 互通功能开关与实际探测共同控制，未经验证的厂商组合不能被一次自动探测误标为已全面支持。
+首批常规渲染用 Mobile/Vulkan；Compatibility/OpenGL 保留 CPU 路径，并依据 M0 的真实互通证据作为 Windows NVIDIA CUDA 首条 GPU 路径候选。增加 Forward+ 或 D3D12 时记录为新的渲染组合。GPU 互通功能开关与实际探测共同控制，未经验证的厂商组合不能被一次自动探测误标为已全面支持。
 
 ### 5.2 协议与异常
 

@@ -1,6 +1,6 @@
 # GPU 帧目标架构与 CPU 兼容路径
 
-状态：设计基线 v1，2026-11-15；尚未实现视频接收和呈现。
+状态：设计基线 v1，2026-11-15；[M0 能力验证](m0-capabilities.md) 已形成待审查结果，尚未实现正式视频接收和呈现。
 
 ## 1. 目标与边界
 
@@ -24,10 +24,10 @@
 | 视频核心 | C++17 原生库 + FFmpeg | 统一管理 AVFrame、缓冲、硬件设备和资源引用；复用成熟 HEVC 解码能力 |
 | Godot 集成 | 小型 GDExtension，内部区分无引擎依赖的核心与 Godot 适配层 | CPU/GPU 两条路径共享同一核心，避免先绑定 CPU 数组再重写 GPU 桥接 |
 | 媒体框架 | 首个实现只采用 FFmpeg 的 libavcodec/libavutil/libswscale | 本协议由应用接收重组，暂不需要完整多媒体管线；GStreamer 保留为后续替代选项，不同时维护两套 |
-| 首选渲染 | 两平台先验证 Godot Mobile + Vulkan | 统一第一条 GPU 呈现接口；这是待验证选择，不代表所有解码表面都能导入 Vulkan |
-| 渲染兼容 | Godot Compatibility/OpenGL 使用 CPU 帧呈现 | 没有 RenderingDevice 时仍可显示；切换引擎渲染器在重启时生效，不设计运行中热切换 |
+| 默认渲染 | Godot Mobile + Vulkan，先使用 CPU 呈现 | M0 验证 Windows 两张 GPU 加载成功；跨 API Vulkan 资源和同步仍未验证，不能仅据句柄认定可用 |
+| 首条 GPU 与渲染兼容 | Windows NVIDIA CUDA → Godot Compatibility/OpenGL；其他组合保留 CPU 帧呈现 | M0 已实际验证 CUDA/GL 设备匹配、GPU 写入/复制、显示与 fence 退役；真实 HEVC 闭环留待 M4。切换渲染器需重启 |
 | 发布范围 | 首批 Windows x64 与本机 WSL2 Ubuntu 24.04 LTS x64，Linux 工程位于 `/home/lqx/code/rm_udp_streamer` | 按用户指定使用 WSL 验证；GPU 报告记录 WSLg/驱动条件，原生 Ubuntu 桌面和其他版本作为后续扩展矩阵 |
-| 依赖构建 | CMake，Windows 优先 MSVC，Ubuntu GCC/Clang；固定 godot-cpp 和 FFmpeg 版本 | M0 冻结确切版本、校验值和 ABI。发送器使用的 FFmpeg 命令行版本不直接决定接收器库版本 |
+| 依赖构建 | CMake，Windows 已验证 MinGW GCC 15.2，Ubuntu GCC 13.3；固定 godot-cpp 和 FFmpeg 静态归档 | 具体提交、ABI、工具链和校验值见 build/dependencies.lock.json；保留 GDExtension DLL/SO 边界 |
 
 首轮不修改 Godot 引擎。若公开接口无法提供必要的资源导入或完成同步，相关 GPU 组合应报告不支持并走兼容路径；引擎修改另作决策。
 

@@ -1,0 +1,16 @@
+[
+  {
+    "mode": "software",
+    "device": "0",
+    "exit": 0,
+    "frames": 120,
+    "matches_reference": true
+  },
+  {
+    "mode": "cuda",
+    "device": "0",
+    "exit": 0,
+    "frames": 120,
+    "matches_reference": true
+  }
+]

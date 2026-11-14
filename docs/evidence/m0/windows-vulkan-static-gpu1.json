@@ -1,0 +1,34 @@
+{
+  "dotnet": "8.0.34",
+  "godot": {
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (official)",
+    "timestamp": 0
+  },
+  "gpu": {
+    "adapter_name": "Intel(R) Arc(TM) 140T GPU (16GB)",
+    "adapter_vendor": "Intel",
+    "api_version": "1.4.303",
+    "logical_device": 2566134193928,
+    "physical_device": 2566088267680,
+    "queue": 2566136516280,
+    "queue_family": 0,
+    "rendering_device": true
+  },
+  "headless": false,
+  "native": {
+    "avcodec_version": 4070503,
+    "avutil_version": 3938919,
+    "binding_api": "godot-4.5-stable/e83fd090",
+    "ffmpeg_version": "n8.1.3",
+    "pointer_bits": 64,
+    "worker_thread_result": 42
+  },
+  "os": "Windows"
+}
