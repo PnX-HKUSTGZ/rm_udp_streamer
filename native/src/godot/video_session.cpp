@@ -82,6 +82,14 @@ Dictionary RmVideoSession::snapshot() const {
     result["source"] = s.source_locked ? String(s.source.text().c_str()) : String();
     result["mode"] = String(state.path.c_str()); result["decoder"] = String(state.backend.c_str());
     result["decode_device"] = String(state.device.c_str()); result["fallback"] = String(state.fallback.c_str());
+    if (!state.presentation_fallback.empty()) result["fallback"] = String((state.fallback +
+        (state.fallback.empty() ? "" : "; ") + state.presentation_fallback).c_str());
+    result["requested_decoder"] = String(state.requested_decoder.c_str());
+    result["requested_transfer"] = String(state.requested_transfer.c_str());
+    result["gpu_attempts"] = int64_t(state.gpu_attempts);
+    result["presentation_fallbacks"] = int64_t(state.presentation_fallbacks);
+    result["gpu_disabled"] = state.gpu_disabled;
+    result["accepted_presentation"] = int64_t(state.accepted_presentation);
     result["recovery_reason"] = String(state.recovery_reason.c_str());
     result["recoveries"] = int64_t(state.recoveries); result["decode_errors"] = int64_t(state.decode_errors);
     result["format_changes"] = int64_t(state.format_changes);
@@ -107,6 +115,7 @@ Dictionary RmVideoSession::snapshot() const {
 #define METRIC(field) result[#field] = int64_t(state.decode.field)
     METRIC(parser_packets); METRIC(decoded); METRIC(hardware_frames); METRIC(cpu_readbacks);
     METRIC(cpu_readback_bytes); METRIC(converted_rgba); METRIC(skipped_until_key); METRIC(skipped_rasl); METRIC(resets);
+    METRIC(backend_attempts); METRIC(backend_failures); METRIC(backend_switches);
 #undef METRIC
     return result;
 }

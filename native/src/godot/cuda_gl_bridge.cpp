@@ -19,6 +19,7 @@ namespace {
 constexpr unsigned texture_2d=0x0DE1;
 }
 void RmCudaGlBridge::initialize(const rm::FrameLease &frame) {
+    if (unsafe_retirement.load()) throw std::runtime_error("Previous GPU retirement failed; restart the application before using GPU transfer");
     if (RenderingServer::get_singleton()->get_current_rendering_method()!="gl_compatibility")
         throw std::runtime_error("GPU transfer requires Compatibility/OpenGL; restart with --rendering-method gl_compatibility or select CPU transfer");
     if (!frame.frame || frame.frame->format!=AV_PIX_FMT_CUDA || !frame.frame->hw_frames_ctx)

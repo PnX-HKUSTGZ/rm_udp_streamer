@@ -1,15 +1,22 @@
 #include "decoder.hpp"
+#include "interop/gpu_api.hpp"
 #include <algorithm>
 #include <cstring>
 #include <stdexcept>
+#include <iomanip>
+#include <sstream>
 extern "C" {
 #include <libavutil/hwcontext.h>
 #include <libavutil/imgutils.h>
 #include <libavutil/pixdesc.h>
+typedef rm::gpu::Context CUcontext;
+typedef rm::gpu::Stream CUstream;
+#define CUDA_VERSION 7050
+#include <libavutil/hwcontext_cuda.h>
 }
 #ifdef _WIN32
 #include <libavutil/hwcontext_d3d11va.h>
-#include <dxgi.h>
+#include <dxgi1_2.h>
 #endif
 
 namespace rm {
@@ -33,11 +40,64 @@ bool same_format(const FrameInfo &a, const FrameInfo &b) {
         a.range==b.range && a.matrix==b.matrix && a.primaries==b.primaries && a.transfer==b.transfer && a.chroma==b.chroma &&
         a.pixel_format==b.pixel_format && a.hardware==b.hardware && a.device==b.device && a.decoder==b.decoder;
 }
+std::string cuda_identity(AVBufferRef *device) {
+    using namespace rm::gpu;
+    struct Uuid { unsigned char bytes[16]; };
+    using Push = int(RM_GPU_CALL *)(Context);
+    using Pop = int(RM_GPU_CALL *)(Context *);
+    using GetDevice = int(RM_GPU_CALL *)(int *);
+    using Name = int(RM_GPU_CALL *)(char *, int, int);
+    using GetUuid = int(RM_GPU_CALL *)(Uuid *, int);
+    auto push = reinterpret_cast<Push>(symbol("nvcuda.dll", "cuCtxPushCurrent_v2"));
+    auto pop = reinterpret_cast<Pop>(symbol("nvcuda.dll", "cuCtxPopCurrent_v2"));
+    auto get = reinterpret_cast<GetDevice>(symbol("nvcuda.dll", "cuCtxGetDevice"));
+    auto name = reinterpret_cast<Name>(symbol("nvcuda.dll", "cuDeviceGetName"));
+    auto uuid = reinterpret_cast<GetUuid>(symbol("nvcuda.dll", "cuDeviceGetUuid_v2"));
+    if (!uuid) uuid = reinterpret_cast<GetUuid>(symbol("nvcuda.dll", "cuDeviceGetUuid"));
+    if (!push || !pop || !get || !name || !uuid) throw std::runtime_error("CUDA device identity API unavailable");
+    auto *hw = reinterpret_cast<AVHWDeviceContext *>(device->data);
+    auto *cuda = reinterpret_cast<AVCUDADeviceContext *>(hw->hwctx);
+    if (push(cuda->cuda_ctx)) throw std::runtime_error("Cannot query CUDA device identity");
+    int index = -1; char label[256]{}; Uuid id{};
+    int status = get(&index);
+    if (!status) status = name(label, sizeof(label), index);
+    if (!status) status = uuid(&id, index);
+    Context ignored; int popped = pop(&ignored);
+    if (status || popped) throw std::runtime_error("Cannot read actual CUDA device name/UUID");
+    std::ostringstream out; out << label << " CUDA=" << index << " UUID=GPU-" << std::hex << std::setfill('0');
+    for (int i = 0; i < 16; ++i) { if (i == 4 || i == 6 || i == 8 || i == 10) out << '-'; out << std::setw(2) << unsigned(id.bytes[i]); }
+    return out.str();
+}
+#ifdef _WIN32
+std::string adapter_identity(IDXGIAdapter *adapter) {
+    DXGI_ADAPTER_DESC desc{};
+    if (FAILED(adapter->GetDesc(&desc))) throw std::runtime_error("Cannot query D3D11 adapter identity");
+    char label[512]{};
+    if (!WideCharToMultiByte(CP_UTF8, 0, desc.Description, -1, label, sizeof(label), nullptr, nullptr))
+        throw std::runtime_error("Cannot read D3D11 adapter name");
+    return std::string(label) + " LUID=" + std::to_string(desc.AdapterLuid.HighPart) + ":" + std::to_string(desc.AdapterLuid.LowPart);
+}
+std::string requested_d3d11_adapter(const std::string &index) {
+    // FFmpeg may pass a null adapter to D3D11CreateDevice after EnumAdapters
+    // fails, which selects the default GPU. Reject that silent device change.
+    using CreateFactory = HRESULT(WINAPI *)(REFIID, void **);
+    auto module = GetModuleHandleA("dxgi.dll"); if (!module) module = LoadLibraryA("dxgi.dll");
+    auto create = module ? reinterpret_cast<CreateFactory>(GetProcAddress(module,"CreateDXGIFactory1")) : nullptr;
+    IDXGIFactory1 *factory = nullptr; IDXGIAdapter *adapter = nullptr;
+    if (!create || FAILED(create(__uuidof(IDXGIFactory1),reinterpret_cast<void **>(&factory))))
+        throw std::runtime_error("Cannot enumerate requested D3D11 adapter");
+    HRESULT result = factory->EnumAdapters(static_cast<UINT>(std::stoul(index)), &adapter);
+    factory->Release();
+    if (FAILED(result) || !adapter) throw std::runtime_error("D3D11 adapter index " + index + " does not exist");
+    try { auto identity = adapter_identity(adapter); adapter->Release(); return identity; }
+    catch (...) { adapter->Release(); throw; }
+}
+#endif
 }
 std::string MediaConfig::validate() const {
     if (decoder != "auto" && decoder != "software" && decoder != "cuda" && decoder != "d3d11va")
         return "decoder must be auto, software, cuda or d3d11va";
-    if (transfer != "yuv" && transfer != "rgba" && transfer != "gpu") return "transfer must be yuv, rgba or gpu";
+    if (transfer != "auto" && transfer != "yuv" && transfer != "rgba" && transfer != "gpu") return "transfer must be auto, yuv, rgba or gpu";
     if (transfer == "gpu" && decoder != "cuda") return "GPU transfer currently requires explicit CUDA decoding";
     if (device.empty() || device.size() > 3 || device.find_first_not_of("0123456789") != std::string::npos)
         return "device must be a numeric adapter index (0..999)";
@@ -48,29 +108,24 @@ AVPixelFormat Decoder::choose_format(AVCodecContext *context, const AVPixelForma
     auto *self = static_cast<Decoder *>(context->opaque);
     for (auto p = formats; *p != AV_PIX_FMT_NONE; ++p)
         if (*p == self->hardware_format_) return *p;
+    // FFmpeg retries get_format without the hardware format when its actual
+    // profile/layout initialization fails. Do not misclassify that as packet loss.
+    self->negotiation_failed_ = true;
     return AV_PIX_FMT_NONE; // A requested hardware path cannot return software silently.
 }
 Decoder::Decoder(MediaConfig config, Output output) : config_(std::move(config)), output_(std::move(output)) {
     auto invalid = config_.validate();
     if (!invalid.empty()) throw std::invalid_argument(invalid);
     try {
-        std::vector<std::string> candidates;
         if (config_.decoder == "auto") {
 #ifdef _WIN32
-            candidates = {"d3d11va", "cuda", "software"};
+            candidates_ = config_.transfer == "auto" ? std::vector<std::string>{"cuda", "d3d11va", "software"} :
+                std::vector<std::string>{"d3d11va", "cuda", "software"};
 #else
-            candidates = {"cuda", "software"};
+            candidates_ = {"cuda", "software"};
 #endif
-        } else candidates = {config_.decoder};
-        for (const auto &candidate : candidates) {
-            try { open(candidate); break; }
-            catch (const std::exception &error) {
-                close_codec();
-                if (config_.decoder != "auto" || candidate == candidates.back()) throw;
-                if (!fallback_.empty()) fallback_ += "; ";
-                fallback_ += candidate + ": " + error.what();
-            }
-        }
+        } else candidates_ = {config_.decoder};
+        open_next();
         parser_ = av_parser_init(AV_CODEC_ID_HEVC);
         packet_ = av_packet_alloc(); scratch_ = av_frame_alloc();
         if (!parser_ || !packet_ || !scratch_) throw std::bad_alloc();
@@ -80,6 +135,36 @@ Decoder::Decoder(MediaConfig config, Output output) : config_(std::move(config))
         av_packet_free(&packet_); av_frame_free(&scratch_);
         throw;
     }
+}
+void Decoder::record_failure(const std::string &reason) {
+    ++counters_.backend_failures;
+    if (!fallback_.empty()) fallback_ += "; ";
+    fallback_ += backend_ + ": " + reason;
+}
+void Decoder::open_next() {
+    // Monotonic candidate cursor is the per-session negative cache. Failed
+    // hardware is never retried on a later frame, source or format change.
+    while (next_candidate_ < candidates_.size()) {
+        auto candidate = candidates_[next_candidate_++];
+        ++counters_.backend_attempts;
+        try { open(candidate); return; }
+        catch (const std::exception &error) { close_codec(); record_failure(error.what()); }
+    }
+    throw MediaError(MediaFailure::Backend, "Decoder candidates exhausted: " + fallback_);
+}
+bool Decoder::fallback_backend(const std::string &reason) {
+    record_failure(reason);
+    if (config_.decoder != "auto" || backend_ == "software") return false;
+    close_codec(); open_next(); ++counters_.backend_switches;
+    // Preserve parsed parameter sets, discard old parser/codec output and wait
+    // for the next matched IRAP. Never reuse memory owned by an unwound parser.
+    reset(generation_);
+    return true;
+}
+void Decoder::check_decode(int code, const char *operation) {
+    if (negotiation_failed_) throw MediaError(MediaFailure::Backend,
+        backend_ + " cannot initialize the stream's actual hardware format/profile");
+    check(code, operation);
 }
 void Decoder::close_codec() {
     avcodec_free_context(&codec_); av_buffer_unref(&device_);
@@ -96,6 +181,7 @@ void Decoder::open(const std::string &backend) {
     codec_ = avcodec_alloc_context3(decoder);
     if (!codec_) throw std::bad_alloc();
     hardware_format_ = AV_PIX_FMT_NONE;
+    negotiation_failed_ = false;
     backend_ = backend; identity_ = backend == "software" ? "CPU" : backend + ":" + config_.device;
     if (backend != "software") {
         auto type = av_hwdevice_find_type_by_name(backend.c_str());
@@ -105,27 +191,27 @@ void Decoder::open(const std::string &backend) {
             }
         }
         if (hardware_format_ == AV_PIX_FMT_NONE) throw std::runtime_error("Backend absent from fixed FFmpeg build");
+#ifdef _WIN32
+        std::string requested_adapter;
+        if (backend == "d3d11va") requested_adapter = requested_d3d11_adapter(config_.device);
+#endif
         check(av_hwdevice_ctx_create(&device_, type, config_.device.c_str(), nullptr, 0), "create hardware device", MediaFailure::Backend);
         codec_->hw_device_ctx = av_buffer_ref(device_);
         if (!codec_->hw_device_ctx) throw std::bad_alloc();
         codec_->opaque = this; codec_->get_format = choose_format;
+        if (backend == "cuda") identity_ = cuda_identity(device_);
 #ifdef _WIN32
         if (backend == "d3d11va") {
             auto *hw = reinterpret_cast<AVHWDeviceContext *>(device_->data);
             auto *d3d = reinterpret_cast<AVD3D11VADeviceContext *>(hw->hwctx);
             IDXGIDevice *dxgi = nullptr; IDXGIAdapter *adapter = nullptr;
-            if (SUCCEEDED(d3d->device->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void **>(&dxgi)))) {
-                if (SUCCEEDED(dxgi->GetAdapter(&adapter))) {
-                    DXGI_ADAPTER_DESC desc{};
-                    if (SUCCEEDED(adapter->GetDesc(&desc))) {
-                        char label[512]{};
-                        WideCharToMultiByte(CP_UTF8, 0, desc.Description, -1, label, sizeof(label), nullptr, nullptr);
-                        identity_ = std::string(label) + " LUID=" + std::to_string(desc.AdapterLuid.HighPart) + ":" + std::to_string(desc.AdapterLuid.LowPart);
-                    }
-                    adapter->Release();
-                }
-                dxgi->Release();
-            }
+            if (FAILED(d3d->device->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void **>(&dxgi))))
+                throw std::runtime_error("Cannot identify actual D3D11 device");
+            HRESULT result = dxgi->GetAdapter(&adapter); dxgi->Release();
+            if (FAILED(result) || !adapter) throw std::runtime_error("Cannot identify actual D3D11 adapter");
+            try { identity_ = adapter_identity(adapter); adapter->Release(); }
+            catch (...) { adapter->Release(); throw; }
+            if (identity_ != requested_adapter) throw std::runtime_error("Actual D3D11 adapter differs from requested device");
         }
 #endif
     }
@@ -201,13 +287,13 @@ void Decoder::send(const uint8_t *data, int size) {
     int result = avcodec_send_packet(codec_, packet_);
     if (result == AVERROR(EAGAIN)) { receive(); result = avcodec_send_packet(codec_, packet_); }
     av_packet_unref(packet_);
-    check(result, "submit HEVC packet"); receive();
+    check_decode(result, "submit HEVC packet"); receive();
 }
 void Decoder::receive() {
     while (true) {
         int result = avcodec_receive_frame(codec_, scratch_);
         if (result == AVERROR(EAGAIN) || result == AVERROR_EOF) return;
-        check(result, "decode HEVC");
+        check_decode(result, "decode HEVC");
         auto source = make_frame(); av_frame_move_ref(source.get(), scratch_);
         auto &f = *source;
         if (f.width <= 0 || f.height <= 0 || int64_t(f.width)*f.height > config_.max_pixels)
@@ -268,7 +354,7 @@ void Decoder::finish() {
     send(data, size);
     int result = avcodec_send_packet(codec_, nullptr);
     if (result == AVERROR(EAGAIN)) { receive(); result = avcodec_send_packet(codec_, nullptr); }
-    check(result, "finish decoder"); receive();
+    check_decode(result, "finish decoder"); receive();
 }
 std::shared_ptr<PreparedFrame> Decoder::prepare_cpu(FrameLease lease) {
     auto source = lease.frame;

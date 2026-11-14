@@ -36,7 +36,7 @@ public sealed class RuntimeOptions
         if (result.Port < 1 || result.Port > 65535 || result.Device < 0 || result.Device > 999)
             throw new ArgumentException("Port or device index is outside its valid range");
         if (Array.IndexOf(new[] { "auto", "software", "cuda", "d3d11va" }, result.Decoder) < 0 ||
-            Array.IndexOf(new[] { "yuv", "rgba", "gpu" }, result.Transfer) < 0)
+            Array.IndexOf(new[] { "yuv", "rgba", "gpu", "auto" }, result.Transfer) < 0)
             throw new ArgumentException("Unknown decoder or transfer mode");
         if (!double.IsFinite(result.Duration) || result.Duration < 0 || result.Duration > 86400)
             throw new ArgumentException("Duration must be 0 (unlimited) through 86400 seconds");
@@ -45,7 +45,7 @@ public sealed class RuntimeOptions
         return result;
     }
     public const string Usage = "Receiver options (after --): --start --bind IPv4 --port 3334 " +
-        "--decoder auto|software|cuda|d3d11va --device 0 --transfer yuv|rgba|gpu " +
+        "--decoder auto|software|cuda|d3d11va --device 0 --transfer yuv|rgba|gpu|auto " +
         "--duration seconds --metrics new-file.ndjson --snapshot new-file.png\n" +
         "Duration starts when the interface opens; 0 runs until closed. Metrics record actual new texture submissions, not screen refreshes.";
 }

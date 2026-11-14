@@ -49,6 +49,7 @@ void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
             if(frame->gpu_source.frame) {
                 if(!state->gpu) {
                     std::lock_guard<std::mutex> lock(state->mutex);state->gpu=std::make_shared<RmCudaGlBridge>();
+                    session->core().presentation_attempted();
                 }
                 publication->gpu=state->gpu->upload(frame->gpu_source);
                 if(!publication->gpu){frame.reset();state->busy.store(false);return;}
@@ -77,8 +78,9 @@ void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
             }
         }
     } catch (const std::exception &error) {
-        {std::lock_guard<std::mutex> lock(state->mutex); state->error = error.what();}
-        if(session.is_valid())session->core().presentation_failed(error.what());
+        bool gpu_failure = !close_only && (poll_only || (frame && frame->gpu_source.frame));
+        bool recovered = session.is_valid() && session->core().presentation_failed(error.what(), gpu_failure);
+        if (!recovered) {std::lock_guard<std::mutex> lock(state->mutex); state->error = error.what();}
         if(close_only) {
             // Never destroy a resource whose fence failed. Bounded to one
             // quarantined bridge per session; its retained holder blocks restart.
@@ -132,6 +134,7 @@ Dictionary RmVideoSurface::get_metrics() const {
         result["shown_sequence"] = int64_t(shown_->info.output_sequence);
         result["shown_generation"] = int64_t(shown_->info.stream_generation);
         result["shown_resource"] = int64_t(shown_->info.resource_generation);
+        result["shown_presentation"] = int64_t(shown_->info.presentation_generation);
         result["width"] = shown_->info.width; result["height"] = shown_->info.height;
         result["path"] = String(shown_->path.c_str());
     }
@@ -143,6 +146,11 @@ void RmVideoSurface::_process(double) {
     if(upload_->gpu_registered) {
         auto status=session_->core().snapshot();
         if(status.state=="Stopping"||status.state=="Stopped"||status.state=="Faulted")clear();
+        else if(status.gpu_disabled) {
+            // Detach every old consumer before queuing bridge retirement. CPU
+            // uploads follow it on the same render queue; no second GPU probe.
+            auto count=upload_->submitted.load();clear();upload_->submitted.store(count);
+        }
     }
     if (shown_ && !session_->core().accepts(shown_->info)) {
         detach_picture();queue_redraw();
