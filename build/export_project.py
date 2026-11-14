@@ -12,6 +12,7 @@ import sys
 import time
 import zipfile
 from build_project import prepare_extension_discovery
+from release_materials import prepare as prepare_release_materials
 
 def run_engine(command, env, log_path):
     """Godot may exit 0 after an export plugin error; validate its diagnostics."""
@@ -36,6 +37,9 @@ def validate_runtime(output, windows):
     runtime = json.loads(config.read_text())['runtimeOptions']
     if runtime.get('framework') or runtime.get('frameworks'):
         raise RuntimeError('Export requires an external .NET runtime')
+    frameworks = runtime.get('includedFrameworks', [])
+    if not any(item.get('name') == 'Microsoft.NETCore.App' and item.get('version') == '8.0.34' for item in frameworks):
+        raise RuntimeError('Export did not bundle the pinned .NET 8.0.34 runtime')
 
 def digest(path, algorithm='sha256'):
     result=hashlib.new(algorithm)
@@ -50,7 +54,7 @@ def main():
     parser.add_argument('--godot',type=Path)
     parser.add_argument('--templates',type=Path,required=True,help='Locked Godot Mono .tpz archive')
     parser.add_argument('--output',type=Path,required=True,help='New or empty package directory')
-    parser.add_argument('--label',default='D1')
+    parser.add_argument('--label',default='D3')
     args=parser.parse_args()
     cache=args.cache.resolve();output=args.output.resolve();windows=os.name=='nt';platform='windows' if windows else 'linux'
     if subprocess.check_output(['git','-C',str(repo),'status','--porcelain'],text=True).strip():
@@ -73,6 +77,8 @@ def main():
     if engine is None:
         engine=repo.parent/'Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe' if windows else cache/'godot/Godot_v4.7.2-stable_mono_linux_x86_64/Godot_v4.7.2-stable_mono_linux.x86_64'
     engine=engine.resolve()
+    expected_engine = lock['godot']['windows_console_sha256' if windows else 'linux_sha256']
+    if digest(engine) != expected_engine: raise RuntimeError('Godot editor executable does not match dependency lock')
     if output.exists() and any(output.iterdir()):raise RuntimeError('Output directory is not empty; choose a new version directory')
     output.mkdir(parents=True,exist_ok=True)
     env=os.environ.copy()
@@ -110,7 +116,7 @@ def main():
     validate_runtime(output,windows)
     if not windows:executable.chmod(executable.stat().st_mode|0o111)
     shutil.copy2(repo/'build/dependencies.lock.json',output/'dependencies.lock.json')
-    shutil.copy2(repo/'docs/m2-media.md',output/'CAPABILITIES.md')
+    shutil.copy2(repo/'docs/m6-release.md',output/'CAPABILITIES.md')
     documentation=output/'docs';documentation.mkdir(exist_ok=True)
     for name in ['m2-media.md','m3-recovery.md','m4-gpu.md','m5-backends.md','m6-release.md']:
         if (repo/'docs'/name).is_file():shutil.copy2(repo/'docs'/name,documentation/name)
@@ -123,23 +129,15 @@ def main():
         'Linux baseline: Ubuntu 24.04 x86_64, glibc 2.39 or compatible, X11/Wayland desktop, Vulkan/OpenGL drivers, fontconfig and standard .NET native dependencies.\n'
         'WSL was tested with WSLg/llvmpipe. This does not certify native Ubuntu GPU interoperability.\n'
         'Software decoding is selectable. CPU transfer reads back hardware pixels; performance depends on the measured configuration.\n'
-        'D2 GPU path: Windows NVIDIA, same-device CUDA and Compatibility/OpenGL, NV12 8-bit. Other tested modes retain CPU transfer.\n'
+        'D3 GPU path: Windows NVIDIA, same-device CUDA and Compatibility/OpenGL, NV12 8-bit. Other tested modes retain CPU transfer.\n'
         'For GPU mode start with --rendering-method gl_compatibility -- --start --decoder cuda --transfer gpu\n'
+        'Use --transfer auto to try GPU transfer once and keep healthy decoding through CPU transfer if the bridge is unavailable.\n'
         'For deployment/diagnostics append -- --start --bind 127.0.0.1 --port 3334 --decoder software\n'
         'Optional: --duration 60 --metrics new-file.ndjson --snapshot new-file.png (new files only).\n'
         'Use -- --help for all receiver options. Normal launch opens the interactive interface.\n'
         'Unsupported HDR, wide-gamut primaries and LINEAR/LOG transfer input are rejected. See CAPABILITIES.md.\n',encoding='utf-8')
-    notice=output/'licenses';notice.mkdir(exist_ok=True)
-    for filename in ['LICENSE.md','LICENSE.txt','LICENSE']:
-        source=cache/'godot-cpp'/filename
-        if source.is_file():shutil.copy2(source,notice/'godot-cpp-LICENSE.txt');break
-    (notice/'THIRD_PARTY.txt').write_text(
-        'Godot Engine and godot-cpp: MIT. Godot includes its own third-party notices.\n'
-        '.NET runtime: MIT and its distributed third-party notices in the runtime files.\n'
-        'FFmpeg n8.1.3: LGPL-2.1-or-later, static libavcodec/libavutil/libswscale in rm_video. GPL/nonfree disabled.\n'
-        'Pinned source and build configuration are listed in dependencies.lock.json.\n'
-        'Source/relink release materials are being completed for D3. D1/D2 are local validation packages; do not redistribute them as the final release.\n',encoding='utf-8')
-    manifest={'label':args.label,'platform':platform,'commit':commit,'template_sha512':asset['sha512'],'native_sha256':digest(native),'files':{}}
+    prepare_release_materials(repo,cache,output,engine,env,lock,windows)
+    manifest={'label':args.label,'platform':platform,'commit':commit,'engine_sha256':digest(engine),'template_sha512':asset['sha512'],'native_sha256':digest(native),'files':{}}
     for file in sorted(output.rglob('*')):
         if file.is_file():manifest['files'][file.relative_to(output).as_posix()]={'bytes':file.stat().st_size,'sha256':digest(file)}
     (output/'manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')

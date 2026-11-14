@@ -3,6 +3,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <Nullable>enable</Nullable>
+    <RuntimeFrameworkVersion>8.0.34</RuntimeFrameworkVersion>
+    <TargetLatestRuntimePatch>false</TargetLatestRuntimePatch>
     <DefaultItemExcludes>$(DefaultItemExcludes);out/**;dist/**</DefaultItemExcludes>
   </PropertyGroup>
 </Project>
