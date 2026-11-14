@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -11,6 +12,30 @@ import sys
 import time
 import zipfile
 from build_project import prepare_extension_discovery
+
+def run_engine(command, env, log_path):
+    """Godot may exit 0 after an export plugin error; validate its diagnostics."""
+    result = subprocess.run(command, env=env, stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT, encoding='utf-8', errors='replace')
+    log_path.write_text(result.stdout, encoding='utf-8')
+    print(result.stdout, end='', flush=True)
+    clean = re.sub(r'\x1b\[[0-9;]*m', '', result.stdout)
+    if result.returncode or re.search(r'(?m)^\s*(?:ERROR:|SCRIPT ERROR:)', clean):
+        raise RuntimeError('Godot import/export failed; see ' + str(log_path))
+
+def validate_runtime(output, windows):
+    """Require the project assembly and a self-contained .NET runtime."""
+    required = ['RmUdpStreamer.dll', 'GodotSharp.dll', 'RmUdpStreamer.runtimeconfig.json',
+                'coreclr.dll' if windows else 'libcoreclr.so',
+                'hostfxr.dll' if windows else 'libhostfxr.so',
+                'hostpolicy.dll' if windows else 'libhostpolicy.so']
+    for name in required:
+        if not any(file.stat().st_size > 0 for file in output.rglob(name)):
+            raise RuntimeError('Incomplete self-contained .NET export: missing ' + name)
+    config = next(output.rglob('RmUdpStreamer.runtimeconfig.json'))
+    runtime = json.loads(config.read_text())['runtimeOptions']
+    if runtime.get('framework') or runtime.get('frameworks'):
+        raise RuntimeError('Export requires an external .NET runtime')
 
 def digest(path, algorithm='sha256'):
     result=hashlib.new(algorithm)
@@ -78,10 +103,11 @@ def main():
         sections[index]=section
     (stage/'export_presets.cfg').write_text('[preset.'.join(sections))
     subprocess.run([dotnet,'build',str(stage/'RmUdpStreamer.csproj')],env=env,check=True)
-    subprocess.run([str(engine),'--headless','--editor','--path',str(stage),'--import','--quit'],env=env,check=True)
+    run_engine([str(engine),'--headless','--editor','--path',str(stage),'--import','--quit'],env,stage/'import.log')
     executable=output/('RmVideoReceiver.exe' if windows else 'RmVideoReceiver.x86_64')
-    subprocess.run([str(engine),'--headless','--path',str(stage),'--export-release','Windows' if windows else 'Linux',str(executable)],env=env,check=True)
+    run_engine([str(engine),'--headless','--path',str(stage),'--export-release','Windows' if windows else 'Linux',str(executable)],env,stage/'export.log')
     if not executable.is_file() or not (output/'RmVideoReceiver.pck').is_file():raise RuntimeError('Incomplete engine export')
+    validate_runtime(output,windows)
     if not windows:executable.chmod(executable.stat().st_mode|0o111)
     shutil.copy2(repo/'build/dependencies.lock.json',output/'dependencies.lock.json')
     shutil.copy2(repo/'docs/m2-media.md',output/'CAPABILITIES.md')
