@@ -22,7 +22,7 @@ struct FrameTiming {
     uint16_t input_frame_id = 0;
     Micros ingress_us = 0, complete_us = 0, queued_us = 0, dequeued_us = 0;
     Micros packet_ready_us = 0, decoded_us = 0, prepared_us = 0;
-    Micros upload_queued_us = 0, upload_started_us = 0, submitted_us = 0, shown_us = 0;
+    Micros upload_queued_us = 0, upload_started_us = 0, upload_completed_us = 0, submitted_us = 0, shown_us = 0;
     bool correlated() const { return correlation == Correlation::ExactGroup; }
     void unknown(Correlation reason) {
         correlation = reason; input_serial = input_frame_id = 0;

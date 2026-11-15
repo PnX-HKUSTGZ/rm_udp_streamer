@@ -6,6 +6,7 @@ using System.IO;
 public sealed class RuntimeOptions
 {
     public bool Start, Help;
+    public bool? Diagnostics;
     public string Address = "0.0.0.0", Decoder = "auto", Transfer = "yuv";
     public int Port = 3334, Device;
     public double Duration;
@@ -30,6 +31,7 @@ public sealed class RuntimeOptions
                 case "--duration": result.Duration = double.Parse(value, CultureInfo.InvariantCulture); break;
                 case "--metrics": result.Metrics = Path.GetFullPath(value); break;
                 case "--snapshot": result.Snapshot = Path.GetFullPath(value); break;
+                case "--diagnostics": result.Diagnostics = value switch { "on" => true, "off" => false, _ => throw new ArgumentException("Diagnostics must be on or off") }; break;
                 default: throw new ArgumentException("Unknown receiver option: " + option);
             }
         }
@@ -46,6 +48,7 @@ public sealed class RuntimeOptions
     }
     public const string Usage = "Receiver options (after --): --start --bind IPv4 --port 3334 " +
         "--decoder auto|software|cuda|d3d11va --device 0 --transfer yuv|rgba|gpu|auto " +
-        "--duration seconds --metrics new-file.ndjson --snapshot new-file.png\n" +
+        "--duration seconds --metrics new-file.ndjson --snapshot new-file.png --diagnostics on|off\n" +
+        "Stage timings default to on when a metrics file is requested; off keeps counters and disables extra timing.\n" +
         "Duration starts when the interface opens; 0 runs until closed. Metrics record actual new texture submissions, not screen refreshes.";
 }

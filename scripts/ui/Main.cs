@@ -91,7 +91,8 @@ public partial class Main : Control
         else
         {
             _lastComplete=_lastDecoded=_lastSubmitted=0; _rateTime=0; _receiveFps=_decodeFps=_submitFps=0;
-            _session.Start(_address.Text.Trim(), (int)_port.Value, Decoders[_decoder.Selected], ((int)_device.Value).ToString(), Transfers[_transfer.Selected]);
+            _session.Start(_address.Text.Trim(), (int)_port.Value, Decoders[_decoder.Selected], ((int)_device.Value).ToString(), Transfers[_transfer.Selected],
+                _options.Diagnostics ?? (_options.Metrics.Length > 0));
         }
         Refresh();
     }

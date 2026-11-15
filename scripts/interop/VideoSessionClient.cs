@@ -11,10 +11,10 @@ public sealed class VideoSessionClient : IDisposable
         _native = ClassDB.Instantiate("RmVideoSession").AsGodotObject();
     }
     public GodotObject Native => _native!;
-    public bool Start(string bindAddress, int port, string decoder = "auto", string device = "0", string transfer = "yuv") => _native!.Call("start", new Godot.Collections.Dictionary
+    public bool Start(string bindAddress, int port, string decoder = "auto", string device = "0", string transfer = "yuv", bool diagnostics = false) => _native!.Call("start", new Godot.Collections.Dictionary
     {
         ["version"] = 1, ["bind_address"] = bindAddress, ["port"] = port,
-        ["decoder"] = decoder, ["device"] = device, ["transfer"] = transfer
+        ["decoder"] = decoder, ["device"] = device, ["transfer"] = transfer, ["diagnostics"] = diagnostics
     }).AsBool();
     public void Stop() => _native?.Call("request_stop");
     public Godot.Collections.Dictionary Snapshot() => _native!.Call("snapshot").AsGodotDictionary();

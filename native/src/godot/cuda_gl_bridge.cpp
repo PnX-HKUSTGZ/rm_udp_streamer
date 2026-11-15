@@ -1,9 +1,12 @@
 #include "cuda_gl_bridge.hpp"
+#include "diagnostics.hpp"
 #include <godot_cpp/classes/rendering_server.hpp>
 #include <godot_cpp/classes/image.hpp>
 #include <chrono>
 #include <thread>
 #include <cstring>
+#include <cmath>
+#include <limits>
 extern "C" {
 #include <libavutil/hwcontext.h>
 // Public FFmpeg layout uses these opaque CUDA types; no SDK dependency.
@@ -41,6 +44,94 @@ void RmCudaGlBridge::initialize(const rm::FrameLease &frame) {
         throw std::runtime_error("OpenGL and CUDA must use the same single physical GPU; select CPU transfer");
     device_=av_buffer_ref(frames->device_ref); if (!device_) throw std::bad_alloc();
     context_=hw->cuda_ctx; stream_=hw->stream; initialized_=true;
+    if(diagnostics_enabled_) {
+        unsigned prior_error=gl_.GetError();
+        if(prior_error){++external_gl_errors_;throw std::runtime_error("OpenGL consumer reported error "+std::to_string(prior_error));}
+        cuda_timing_=cuda_.load_timing();gl_timing_=gl_.load_timing();
+        if(gl_timing_) {
+            int bits=0;gl_.GetQueryiv(0x8E28,0x8864,&bits); // TIMESTAMP / QUERY_COUNTER_BITS
+            gl_timing_=gl_.GetError()==0&&bits>0;
+        }
+        std::lock_guard<std::mutex> lock(timing_mutex_);
+        timing_.cuda_status=cuda_timing_?"available":"unavailable";
+        timing_.gl_status=gl_timing_?"available":"unavailable";
+    }
+}
+void RmCudaGlBridge::record_cpu(rm::TimingHistogram TimingState::*field,rm::Micros started) {
+    if(!diagnostics_enabled_)return;
+    auto elapsed=rm::monotonic_us()-started;
+    std::lock_guard<std::mutex> lock(timing_mutex_);(timing_.*field).observe(elapsed);
+}
+void RmCudaGlBridge::timing_error(bool cuda,const std::string &message) {
+    std::lock_guard<std::mutex> lock(timing_mutex_);++timing_.errors;
+    (cuda?timing_.cuda_status:timing_.gl_status)="error: "+message;
+}
+void RmCudaGlBridge::begin_cuda_timing(Slot &slot) {
+    if(!diagnostics_enabled_)return;
+    slot.copy_queued_us=rm::monotonic_us();
+    int status=slot.copy_start?cuda_.cuEventRecord(slot.copy_start,stream_):-1;
+    if(slot.copy_start&&status)timing_error(true,"record start event "+std::to_string(status));
+    slot.cuda_timed=status==0;
+    std::lock_guard<std::mutex> lock(timing_mutex_);++timing_.cuda_requested;
+    if(slot.cuda_timed)++timing_.cuda_pending;else ++timing_.cuda_missing;
+}
+void RmCudaGlBridge::finish_cuda_timing(Slot &slot) {
+    if(!diagnostics_enabled_)return;
+    auto observed=rm::monotonic_us();float milliseconds=0;
+    int status=slot.cuda_timed?cuda_.cuEventElapsedTime(&milliseconds,slot.copy_start,slot.producer):0;
+    double microseconds=std::ceil(double(milliseconds)*1000.0);
+    bool valid=status==0&&std::isfinite(microseconds)&&microseconds>=0&&microseconds<double(std::numeric_limits<rm::Micros>::max());
+    if(slot.cuda_timed&&!valid)timing_error(true,"elapsed event time "+std::to_string(status));
+    std::lock_guard<std::mutex> lock(timing_mutex_);
+    if(slot.copy_queued_us)timing_.cuda_completion_observed.observe(observed-slot.copy_queued_us);
+    if(slot.cuda_timed) {
+        --timing_.cuda_pending;
+        if(valid)timing_.cuda_copy_unmap_gpu.observe(rm::Micros(microseconds));else ++timing_.cuda_missing;
+    }
+    slot.cuda_timed=false;slot.copy_queued_us=0;
+}
+void RmCudaGlBridge::begin_gl_timing(Slot &slot) {
+    if(!diagnostics_enabled_)return;
+    bool valid=false;
+    if(slot.copy_queries[0]) {
+        gl_.QueryCounter(slot.copy_queries[0],0x8E28);unsigned error=gl_.GetError();valid=error==0;
+        if(error)timing_error(false,"start timestamp "+std::to_string(error));
+    }
+    slot.gl_timed=valid;slot.gl_end_recorded=false;
+    std::lock_guard<std::mutex> lock(timing_mutex_);++timing_.gl_requested;
+    if(valid)++timing_.gl_pending;else ++timing_.gl_missing;
+}
+void RmCudaGlBridge::end_gl_timing(Slot &slot) {
+    if(!slot.gl_timed)return;
+    gl_.QueryCounter(slot.copy_queries[1],0x8E28);unsigned error=gl_.GetError();
+    slot.gl_end_recorded=error==0;
+    if(error)timing_error(false,"end timestamp "+std::to_string(error));
+}
+void RmCudaGlBridge::collect_gl_timing(Slot &slot) {
+    if(!slot.gl_timed||!slot.gl_end_recorded)return;
+    int first=0,last=0;
+    gl_.GetQueryObjectiv(slot.copy_queries[0],0x8867,&first); // QUERY_RESULT_AVAILABLE
+    gl_.GetQueryObjectiv(slot.copy_queries[1],0x8867,&last);
+    unsigned error=gl_.GetError();
+    if(!error&&(!first||!last))return; // Never wait for a diagnostic sample.
+    uint64_t start=0,end=0;
+    if(!error) {
+        gl_.GetQueryObjectui64v(slot.copy_queries[0],0x8866,&start);
+        gl_.GetQueryObjectui64v(slot.copy_queries[1],0x8866,&end);error=gl_.GetError();
+    }
+    bool valid=!error&&end>=start;
+    if(!valid)timing_error(false,"timestamp result "+std::to_string(error));
+    std::lock_guard<std::mutex> lock(timing_mutex_);--timing_.gl_pending;
+    if(valid)timing_.gl_display_copy_gpu.observe(rm::Micros((end-start)/1000+((end-start)%1000!=0)));
+    else ++timing_.gl_missing;
+    slot.gl_timed=slot.gl_end_recorded=false;
+}
+void RmCudaGlBridge::discard_timing(Slot &slot) {
+    // Ownership fences, not timing queries, decide when the slot can be reused.
+    std::lock_guard<std::mutex> lock(timing_mutex_);
+    if(slot.cuda_timed){--timing_.cuda_pending;++timing_.cuda_missing;slot.cuda_timed=false;}
+    if(slot.gl_timed){--timing_.gl_pending;++timing_.gl_missing;slot.gl_timed=slot.gl_end_recorded=false;}
+    slot.copy_queued_us=0;
 }
 void RmCudaGlBridge::allocate(Slot &slot,int width,int height) {
     int binding=0,unpack=0; gl_.GetIntegerv(0x8069,&binding); gl_.GetIntegerv(0x88EF,&unpack);
@@ -72,8 +163,21 @@ void RmCudaGlBridge::allocate(Slot &slot,int width,int height) {
                 RenderingServer::TEXTURE_TYPE_2D,i?Image::FORMAT_RG8:Image::FORMAT_R8,slot.textures[i],w,h,1);
             if (!slot.wrappers[i]->rid.is_valid()) throw std::runtime_error("Cannot import OpenGL plane into Godot");
         }
-        cuda_.check(cuda_.cuEventCreate(&slot.producer,2),"create producer completion event");
+        if(cuda_timing_) {
+            int status=cuda_.cuEventCreate(&slot.copy_start,0);
+            if(status){slot.copy_start=nullptr;timing_error(true,"create start event "+std::to_string(status));}
+            else {std::lock_guard<std::mutex> lock(timing_mutex_);++timing_.events_live;}
+        }
+        cuda_.check(cuda_.cuEventCreate(&slot.producer,slot.copy_start?0:2),"create producer completion event");
         ++live_;
+        if(gl_timing_) {
+            gl_.GenQueries(2,slot.copy_queries.data());unsigned error=gl_.GetError();
+            if(error||!slot.copy_queries[0]||!slot.copy_queries[1]) {
+                timing_error(false,"allocate timestamp queries "+std::to_string(error));
+                gl_.DeleteQueries(2,slot.copy_queries.data());slot.copy_queries={};
+                if(auto cleanup_error=gl_.GetError())timing_error(false,"failed query allocation cleanup "+std::to_string(cleanup_error));
+            } else {std::lock_guard<std::mutex> lock(timing_mutex_);timing_.queries_live+=2;}
+        }
     } catch (...) {
         gl_.BindTexture(texture_2d,binding);gl_.BindBuffer(0x88EC,unpack);throw;
     }
@@ -81,9 +185,18 @@ void RmCudaGlBridge::allocate(Slot &slot,int width,int height) {
 }
 void RmCudaGlBridge::destroy(Slot &slot) {
     // No consumer/producer can still reference this slot here.
+    collect_gl_timing(slot);discard_timing(slot);
     bool counted=slot.producer!=nullptr;
     if(slot.producer)cuda_.check(cuda_.cuEventDestroy_v2(slot.producer),"destroy producer event");
     slot.producer=nullptr;
+    if(slot.copy_start) {
+        cuda_.check(cuda_.cuEventDestroy_v2(slot.copy_start),"destroy timing start event");slot.copy_start=nullptr;
+        std::lock_guard<std::mutex> lock(timing_mutex_);--timing_.events_live;
+    }
+    if(slot.copy_queries[0]) {
+        gl_.DeleteQueries(2,slot.copy_queries.data());slot.copy_queries={};
+        std::lock_guard<std::mutex> lock(timing_mutex_);timing_.queries_live-=2;
+    }
     for(int i=0;i<2;++i) {
         if(slot.resources[i])cuda_.check(cuda_.cuGraphicsUnregisterResource(slot.resources[i]),"unregister GL plane");
         slot.resources[i]=nullptr;
@@ -99,9 +212,10 @@ void RmCudaGlBridge::poll_current() {
     for(auto &slot:slots_) {
         if(slot.source.frame && slot.recorded) {
             int status=cuda_.cuEventQuery(slot.producer);
-            if(status==0){slot.source={};slot.recorded=false;++released_;--sources_;}
+            if(status==0){finish_cuda_timing(slot);slot.source={};slot.recorded=false;++released_;--sources_;}
             else if(status!=600)cuda_.check(status,"query video-copy completion");
         }
+        collect_gl_timing(slot);
         if(slot.acquired && slot.lease.expired()) {
             if(!slot.consumer) {
                 // Main thread explicitly cleared the canvas and material before
@@ -137,12 +251,16 @@ std::shared_ptr<RmGpuPublication> RmCudaGlBridge::upload(const rm::FrameLease &f
     for(auto &slot:slots_)if(!slot.acquired){available=&slot;break;}
     if(!available){++dropped_;return {};}
     auto &slot=*available;
+    collect_gl_timing(slot);discard_timing(slot);
     if(slot.width!=frame.info.width||slot.height!=frame.info.height) {
         destroy(slot);allocate(slot,frame.info.width,frame.info.height);
     }
     auto publication=std::make_shared<RmGpuPublication>();
     slot.source=frame;++sources_;slot.acquired=true;slot.lease=publication;
+    auto started=diagnostics_enabled_?rm::monotonic_us():0;
     cuda_.check(cuda_.cuGraphicsMapResources(2,slot.resources.data(),stream_),"map CUDA/GL planes");slot.mapped=true;
+    record_cpu(&TimingState::map_cpu,started);begin_cuda_timing(slot);
+    started=diagnostics_enabled_?rm::monotonic_us():0;
     for(int i=0;i<2;++i) {
         rm::gpu::Array array=nullptr;
         cuda_.check(cuda_.cuGraphicsSubResourceGetMappedArray(&array,slot.resources[i],0,0),"get CUDA/GL plane array");
@@ -155,9 +273,13 @@ std::shared_ptr<RmGpuPublication> RmCudaGlBridge::upload(const rm::FrameLease &f
         cuda_.check(cuda_.cuMemcpy2DAsync_v2(&copy,stream_),"copy video plane on GPU");bytes_+=copy.width*copy.height;
         publication->textures.push_back(slot.wrappers[i]);
     }
+    record_cpu(&TimingState::cuda_copy_enqueue_cpu,started);
     // CUDA unmap orders subsequent GL work after all earlier CUDA work on stream.
+    started=diagnostics_enabled_?rm::monotonic_us():0;
     cuda_.check(cuda_.cuGraphicsUnmapResources(2,slot.resources.data(),stream_),"unmap CUDA/GL planes");slot.mapped=false;
+    record_cpu(&TimingState::unmap_cpu,started);
     cuda_.check(cuda_.cuEventRecord(slot.producer,stream_),"record source release event");slot.recorded=true;
+    begin_gl_timing(slot);started=diagnostics_enabled_?rm::monotonic_us():0;
     for(int i=0;i<2;++i) {
         int width=i?(slot.width+1)/2:slot.width,height=i?(slot.height+1)/2:slot.height;
         gl_.CopyImageSubData(slot.interop_textures[i],texture_2d,0,0,0,0,slot.textures[i],texture_2d,0,0,0,0,width,height,1);
@@ -168,6 +290,7 @@ std::shared_ptr<RmGpuPublication> RmCudaGlBridge::upload(const rm::FrameLease &f
     // CUDA event, while the consumer fence covers both GL copy and sampling.
     unsigned graphics_error=gl_.GetError();
     if(graphics_error)throw std::runtime_error("OpenGL error after CUDA copy: "+std::to_string(graphics_error));
+    record_cpu(&TimingState::gl_copy_enqueue_cpu,started);end_gl_timing(slot);
     ++copied_;return publication;
 }
 void RmCudaGlBridge::close() {
@@ -197,5 +320,20 @@ Dictionary RmCudaGlBridge::metrics() const {
     result["gpu_busy_drops"]=int64_t(dropped_);result["gpu_slots_live"]=int64_t(live_);result["gpu_slot_limit"]=3;
     result["external_gl_errors"]=int64_t(external_gl_errors_);
     result["gpu_display_copy_bytes"]=int64_t(display_bytes_);
+    result["gpu_diagnostics_enabled"]=diagnostics_enabled_;
+    if(diagnostics_enabled_) {
+        TimingState copy;{std::lock_guard<std::mutex> lock(timing_mutex_);copy=timing_;}
+        result["cuda_timing_status"]=String(copy.cuda_status.c_str());result["gl_timing_status"]=String(copy.gl_status.c_str());
+#define METRIC(field) result["gpu_timing_" #field]=int64_t(copy.field)
+        METRIC(errors);METRIC(cuda_requested);METRIC(cuda_missing);METRIC(cuda_pending);
+        METRIC(gl_requested);METRIC(gl_missing);METRIC(gl_pending);METRIC(events_live);METRIC(queries_live);
+#undef METRIC
+        Dictionary timings;
+#define TIMING(field) timings[#field]=rm::binding::histogram(copy.field)
+        TIMING(map_cpu);TIMING(cuda_copy_enqueue_cpu);TIMING(unmap_cpu);TIMING(gl_copy_enqueue_cpu);
+        TIMING(cuda_copy_unmap_gpu);TIMING(gl_display_copy_gpu);TIMING(cuda_completion_observed);
+#undef TIMING
+        result["gpu_timings"]=timings;
+    }
     return result;
 }

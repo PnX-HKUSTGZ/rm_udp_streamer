@@ -306,6 +306,7 @@ void Decoder::send(const uint8_t *data, int size, FrameTiming timing) {
     ++counters_.parser_packets;
     auto picture = parameters_.observe(data, size);
     if (timing.enabled && picture.first_slices != 1) timing.unknown(Correlation::NotSinglePicture);
+    if(timing.correlated())counters_.dequeue_to_packet.observe(timing.packet_ready_us-timing.dequeued_us);
     std::vector<uint8_t> prefixed;
     if (awaiting_key_) {
         auto configuration = parameters_.for_picture(picture.pps_id);
@@ -405,6 +406,7 @@ void Decoder::receive() {
                 if (trace.magic == TimingOpaque::tag) info.timing = trace.timing;
             }
             info.timing.decoded_us = monotonic_us();
+            if(info.timing.packet_ready_us>0)counters_.packet_to_decoded.observe(info.timing.decoded_us-info.timing.packet_ready_us);
             if (info.timing.correlated()) ++counters_.correlated_frames;
             else ++counters_.unknown_timing_frames;
         }

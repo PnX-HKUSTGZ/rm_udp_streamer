@@ -1,5 +1,6 @@
 #include "video_surface.hpp"
 #include "video_session.hpp"
+#include "diagnostics.hpp"
 #include <godot_cpp/classes/image.hpp>
 #include <godot_cpp/classes/rendering_server.hpp>
 #include <godot_cpp/classes/shader.hpp>
@@ -43,16 +44,20 @@ void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
             if(state->gpu)state->gpu->poll();
             state->busy.store(false);return;
         }
+        rm::Micros upload_started=0;
+        if(frame && frame->info.timing.enabled) {
+            upload_started=rm::monotonic_us();frame->info.timing.upload_started_us=upload_started;
+        }
         if (state->active.load() && session.is_valid() && session->core().accepts(frame->info)) {
             auto publication = std::make_shared<RmUploadState::Publication>();
             publication->info = frame->info; publication->path = frame->path;
             if(frame->gpu_source.frame) {
                 if(!state->gpu) {
-                    std::lock_guard<std::mutex> lock(state->mutex);state->gpu=std::make_shared<RmCudaGlBridge>();
+                    std::lock_guard<std::mutex> lock(state->mutex);state->gpu=std::make_shared<RmCudaGlBridge>(frame->info.timing.enabled);
                     session->core().presentation_attempted();
                 }
                 publication->gpu=state->gpu->upload(frame->gpu_source);
-                if(!publication->gpu){frame.reset();state->busy.store(false);return;}
+                if(!publication->gpu){session->core().presentation_event(rm::PresentationEvent::GpuBusy);frame.reset();state->busy.store(false);return;}
                 publication->textures=publication->gpu->textures;publication->path="gpu_cuda_gl_nv12";
             } else {
             auto layout = frame->path + ":" + std::to_string(frame->info.width) + ":" + std::to_string(frame->info.height);
@@ -71,13 +76,20 @@ void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
             }
             for(const auto &texture:state->textures)publication->textures.push_back(texture);
             }
-            std::lock_guard<std::mutex> lock(state->mutex);
-            if (state->active.load() && session->core().accepts(frame->info)) {
-                session->core().presented(frame->info,publication->path);
-                state->published = std::move(publication); ++state->submitted;
+            rm::Micros upload_elapsed=0;
+            if(publication->info.timing.enabled) {
+                publication->info.timing.upload_completed_us=rm::monotonic_us();
+                upload_elapsed=publication->info.timing.upload_completed_us-upload_started;
             }
-        }
+            std::lock_guard<std::mutex> lock(state->mutex);
+            if (state->active.load() && session->core().accepts(frame->info) &&
+                session->core().presented(publication->info,publication->path,upload_elapsed)) {
+                if(state->published)session->core().presentation_event(rm::PresentationEvent::PublicationReplaced);
+                state->published = std::move(publication); ++state->submitted;
+            } else session->core().presentation_event(rm::PresentationEvent::StaleAfter);
+        } else session->core().presentation_event(rm::PresentationEvent::StaleBefore);
     } catch (const std::exception &error) {
+        if(frame)session->core().presentation_event(rm::PresentationEvent::UploadFailure);
         bool gpu_failure = !close_only && (poll_only || (frame && frame->gpu_source.frame));
         bool recovered = session.is_valid() && session->core().presentation_failed(error.what(), gpu_failure);
         if (!recovered) {std::lock_guard<std::mutex> lock(state->mutex); state->error = error.what();}
@@ -119,7 +131,9 @@ void RmVideoSurface::detach_picture() {
 }
 void RmVideoSurface::retire_upload() {
     upload_->active.store(false);
-    {std::lock_guard<std::mutex> lock(upload_->mutex);upload_->published.reset();}
+    {std::lock_guard<std::mutex> lock(upload_->mutex);
+        if(upload_->published && session_.is_valid())session_->core().presentation_event(rm::PresentationEvent::PublicationStale);
+        upload_->published.reset();}
     if(upload_->gpu_registered) {
         Ref<RmCpuUpload> work;work.instantiate();work->state=upload_;work->session=session_;work->close_only=true;
         RenderingServer::get_singleton()->call_on_render_thread(callable_mp(work.ptr(),&RmCpuUpload::run).bind(work));
@@ -138,6 +152,7 @@ Dictionary RmVideoSurface::get_metrics() const {
         result["shown_presentation"] = int64_t(shown_->info.presentation_generation);
         result["width"] = shown_->info.width; result["height"] = shown_->info.height;
         result["path"] = String(shown_->path.c_str());
+        result["current_main_accepted"]=rm::binding::frame(shown_->info);
     }
     return result;
 }
@@ -154,6 +169,7 @@ void RmVideoSurface::_process(double) {
         }
     }
     if (shown_ && !session_->core().accepts(shown_->info)) {
+        session_->core().presentation_event(rm::PresentationEvent::ShownInvalidated);
         detach_picture();queue_redraw();
     }
     std::shared_ptr<RmUploadState::Publication> publication;
@@ -162,6 +178,8 @@ void RmVideoSurface::_process(double) {
         if (session_->core().accepts(publication->info)) {
             detach_picture();
             shown_ = std::move(publication);
+            if(shown_->info.timing.enabled)shown_->info.timing.shown_us=rm::monotonic_us();
+            session_->core().shown(shown_->info);
             if (shown_->path == "cpu_rgba") set_material(Ref<Material>());
             else {
                 auto &info = shown_->info;
@@ -181,7 +199,7 @@ void RmVideoSurface::_process(double) {
                 set_material(material_);
             }
             queue_redraw();
-        }
+        } else session_->core().presentation_event(rm::PresentationEvent::PublicationStale);
     }
     if (!upload_->busy.load()) {
         auto frame = session_->core().take_frame();
@@ -196,7 +214,7 @@ void RmVideoSurface::_process(double) {
             Ref<RmCpuUpload> work;work.instantiate();work->state=upload_;work->session=session_;work->poll_only=true;
             RenderingServer::get_singleton()->call_on_render_thread(callable_mp(work.ptr(),&RmCpuUpload::run).bind(work));
         }
-    }
+    } else session_->core().presentation_event(rm::PresentationEvent::BusyPoll);
 }
 void RmVideoSurface::_draw() {
     if (!shown_ || shown_->textures.empty()) return;

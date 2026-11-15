@@ -64,6 +64,7 @@ struct DecodeCounters {
     uint64_t correlated_frames = 0, unknown_timing_frames = 0, timing_history_evicted = 0;
     size_t timing_history_peak = 0;
     TimingHistogram parser_cpu, packet_prepare_cpu, decode_send_cpu, decode_receive_cpu;
+    TimingHistogram dequeue_to_packet, packet_to_decoded;
     TimingHistogram cpu_readback, rgba_conversion, plane_pack, prepare_total;
 };
 

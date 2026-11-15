@@ -59,6 +59,7 @@ struct Driver {
     FN(cuMemcpy2DAsync_v2,(const Copy2D *,Stream));
     FN(cuEventCreate,(Event *,unsigned)); FN(cuEventRecord,(Event,Stream));
     FN(cuEventQuery,(Event)); FN(cuEventDestroy_v2,(Event));
+    FN(cuEventElapsedTime,(float *,Event,Event));
     FN(cuGetErrorName,(int,const char **));
 #undef FN
     void load() {
@@ -74,6 +75,10 @@ struct Driver {
         const char *label = nullptr; if (cuGetErrorName) cuGetErrorName(result,&label);
         throw std::runtime_error(std::string(operation)+": "+(label?label:std::to_string(result)));
     }
+    bool load_timing() {
+        cuEventElapsedTime=reinterpret_cast<TcuEventElapsedTime>(symbol("nvcuda.dll","cuEventElapsedTime"));
+        return cuEventElapsedTime!=nullptr;
+    }
 };
 struct Gl {
 #define FN(name, ret, args) using T##name = ret(RM_GPU_CALL *) args; T##name name = nullptr
@@ -86,6 +91,9 @@ struct Gl {
     FN(FenceSync,Sync,(unsigned,unsigned)); FN(ClientWaitSync,unsigned,(Sync,unsigned,uint64_t));
     FN(DeleteSync,void,(Sync)); FN(Flush,void,());
     FN(CopyImageSubData,void,(unsigned,unsigned,int,int,int,int,unsigned,unsigned,int,int,int,int,int,int,int));
+    FN(GenQueries,void,(int,unsigned *)); FN(DeleteQueries,void,(int,const unsigned *));
+    FN(QueryCounter,void,(unsigned,unsigned)); FN(GetQueryiv,void,(unsigned,unsigned,int *));
+    FN(GetQueryObjectiv,void,(unsigned,unsigned,int *)); FN(GetQueryObjectui64v,void,(unsigned,unsigned,uint64_t *));
 #undef FN
     void load() {
 #define LOAD(name) name = reinterpret_cast<T##name>(symbol("opengl32.dll","gl" #name,true)); if (!name) throw std::runtime_error("OpenGL lacks gl" #name)
@@ -93,6 +101,13 @@ struct Gl {
         LOAD(TexParameteri); LOAD(TexImage2D); LOAD(DeleteTextures); LOAD(FenceSync); LOAD(ClientWaitSync); LOAD(DeleteSync); LOAD(Flush);
         LOAD(GetStringi);LOAD(CopyImageSubData);
 #undef LOAD
+    }
+    bool load_timing() {
+#define RM_LOAD_OPTIONAL(name) name=reinterpret_cast<T##name>(symbol("opengl32.dll","gl" #name,true)); if(!name)return false
+        RM_LOAD_OPTIONAL(GenQueries); RM_LOAD_OPTIONAL(DeleteQueries); RM_LOAD_OPTIONAL(QueryCounter); RM_LOAD_OPTIONAL(GetQueryiv);
+        RM_LOAD_OPTIONAL(GetQueryObjectiv); RM_LOAD_OPTIONAL(GetQueryObjectui64v);
+#undef RM_LOAD_OPTIONAL
+        return true;
     }
 };
 struct CurrentContext {
