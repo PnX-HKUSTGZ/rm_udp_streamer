@@ -21,8 +21,11 @@ def main():
     parser.add_argument('--pkg-config', default='pkg-config')
     parser.add_argument('--nasm', help='Explicit NASM; otherwise use cross-tools/usr/bin/nasm or PATH')
     parser.add_argument('--jobs', type=int, default=8)
+    parser.add_argument('--vaapi', action='store_true', help='Linux: also build VAAPI/DRM HEVC support using system libva/libdrm development packages')
     parser.add_argument('--verify-only', action='store_true', help='Check pinned, clean source checkouts without building')
     args = parser.parse_args()
+    if args.vaapi and args.target != 'linux':
+        parser.error('--vaapi is only supported for Linux')
     cache = args.cache.resolve()
     source = cache / 'ffmpeg-source'
     headers = cache / 'nv-codec-headers'
@@ -58,7 +61,12 @@ def main():
         command += ['--target-os=mingw32', '--arch=x86_64', '--enable-cross-compile',
                     '--enable-d3d11va', '--enable-hwaccel=hevc_d3d11va,hevc_d3d11va2,hevc_nvdec']
     else:
-        command += ['--enable-pthreads', '--enable-hwaccel=hevc_nvdec']
+        command += ['--enable-pthreads']
+        if args.vaapi:
+            command += ['--enable-vaapi', '--enable-libdrm', '--disable-xlib',
+                        '--enable-hwaccel=hevc_nvdec,hevc_vaapi']
+        else:
+            command += ['--enable-hwaccel=hevc_nvdec']
     cross = str(args.cross_tools.resolve() / 'usr/bin/x86_64-w64-mingw32-') if args.target == 'windows' else None
     nasm = args.nasm or (str(args.cross_tools.resolve() / 'usr/bin/nasm') if args.cross_tools else 'nasm')
     execute_build(work, roots, provenance, args.target, command, args.jobs, cross,

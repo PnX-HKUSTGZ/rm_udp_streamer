@@ -61,6 +61,8 @@ Windows优先使用缓存内CMake，不受PATH中其他版本影响。已有构�
 
 要从原始 Git 源码重建 FFmpeg，使用 `build/build_ffmpeg.py --cache PATH --target linux --work NEW_DIRECTORY`；Windows FFmpeg 通过 WSL/Linux 加 `--target windows --cross-tools PATH` 构建。对应源码必须固定提交且工作区干净。重建程序从归档创建独立源码快照，输出到新目录的 `ffmpeg-install`，保留实际工具/源码/配置/日志和输出校验收据，不修改官方缓存。新输出用 `record_dependency_lock.py` 记录为尚未验收的 developer 锁，再恢复到独立缓存、构建并执行受影响验收。原始配置和交叉工具包摘要仍保存在官方锁文件；不同工具或路径的重建不自动等于字节复现。
 
+Linux 的依赖开发可额外传 `--vaapi`，明确编入 HEVC VAAPI 与 DRM。Ubuntu 24.04 需先安装 `libva-dev libdrm-dev pkg-config`；构建记录实际系统包的版本、链接选项和 pkg-config 文件摘要，继续禁用自动发现其他外部库及 GPL/nonfree 组件。VAAPI 使用发行版的 libva/libva-drm/libdrm 动态运行库和 GPU 厂商媒体驱动，新增产物仍须记录独立锁并重新验收。此选项仅准备依赖，不能据此宣称接收器已支持某个设备或达到性能目标。
+
 ## 最终包与许可材料
 
 先准备FFmpeg与nv-codec-headers对应源码：

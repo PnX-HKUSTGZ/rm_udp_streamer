@@ -133,8 +133,27 @@ def execute_build(work, roots, provenance, target, flags, jobs=8, cross_prefix=N
             receipt['tools'][name] = checked_tool(command, env)
         tools = {name: item['path'] for name, item in receipt['tools'].items()}
         env['PKG_CONFIG_PATH'] = str(headers / 'lib/pkgconfig')
-        # No implicit external packages in this fixed minimal recipe.
-        env['PKG_CONFIG_LIBDIR'] = str(headers / 'lib/pkgconfig')
+        # CUDA-only builds remain isolated from host packages. VAAPI is an
+        # explicit Linux recipe and uses the distribution's libva/libdrm ABI.
+        # Autodetection stays disabled, including X11 device creation.
+        if '--enable-vaapi' in flags:
+            if target != 'linux' or '--enable-libdrm' not in flags or '--disable-autodetect' not in flags:
+                raise RuntimeError('VAAPI requires an explicit Linux DRM recipe with autodetection disabled')
+            system_path = subprocess.check_output([tools['pkg_config'], '--variable=pc_path', 'pkg-config'], env=env, text=True).strip()
+            if not system_path:
+                raise RuntimeError('Cannot determine the system pkg-config search path for VAAPI')
+            env['PKG_CONFIG_LIBDIR'] = system_path
+            receipt['system_dependencies'] = {'pkg_config_path': system_path, 'packages': {}}
+            for package in ['libva', 'libva-drm', 'libdrm']:
+                def query(*arguments):
+                    return subprocess.check_output([tools['pkg_config'], *arguments, package], env=env, text=True).strip()
+                pc = Path(query('--variable=pcfiledir')) / (package + '.pc')
+                receipt['system_dependencies']['packages'][package] = {
+                    'version': query('--modversion'), 'cflags': query('--cflags'),
+                    'libs': query('--libs', '--static'), 'pc_file': str(pc), 'pc_sha256': digest(pc),
+                }
+        else:
+            env['PKG_CONFIG_LIBDIR'] = str(headers / 'lib/pkgconfig')
         recipe = [str(roots['ffmpeg'] / 'configure'), '--prefix=' + str(prefix), *flags,
                   '--cc=' + compiler, '--host-cc=' + tools['host_cc'], '--pkg-config=' + tools['pkg_config'],
                   '--x86asmexe=' + tools['nasm'], '--ar=' + tools['ar'], '--nm=' + tools['nm'],
