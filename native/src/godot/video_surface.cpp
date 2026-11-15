@@ -107,7 +107,7 @@ void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
 void RmVideoSurface::_bind_methods() {
     ClassDB::bind_method(D_METHOD("set_session", "session"), &RmVideoSurface::set_session);
     ClassDB::bind_method(D_METHOD("clear"), &RmVideoSurface::clear);
-    ClassDB::bind_method(D_METHOD("get_metrics"), &RmVideoSurface::get_metrics);
+    ClassDB::bind_method(D_METHOD("get_metrics", "detailed"), &RmVideoSurface::get_metrics, DEFVAL(true));
 }
 RmVideoSurface::RmVideoSurface() {
     set_process(true); set_mouse_filter(Control::MOUSE_FILTER_IGNORE);
@@ -139,12 +139,12 @@ void RmVideoSurface::retire_upload() {
         RenderingServer::get_singleton()->call_on_render_thread(callable_mp(work.ptr(),&RmCpuUpload::run).bind(work));
     }
 }
-Dictionary RmVideoSurface::get_metrics() const {
+Dictionary RmVideoSurface::get_metrics(bool detailed) const {
     Dictionary result;
     result["submitted"] = int64_t(upload_->submitted.load());
     result["upload_pending"] = upload_->busy.load();
     { std::lock_guard<std::mutex> lock(upload_->mutex); result["error"] = String(upload_->error.c_str());
-      if(upload_->gpu) {auto metrics=upload_->gpu->metrics();for(const auto &key:metrics.keys())result[key]=metrics[key];}}
+      if(upload_->gpu) {auto metrics=upload_->gpu->metrics(detailed);for(const auto &key:metrics.keys())result[key]=metrics[key];}}
     if (shown_) {
         result["shown_sequence"] = int64_t(shown_->info.output_sequence);
         result["shown_generation"] = int64_t(shown_->info.stream_generation);
@@ -152,7 +152,7 @@ Dictionary RmVideoSurface::get_metrics() const {
         result["shown_presentation"] = int64_t(shown_->info.presentation_generation);
         result["width"] = shown_->info.width; result["height"] = shown_->info.height;
         result["path"] = String(shown_->path.c_str());
-        result["current_main_accepted"]=rm::binding::frame(shown_->info);
+        if(detailed)result["current_main_accepted"]=rm::binding::frame(shown_->info);
     }
     return result;
 }

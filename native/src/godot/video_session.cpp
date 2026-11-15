@@ -29,7 +29,7 @@ void RmVideoSession::_bind_methods() {
     ClassDB::bind_method(D_METHOD("stop"), &RmVideoSession::stop);
     ClassDB::bind_method(D_METHOD("request_stop"), &RmVideoSession::request_stop);
     ClassDB::bind_method(D_METHOD("poll_stop"), &RmVideoSession::poll_stop);
-    ClassDB::bind_method(D_METHOD("snapshot"), &RmVideoSession::snapshot);
+    ClassDB::bind_method(D_METHOD("snapshot", "detailed"), &RmVideoSession::snapshot, DEFVAL(true));
 }
 bool RmVideoSession::start(const Dictionary &values) {
     try {
@@ -71,16 +71,18 @@ bool RmVideoSession::start(const Dictionary &values) {
 void RmVideoSession::stop() { receiver_.stop(); }
 void RmVideoSession::request_stop() { receiver_.request_stop(); }
 void RmVideoSession::poll_stop() { receiver_.poll_stop(); }
-Dictionary RmVideoSession::snapshot() const {
+Dictionary RmVideoSession::snapshot(bool detailed) const {
     auto state = receiver_.snapshot(); const auto &s = state.receiver.transport;
     Dictionary result;
     auto sample_us=state.snapshot_us;
     result["snapshot_us"]=sample_us;result["diagnostics_enabled"]=state.diagnostics;result["timing_schema"]=1;
-    result["last_decoded"]=rm::binding::frame(state.last_decoded);
-    result["last_prepared"]=rm::binding::frame(state.last_prepared);
-    result["last_submitted"]=rm::binding::frame(state.last_submitted);
-    result["last_main_accepted"]=rm::binding::frame(state.last_shown);
-    result["submission_windows"]=rm::binding::windows(state.submission_windows,sample_us);
+    if(detailed) {
+        result["last_decoded"]=rm::binding::frame(state.last_decoded);
+        result["last_prepared"]=rm::binding::frame(state.last_prepared);
+        result["last_submitted"]=rm::binding::frame(state.last_submitted);
+        result["last_main_accepted"]=rm::binding::frame(state.last_shown);
+        result["submission_windows"]=rm::binding::windows(state.submission_windows,sample_us);
+    }
     int64_t pending_uploads=int64_t(state.upload_requested)-int64_t(state.submitted_total+state.upload_stale_before+
         state.upload_stale_after+state.gpu_slot_drops+state.upload_failures);
     result["pending_uploads"]=pending_uploads;
@@ -152,7 +154,7 @@ Dictionary RmVideoSession::snapshot() const {
     METRIC(publication_replaced); METRIC(publication_stale); METRIC(shown_invalidated);
     METRIC(correlated_submitted); METRIC(unknown_submitted);
 #undef METRIC
-    if (state.diagnostics) {
+    if (detailed && state.diagnostics) {
         Dictionary timings;
 #define TIMING(field, owner) timings[#field]=rm::binding::histogram(owner.field)
         TIMING(assembly_time,s); TIMING(order_wait,s); TIMING(compressed_queue_wait,s);

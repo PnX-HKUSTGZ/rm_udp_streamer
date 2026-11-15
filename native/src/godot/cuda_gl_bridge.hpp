@@ -80,6 +80,6 @@ public:
     std::shared_ptr<RmGpuPublication> upload(const rm::FrameLease &);
     void poll();
     void close(); // Called only after all canvas consumers and publications detach.
-    godot::Dictionary metrics() const;
+    godot::Dictionary metrics(bool detailed=true) const;
     ~RmCudaGlBridge();
 };

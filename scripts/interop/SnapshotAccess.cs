@@ -5,10 +5,10 @@ using Godot.Collections;
 // Dispose both the Call Variant and the dictionary copy at their actual scope.
 public static class SnapshotAccess
 {
-    public static Dictionary Read(GodotObject source, string method)
+    public static Dictionary Read(GodotObject source, string method, bool detailed = true)
     {
         using var name = new StringName(method);
-        using var value = source.Call(name);
+        using var value = source.Call(name, detailed);
         return value.AsGodotDictionary();
     }
     public static string Serialize(Dictionary dictionary)

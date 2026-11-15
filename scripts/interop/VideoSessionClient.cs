@@ -22,7 +22,7 @@ public sealed class VideoSessionClient : IDisposable
         return result.AsBool();
     }
     public void Stop() => _native?.Call("request_stop");
-    public Godot.Collections.Dictionary Snapshot() => SnapshotAccess.Read(_native!, "snapshot");
+    public Godot.Collections.Dictionary Snapshot(bool detailed = true) => SnapshotAccess.Read(_native!, "snapshot", detailed);
     public void Dispose()
     {
         if (_native == null) return;

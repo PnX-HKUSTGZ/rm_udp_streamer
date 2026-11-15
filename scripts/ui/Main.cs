@@ -100,7 +100,7 @@ public partial class Main : Control
     {
         if (_session == null) return;
         _session.Native.Call("poll_stop");
-        using var data = _session.Snapshot(); using var presentation = SnapshotAccess.Read(_surface, "get_metrics");
+        using var data = _session.Snapshot(false); using var presentation = SnapshotAccess.Read(_surface, "get_metrics", false);
         _running = data.Flag("running"); string state=data.Text("state"); long age=data.Number("frame_age_ms");
         _state.Text = state switch { "Starting"=>"正在启动", "WaitingConfig"=>"等待参数与关键帧", "Running"=>age>500 ? "画面信号过期" : "正在播放",
             "Recovering"=>"恢复中 · 等待关键帧", "Stopping"=>"正在停止", "Faulted"=>"接收失败", _=>"已停止" };
@@ -135,7 +135,7 @@ public partial class Main : Control
         {
             try
             {
-                using var data = _session.Snapshot();
+                using var data = _session.Snapshot(false);
                 if (_options.Start && !_readyLogged && data.Text("state") != "Starting")
                 { _readyLogged = true; GD.Print("RM_READY ", SnapshotAccess.Serialize(data)); }
                 if (_diagnostics != null && _diagnosticTime >= 1) { RecordDiagnostics(); _diagnosticTime = 0; }
@@ -168,7 +168,7 @@ public partial class Main : Control
             }
             var final = RecordDiagnostics();
             GD.Print("RM_FINAL ", final);
-            using var finalCore = _session!.Snapshot(); using var finalSurface = SnapshotAccess.Read(_surface, "get_metrics");
+            using var finalCore = _session!.Snapshot(false); using var finalSurface = SnapshotAccess.Read(_surface, "get_metrics", false);
             if (finalCore.Text("error").Length > 0 || finalSurface.Text("error").Length > 0) exitCode = 2;
         }
         catch (Exception error) { GD.PushError(error.Message); exitCode = 2; }

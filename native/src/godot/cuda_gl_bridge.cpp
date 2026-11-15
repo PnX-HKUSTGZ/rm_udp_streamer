@@ -312,7 +312,7 @@ void RmCudaGlBridge::close() {
     // The context guard must pop before releasing the final device reference.
 }
 RmCudaGlBridge::~RmCudaGlBridge() { av_buffer_unref(&device_); }
-Dictionary RmCudaGlBridge::metrics() const {
+Dictionary RmCudaGlBridge::metrics(bool detailed) const {
     Dictionary result;
     result["gpu_copies"]=int64_t(copied_);result["gpu_copy_bytes"]=int64_t(bytes_);
     result["gpu_sources_released"]=int64_t(released_);result["gpu_sources_live"]=int64_t(sources_);
@@ -321,7 +321,7 @@ Dictionary RmCudaGlBridge::metrics() const {
     result["external_gl_errors"]=int64_t(external_gl_errors_);
     result["gpu_display_copy_bytes"]=int64_t(display_bytes_);
     result["gpu_diagnostics_enabled"]=diagnostics_enabled_;
-    if(diagnostics_enabled_) {
+    if(detailed && diagnostics_enabled_) {
         TimingState copy;{std::lock_guard<std::mutex> lock(timing_mutex_);copy=timing_;}
         result["cuda_timing_status"]=String(copy.cuda_status.c_str());result["gl_timing_status"]=String(copy.gl_status.c_str());
 #define METRIC(field) result["gpu_timing_" #field]=int64_t(copy.field)

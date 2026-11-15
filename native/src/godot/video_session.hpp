@@ -18,7 +18,7 @@ public:
     void stop();
     void request_stop();
     void poll_stop();
-    godot::Dictionary snapshot() const;
+    godot::Dictionary snapshot(bool detailed=true) const;
     rm::MediaSession &core() { return receiver_; }
     void retain_gpu() { ++gpu_holders_; }
     void release_gpu() { --gpu_holders_; }

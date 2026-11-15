@@ -57,7 +57,7 @@ public:
     ~RmVideoSurface();
     void set_session(const godot::Ref<RmVideoSession> &session);
     void clear();
-    godot::Dictionary get_metrics() const;
+    godot::Dictionary get_metrics(bool detailed=true) const;
     void _process(double delta) override;
     void _draw() override;
 };
