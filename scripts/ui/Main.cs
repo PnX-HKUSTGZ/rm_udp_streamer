@@ -100,31 +100,31 @@ public partial class Main : Control
     {
         if (_session == null) return;
         _session.Native.Call("poll_stop");
-        var data = _session.Snapshot(); var presentation = _surface.Call("get_metrics").AsGodotDictionary();
-        _running = data["running"].AsBool(); string state=data["state"].AsString(); long age=data["frame_age_ms"].AsInt64();
+        using var data = _session.Snapshot(); using var presentation = SnapshotAccess.Read(_surface, "get_metrics");
+        _running = data.Flag("running"); string state=data.Text("state"); long age=data.Number("frame_age_ms");
         _state.Text = state switch { "Starting"=>"正在启动", "WaitingConfig"=>"等待参数与关键帧", "Running"=>age>500 ? "画面信号过期" : "正在播放",
             "Recovering"=>"恢复中 · 等待关键帧", "Stopping"=>"正在停止", "Faulted"=>"接收失败", _=>"已停止" };
         _toggle.Text = _running ? "停止接收" : "开始接收"; _toggle.Disabled=state=="Stopping";
         _address.Editable = !_running; _port.Editable = !_running; _device.Editable=!_running;
         _decoder.Disabled=_running; _transfer.Disabled=_running;
-        bool displayed=presentation.ContainsKey("shown_sequence"); _placeholder.Visible=!displayed;
+        bool displayed=presentation.Has("shown_sequence"); _placeholder.Visible=!displayed;
         _placeholder.Text = _running ? age>2000 ? "视频信号已中断" : "等待可解码的视频画面" : "等待视频画面";
-        string source = data["source"].AsString(); _source.Text = "来源："+(source.Length==0 ? "等待数据" : source);
-        _path.Text = $"解码：{data["decoder"]} · {data["decode_device"]}  |  传输：{data["mode"]}  |  {data["width"]} × {data["height"]}";
-        if (data["color_defaulted"].AsBool()) _path.Text += " · 未标注颜色采用 SDR 默认值";
+        string source = data.Text("source"); _source.Text = "来源："+(source.Length==0 ? "等待数据" : source);
+        _path.Text = $"解码：{data.Text("decoder")} · {data.Text("decode_device")}  |  传输：{data.Text("mode")}  |  {data.Number("width")} × {data.Number("height")}";
+        if (data.Flag("color_defaulted")) _path.Text += " · 未标注颜色采用 SDR 默认值";
         _path.Text += $"\n渲染：{RenderingServer.GetVideoAdapterName()}";
         if (_rateTime >= 1)
         {
-            long complete=data["complete"].AsInt64(), decoded=data["decoded"].AsInt64(), submitted=presentation["submitted"].AsInt64();
+            long complete=data.Number("complete"), decoded=data.Number("decoded"), submitted=data.Number("submitted_total");
             _receiveFps=Math.Max(0,complete-_lastComplete)/_rateTime; _decodeFps=Math.Max(0,decoded-_lastDecoded)/_rateTime;
             _submitFps=Math.Max(0,submitted-_lastSubmitted)/_rateTime;
             _lastComplete=complete; _lastDecoded=decoded; _lastSubmitted=submitted; _rateTime=0;
         }
         _metrics.Text = $"重组 {_receiveFps:F1} · 解码 {_decodeFps:F1} · 新画面提交 {_submitFps:F1} 帧/秒"+
-            $"  |  缺失 {data["missing"]} · 恢复 {data["recoveries"]} · 显示替换 {data["mailbox_replaced"]} · 像素回读 {data["cpu_readbacks"]}";
-        string failure=data["error"].AsString(), uploadError=presentation["error"].AsString();
+            $"  |  缺失 {data.Number("missing")} · 恢复 {data.Number("recoveries")} · 显示替换 {data.Number("mailbox_replaced")} · 像素回读 {data.Number("cpu_readbacks")}";
+        string failure=data.Text("error"), uploadError=presentation.Text("error");
         _error.Text = failure.Length>0 ? failure : uploadError.Length>0 ? uploadError :
-            state=="Recovering" ? data["recovery_reason"].AsString() : data["fallback"].AsString();
+            state=="Recovering" ? data.Text("recovery_reason") : data.Text("fallback");
     }
     public override void _Process(double delta)
     {
@@ -135,9 +135,9 @@ public partial class Main : Control
         {
             try
             {
-                var data = _session.Snapshot();
-                if (_options.Start && !_readyLogged && data["state"].AsString() != "Starting")
-                { _readyLogged = true; GD.Print("RM_READY ", Json.Stringify(data)); }
+                using var data = _session.Snapshot();
+                if (_options.Start && !_readyLogged && data.Text("state") != "Starting")
+                { _readyLogged = true; GD.Print("RM_READY ", SnapshotAccess.Serialize(data)); }
                 if (_diagnostics != null && _diagnosticTime >= 1) { RecordDiagnostics(); _diagnosticTime = 0; }
                 if (_options.Duration > 0 && _uptime >= _options.Duration) { _finishing = true; FinishTimedRun(); }
             }
@@ -145,13 +145,14 @@ public partial class Main : Control
         }
         Refresh();
     }
-    private Godot.Collections.Dictionary RecordDiagnostics()
+    private string RecordDiagnostics()
     {
-        var record = new Godot.Collections.Dictionary {
-            ["seconds"] = _uptime, ["core"] = _session!.Snapshot(),
-            ["surface"] = _surface.Call("get_metrics"), ["render_device"] = RenderingServer.GetVideoAdapterName()
-        };
-        _diagnostics?.WriteLine(Json.Stringify(record)); return record;
+        using var core = _session!.Snapshot(); using var surface = SnapshotAccess.Read(_surface, "get_metrics");
+        using var record = new Godot.Collections.Dictionary();
+        record.Put("seconds", _uptime); record.Put("core", core); record.Put("surface", surface);
+        record.Put("render_device", RenderingServer.GetVideoAdapterName());
+        string json = SnapshotAccess.Serialize(record);
+        _diagnostics?.WriteLine(json); return json;
     }
     private async void FinishTimedRun()
     {
@@ -166,38 +167,44 @@ public partial class Main : Control
                 if (image.SavePng(_options.Snapshot) != Error.Ok) throw new IOException("Could not write snapshot");
             }
             var final = RecordDiagnostics();
-            GD.Print("RM_FINAL ", Json.Stringify(final));
-            if (_session!.Snapshot()["error"].AsString().Length > 0 ||
-                _surface.Call("get_metrics").AsGodotDictionary()["error"].AsString().Length > 0) exitCode = 2;
+            GD.Print("RM_FINAL ", final);
+            using var finalCore = _session!.Snapshot(); using var finalSurface = SnapshotAccess.Read(_surface, "get_metrics");
+            if (finalCore.Text("error").Length > 0 || finalSurface.Text("error").Length > 0) exitCode = 2;
         }
         catch (Exception error) { GD.PushError(error.Message); exitCode = 2; }
         var stopClock = Stopwatch.StartNew();
         string stopError = "";
-        var requested = new Godot.Collections.Dictionary { ["event"] = "stop_requested", ["core"] = _session!.Snapshot() };
-        _diagnostics?.WriteLine(Json.Stringify(requested)); GD.Print("RM_STOP_REQUESTED ", Json.Stringify(requested));
+        using var requestedCore = _session!.Snapshot(); using var requested = new Godot.Collections.Dictionary();
+        requested.Put("event", "stop_requested"); requested.Put("core", requestedCore);
+        string requestedJson = SnapshotAccess.Serialize(requested);
+        _diagnostics?.WriteLine(requestedJson); GD.Print("RM_STOP_REQUESTED ", requestedJson);
         _session.Stop(); _surface.Call("clear");
-        Godot.Collections.Dictionary status;
-        while (true)
+        var status = _session.Snapshot();
+        try
         {
-            _session.Native.Call("poll_stop"); status = _session.Snapshot();
-            if (status["render_retirement_failed"].AsBool()) stopError = status["render_retirement_error"].AsString();
-            if (status["stop_terminal"].AsBool()) break;
-            if (stopClock.Elapsed.TotalSeconds >= 5)
+            while (true)
             {
-                stopError = "Stop deadline exceeded; outstanding resources are retained until process exit";
-                break;
+                _session.Native.Call("poll_stop"); status.Dispose(); status = _session.Snapshot();
+                if (status.Flag("render_retirement_failed")) stopError = status.Text("render_retirement_error");
+                if (status.Flag("stop_terminal")) break;
+                if (stopClock.Elapsed.TotalSeconds >= 5)
+                {
+                    stopError = "Stop deadline exceeded; outstanding resources are retained until process exit";
+                    break;
+                }
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
             }
-            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            // A failure may be reported by the render thread after RM_FINAL.
+            if (stopError.Length > 0 || status.Text("error").Length > 0) exitCode = 2;
+            using var stopped = new Godot.Collections.Dictionary();
+            stopped.Put("event", stopError.Length > 0 ? "stop_failed" : "stopped"); stopped.Put("core", status);
+            stopped.Put("stop_elapsed_ms", stopClock.Elapsed.TotalMilliseconds); stopped.Put("stop_error", stopError); stopped.Put("exit_code", exitCode);
+            string stoppedJson = SnapshotAccess.Serialize(stopped);
+            _diagnostics?.WriteLine(stoppedJson);
+            GD.Print(stopError.Length > 0 ? "RM_STOP_FAILED " : "RM_STOPPED ", stoppedJson);
+            GetTree().Quit(exitCode);
         }
-        // A failure may be reported by the render thread after RM_FINAL.
-        if (stopError.Length > 0 || status["error"].AsString().Length > 0) exitCode = 2;
-        var stopped = new Godot.Collections.Dictionary {
-            ["event"] = stopError.Length > 0 ? "stop_failed" : "stopped", ["core"] = status,
-            ["stop_elapsed_ms"] = stopClock.Elapsed.TotalMilliseconds, ["stop_error"] = stopError, ["exit_code"] = exitCode
-        };
-        _diagnostics?.WriteLine(Json.Stringify(stopped));
-        GD.Print(stopError.Length > 0 ? "RM_STOP_FAILED " : "RM_STOPPED ", Json.Stringify(stopped));
-        GetTree().Quit(exitCode);
+        finally { status.Dispose(); }
     }
     public override void _ExitTree() { _diagnostics?.Dispose(); _session?.Dispose(); _session=null; }
 }
