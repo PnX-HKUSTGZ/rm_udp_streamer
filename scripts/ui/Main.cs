@@ -34,8 +34,11 @@ public partial class Main : Control
         BuildInterface();
         try
         {
-            _options = RuntimeOptions.Parse(OS.GetCmdlineUserArgs());
+            string[] arguments = OS.GetCmdlineUserArgs();
+            _options = RuntimeOptions.Parse(arguments);
             if (_options.Help) { GD.Print(RuntimeOptions.Usage); GetTree().Quit(); return; }
+            if (arguments.Length == 0) _options = ReceiverSettings.Load(out _settingsNotice);
+            _interactiveSettings = !_options.Start && _options.Duration == 0 && _options.Metrics.Length == 0;
             _cadencePolicy = new FrameCadence();
             if (_options.Metrics.Length > 0)
                 _diagnostics = new StreamWriter(new FileStream(_options.Metrics, FileMode.CreateNew, System.IO.FileAccess.Write, FileShare.Read)) { AutoFlush = true };
@@ -47,6 +50,9 @@ public partial class Main : Control
             _address.Text = _options.Address; _port.Value = _options.Port; _device.Text = _options.Device;
             _decoder.Select(Array.IndexOf(Decoders, _options.Decoder)); _transfer.Select(Array.IndexOf(Transfers, _options.Transfer));
             _cadence.Select(Array.IndexOf(Cadences, _options.Cadence));
+            _sourceFilter.Text = _options.SourceAddress; _sourcePort.Value = _options.SourcePort;
+            _configurationInitializing=false;
+            ReloadDevices();
             Refresh();
             if (_options.Start) Toggle();
         }
@@ -67,24 +73,7 @@ public partial class Main : Control
         var heading = new HBoxContainer(); layout.AddChild(heading);
         var title = Text("RM 视频接收", 26); title.SizeFlagsHorizontal = SizeFlags.ExpandFill; heading.AddChild(title);
         _state = Text("已停止"); heading.AddChild(_state);
-        var inputs = new HBoxContainer(); inputs.AddThemeConstantOverride("separation", 12); layout.AddChild(inputs);
-        inputs.AddChild(Text("监听地址"));
-        _address = new LineEdit { Text = "0.0.0.0", CustomMinimumSize = new Vector2(180, 36) }; inputs.AddChild(_address);
-        inputs.AddChild(Text("端口"));
-        _port = new SpinBox { MinValue = 1, MaxValue = 65535, Step = 1, Value = 3334, CustomMinimumSize = new Vector2(120,36) }; inputs.AddChild(_port);
-        _toggle = new Button { Text = "开始接收", CustomMinimumSize = new Vector2(140,36) }; inputs.AddChild(_toggle); _toggle.Pressed += Toggle;
-        var modes = new HBoxContainer(); modes.AddThemeConstantOverride("separation", 12); layout.AddChild(modes);
-        modes.AddChild(Text("解码")); _decoder = new OptionButton(); modes.AddChild(_decoder);
-        foreach (string value in new[] { "自动", "软件", "NVIDIA CUDA", "Windows D3D11", "Linux VAAPI" }) _decoder.AddItem(value);
-        modes.AddChild(Text("设备")); _device = new LineEdit { Text="0", MaxLength=512, CustomMinimumSize=new Vector2(160,36) }; modes.AddChild(_device);
-        _device.TooltipText = "支持设备序号或完整设备标识。序号只属于所选解码方式；Windows LUID 仅在本次系统启动期间有效。";
-        modes.AddChild(Text("画面传输")); _transfer = new OptionButton(); modes.AddChild(_transfer);
-        _transfer.AddItem("CPU YUV"); _transfer.AddItem("CPU RGBA"); _transfer.AddItem("GPU CUDA / OpenGL");
-        _transfer.AddItem("自动 GPU / CPU");
-        modes.AddChild(Text("画面节奏")); _cadence = new OptionButton(); modes.AddChild(_cadence);
-        foreach (string value in new[] { "自动", "显示同步", "低延迟", "沿用引擎" }) _cadence.AddItem(value);
-        _cadence.TooltipText = "低延迟模式增加处理频率和功耗；OpenGL 下关闭显示同步，可能出现撕裂。处理频率不代表视频帧率。";
-        _cadence.ItemSelected += _ => _cadencePolicy?.Apply(Cadences[_cadence.Selected], _cadenceActive);
+        BuildConfiguration(layout);
         _videoArea = new Control { SizeFlagsVertical = SizeFlags.ExpandFill, CustomMinimumSize = new Vector2(0,200) }; layout.AddChild(_videoArea);
         var black = new ColorRect { Color = new Color("080c12"), MouseFilter = MouseFilterEnum.Ignore };
         _videoArea.AddChild(black); black.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
@@ -103,9 +92,22 @@ public partial class Main : Control
         if (_running) _session.Stop();
         else
         {
+            var settings = ReadConfiguration();
+            try
+            {
+                settings.Validate();
+                if (_configurationBlock.Length > 0) throw new ArgumentException(_configurationBlock);
+                if (_interactiveSettings) ReceiverSettings.Save(settings);
+            }
+            catch (Exception error)
+            {
+                _settingsNotice = error.Message; UpdateCapabilityHints();
+                if (_options.Start) throw;
+                return;
+            }
             _lastComplete=_lastDecoded=_lastSubmitted=0; _rateTime=0; _receiveFps=_decodeFps=_submitFps=0;
-            _session.Start(_address.Text.Trim(), (int)_port.Value, Decoders[_decoder.Selected], _device.Text.Trim(), Transfers[_transfer.Selected],
-                _options.Diagnostics ?? (_options.Metrics.Length > 0));
+            _session.Start(settings.Address, settings.Port, settings.Decoder, settings.Device, settings.Transfer,
+                _options.Diagnostics ?? (_options.Metrics.Length > 0), settings.SourceAddress, settings.SourcePort);
         }
         Refresh();
     }
@@ -119,9 +121,9 @@ public partial class Main : Control
         _cadencePolicy?.Apply(Cadences[_cadence.Selected], _cadenceActive);
         _state.Text = state switch { "Starting"=>"正在启动", "WaitingConfig"=>"等待参数与关键帧", "Running"=>age>500 ? "画面信号过期" : "正在播放",
             "Recovering"=>"恢复中 · 等待关键帧", "Stopping"=>"正在停止", "Faulted"=>"接收失败", _=>"已停止" };
-        _toggle.Text = _running ? "停止接收" : "开始接收"; _toggle.Disabled=state=="Stopping";
-        _address.Editable = !_running; _port.Editable = !_running; _device.Editable=!_running;
-        _decoder.Disabled=_running; _transfer.Disabled=_running;
+        _toggle.Text = _running ? "停止接收" : "开始接收";
+        _toggle.Disabled=state=="Stopping" || _restarting || (!_running && _configurationBlock.Length > 0);
+        SetConfigurationEditable(!_running && !_restarting);
         bool displayed=presentation.Has("shown_sequence"); _placeholder.Visible=!displayed;
         _placeholder.Text = _running ? age>2000 ? "视频信号已中断" : "等待可解码的视频画面" : "等待视频画面";
         string source = data.Text("source"); _source.Text = "来源："+(source.Length==0 ? "等待数据" : source);
