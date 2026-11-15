@@ -2,7 +2,7 @@
 
 基于 Godot 4.7 Mono 的 RoboMaster UDP HEVC 视频接收工程，目标为 Windows 与 Ubuntu、1080p60。
 
-当前分支正在实施R0–R6审查改进，R0、R1、R2、R5已通过指定的独立审查；R3等待独立审查，R4、R6尚未完成。运行候选固定为88bf17a，后续文档更新不改变测过的运行文件。此前M0–M6的D3发布记录保留为历史基线，不能代替当前候选的完整验收。Windows NVIDIA已实现零视频像素回读的CUDA/OpenGL路径；原生Ubuntu新增VAAPI与设备身份核验。新包Windows CUDA、D3D11VA与AMD VAAPI的指定组合已各完成30分钟有效收流及完整诊断开销对照，硬件矩阵和真实图传验收边界见当前能力文档。
+当前分支正在实施R0–R6审查改进，R0、R1、R2、R3、R5已通过指定的独立审查；R4、R6尚未完成。运行候选固定为88bf17a，后续文档更新不改变测过的运行文件。此前M0–M6的D3发布记录保留为历史基线，不能代替当前候选的完整验收。Windows NVIDIA已实现零视频像素回读的CUDA/OpenGL路径；原生Ubuntu新增VAAPI与设备身份核验。新包Windows CUDA、D3D11VA与AMD VAAPI的指定组合已各完成30分钟有效收流及完整诊断开销对照，见[R3独立审查](docs/evidence/r3/report.md)；硬件矩阵和真实图传验收边界见当前能力文档。
 
 - [当前实现架构](docs/current-architecture.md)：线程、最新帧准备、缓冲复用、代际和资源所有权。
 - [当前能力与验收边界](docs/support-matrix.md)：逐设备的实测范围、性能证据与待验证项目。

@@ -1,6 +1,6 @@
 # 88bf17a样本候选的集成证据
 
-本报告记录已结束的样本和设备验证，不宣称R6阶段完成。运行源码固定为`88bf17a9e046db6d75d3301e09d893fb1e8f4ed5`；后续文档提交不改变被测运行文件。R0、R1、R2、R5已独立PASS，R3等待指定独立审查，R4/R6仍缺部分硬件和真实RoboMaster图传证据。完整能力边界见[支持矩阵](../../support-matrix.md)，构建与原始/重链接包来源见[R5报告](../r5/report.md)。
+本报告记录已结束的样本和设备验证，不宣称R6阶段完成。运行源码固定为`88bf17a9e046db6d75d3301e09d893fb1e8f4ed5`；后续文档提交不改变被测运行文件。R0、R1、R2、R3、R5已独立PASS，[R3独立审查](../r3/report.md)覆盖三条已测组合；R4/R6仍缺部分硬件和真实RoboMaster图传证据。完整能力边界见[支持矩阵](../../support-matrix.md)，构建与原始/重链接包来源见[R5报告](../r5/report.md)。
 
 ## 正式测量和诊断对照
 
@@ -44,4 +44,4 @@ Windows发行DLL的原版和逐轮写盘探针各完成60轮，最大停止49/42
 
 AMD正式/诊断、功能、逐轮写盘生命周期和历史04737bd四份完整归档均已取回并校验，详见[取回索引](amd-retrieval-index.json)及[性能](amd-performance-archive.json)、[功能](amd-functional-archive.json)、[生命周期](amd-streamed-lifecycle-archive.json)归档收据。本目录只发布摘要，完整原始归档保存在外层`processing/2026-11-16-rm-r6-integration`，提取记录子集不替代完整原件。
 
-未完成门槛包括原生Ubuntu NVIDIA、Intel物理接屏桌面、Windows AMD和真实RoboMaster。其他RGBA、CUDA/CPU、WSL及未做正式长测的配置没有同等1080p60性能声明。最终文档刷新候选还需逐成员和迁移启动核验，R4/R6不能因此被标记完成。
+未完成门槛包括原生Ubuntu NVIDIA、Intel物理接屏桌面、Windows AMD和真实RoboMaster。其他RGBA、CUDA/CPU、WSL及未做正式长测的配置没有同等1080p60性能声明。最终文档刷新候选的逐成员及迁移启动核验收据随交付提供，这些检查不替代R4/R6剩余门槛。

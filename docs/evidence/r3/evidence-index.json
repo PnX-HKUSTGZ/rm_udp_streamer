@@ -1,0 +1,28 @@
+{
+  "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "reviewed_document_commit": "2adf8b9599ab78a474d945a2d5ccdaa4004563cd",
+  "model": "gpt-6-astra",
+  "stage": "R3",
+  "verdict": "PASS",
+  "scope": "Three measured combinations and R3 implementation/regression gates; not R4/R6 or complete goal acceptance.",
+  "files": [
+    {
+      "file": "independent-review.md",
+      "bytes": 7823,
+      "sha256": "fd5f05bfc4d3207ce4ce8b46e2ffa08d47f446a534f4dac4f490e8e542be2288",
+      "original_workspace_path": "processing/2026-11-16-rm-r3-review/review.md"
+    },
+    {
+      "file": "independent-receipt.json",
+      "bytes": 24754,
+      "sha256": "a2449cbc457f68d6770afb4a0781c44a05b9e5e8bb95a739019ec48afee28465",
+      "original_workspace_path": "processing/2026-11-16-rm-r3-review/independent-receipt.json"
+    },
+    {
+      "file": "supplement-receipt.json",
+      "bytes": 14846,
+      "sha256": "876add709b3a433fd0ec9ea51adc61f8122f2b58902f31524cb32e56756eec8a",
+      "original_workspace_path": "processing/2026-11-16-rm-r3-review/supplement-receipt.json"
+    }
+  ]
+}
