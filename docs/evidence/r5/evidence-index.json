@@ -1,7 +1,7 @@
 {
   "stage": "R5",
   "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
-  "status": "R5-F1 implemented and verified on Windows and native Ubuntu; independent re-review pending",
+  "status": "PASS — R5 independent re-review completed; R5-F1 closed. R3/R4/R6 remain separate.",
   "note": "Paths are relative to the outer workspace. Receipts preserve their own tested commits and limitations; this index does not transfer all earlier results to the latest binary.",
   "files": [
     {
@@ -253,7 +253,23 @@
       "path": "processing/2026-11-15-rm-r5-build-release/release-windows-v3/restarted-ui.png",
       "bytes": 100435,
       "sha256": "c5c564893f4461b5b6b0e9a86b418c6a60541e98f0945ee6769dfec0e46ee6c1"
+    },
+    {
+      "path": "processing/2026-11-16-rm-r5-review/rereview.md",
+      "bytes": 6868,
+      "sha256": "ced40f2a94240c79da4087a3343537ed70ee2360c4433106aa6d94c6bdc05395"
+    },
+    {
+      "path": "processing/2026-11-16-rm-r5-review/rereview-receipt-integrity.json",
+      "bytes": 12488,
+      "sha256": "6f10581885ff14c8587de03789dd014b6e0297bc5a2db77f4681d4c652ad8de3"
+    },
+    {
+      "path": "processing/2026-11-16-rm-r5-review/rereview-independent-intel.json",
+      "bytes": 1894,
+      "sha256": "a7490337187cdf1039874304d5a5824fba1a1dce1c8df9612bcbfa7142413cdd"
     }
   ],
-  "previous_runtime_commit": "04737bdbaf61b5b543ffe4636407351bd3f0818c"
+  "previous_runtime_commit": "04737bdbaf61b5b543ffe4636407351bd3f0818c",
+  "reviewed_evidence_commit": "ee4eab8c8487ec01b3c25ac6897fe5be67735b4a"
 }
