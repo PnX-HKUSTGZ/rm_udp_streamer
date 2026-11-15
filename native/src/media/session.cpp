@@ -155,7 +155,7 @@ void MediaSession::discard_pending(Discard reason) {
 void MediaSession::complete_preparation(std::shared_ptr<PreparedFrame> prepared, uint64_t epoch) {
     ++state_.prepared_completed; state_.last_prepared = prepared->info;
     const auto &info = prepared->info;
-    if (quit_.load() || epoch != preparation_epoch_ || info.stream_generation != state_.accepted_stream ||
+    if (quit_.load() || state_.state == "Faulted" || epoch != preparation_epoch_ || info.stream_generation != state_.accepted_stream ||
         info.resource_generation != state_.accepted_resource || info.presentation_generation != state_.accepted_presentation) {
         ++state_.prepared_discarded_race; return;
     }
@@ -301,9 +301,13 @@ void MediaSession::run(MediaConfig config) noexcept {
             }
         }
     } catch (const std::exception &error) {
-        std::lock_guard<std::mutex> lock(mutex_); state_.error = error.what(); state_.state = "Faulted";
+        std::lock_guard<std::mutex> lock(mutex_);
+        quit_.store(true); state_.error = error.what(); state_.state = "Faulted";
+        discard_pending(Discard::Failure);
     } catch (...) {
-        std::lock_guard<std::mutex> lock(mutex_); state_.error = "Unexpected decoder failure"; state_.state = "Faulted";
+        std::lock_guard<std::mutex> lock(mutex_);
+        quit_.store(true); state_.error = "Unexpected decoder failure"; state_.state = "Faulted";
+        discard_pending(Discard::Failure);
     }
     quit_.store(true); prepare_ready_.notify_all();
     if (preparer_.joinable()) preparer_.join();
