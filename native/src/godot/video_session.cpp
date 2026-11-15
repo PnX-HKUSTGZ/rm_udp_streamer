@@ -33,7 +33,7 @@ void RmVideoSession::_bind_methods() {
 bool RmVideoSession::start(const Dictionary &values) {
     try {
         if(gpu_holders_.load())throw std::runtime_error("Previous GPU resources have not retired; clear the surface and wait before restarting");
-        {std::lock_guard<std::mutex> lock(gpu_mutex_);retired_gpu_.clear();}
+        {std::lock_guard<std::mutex> lock(gpu_mutex_);retired_gpu_.clear();retirement_error_.clear();}
         integer(values, "version", 1, 1, 1);
         rm::TransportConfig config;
         config.bind_address = string(values, "bind_address", "0.0.0.0");
@@ -73,12 +73,21 @@ Dictionary RmVideoSession::snapshot() const {
     Dictionary result;
     unsigned gpu_pending=gpu_holders_.load();
     result["render_pending"]=int64_t(gpu_pending);
-    {std::lock_guard<std::mutex> lock(gpu_mutex_);result["gpu_retirement"]=retired_gpu_.duplicate();}
+    std::string retirement_error;
+    {std::lock_guard<std::mutex> lock(gpu_mutex_);result["gpu_retirement"]=retired_gpu_.duplicate();retirement_error=retirement_error_;}
+    bool retirement_failed = !retirement_error.empty();
+    result["decoder_done"] = state.worker_done;
+    result["render_retired"] = gpu_pending == 0 && !retirement_failed;
+    result["render_retirement_failed"] = retirement_failed;
+    result["render_retirement_error"] = String(retirement_error.c_str());
+    result["stop_terminal"] = state.worker_done && (gpu_pending == 0 || retirement_failed);
     result["running"] = !state.worker_done || gpu_pending>0;
-    result["state"] = String((state.worker_done&&gpu_pending&&state.state!="Faulted"?"Stopping":state.state.c_str()));
+    result["state"] = String((retirement_failed?"Faulted":state.worker_done&&gpu_pending&&state.state!="Faulted"?"Stopping":state.state.c_str()));
+    // Compatibility: worker_done still means all ownership retired. Callers
+    // needing a failure terminal must use decoder_done/stop_terminal instead.
     result["worker_done"] = state.worker_done && !gpu_pending;
     result["bound_port"] = state.receiver.bound_port; result["socket_buffer_bytes"] = state.receiver.socket_buffer_bytes;
-    result["error"] = String((config_error_.empty() ? state.error : config_error_).c_str());
+    result["error"] = String((retirement_failed ? retirement_error : config_error_.empty() ? state.error : config_error_).c_str());
     result["source"] = s.source_locked ? String(s.source.text().c_str()) : String();
     result["mode"] = String(state.path.c_str()); result["decoder"] = String(state.backend.c_str());
     result["decode_device"] = String(state.device.c_str()); result["fallback"] = String(state.fallback.c_str());

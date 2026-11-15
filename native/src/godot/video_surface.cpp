@@ -86,6 +86,7 @@ void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
             // quarantined bridge per session; its retained holder blocks restart.
             static auto *quarantine=new std::vector<Ref<RmCpuUpload>>;
             RmCudaGlBridge::unsafe_retirement.store(true);
+            session->record_gpu_retirement_failure(state->gpu ? state->gpu->metrics() : Dictionary(), error.what());
             quarantine->push_back(keep_alive);return;
         }
     }

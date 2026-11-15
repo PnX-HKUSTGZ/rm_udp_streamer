@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.IO;
+using System.Diagnostics;
 
 public partial class Main : Control
 {
@@ -169,11 +170,32 @@ public partial class Main : Control
                 _surface.Call("get_metrics").AsGodotDictionary()["error"].AsString().Length > 0) exitCode = 2;
         }
         catch (Exception error) { GD.PushError(error.Message); exitCode = 2; }
-        _surface.Call("clear"); _session!.Stop();
-        while (!_session.Snapshot()["worker_done"].AsBool())
-        { _session.Native.Call("poll_stop"); await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame); }
-        var stopped = new Godot.Collections.Dictionary { ["event"] = "stopped", ["core"] = _session.Snapshot() };
-        _diagnostics?.WriteLine(Json.Stringify(stopped)); GD.Print("RM_STOPPED ", Json.Stringify(stopped));
+        var stopClock = Stopwatch.StartNew();
+        string stopError = "";
+        var requested = new Godot.Collections.Dictionary { ["event"] = "stop_requested", ["core"] = _session!.Snapshot() };
+        _diagnostics?.WriteLine(Json.Stringify(requested)); GD.Print("RM_STOP_REQUESTED ", Json.Stringify(requested));
+        _session.Stop(); _surface.Call("clear");
+        Godot.Collections.Dictionary status;
+        while (true)
+        {
+            _session.Native.Call("poll_stop"); status = _session.Snapshot();
+            if (status["render_retirement_failed"].AsBool()) stopError = status["render_retirement_error"].AsString();
+            if (status["stop_terminal"].AsBool()) break;
+            if (stopClock.Elapsed.TotalSeconds >= 5)
+            {
+                stopError = "Stop deadline exceeded; outstanding resources are retained until process exit";
+                break;
+            }
+            await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        }
+        // A failure may be reported by the render thread after RM_FINAL.
+        if (stopError.Length > 0 || status["error"].AsString().Length > 0) exitCode = 2;
+        var stopped = new Godot.Collections.Dictionary {
+            ["event"] = stopError.Length > 0 ? "stop_failed" : "stopped", ["core"] = status,
+            ["stop_elapsed_ms"] = stopClock.Elapsed.TotalMilliseconds, ["stop_error"] = stopError, ["exit_code"] = exitCode
+        };
+        _diagnostics?.WriteLine(Json.Stringify(stopped));
+        GD.Print(stopError.Length > 0 ? "RM_STOP_FAILED " : "RM_STOPPED ", Json.Stringify(stopped));
         GetTree().Quit(exitCode);
     }
     public override void _ExitTree() { _diagnostics?.Dispose(); _session?.Dispose(); _session=null; }
