@@ -37,6 +37,6 @@
 
 设置保存到 Godot 的 `user://receiver.cfg`，经同目录临时文件替换；不写入工程资源。读取失败时保留原文件、使用默认值并显示提示。命令行使用 `--help` 查看全部参数。
 
-R5 当前已完成 Windows 与原生 Ubuntu 的界面能力、设置往返和实际 UDP 来源过滤集成检查。Windows 已验证 1100×720 窗口布局和 Vulkan Mobile 到 OpenGL 的实际进程重启，连接、设备和播放设置保留且不自动接收；新增的屏幕保持参数待 Windows 回归。Ubuntu AMD 已验证相同重启流程及 Wayland 显示方式保持，C# 构建零警告。两平台已有中间候选的独立导出、无 SDK 启动和重链接后硬解播放证据，后续改动仍需对应最终包复核；R5 尚未通过阶段审查。
+R5 已完成 Windows 与原生 Ubuntu 的界面能力、设置往返和实际 UDP 来源过滤集成检查。Windows 已验证 1100×720 窗口布局和 Vulkan Mobile 到 OpenGL 的实际进程重启，包含屏幕保持参数回归；Ubuntu AMD 已验证相同重启流程及 Wayland 显示方式保持。两平台均保留连接、完整设备身份和播放设置，重启后不自动接收，生产 C# 构建零警告。`04737bd` 运行候选的独立导出、无 SDK 启动、实际重链接及重链接后硬解播放已完成；R5 尚待独立阶段审查，完整性能与集成验收另行判断。
 
-AMD Ubuntu 当前有完整长测证据的组合为 Wayland、Vulkan Mobile、VAAPI/CPU YUV、低延迟节奏。例如启动包时可指定 `--display-driver wayland --rendering-method mobile -- --decoder vaapi --cadence responsive`。默认桌面方式/节奏的一轮工程检查曾降至约 10 fps，不能将已测组合的性能结论套用到默认配置或 X11。
+AMD Ubuntu 当前运行候选有完整长测证据的组合为 Wayland、Vulkan Mobile、VAAPI/CPU YUV、低延迟节奏。例如启动包时可指定 `--display-driver wayland --rendering-method mobile -- --decoder vaapi --cadence responsive`。默认桌面方式/节奏的一轮工程检查曾降至约 10 fps，不能将已测组合的性能结论套用到默认配置或 X11。复跑方法见[外部验证入口](validation.md)。

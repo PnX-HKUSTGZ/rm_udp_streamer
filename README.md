@@ -6,7 +6,7 @@
 
 - [当前实现架构](docs/current-architecture.md)：线程、最新帧准备、缓冲复用、代际和资源所有权。
 - [当前能力与验收边界](docs/support-matrix.md)：逐设备的实测范围、性能证据与待验证项目。
-- [交互使用与渲染切换](docs/usage.md)、[设备身份](docs/devices.md)、[固定依赖构建](docs/building.md)。
+- [交互使用与渲染切换](docs/usage.md)、[设备身份](docs/devices.md)、[固定依赖构建](docs/building.md)、[外部验证与CI](docs/validation.md)。
 
 - [架构设计](docs/architecture.md)：GPU 帧传递为目标，CPU 中转为兼容路径；模块、帧接口、同步与恢复。
 - [实施计划](docs/implementation-plan.md)：分阶段交付、双平台环境、设备矩阵和验收标准。

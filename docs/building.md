@@ -69,15 +69,17 @@ Linux 的依赖开发可额外传 `--vaapi`，明确编入 HEVC VAAPI 与 DRM。
 
 ```text
 python3 build/prepare_release_sources.py --cache PATH --output PATH/release-sources
-python build/export_project.py --cache PATH --templates PATH/Godot_v4.7.2-stable_mono_export_templates.tpz --output dist/D3-windows --label D3
+python build/export_project.py --cache PATH --templates PATH/Godot_v4.7.2-stable_mono_export_templates.tpz --output dist/R-candidate-windows --label R-candidate
 ```
 
-Linux的输出目录改为`dist/D3-linux`，其余参数按实际路径。导出要求产品Git工作区干净，新输出目录为空，模板SHA512与引擎SHA256匹配。它执行原生/.NET构建和Godot导出，检查错误日志、程序集、自包含运行库及实际版本；仅退出码0不足以通过。
+Linux的输出目录改为`dist/R-candidate-linux`，其余参数按实际路径。导出要求产品Git工作区干净，新输出目录为空，模板SHA512与引擎SHA256匹配。它执行原生/.NET构建和Godot导出，检查错误日志、程序集、自包含运行库及实际版本；仅退出码0不足以通过。
 
 最终包包含完整许可清单、对应源码、可重链接对象和操作脚本。`relink/relink_native.py`可选择新的FFmpeg前缀；为避免覆盖正在运行的库，输出必须是新路径。先关闭应用并备份，再替换包内DLL/SO。重链接后的库需重新验证实际解码与生命周期。
 
 VAAPI 的发布包与重链接工具会保留 `libva`、`libva-drm`、`libdrm` 的系统链接依赖；更换 FFmpeg 前缀时按所选前缀重新选择这些库。Linux 链接要求所有符号已解析，避免生成缺少外部库、直到启动才报错的 SO。运行机器需要发行版的 `libva2 libva-drm2 libdrm2` 及 Intel/AMD 媒体驱动；开发/重链接机器另需相应 `-dev` 包。编入 VAAPI 的原生库在启动时就需要这些运行库，即使本次选择软件解码也一样。
 
 `manifest.json`覆盖包中每个交付文件；`build-manifest.json`记录真正使用的工具版本/路径/摘要与库摘要。导出产物不提交到Git，审查与性能证据按阶段提交到docs/evidence。
+
+当前构建、无SDK运行、重链接与交互检查见[R5报告](evidence/r5/report.md)。可复跑的独立归档、命令和CI范围见[外部验证](validation.md)。构建导出完成不自动构成性能或真实图传验收。
 
 D3在独立审查后仅更新随包文档，运行文件、依赖及重链接对象/库均保持已测摘要。`manifest.json`保留导出`commit`并另记审查文档`evidence_commit`。最终ZIP逐成员核对大小与SHA256，Linux压缩包在Linux生成并保留执行权限；包旁`D3-delivery-*.json`和`SHA256SUMS.txt`记录归档验证及摘要。

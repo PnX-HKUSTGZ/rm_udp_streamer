@@ -57,4 +57,4 @@ Windows 硬件渲染的自动节奏可使用 120 次/秒处理上限，Vulkan �
 
 产品构建锁定 Godot、godot-cpp、FFmpeg、SDK 和工具版本，并检查完整 FFmpeg 头文件、静态库及配置输入。重新构建依赖需要独立 developer 锁，不能继承旧产物的验证结论。静态 FFmpeg 的源码、许可和可重链接对象随发布包提供；VAAPI 另依赖系统 libva/libdrm 和 GPU 驱动。
 
-当前原生 Ubuntu Intel/AMD 的核心硬解、回读、身份与帧引用寿命已有实机证据；完整桌面、恢复、性能和最终包还在验收。Windows CUDA/OpenGL 为已实现 GPU 桥接；D3D11/Vulkan、VAAPI/DMA-BUF/Vulkan 直传仍不能列为已实现。WSL 不能替代原生 Ubuntu，模拟发送样本不能替代真实 RoboMaster 设备。
+当前原生 Ubuntu Intel/AMD 的核心硬解、回读、身份与帧引用寿命已有实机证据；AMD 已补齐桌面/回退矩阵及指定组合的最终包长测，Intel 桌面仍待连接显示器。Windows 最终包性能和完整集成审查继续进行。Windows CUDA/OpenGL 为已实现 GPU 桥接；D3D11/Vulkan、VAAPI/DMA-BUF/Vulkan 直传仍不能列为已实现。WSL 不能替代原生 Ubuntu，模拟发送样本不能替代真实 RoboMaster 设备。

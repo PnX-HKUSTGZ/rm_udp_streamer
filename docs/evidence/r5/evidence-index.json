@@ -1,0 +1,113 @@
+{
+  "stage": "R5",
+  "runtime_commit": "04737bdbaf61b5b543ffe4636407351bd3f0818c",
+  "status": "Implementation evidence assembled; independent stage review pending",
+  "note": "Paths are relative to the outer workspace. Receipts preserve their own tested commits and limitations; this index does not transfer all earlier results to the latest binary.",
+  "files": [
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/input-integrity-windows/result.json",
+      "bytes": 2141,
+      "sha256": "b608c3c299e14f3cf5080e671aef1efc0b3e211877e77786546b88736d3d5c1a"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/restore-safety-windows/result.json",
+      "bytes": 3184,
+      "sha256": "62fbca607c4b2620fed5661baa06fa1d345c12c2fda56a66b05ede5321f12f7b"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/developer-lock-windows/result.json",
+      "bytes": 356,
+      "sha256": "7f465a43727f18ddb824b4c65cca895353dadd300d6b2dfd0782e1d73b1a00a4"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/rebuild-source-boundary-windows-v1/result.json",
+      "bytes": 2371,
+      "sha256": "724a0311587e5ca6f3bb451cc0c82343f7989980945ed1d659f5bcff3b4e5a50"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/rebuilt-dependency-core-linux-v2/result.json",
+      "bytes": 14746,
+      "sha256": "4547fb4751ae7b61c55bb540839012837d160b82bd31eaf12275bda0f8e3e24e"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/rebuilt-dependency-core-windows-v2/result.json",
+      "bytes": 14712,
+      "sha256": "0658c570af0fef28964a3679ae021de16e08381ac0d9c5cc321248987603e9df"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/ffmpeg-warning-comparison.json",
+      "bytes": 2552,
+      "sha256": "b9072ebe72b4638ece640e797d029103f7ba36b4794a59f94236a64493aff556"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/relink-vaapi-v1/status.json",
+      "bytes": 3579,
+      "sha256": "0752efa29f3d9b4ea3b99ae58eefc661e9d9e258a5462d9024426408505f3002"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/ui-v2/status.json",
+      "bytes": 1840,
+      "sha256": "66b6f4a90cf2023c301113808ca4ab5d741a902aa376b3a23f1fd069a814127e"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/amd-restart-v2/status.json",
+      "bytes": 2223,
+      "sha256": "ebc3f116941747b8b3cc0381dec27831724890f6a472d6155944b0efc931f74e"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/amd-restart-v2/restart-result.json",
+      "bytes": 246,
+      "sha256": "e6b09fd124090cf4f4c63df37371520cc86e6f3f6fed2c5e09e4c4f9468dba30"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/release-linux-v3-status.json",
+      "bytes": 2444,
+      "sha256": "592fcc81880543c04deda2a9ed6af9b7f2c5785432941f39afe6466d3b9d4e0f"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/validation-v5-preflight.json",
+      "bytes": 1187,
+      "sha256": "1b9f2969bb76f62e4d1797442c9ff321095bbc46c3ba8a64f02c1cd5d6cb532f"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/release-windows-v2/status.json",
+      "bytes": 2952,
+      "sha256": "321503858362571a5306d00ccae8a2160938e045e5054d3d7da109f2f08dea21"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/release-windows-v2/checks.json",
+      "bytes": 3939,
+      "sha256": "f7e46396b341fb55ff2152775a15041c07aa44444a3cc725d8cf78b24ca8c4ab"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/release-windows-v2/restart-result.json",
+      "bytes": 267,
+      "sha256": "0e17c43475b8c38a2e0a1965f5032aa8f64e9f04177e5ff470d853b52969ec63"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/package-windows-playback-v2/status.json",
+      "bytes": 2032,
+      "sha256": "b5e1f8d3613e9ff051546dab6d00f21bc4743e2d9da581bbe3f50c946c76f9d2"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/tool-alias-result.json",
+      "bytes": 225,
+      "sha256": "8a19f21b61a07d83f14053d5b8d9ab9b278ffdc13d978e57e59ba7c656606f22"
+    },
+    {
+      "path": "processing/2026-11-16-rm-r6-integration/results/native-evidence-scope-v1.json",
+      "bytes": 4002,
+      "sha256": "72b9ab9decc083d5b56755a8cb99da363d2f5c53721ac78fe040e330c6516895"
+    },
+    {
+      "path": "processing/2026-11-16-rm-r6-integration/results/amd-candidate-v3-summary/status.json",
+      "bytes": 5563,
+      "sha256": "b5ef44d89ba8498f32e9b485da0b9745ee72349587aefcd25477d01822597a8c"
+    },
+    {
+      "path": "processing/2026-11-16-rm-r6-integration/results/amd-candidate-v3-summary/playback-status.json",
+      "bytes": 1202,
+      "sha256": "ba3e3b581f0770697d0cb31626c204dfc4004b3ddb380e31956daa46f1bbc1af"
+    }
+  ]
+}
