@@ -19,6 +19,7 @@ def prepare(repo,cache,output,engine,env,lock,windows):
     third=engine_info['third_party_licenses']
     (notices/'Godot-THIRD-PARTY.txt').write_text('\n\n'.join(name+'\n'+str(text) for name,text in sorted(third.items())),encoding='utf-8')
     shutil.copy2(cache/'godot-cpp/LICENSE.md',notices/'godot-cpp-LICENSE.txt')
+    shutil.copy2(repo/'build/licenses/MQTTnet-LICENSE.txt',notices/'MQTTnet-LICENSE.txt')
     nuget=Path(os.environ.get('NUGET_PACKAGES',str(Path.home()/'.nuget/packages')))
     runtime=nuget/('microsoft.netcore.app.runtime.'+('win-x64' if windows else 'linux-x64'))/lock['dotnet']['runtime']
     for name in ['LICENSE.TXT','THIRD-PARTY-NOTICES.TXT']:
@@ -97,6 +98,7 @@ def prepare(repo,cache,output,engine,env,lock,windows):
     (notices/'THIRD_PARTY.txt').write_text(
         'Godot 4.7.2 Mono: MIT and bundled third-party licenses; complete inventory in Godot-engine-notices.json.\n'
         'godot-cpp: MIT. .NET 8.0.34: MIT and .NET-THIRD-PARTY-NOTICES.TXT.\n'
+        'MQTTnet 4.3.7.1207: MIT; see MQTTnet-LICENSE.txt.\n'
         'FFmpeg n8.1.3: LGPL-2.1-or-later. Corresponding source, build recipe and relinkable application objects are in ../relink.\n'
         'nv-codec-headers: see the original per-header notices and complete source archive. NVIDIA driver is an OS dependency, not redistributed.\n'
         'Compiler runtimes: GCC runtime exception and associated notices; Windows additionally includes MinGW-w64/winpthreads notices.\n'

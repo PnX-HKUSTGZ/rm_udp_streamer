@@ -7,4 +7,7 @@
     <TargetLatestRuntimePatch>false</TargetLatestRuntimePatch>
     <DefaultItemExcludes>$(DefaultItemExcludes);out/**;dist/**</DefaultItemExcludes>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MQTTnet" Version="4.3.7.1207" />
+  </ItemGroup>
 </Project>

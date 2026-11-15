@@ -17,3 +17,24 @@ D3 两平台均完成31分钟实际收流、自然序号回绕、60轮真实生�
 技术方向为 Godot C# 界面、C++/FFmpeg 视频核心和 GDExtension 呈现适配。Ubuntu 验证使用本机 WSL，Linux 检出位于 `/home/lqx/code/rm_udp_streamer`。
 
 任务过程、验证脚本和样本保存在外层 `processing/<对应任务>/`，不作为正式应用内容。
+
+## MQTT 连接器
+
+`scripts/network/MqttConnector.cs` 提供独立的 C# 连接接口，Windows / Ubuntu 共用。
+按照通信协议第 2 章（印刷页 46）和附录三，默认连接 `192.168.12.1:3333`，
+Client ID 原样使用机器人 ID 的十进制字符串，例如红方步兵 `"3"`、蓝方步兵 `"103"`（附录二）。
+比赛网络中终端网卡地址按协议配置为 `192.168.12.2`。
+
+```csharp
+await using var mqtt = new MqttConnector("3");
+await mqtt.ConnectAsync(); // 可传 CancellationToken；失败或服务端拒绝时抛出异常。
+bool connected = mqtt.IsConnected;
+// 在需要维持连接的整个期间保留 mqtt，离开作用域时自动断开。
+```
+
+也可通过 `new MqttConnector("3", "127.0.0.1", 3333)` 指定联调服务端。
+使用 MQTTnet 4.3.7.1207、MQTT 3.1.1（官方示例所用库的默认版本），清洁会话，
+无需用户名/密码或 TLS；每 15 秒保活，连接超时 10 秒。
+只处理连接生命周期，不订阅、不发布、不解析 Protobuf、不自动重连。
+`DisconnectAsync()` 主动断开；Godot 节点退出时可调用 `Dispose()` 立即释放连接。
+连接器不会随视频界面自动启动，由调用方指定 ID 后调用 `ConnectAsync()`。
