@@ -36,13 +36,13 @@ def pinned_sources(cache, lock, platform):
     inputs = verify_ffmpeg_inputs(cache / ('ffmpeg-static-' + platform), inputs)
     return {'godot_cpp': revision, 'ffmpeg_archives': archives, 'ffmpeg_inputs': inputs}
 
-def cached_tool(output, key):
+def cached_tool(output, key, require_exists=True):
     cache = output / 'CMakeCache.txt'
     if cache.exists():
         for line in cache.read_text().splitlines():
             if line.startswith(key + ':'):
                 path = line.split('=', 1)[1]
-                if Path(path).is_file(): return path
+                if not require_exists or Path(path).is_file(): return path
     return None
 
 def checked_tool(path, args, expected, label):
@@ -55,6 +55,23 @@ def checked_tool(path, args, expected, label):
 def absolute_tool(path):
     # Preserve existing absolute spelling used by a CMake cache on Windows.
     return str(Path(path).resolve()) if path and not Path(path).is_absolute() else path
+
+
+def select_build_tool(output, key, requested, fallback):
+    stored = cached_tool(output, key, require_exists=False)
+    available = stored if stored and Path(stored).is_file() else None
+    selected = absolute_tool(requested or available or fallback)
+    if stored and selected:
+        try:
+            if Path(stored).samefile(selected):
+                # CMake treats g++.EXE and g++.exe as different compiler
+                # settings even when Windows resolves both to the same file.
+                return stored
+        except OSError:
+            pass
+        if Path(stored).as_posix() != Path(selected).as_posix():
+            raise RuntimeError(key + ' differs from the existing build cache; use a fresh checkout/output directory for a different tool path')
+    return selected
 
 
 def build_environment(dotnet=None, compiler=None, make=None):
@@ -113,10 +130,10 @@ def main():
     if not cmake:
         raise RuntimeError('CMake is missing; prepare the build tools or pass --cmake')
     output = repo / 'out' / platform
-    compiler = args.cxx or cached_tool(output, 'CMAKE_CXX_COMPILER') or shutil.which('g++')
+    compiler = select_build_tool(output, 'CMAKE_CXX_COMPILER', args.cxx, shutil.which('g++'))
     cached_dotnet = cache / 'dotnet-8.0.428' / ('dotnet.exe' if windows else 'dotnet')
     dotnet = args.dotnet or (str(cached_dotnet) if cached_dotnet.is_file() else shutil.which('dotnet'))
-    make = args.make or cached_tool(output, 'CMAKE_MAKE_PROGRAM') or shutil.which('mingw32-make' if windows else 'make')
+    make = select_build_tool(output, 'CMAKE_MAKE_PROGRAM', args.make, shutil.which('mingw32-make' if windows else 'make'))
     cmake, compiler, dotnet, make = map(absolute_tool, [cmake, compiler, dotnet, make])
     # Validate the actual tools, rather than merely reporting a lockfile string.
     evidence = pinned_sources(cache, lock, platform)
