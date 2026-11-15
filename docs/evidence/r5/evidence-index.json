@@ -1,7 +1,7 @@
 {
   "stage": "R5",
-  "runtime_commit": "04737bdbaf61b5b543ffe4636407351bd3f0818c",
-  "status": "Implementation evidence assembled; independent stage review pending",
+  "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "status": "R5-F1 implemented and verified on Windows and native Ubuntu; independent re-review pending",
   "note": "Paths are relative to the outer workspace. Receipts preserve their own tested commits and limitations; this index does not transfer all earlier results to the latest binary.",
   "files": [
     {
@@ -108,6 +108,152 @@
       "path": "processing/2026-11-16-rm-r6-integration/results/amd-candidate-v3-summary/playback-status.json",
       "bytes": 1202,
       "sha256": "ba3e3b581f0770697d0cb31626c204dfc4004b3ddb380e31956daa46f1bbc1af"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/release-windows-v3/status.json",
+      "bytes": 2954,
+      "sha256": "3965963b2166862196c3e285f7c8bdc9931021901f73e8cc8d809f738d50b3d7"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/release-windows-v3/checks.json",
+      "bytes": 3939,
+      "sha256": "9811ccb67bceed82506b7a5b96b7ba3f8e65190c445f0ed997e4638d5e186f6b"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/release-windows-v3/restart-result.json",
+      "bytes": 267,
+      "sha256": "8e76d05b9ba353a28f1f4e3edb4e1325b7864ce86b2d066e6eba1e2af1966d13"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/status.json",
+      "bytes": 5739,
+      "sha256": "2e43edc0566e636239d3af56169c0c3c08fbcdb9f27ee3eecb956458b4ea55fd"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/playback/status.json",
+      "bytes": 2030,
+      "sha256": "f7ba61440af26ce7a07409fffc84e0ab3d61f816fe5101975845c77ef6a18458"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/release-linux-v4-status.json",
+      "bytes": 2445,
+      "sha256": "5be24e0e2a1a34d5bb93b561df54e145e9fb4a4c46dd272587b3ae77972461c3"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/amd-preparation-ui-v3/status.json",
+      "bytes": 6205,
+      "sha256": "d9b391d7ba5706ea4d382160c85f96dfc18af953897991996f41c84d271939ed"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/amd-preparation-ui-v3/ui-result.json",
+      "bytes": 90817,
+      "sha256": "ddb5a5e27b5da0fd153e2981e8be8707cc0ac3b18dac93c269c3be375dc427c4"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/amd-preparation-ui-v3/runner.json",
+      "bytes": 1414,
+      "sha256": "a96755b3c7eb2eabda082ba7d216e3d6e21c73c47749d3666a8c60e8623ac137"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/amd-preparation-ui-v3/playback-status.json",
+      "bytes": 1205,
+      "sha256": "630fe4831d276a0b98b1b6a1c79d4ae039f4e1568b0b4a2f047bca998acf99ca"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/native-v3-v4-comparison.json",
+      "bytes": 2907,
+      "sha256": "b8eccb726ce73bbe708c9ad2e0c600052618e41a4132eee3293ada873ac9e969"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/native-v3-v4-normalized.json",
+      "bytes": 683,
+      "sha256": "1b5ae0a52f6d6c5c21ac2552c7a5a81630cec215c258f25c4fe94194ec5c0543"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-cuda/runner.json",
+      "bytes": 1460,
+      "sha256": "eec464c37d18eb2d849ce8a9e042955c5ca8112b68af924358674fddecbd4f7f"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-cuda/ui-result.json",
+      "bytes": 96102,
+      "sha256": "b33a140b1dcb94ed65532adef89638267a79f8dd46ae6f0298bd03b638bb59ac"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-cuda/prepared-without-submission.png",
+      "bytes": 126029,
+      "sha256": "88fd387b952d95d6c87b26adfd4e764f2f073a44f742115b247dbd0c75df08a8"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-cuda/playing.png",
+      "bytes": 151518,
+      "sha256": "af181311b185ba04018ed7cd7508f140ae259024ca1bf3a45efd1904271fd70b"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-cuda/stale.png",
+      "bytes": 123614,
+      "sha256": "d34094083077fcadeff3f41a94660c5e3f5c0837b32a21738873e3929b59b5e7"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-cuda/restarted.png",
+      "bytes": 151739,
+      "sha256": "4e8806927418b741a7b77aa7736398016841cfbab5ac5528f17c13642f32bcdc"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-d3d11va/runner.json",
+      "bytes": 1425,
+      "sha256": "b9da0ffbb0ab2cf23352e56c8ecfa9abf3eadca35ebd059f1d5aea1dd492397e"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-d3d11va/ui-result.json",
+      "bytes": 91822,
+      "sha256": "b944feed92338a0c38469dbb11b1eca5a7bcf7e0e6ecde529d22f9bc9d9f8b12"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-d3d11va/prepared-without-submission.png",
+      "bytes": 120871,
+      "sha256": "49f2b55eff05544b1058703b5c3028b470e4a5bc27a50f5a1d33a7fb8c375f74"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-d3d11va/playing.png",
+      "bytes": 148246,
+      "sha256": "587859920e5ff7a081a982a3523a77bca3ad3ea5ad38205c6beac6e9e4a280ac"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-d3d11va/stale.png",
+      "bytes": 117136,
+      "sha256": "76d2845b7d5b8bc5f305aeedafaea7fa4fcb12ade85996d324e371e864433cf8"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/windows-preparation-ui-v1/ui-d3d11va/restarted.png",
+      "bytes": 145577,
+      "sha256": "a3b0aed4b165a7038fa50f1d5290f37ea21b5e23472aa48378574758d8aaec63"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/amd-preparation-ui-v3/prepared-without-submission.png",
+      "bytes": 105244,
+      "sha256": "954d00cb7e258fe6973679cb910933affa2fb95657daac0beb046c5fb8f8373c"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/amd-preparation-ui-v3/playing.png",
+      "bytes": 131857,
+      "sha256": "652ee0c7186d47b3fb064a7a77876eb29e330c94d74bcea6cebb25895c40631e"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/amd-preparation-ui-v3/stale.png",
+      "bytes": 102332,
+      "sha256": "0e4812cd75dc38d98f3d09e897cc2ae8031a9a9e8d8d22d0fbd8ddc2b3ebd3ef"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/results/amd-preparation-ui-v3/restarted.png",
+      "bytes": 130026,
+      "sha256": "931293aef1c3db8360f03f6a349cf4898fbfac320daf3754b39f38454ce38d8b"
+    },
+    {
+      "path": "processing/2026-11-15-rm-r5-build-release/release-windows-v3/restarted-ui.png",
+      "bytes": 100435,
+      "sha256": "c5c564893f4461b5b6b0e9a86b418c6a60541e98f0945ee6769dfec0e46ee6c1"
     }
-  ]
+  ],
+  "previous_runtime_commit": "04737bdbaf61b5b543ffe4636407351bd3f0818c"
 }
