@@ -2,6 +2,7 @@
 """Relink the supplied application objects with original or modified FFmpeg."""
 import argparse,json,os,shutil,subprocess
 from pathlib import Path
+from ffmpeg_link import hardware_libraries
 
 def main():
     base=Path(__file__).resolve().parent
@@ -21,7 +22,11 @@ def main():
     command += [str(base/'libraries'/name) for name in m['application_libraries']]
     if windows:command+=['-lpthread','-lws2_32']
     command += [str(ffmpeg/'lib'/('lib'+name+'.a')) for name in ['avcodec','swscale','avutil']]
-    command += m['system_libraries']
+    # Replacing FFmpeg can add/remove the optional VAAPI dependency set.
+    command += [item for item in m['system_libraries'] if item not in ['-lva-drm','-lva','-ldrm']]
+    command += hardware_libraries(ffmpeg, windows)
+    if not windows and '-Wl,--no-undefined' not in command:
+        command.append('-Wl,--no-undefined')
     a.output.parent.mkdir(parents=True,exist_ok=True)
     subprocess.run(command,check=True)
     print('RELINKED',a.output)

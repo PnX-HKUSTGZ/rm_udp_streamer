@@ -76,6 +76,8 @@ Linux的输出目录改为`dist/D3-linux`，其余参数按实际路径。导出
 
 最终包包含完整许可清单、对应源码、可重链接对象和操作脚本。`relink/relink_native.py`可选择新的FFmpeg前缀；为避免覆盖正在运行的库，输出必须是新路径。先关闭应用并备份，再替换包内DLL/SO。重链接后的库需重新验证实际解码与生命周期。
 
+VAAPI 的发布包与重链接工具会保留 `libva`、`libva-drm`、`libdrm` 的系统链接依赖；更换 FFmpeg 前缀时按所选前缀重新选择这些库。Linux 链接要求所有符号已解析，避免生成缺少外部库、直到启动才报错的 SO。运行机器需要发行版的 `libva2 libva-drm2 libdrm2` 及 Intel/AMD 媒体驱动；开发/重链接机器另需相应 `-dev` 包。编入 VAAPI 的原生库在启动时就需要这些运行库，即使本次选择软件解码也一样。
+
 `manifest.json`覆盖包中每个交付文件；`build-manifest.json`记录真正使用的工具版本/路径/摘要与库摘要。导出产物不提交到Git，审查与性能证据按阶段提交到docs/evidence。
 
 D3在独立审查后仅更新随包文档，运行文件、依赖及重链接对象/库均保持已测摘要。`manifest.json`保留导出`commit`并另记审查文档`evidence_commit`。最终ZIP逐成员核对大小与SHA256，Linux压缩包在Linux生成并保留执行权限；包旁`D3-delivery-*.json`和`SHA256SUMS.txt`记录归档验证及摘要。

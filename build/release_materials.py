@@ -1,6 +1,7 @@
 """Assemble complete notices and the LGPL relinking kit into an export."""
 import hashlib,json,os,shutil,subprocess,tarfile
 from pathlib import Path
+from ffmpeg_link import hardware_libraries
 
 def sha(path):
     result=hashlib.sha256()
@@ -52,7 +53,7 @@ def prepare(repo,cache,output,engine,env,lock,windows):
                 if first>=0 and end>=0:texts.append(member.name+'\n'+text[first:end+2])
         if not texts:raise RuntimeError('nv-codec-headers notices missing')
         (notices/'nv-codec-headers-notices.txt').write_text('\n\n'.join(texts),encoding='utf-8')
-    for name in ['relink_native.py','rebuild_ffmpeg.py','ffmpeg_build.py']:shutil.copy2(repo/'build'/name,kit/name)
+    for name in ['relink_native.py','rebuild_ffmpeg.py','ffmpeg_build.py','ffmpeg_link.py']:shutil.copy2(repo/'build'/name,kit/name)
     shutil.copytree(cache/('ffmpeg-static-'+platform),kit/'ffmpeg')
     objects=kit/'objects';objects.mkdir();libraries=kit/'libraries';libraries.mkdir()
     build_dir=repo/'out'/platform
@@ -66,8 +67,9 @@ def prepare(repo,cache,output,engine,env,lock,windows):
     for name in app_libraries:shutil.copy2(build_dir/('bin/'+name if name==godot_library else name),libraries/name)
     link_flags=['-shared','-O3','-DNDEBUG','-static-libgcc','-static-libstdc++','-s']
     if windows:link_flags+=['-static','-Wl,--no-undefined']
-    else:link_flags+=['-fPIC','-Wl,--exclude-libs,ALL','-Wl,-soname,librm_video.so']
+    else:link_flags+=['-fPIC','-Wl,--no-undefined','-Wl,--exclude-libs,ALL','-Wl,-soname,librm_video.so']
     system=['-lbcrypt','-ldxguid','-lkernel32','-luser32','-lgdi32','-lwinspool','-lshell32','-lole32','-loleaut32','-luuid','-lcomdlg32','-ladvapi32'] if windows else ['-lm','-Wl,-Bstatic','-latomic','-Wl,-Bdynamic','-ldl']
+    system += hardware_libraries(kit/'ffmpeg', windows)
     m={'platform':platform,'compiler_version':'15.2.0' if windows else '13.3.0','objects':object_names,'application_libraries':app_libraries,'link_flags':link_flags,'system_libraries':system,'files':{}}
     for file in sorted(kit.rglob('*')):
         if file.is_file():m['files'][file.relative_to(kit).as_posix()]=sha(file)
@@ -92,6 +94,7 @@ def prepare(repo,cache,output,engine,env,lock,windows):
         '   Edit the extracted FFmpeg source, then rerun make and make install in its build directory.\n'
         '   Manual edits invalidate the original build receipt; record the modified inputs and outputs before validation.\n'
         '   Original cross tools are MinGW GCC 13.2 win32; native Linux is GCC 13.3.\n'
+        '   VAAPI builds additionally need libva-dev and libdrm-dev (Ubuntu); matching system runtime libraries and GPU drivers are not bundled.\n'
         '4. Run relink_native.py --ffmpeg-root /path/to/ffmpeg-install --output /new/path/library.\n'
         '5. Close the receiver, keep a backup, then replace the matching native library in the package.\n'
         '   Windows uses rm_video.dll beside the executable; Linux uses librm_video.so beside the executable.\n'
@@ -102,6 +105,7 @@ def prepare(repo,cache,output,engine,env,lock,windows):
         'godot-cpp: MIT. .NET 8.0.34: MIT and .NET-THIRD-PARTY-NOTICES.TXT.\n'
         'FFmpeg n8.1.3: LGPL-2.1-or-later. Corresponding source, build recipe and relinkable application objects are in ../relink.\n'
         'nv-codec-headers: see the original per-header notices and complete source archive. NVIDIA driver is an OS dependency, not redistributed.\n'
+        'VAAPI builds use distribution libva/libva-drm/libdrm and vendor media drivers as operating-system dependencies; these are not redistributed.\n'
         'Compiler runtimes: GCC runtime exception and associated notices; Windows additionally includes MinGW-w64/winpthreads notices.\n'
         'Application source rights are unchanged. No license here claims ownership of third-party components.\n',encoding='utf-8')
     shutil.copy2(build_dir/'build-manifest.json',output/'build-manifest.json')
