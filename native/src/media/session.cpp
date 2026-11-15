@@ -189,7 +189,8 @@ void MediaSession::prepare(MediaConfig config) noexcept {
             if (failure) {
                 ++state_.prepare_failures;
                 if (!quit_.load() && epoch == preparation_epoch_) preparation_error_ = failure;
-            } else complete_preparation(std::move(prepared), epoch);
+            } else if (!prepared) ++state_.decoded_capacity_drops;
+            else complete_preparation(std::move(prepared), epoch);
         }
     } catch (...) {
         std::lock_guard<std::mutex> lock(mutex_);

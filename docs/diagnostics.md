@@ -73,7 +73,7 @@ C# 调用方负责及时释放读取快照的 `Variant` 及 `Dictionary`。`Snap
 ```text
 decoded = prepared_completed + prepare_failures + decoded_discarded_stop
         + decoded_discarded_generation + decoded_discarded_failure
-        + decoded_replaced + preparing + decoded_pending
+        + decoded_replaced + decoded_capacity_drops + preparing + decoded_pending
 prepared_completed = prepared + prepared_discarded_race
 prepared = mailbox_replaced + prepared_discarded_stop + prepared_discarded_generation
          + prepared_discarded_failure + upload_requested + prepared_pending
@@ -83,6 +83,8 @@ submitted_total = shown_total + publication_replaced + publication_stale + pendi
 ```
 
 `accounting_schema=2` 增加 CPU 准备前的原始帧邮箱。`decoded_replaced` 表示在回读/转色前被更新帧替换；它与准备后替换的 `mailbox_replaced` 分开。`decoded_pending` 和 `preparing` 各最多一帧，`cpu_sources_peak` 是这两个位置合计的峰值，不包含解码器内部帧池或正在交付的解码回调。CPU 结果未被取走时不会开始下一次准备；GPU 路径仍直接发布。`preparation_queue_wait` 测量解码完成到实际开始 CPU 准备的等待，保持同一 native 时钟。
+
+CPU 准备输出池最多三份。只有外部消费者全部释放后才复用；三份都被持有时，在回读之前返回容量不足并计 `decoded_capacity_drops` / `preparation_pool_misses`。正常单上传消费不应触发此项。`output_buffers_allocated`、`output_buffer_growths`、`readback_allocations`、`scratch_buffer_growths` 统计本会话的输出对象、平面容量增长、硬件回读存储及编码空间 RGBA 临时存储的分配次数。对应 `*_capacity_peak_bytes` 是准备器拥有的容量峰值，既不代表停止后的存活资源，也不包含 FFmpeg 内部/渲染器分配。`plane_copy_bytes` 和 `rgba_crop_copy_bytes` 只统计准备器显式复制的像素字节；CPU 上传到 Godot 及驱动内部复制应分别评估。
 
 `upload_busy_polls` 统计主循环发现上传繁忙的次数，不是丢帧数；`shown_invalidated` 统计已接受画面失效，不从累计接受数扣除。正常停止应无 decoded_pending/preparing/prepared_pending/pending_uploads/pending_publications，压缩队列资源也归零。接收器停止保留累计输入统计；新会话才清空。解码、准备与渲染统计分别发布锁保护的快照，GPU 完成数可晚于提交数。
 

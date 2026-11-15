@@ -21,6 +21,7 @@ struct MediaSnapshot {
     uint64_t mailbox_replaced = 0, prepared = 0;
     uint64_t prepared_completed = 0, prepare_failures = 0, decoded_discarded_stop = 0, prepared_discarded_stop = 0;
     uint64_t decoded_replaced = 0, decoded_discarded_generation = 0, decoded_discarded_failure = 0;
+    uint64_t decoded_capacity_drops = 0;
     bool preparing = false, prepared_pending = false, decoded_pending = false;
     uint64_t cpu_sources_peak = 0;
     TimingHistogram preparation_queue_wait;

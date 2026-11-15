@@ -427,6 +427,7 @@ std::shared_ptr<PreparedFrame> Decoder::prepare_cpu(FrameLease lease) {
     try {
         auto frame = synchronous_preparer_->prepare(std::move(lease));
         static_cast<CpuPreparationCounters &>(counters_) = synchronous_preparer_->counters();
+        if (!frame) throw std::runtime_error("CPU preparation output budget exhausted; release a previous frame");
         return frame;
     } catch (...) {
         static_cast<CpuPreparationCounters &>(counters_) = synchronous_preparer_->counters();

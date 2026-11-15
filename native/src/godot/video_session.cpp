@@ -145,12 +145,16 @@ Dictionary RmVideoSession::snapshot(bool detailed) const {
 #define METRIC(field) result[#field] = int64_t(state.decode.field)
     METRIC(parser_packets); METRIC(decoded); METRIC(hardware_frames); METRIC(cpu_readbacks);
     METRIC(cpu_readback_bytes); METRIC(converted_rgba); METRIC(skipped_until_key); METRIC(skipped_rasl); METRIC(resets);
+    METRIC(output_buffers_allocated); METRIC(output_buffer_growths); METRIC(output_capacity_peak_bytes);
+    METRIC(scratch_buffer_growths); METRIC(scratch_capacity_peak_bytes); METRIC(readback_allocations); METRIC(readback_capacity_peak_bytes);
+    METRIC(preparation_pool_misses); METRIC(plane_copy_bytes); METRIC(rgba_crop_copy_bytes);
     METRIC(backend_attempts); METRIC(backend_failures); METRIC(backend_switches);
     METRIC(correlated_frames); METRIC(unknown_timing_frames); METRIC(timing_history_evicted); METRIC(timing_history_peak);
 #undef METRIC
 #define METRIC(field) result[#field] = int64_t(state.field)
     METRIC(prepared_completed); METRIC(prepare_failures); METRIC(decoded_discarded_stop); METRIC(prepared_discarded_stop);
     METRIC(decoded_replaced); METRIC(decoded_discarded_generation); METRIC(decoded_discarded_failure); METRIC(cpu_sources_peak);
+    METRIC(decoded_capacity_drops);
     METRIC(prepared_discarded_generation); METRIC(prepared_discarded_failure); METRIC(prepared_discarded_race);
     METRIC(upload_requested); METRIC(submitted_total); METRIC(shown_total); METRIC(upload_busy_polls);
     METRIC(upload_stale_before); METRIC(upload_stale_after); METRIC(gpu_slot_drops); METRIC(upload_failures);

@@ -54,6 +54,10 @@ struct PreparedFrame {
 };
 struct CpuPreparationCounters {
     uint64_t cpu_readbacks = 0, cpu_readback_bytes = 0, converted_rgba = 0, precision_reduced = 0;
+    uint64_t output_buffers_allocated = 0, output_buffer_growths = 0, output_capacity_peak_bytes = 0;
+    uint64_t scratch_buffer_growths = 0, scratch_capacity_peak_bytes = 0;
+    uint64_t readback_allocations = 0, readback_capacity_peak_bytes = 0, preparation_pool_misses = 0;
+    uint64_t plane_copy_bytes = 0, rgba_crop_copy_bytes = 0;
     TimingHistogram cpu_readback, rgba_conversion, plane_pack, prepare_total;
 };
 }
