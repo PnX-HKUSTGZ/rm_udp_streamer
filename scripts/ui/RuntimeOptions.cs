@@ -7,7 +7,7 @@ public sealed class RuntimeOptions
 {
     public bool Start, Help;
     public bool? Diagnostics;
-    public string Address = "0.0.0.0", Decoder = "auto", Transfer = "yuv";
+    public string Address = "0.0.0.0", Decoder = "auto", Transfer = "yuv", Cadence = "auto";
     public int Port = 3334, Device;
     public double Duration;
     public string Metrics = "", Snapshot = "";
@@ -28,6 +28,7 @@ public sealed class RuntimeOptions
                 case "--device": result.Device = int.Parse(value, CultureInfo.InvariantCulture); break;
                 case "--decoder": result.Decoder = value; break;
                 case "--transfer": result.Transfer = value; break;
+                case "--cadence": result.Cadence = value; break;
                 case "--duration": result.Duration = double.Parse(value, CultureInfo.InvariantCulture); break;
                 case "--metrics": result.Metrics = Path.GetFullPath(value); break;
                 case "--snapshot": result.Snapshot = Path.GetFullPath(value); break;
@@ -40,6 +41,8 @@ public sealed class RuntimeOptions
         if (Array.IndexOf(new[] { "auto", "software", "cuda", "d3d11va" }, result.Decoder) < 0 ||
             Array.IndexOf(new[] { "yuv", "rgba", "gpu", "auto" }, result.Transfer) < 0)
             throw new ArgumentException("Unknown decoder or transfer mode");
+        if (Array.IndexOf(new[] { "auto", "display", "responsive", "engine" }, result.Cadence) < 0)
+            throw new ArgumentException("Cadence must be auto, display, responsive or engine");
         if (!double.IsFinite(result.Duration) || result.Duration < 0 || result.Duration > 86400)
             throw new ArgumentException("Duration must be 0 (unlimited) through 86400 seconds");
         if (result.Snapshot.Length > 0 && (result.Duration == 0 || File.Exists(result.Snapshot)))
@@ -48,7 +51,9 @@ public sealed class RuntimeOptions
     }
     public const string Usage = "Receiver options (after --): --start --bind IPv4 --port 3334 " +
         "--decoder auto|software|cuda|d3d11va --device 0 --transfer yuv|rgba|gpu|auto " +
-        "--duration seconds --metrics new-file.ndjson --snapshot new-file.png --diagnostics on|off\n" +
+        "--duration seconds --metrics new-file.ndjson --snapshot new-file.png --diagnostics on|off --cadence auto|display|responsive|engine\n" +
+        "Auto uses a bounded 120 Hz loop on Windows hardware renderers (Mailbox on Vulkan; VSync off on OpenGL). " +
+        "Linux/software rendering, nonzero launch FPS caps and nondefault VSync retain their launch policy. Display uses VSync; engine always preserves launch settings.\n" +
         "Stage timings default to on when a metrics file is requested; off keeps counters and disables extra timing.\n" +
         "Duration starts when the interface opens; 0 runs until closed. Metrics record actual new texture submissions, not screen refreshes.";
 }
