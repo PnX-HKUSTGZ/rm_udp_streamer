@@ -17,8 +17,8 @@ public partial class Main : Control
     private Control _videoArea = null!, _surface = null!;
     private bool _running, _cadenceActive;
     private double _elapsed, _rateTime;
-    private long _lastComplete, _lastDecoded, _lastSubmitted;
-    private double _receiveFps, _decodeFps, _submitFps;
+    private long _lastComplete, _lastDecoded, _lastPrepared, _lastSubmitted;
+    private double _receiveFps, _decodeFps, _prepareFps, _submitFps;
     private RuntimeOptions _options = new();
     private StreamWriter? _diagnostics;
     private double _uptime, _diagnosticTime;
@@ -82,7 +82,7 @@ public partial class Main : Control
         _videoArea.AddChild(_placeholder); _placeholder.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         _source = Text("来源：等待数据"); layout.AddChild(_source);
         _path = Text("选择解码方式后开始接收", 14); _path.AutowrapMode = TextServer.AutowrapMode.WordSmart; layout.AddChild(_path);
-        _metrics = Text("重组 0.0 · 解码 0.0 · 新画面提交 0.0 帧/秒", 14); layout.AddChild(_metrics);
+        _metrics = Text("重组 0.0 · 解码 0.0 · 准备就绪 0.0 · 新画面提交 0.0 帧/秒", 14); _metrics.AutowrapMode = TextServer.AutowrapMode.WordSmart; layout.AddChild(_metrics);
         _error = Text("", 14); _error.Modulate = new Color("ffb4a9"); _error.AutowrapMode = TextServer.AutowrapMode.WordSmart; layout.AddChild(_error);
     }
     private void Toggle()
@@ -105,7 +105,7 @@ public partial class Main : Control
                 if (_options.Start) throw;
                 return;
             }
-            _lastComplete=_lastDecoded=_lastSubmitted=0; _rateTime=0; _receiveFps=_decodeFps=_submitFps=0;
+            _lastComplete=_lastDecoded=_lastPrepared=_lastSubmitted=0; _rateTime=0; _receiveFps=_decodeFps=_prepareFps=_submitFps=0;
             _session.Start(settings.Address, settings.Port, settings.Decoder, settings.Device, settings.Transfer,
                 _options.Diagnostics ?? (_options.Metrics.Length > 0), settings.SourceAddress, settings.SourcePort);
         }
@@ -133,12 +133,12 @@ public partial class Main : Control
         if (_cadencePolicy != null) _path.Text += "  |  " + _cadencePolicy.Description;
         if (_rateTime >= 1)
         {
-            long complete=data.Number("complete"), decoded=data.Number("decoded"), submitted=data.Number("submitted_total");
+            long complete=data.Number("complete"), decoded=data.Number("decoded"), prepared=data.Number("prepared"), submitted=data.Number("submitted_total");
             _receiveFps=Math.Max(0,complete-_lastComplete)/_rateTime; _decodeFps=Math.Max(0,decoded-_lastDecoded)/_rateTime;
-            _submitFps=Math.Max(0,submitted-_lastSubmitted)/_rateTime;
-            _lastComplete=complete; _lastDecoded=decoded; _lastSubmitted=submitted; _rateTime=0;
+            _prepareFps=Math.Max(0,prepared-_lastPrepared)/_rateTime; _submitFps=Math.Max(0,submitted-_lastSubmitted)/_rateTime;
+            _lastComplete=complete; _lastDecoded=decoded; _lastPrepared=prepared; _lastSubmitted=submitted; _rateTime=0;
         }
-        _metrics.Text = $"重组 {_receiveFps:F1} · 解码 {_decodeFps:F1} · 新画面提交 {_submitFps:F1} 帧/秒"+
+        _metrics.Text = $"重组 {_receiveFps:F1} · 解码 {_decodeFps:F1} · 准备就绪 {_prepareFps:F1} · 新画面提交 {_submitFps:F1} 帧/秒"+
             $"  |  缺失 {data.Number("missing")} · 恢复 {data.Number("recoveries")} · 显示替换 {data.Number("mailbox_replaced")} · 像素回读 {data.Number("cpu_readbacks")}";
         string failure=data.Text("error"), uploadError=presentation.Text("error");
         _error.Text = failure.Length>0 ? failure : uploadError.Length>0 ? uploadError :
