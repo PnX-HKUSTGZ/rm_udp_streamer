@@ -1,6 +1,7 @@
 #include "video_session.hpp"
 #include "video_surface.hpp"
 #include "diagnostics.hpp"
+#include "media/device.hpp"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/godot.hpp>
 #include <stdexcept>
@@ -30,6 +31,28 @@ void RmVideoSession::_bind_methods() {
     ClassDB::bind_method(D_METHOD("request_stop"), &RmVideoSession::request_stop);
     ClassDB::bind_method(D_METHOD("poll_stop"), &RmVideoSession::poll_stop);
     ClassDB::bind_method(D_METHOD("snapshot", "detailed"), &RmVideoSession::snapshot, DEFVAL(true));
+    ClassDB::bind_method(D_METHOD("capabilities"), &RmVideoSession::capabilities);
+}
+Dictionary RmVideoSession::capabilities() const {
+    Dictionary result; Array backends;
+    result["schema"] = 1;
+    result["scope"] = "enumeration_only; profile, readback and GPU transfer require actual stream/renderer validation";
+    for(const auto &backend:rm::enumerate_backends()) {
+        Dictionary entry; Array devices;
+        entry["name"]=String(backend.name.c_str());entry["compiled"]=backend.compiled;
+        entry["error"]=String(backend.error.c_str());
+        entry["gpu_transfer_candidate"]=backend.name=="cuda";
+        entry["identity_scope"]=backend.name=="software"?"none":backend.name=="d3d11va"?"current_system_boot":backend.name=="vaapi"?"PCI topology or render node":"CUDA UUID";
+        for(const auto &device:backend.devices) {
+            Dictionary value;
+            value["ordinal"]=device.ordinal;value["selector"]=String(device.selector.c_str());
+            value["name"]=String(device.name.c_str());value["identity"]=String(device.identity.c_str());
+            value["node"]=String(device.node.c_str());value["pci"]=String(device.pci.c_str());
+            value["error"]=String(device.error.c_str());devices.push_back(value);
+        }
+        entry["devices"]=devices;backends.push_back(entry);
+    }
+    result["backends"]=backends;return result;
 }
 bool RmVideoSession::start(const Dictionary &values) {
     try {

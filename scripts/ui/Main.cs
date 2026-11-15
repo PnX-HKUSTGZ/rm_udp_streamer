@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 public partial class Main : Control
 {
     private VideoSessionClient? _session;
-    private LineEdit _address = null!;
-    private SpinBox _port = null!, _device = null!;
+    private LineEdit _address = null!, _device = null!;
+    private SpinBox _port = null!;
     private OptionButton _decoder = null!, _transfer = null!, _cadence = null!;
     private FrameCadence? _cadencePolicy;
     private Button _toggle = null!;
@@ -24,7 +24,7 @@ public partial class Main : Control
     private double _uptime, _diagnosticTime;
     private readonly Stopwatch _wallClock = new();
     private bool _readyLogged, _finishing;
-    private static readonly string[] Decoders = { "auto", "software", "cuda", "d3d11va" };
+    private static readonly string[] Decoders = { "auto", "software", "cuda", "d3d11va", "vaapi" };
     private static readonly string[] Transfers = { "yuv", "rgba", "gpu", "auto" };
     private static readonly string[] Cadences = { "auto", "display", "responsive", "engine" };
 
@@ -44,7 +44,7 @@ public partial class Main : Control
             _videoArea.AddChild(_surface); _videoArea.MoveChild(_surface, 1);
             _surface.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
             _surface.Call("set_session", _session.Native);
-            _address.Text = _options.Address; _port.Value = _options.Port; _device.Value = _options.Device;
+            _address.Text = _options.Address; _port.Value = _options.Port; _device.Text = _options.Device;
             _decoder.Select(Array.IndexOf(Decoders, _options.Decoder)); _transfer.Select(Array.IndexOf(Transfers, _options.Transfer));
             _cadence.Select(Array.IndexOf(Cadences, _options.Cadence));
             Refresh();
@@ -75,8 +75,9 @@ public partial class Main : Control
         _toggle = new Button { Text = "开始接收", CustomMinimumSize = new Vector2(140,36) }; inputs.AddChild(_toggle); _toggle.Pressed += Toggle;
         var modes = new HBoxContainer(); modes.AddThemeConstantOverride("separation", 12); layout.AddChild(modes);
         modes.AddChild(Text("解码")); _decoder = new OptionButton(); modes.AddChild(_decoder);
-        foreach (string value in new[] { "自动", "软件", "NVIDIA CUDA", "Windows D3D11" }) _decoder.AddItem(value);
-        modes.AddChild(Text("设备序号")); _device = new SpinBox { MinValue=0, MaxValue=999, Step=1, Value=0 }; modes.AddChild(_device);
+        foreach (string value in new[] { "自动", "软件", "NVIDIA CUDA", "Windows D3D11", "Linux VAAPI" }) _decoder.AddItem(value);
+        modes.AddChild(Text("设备")); _device = new LineEdit { Text="0", MaxLength=512, CustomMinimumSize=new Vector2(160,36) }; modes.AddChild(_device);
+        _device.TooltipText = "支持设备序号或完整设备标识。序号只属于所选解码方式；Windows LUID 仅在本次系统启动期间有效。";
         modes.AddChild(Text("画面传输")); _transfer = new OptionButton(); modes.AddChild(_transfer);
         _transfer.AddItem("CPU YUV"); _transfer.AddItem("CPU RGBA"); _transfer.AddItem("GPU CUDA / OpenGL");
         _transfer.AddItem("自动 GPU / CPU");
@@ -103,7 +104,7 @@ public partial class Main : Control
         else
         {
             _lastComplete=_lastDecoded=_lastSubmitted=0; _rateTime=0; _receiveFps=_decodeFps=_submitFps=0;
-            _session.Start(_address.Text.Trim(), (int)_port.Value, Decoders[_decoder.Selected], ((int)_device.Value).ToString(), Transfers[_transfer.Selected],
+            _session.Start(_address.Text.Trim(), (int)_port.Value, Decoders[_decoder.Selected], _device.Text.Trim(), Transfers[_transfer.Selected],
                 _options.Diagnostics ?? (_options.Metrics.Length > 0));
         }
         Refresh();

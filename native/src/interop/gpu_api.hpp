@@ -31,7 +31,7 @@ inline void *symbol(const char *library, const char *name, bool gl = false) {
     if (!module) return nullptr;
     void *result = nullptr;
     if (gl) {
-        auto get = reinterpret_cast<PROC(WINAPI *)(LPCSTR)>(GetProcAddress(module,"wglGetProcAddress"));
+        auto get = reinterpret_cast<PROC(WINAPI *)(LPCSTR)>(reinterpret_cast<void *>(GetProcAddress(module,"wglGetProcAddress")));
         if (get) result = reinterpret_cast<void *>(get(name));
         if (uintptr_t(result) <= 3 || uintptr_t(result) == UINTPTR_MAX) result = nullptr;
     }

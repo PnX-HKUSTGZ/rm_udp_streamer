@@ -10,7 +10,7 @@ extern "C" {
 
 namespace rm {
 struct MediaConfig {
-    std::string decoder = "auto"; // auto, software, cuda, d3d11va
+    std::string decoder = "auto"; // auto, software, cuda, d3d11va, vaapi
     std::string device = "0";
     std::string transfer = "yuv"; // auto, yuv, rgba, or required GPU bridge.
     int max_pixels = 1920 * 1088;

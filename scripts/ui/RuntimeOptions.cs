@@ -8,7 +8,8 @@ public sealed class RuntimeOptions
     public bool Start, Help;
     public bool? Diagnostics;
     public string Address = "0.0.0.0", Decoder = "auto", Transfer = "yuv", Cadence = "auto";
-    public int Port = 3334, Device;
+    public int Port = 3334;
+    public string Device = "0";
     public double Duration;
     public string Metrics = "", Snapshot = "";
     public static RuntimeOptions Parse(string[] args)
@@ -25,7 +26,7 @@ public sealed class RuntimeOptions
             {
                 case "--bind": result.Address = value; break;
                 case "--port": result.Port = int.Parse(value, CultureInfo.InvariantCulture); break;
-                case "--device": result.Device = int.Parse(value, CultureInfo.InvariantCulture); break;
+                case "--device": result.Device = value; break;
                 case "--decoder": result.Decoder = value; break;
                 case "--transfer": result.Transfer = value; break;
                 case "--cadence": result.Cadence = value; break;
@@ -36,9 +37,9 @@ public sealed class RuntimeOptions
                 default: throw new ArgumentException("Unknown receiver option: " + option);
             }
         }
-        if (result.Port < 1 || result.Port > 65535 || result.Device < 0 || result.Device > 999)
-            throw new ArgumentException("Port or device index is outside its valid range");
-        if (Array.IndexOf(new[] { "auto", "software", "cuda", "d3d11va" }, result.Decoder) < 0 ||
+        if (result.Port < 1 || result.Port > 65535 || result.Device.Length == 0 || result.Device.Length > 512)
+            throw new ArgumentException("Port or device selector is outside its valid range");
+        if (Array.IndexOf(new[] { "auto", "software", "cuda", "d3d11va", "vaapi" }, result.Decoder) < 0 ||
             Array.IndexOf(new[] { "yuv", "rgba", "gpu", "auto" }, result.Transfer) < 0)
             throw new ArgumentException("Unknown decoder or transfer mode");
         if (Array.IndexOf(new[] { "auto", "display", "responsive", "engine" }, result.Cadence) < 0)
@@ -50,10 +51,12 @@ public sealed class RuntimeOptions
         return result;
     }
     public const string Usage = "Receiver options (after --): --start --bind IPv4 --port 3334 " +
-        "--decoder auto|software|cuda|d3d11va --device 0 --transfer yuv|rgba|gpu|auto " +
+        "--decoder auto|software|cuda|d3d11va|vaapi --device index-or-identity --transfer yuv|rgba|gpu|auto " +
         "--duration seconds --metrics new-file.ndjson --snapshot new-file.png --diagnostics on|off --cadence auto|display|responsive|engine\n" +
         "Auto uses a bounded 120 Hz loop on Windows hardware renderers (Mailbox on Vulkan; VSync off on OpenGL). " +
         "Linux/software rendering, nonzero launch FPS caps and nondefault VSync retain their launch policy. Display uses VSync; engine always preserves launch settings.\n" +
+        "Device accepts a backend-local index, cuda:GPU-UUID, d3d11va:LUID=high:low (current boot), " +
+        "vaapi:pci:domain:bus:slot.function or a /dev/dri render path. Auto with an identity tries only that backend, then software.\n" +
         "Stage timings default to on when a metrics file is requested; off keeps counters and disables extra timing.\n" +
         "Duration starts when the interface opens; 0 runs until closed. Metrics record actual new texture submissions, not screen refreshes.";
 }
