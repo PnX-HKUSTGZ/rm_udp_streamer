@@ -164,6 +164,9 @@ public partial class Main
             _cadencePolicy?.Restore();
             var args=new List<string>();
             if(OS.HasFeature("editor")) args.AddRange(new[] { "--path",ProjectSettings.GlobalizePath("res://") });
+            string display=DisplayServer.GetName().ToLowerInvariant();
+            if(display=="wayland" || display=="x11") args.AddRange(new[] { "--display-driver",display });
+            args.AddRange(new[] { "--screen",DisplayServer.WindowGetCurrentScreen().ToString(CultureInfo.InvariantCulture) });
             args.AddRange(new[] { "--rendering-method",renderer,"--","--bind",settings.Address,"--port",settings.Port.ToString(CultureInfo.InvariantCulture),
                 "--decoder",settings.Decoder,"--device",settings.Device,"--transfer",settings.Transfer,"--cadence",settings.Cadence,
                 "--source-port",settings.SourcePort.ToString(CultureInfo.InvariantCulture) });
