@@ -6,6 +6,7 @@ the new inputs need the same playback, color, ownership and release checks.
 """
 import argparse
 import copy
+import hashlib
 import json
 from pathlib import Path
 from dependency_inputs import digest, inventory_ffmpeg
@@ -33,6 +34,22 @@ def main():
     configure = recipe.get('configure', [])
     if '--disable-gpl' not in configure or '--disable-nonfree' not in configure or '--enable-gpl' in configure or '--enable-nonfree' in configure:
         raise RuntimeError('The receiver release recipe requires GPL and nonfree components to remain disabled')
+    if recipe.get('schema') == 2:
+        receipt = recipe.get('build_receipt', {})
+        receipt_bytes = (json.dumps(receipt, indent=2) + '\n').encode('utf-8')
+        if hashlib.sha256(receipt_bytes).hexdigest() != recipe.get('build_receipt_sha256'):
+            raise RuntimeError('FFmpeg rebuild receipt checksum mismatch')
+        actual_outputs = {name: item for name, item in inputs['files'].items() if name != 'build-manifest.json'}
+        # The receipt also records installed examples under share/. They are
+        # not build inputs and are intentionally absent from restored caches.
+        recorded_inputs = {name: item for name, item in receipt.get('outputs', {}).items()
+                           if name.startswith(('include/', 'lib/'))}
+        if (receipt.get('status') != 'built-unvalidated' or receipt.get('validated') is not False or
+                receipt.get('target') != args.platform or recorded_inputs != actual_outputs):
+            raise RuntimeError('FFmpeg rebuild receipt does not describe the installed outputs; record and rebuild changed sources before creating a lock')
+        for name, revision in [('ffmpeg', recipe['ffmpeg_commit']), ('nv-codec-headers', recipe['nvcodec_commit'])]:
+            if receipt.get('sources', {}).get(name, {}).get('commit') != revision:
+                raise RuntimeError('FFmpeg rebuild source identity differs from the recipe')
     updated = copy.deepcopy(lock)
     updated['schema'] = 2
     updated.setdefault('ffmpeg_inputs', {})[args.platform] = inputs

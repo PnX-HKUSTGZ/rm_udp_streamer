@@ -59,7 +59,7 @@ python build/build_project.py
 
 Windows优先使用缓存内CMake，不受PATH中其他版本影响。已有构建缓存保留同一编译器路径拼写，避免Windows大小写别名触发CMake隐式重置。新构建不依赖历史缓存里的链接参数，静态编译器运行库及无未定义符号要求已在CMake明确配置。`global.json`禁止SDK自动升级，运行库固定8.0.34。
 
-要从原始Git源码构建FFmpeg，使用`build/build_ffmpeg.py --cache PATH --target linux`；WindowsFFmpeg通过WSL/Linux加`--target windows --cross-tools PATH`构建。对应源码必须固定提交且工作区干净；原始配置和交叉工具包摘要保存在锁文件。
+要从原始 Git 源码重建 FFmpeg，使用 `build/build_ffmpeg.py --cache PATH --target linux --work NEW_DIRECTORY`；Windows FFmpeg 通过 WSL/Linux 加 `--target windows --cross-tools PATH` 构建。对应源码必须固定提交且工作区干净。重建程序从归档创建独立源码快照，输出到新目录的 `ffmpeg-install`，保留实际工具/源码/配置/日志和输出校验收据，不修改官方缓存。新输出用 `record_dependency_lock.py` 记录为尚未验收的 developer 锁，再恢复到独立缓存、构建并执行受影响验收。原始配置和交叉工具包摘要仍保存在官方锁文件；不同工具或路径的重建不自动等于字节复现。
 
 ## 最终包与许可材料
 

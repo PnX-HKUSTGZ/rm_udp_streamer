@@ -52,7 +52,7 @@ def prepare(repo,cache,output,engine,env,lock,windows):
                 if first>=0 and end>=0:texts.append(member.name+'\n'+text[first:end+2])
         if not texts:raise RuntimeError('nv-codec-headers notices missing')
         (notices/'nv-codec-headers-notices.txt').write_text('\n\n'.join(texts),encoding='utf-8')
-    for name in ['relink_native.py','rebuild_ffmpeg.py']:shutil.copy2(repo/'build'/name,kit/name)
+    for name in ['relink_native.py','rebuild_ffmpeg.py','ffmpeg_build.py']:shutil.copy2(repo/'build'/name,kit/name)
     shutil.copytree(cache/('ffmpeg-static-'+platform),kit/'ffmpeg')
     objects=kit/'objects';objects.mkdir();libraries=kit/'libraries';libraries.mkdir()
     build_dir=repo/'out'/platform
@@ -87,7 +87,10 @@ def prepare(repo,cache,output,engine,env,lock,windows):
         '2. On the target OS, run: python relink_native.py --output /new/path/'+('rm_video.dll' if windows else 'librm_video.so')+'\n'
         '3. To rebuild/modify FFmpeg, use Linux/WSL with make, pkg-config, NASM and GCC:\n'
         '   python3 rebuild_ffmpeg.py --work /new/work/path'+(' --cross-prefix /path/to/x86_64-w64-mingw32-' if windows else '')+'\n'
+        '   The fresh build records source/tool identities, logs and installed file digests in build-receipt.json.\n'
+        '   Rebuilt artifacts are unvalidated; they never overwrite the official dependency cache.\n'
         '   Edit the extracted FFmpeg source, then rerun make and make install in its build directory.\n'
+        '   Manual edits invalidate the original build receipt; record the modified inputs and outputs before validation.\n'
         '   Original cross tools are MinGW GCC 13.2 win32; native Linux is GCC 13.3.\n'
         '4. Run relink_native.py --ffmpeg-root /path/to/ffmpeg-install --output /new/path/library.\n'
         '5. Close the receiver, keep a backup, then replace the matching native library in the package.\n'
