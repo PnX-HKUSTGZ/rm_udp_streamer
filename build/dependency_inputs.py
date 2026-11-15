@@ -67,7 +67,9 @@ def inventory_ffmpeg(prefix):
     return {'schema': 1, 'files': files}
 
 
-def verify_ffmpeg_inputs(prefix, expected):
+def validate_input_manifest(expected):
+    if not isinstance(expected, dict):
+        raise RuntimeError('Invalid dependency input manifest')
     if expected.get('schema') != 1 or not isinstance(expected.get('files'), dict):
         raise RuntimeError('Dependency lock lacks a complete FFmpeg input manifest')
     folded = set()
@@ -80,6 +82,10 @@ def verify_ffmpeg_inputs(prefix, expected):
             raise RuntimeError('Invalid dependency input metadata: ' + name)
         if type(item['bytes']) is not int or item['bytes'] < 0 or not isinstance(item['sha256'], str) or not re.fullmatch(r'[0-9a-f]{64}', item['sha256']):
             raise RuntimeError('Invalid dependency input digest/size: ' + name)
+
+
+def verify_ffmpeg_inputs(prefix, expected):
+    validate_input_manifest(expected)
     actual = inventory_ffmpeg(prefix)
     want = expected['files']; found = actual['files']
     missing = sorted(set(want) - set(found))

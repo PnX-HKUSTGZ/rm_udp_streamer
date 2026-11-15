@@ -11,7 +11,7 @@ import subprocess
 import sys
 import time
 import zipfile
-from build_project import prepare_extension_discovery
+from build_project import prepare_extension_discovery, build_environment, absolute_tool
 from release_materials import prepare as prepare_release_materials
 
 def run_engine(command, env, log_path):
@@ -52,6 +52,9 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cache',type=Path,default=repo.parent/'.tools/rm-video')
     parser.add_argument('--godot',type=Path)
+    for name in ['cmake', 'dotnet', 'cxx', 'make']:
+        parser.add_argument('--' + name, help='Explicit build tool executable')
+    parser.add_argument('--dependency-lock', type=Path, help='Explicit independently recorded developer dependency lock')
     parser.add_argument('--templates',type=Path,required=True,help='Locked Godot Mono .tpz archive')
     parser.add_argument('--output',type=Path,required=True,help='New or empty package directory')
     parser.add_argument('--label',default='D3')
@@ -60,7 +63,8 @@ def main():
     if subprocess.check_output(['git','-C',str(repo),'status','--porcelain'],text=True).strip():
         raise RuntimeError('Commit or preserve working changes before creating a versioned export')
     commit=subprocess.check_output(['git','-C',str(repo),'rev-parse','HEAD'],text=True).strip()
-    lock=json.loads((repo/'build/dependencies.lock.json').read_text())
+    lock_path=(args.dependency_lock or repo/'build/dependencies.lock.json').resolve()
+    lock=json.loads(lock_path.read_text(encoding='utf-8'))
     asset=lock['godot']['assets']['Godot_v4.7.2-stable_mono_export_templates.tpz']
     archive=args.templates.resolve()
     if archive.stat().st_size!=asset['size'] or digest(archive,'sha512')!=asset['sha512']:
@@ -81,11 +85,16 @@ def main():
     if digest(engine) != expected_engine: raise RuntimeError('Godot editor executable does not match dependency lock')
     if output.exists() and any(output.iterdir()):raise RuntimeError('Output directory is not empty; choose a new version directory')
     output.mkdir(parents=True,exist_ok=True)
-    env=os.environ.copy()
-    dotnet=shutil.which('dotnet')
-    if not windows:
-        dotnet=str(cache/'dotnet-8.0.428/dotnet');env['DOTNET_ROOT']=str(Path(dotnet).parent);env['PATH']=env['DOTNET_ROOT']+':'+env['PATH']
-    subprocess.run([sys.executable,str(repo/'build/build_project.py'),'--cache',str(cache)],env=env,check=True)
+    cached_dotnet=cache/'dotnet-8.0.428'/('dotnet.exe' if windows else 'dotnet')
+    dotnet=args.dotnet or (str(cached_dotnet) if cached_dotnet.is_file() else shutil.which('dotnet'))
+    dotnet=absolute_tool(dotnet)
+    if not dotnet:raise RuntimeError('.NET SDK 8.0.428 is missing; pass --dotnet')
+    env=build_environment(dotnet,args.cxx,args.make)
+    build_command=[sys.executable,str(repo/'build/build_project.py'),'--cache',str(cache),'--dependency-lock',str(lock_path)]
+    for name in ['cmake','dotnet','cxx','make']:
+        value=getattr(args,name)
+        if value:build_command += ['--'+name,value]
+    subprocess.run(build_command,env=env,check=True)
     stage=repo/'out/export'/(platform+'-'+str(time.time_ns()))
     stage.mkdir(parents=True)
     tracked=subprocess.check_output(['git','-C',str(repo),'ls-files','-z']).decode('utf-8').split('\0')
@@ -115,7 +124,7 @@ def main():
     if not executable.is_file() or not (output/'RmVideoReceiver.pck').is_file():raise RuntimeError('Incomplete engine export')
     validate_runtime(output,windows)
     if not windows:executable.chmod(executable.stat().st_mode|0o111)
-    shutil.copy2(repo/'build/dependencies.lock.json',output/'dependencies.lock.json')
+    shutil.copy2(lock_path,output/'dependencies.lock.json')
     shutil.copy2(repo/'docs/m6-release.md',output/'CAPABILITIES.md')
     # Keep the evidence referenced by the reports with the distributable docs.
     shutil.copytree(repo/'docs',output/'docs')
@@ -136,7 +145,9 @@ def main():
         'Use -- --help for all receiver options. Normal launch opens the interactive interface.\n'
         'Unsupported HDR, wide-gamut primaries and LINEAR/LOG transfer input are rejected. See CAPABILITIES.md.\n',encoding='utf-8')
     prepare_release_materials(repo,cache,output,engine,env,lock,windows)
-    manifest={'label':args.label,'platform':platform,'commit':commit,'engine_sha256':digest(engine),'template_sha512':asset['sha512'],'native_sha256':digest(native),'files':{}}
+    manifest={'label':args.label,'platform':platform,'commit':commit,'dependency_lock_sha256':digest(lock_path),
+              'dependency_kind':'official' if lock_path==(repo/'build/dependencies.lock.json').resolve() and not lock.get('dependency_variant') else 'developer',
+              'engine_sha256':digest(engine),'template_sha512':asset['sha512'],'native_sha256':digest(native),'files':{}}
     for file in sorted(output.rglob('*')):
         if file.is_file():manifest['files'][file.relative_to(output).as_posix()]={'bytes':file.stat().st_size,'sha256':digest(file)}
     (output/'manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')

@@ -46,10 +46,30 @@ def cached_tool(output, key):
     return None
 
 def checked_tool(path, args, expected, label):
-    if not path: raise RuntimeError(label + ' is missing')
+    if not path or not Path(path).is_file(): raise RuntimeError(label + ' is missing; select its executable explicitly')
     actual = subprocess.check_output([str(path), *args], text=True).strip().splitlines()[0]
     if actual != expected: raise RuntimeError(label + ': expected ' + expected + ', got ' + actual)
     return {'path': str(Path(path).resolve()), 'version': actual, 'sha256': digest(path)}
+
+
+def absolute_tool(path):
+    # Preserve existing absolute spelling used by a CMake cache on Windows.
+    return str(Path(path).resolve()) if path and not Path(path).is_absolute() else path
+
+
+def build_environment(dotnet=None, compiler=None, make=None):
+    env = os.environ.copy()
+    paths = []
+    if dotnet:
+        root = str(Path(dotnet).resolve().parent)
+        env['DOTNET_ROOT'] = root
+        paths.append(root)
+    if os.name == 'nt':
+        for executable in [compiler, make]:
+            if executable:
+                paths.append(str(Path(executable).resolve().parent))
+    env['PATH'] = os.pathsep.join([*dict.fromkeys(paths), env.get('PATH', '')])
+    return env
 
 def prepare_extension_discovery(repo):
     """Register built extensions before the editor's first filesystem scan.
@@ -77,6 +97,7 @@ def main():
     parser.add_argument('--cmake', help='Explicit CMake executable')
     parser.add_argument('--dotnet', help='Explicit .NET SDK executable')
     parser.add_argument('--cxx', help='Explicit compiler from the pinned toolchain')
+    parser.add_argument('--make', help='Explicit GNU Make executable from the pinned toolchain')
     parser.add_argument('--dependency-lock', type=Path, help='Explicit independently recorded developer lock; defaults to the official lock')
     parser.add_argument('--verify-only', action='store_true')
     parser.add_argument('--native-only', action='store_true')
@@ -93,14 +114,19 @@ def main():
         raise RuntimeError('CMake is missing; prepare the build tools or pass --cmake')
     output = repo / 'out' / platform
     compiler = args.cxx or cached_tool(output, 'CMAKE_CXX_COMPILER') or shutil.which('g++')
-    dotnet = args.dotnet or (shutil.which('dotnet') if windows else str(cache / 'dotnet-8.0.428/dotnet'))
+    cached_dotnet = cache / 'dotnet-8.0.428' / ('dotnet.exe' if windows else 'dotnet')
+    dotnet = args.dotnet or (str(cached_dotnet) if cached_dotnet.is_file() else shutil.which('dotnet'))
+    make = args.make or cached_tool(output, 'CMAKE_MAKE_PROGRAM') or shutil.which('mingw32-make' if windows else 'make')
+    cmake, compiler, dotnet, make = map(absolute_tool, [cmake, compiler, dotnet, make])
     # Validate the actual tools, rather than merely reporting a lockfile string.
     evidence = pinned_sources(cache, lock, platform)
+    official = lock_path == official_lock.resolve() and not lock.get('dependency_variant')
     evidence['dependency_lock'] = {'path': str(lock_path), 'sha256': digest(lock_path),
-                                   'kind': 'official' if lock_path == official_lock.resolve() else 'developer'}
+                                   'kind': 'official' if official else 'developer'}
     evidence['tools'] = {
         'cmake': checked_tool(cmake, ['--version'], 'cmake version ' + ('4.1.3' if windows else '3.28.3'), 'CMake'),
         'cxx': checked_tool(compiler, ['-dumpfullversion'], '15.2.0' if windows else '13.3.0', 'G++'),
+        'make': checked_tool(make, ['--version'], 'GNU Make ' + ('4.4.1' if windows else '4.3'), 'Make'),
     }
     if not args.native_only:
         evidence['tools']['dotnet'] = checked_tool(dotnet, ['--version'], lock['dotnet']['sdk'], '.NET SDK')
@@ -115,20 +141,17 @@ def main():
                '-DGODOT_CPP_DIR=' + (cache / 'godot-cpp').as_posix(),
                '-DFFMPEG_ROOT=' + (cache / ('ffmpeg-static-' + platform)).as_posix(),
                '-DCMAKE_CXX_COMPILER=' + Path(compiler).as_posix(),
+               '-DCMAKE_MAKE_PROGRAM=' + Path(make).as_posix(),
                '-DCMAKE_CXX_FLAGS=', '-DCMAKE_CXX_FLAGS_RELEASE=-O3 -DNDEBUG',
                '-DCMAKE_SHARED_LINKER_FLAGS=', '-DCMAKE_SHARED_LINKER_FLAGS_RELEASE=']
     if windows:
-        make = cached_tool(output, 'CMAKE_MAKE_PROGRAM') or shutil.which('mingw32-make')
-        if not compiler or not make:
-            raise RuntimeError('The verified Windows build requires MinGW g++ and mingw32-make')
-        command += ['-G', 'MinGW Makefiles', '-DCMAKE_MAKE_PROGRAM=' + Path(make).as_posix()]
+        command += ['-G', 'MinGW Makefiles']
     evidence['configure_command'] = command
-    subprocess.run(command, check=True)
-    subprocess.run([cmake, '--build', str(output), '--parallel', str(args.jobs)], check=True)
+    env = build_environment(None if args.native_only else dotnet, compiler, make)
+    subprocess.run(command, env=env, check=True)
+    subprocess.run([cmake, '--build', str(output), '--parallel', str(args.jobs)], env=env, check=True)
     prepare_extension_discovery(repo)
     if not args.native_only:
-        env = os.environ.copy()
-        if not windows: env['DOTNET_ROOT'] = str(Path(dotnet).parent)
         if not dotnet:
             raise RuntimeError('.NET SDK 8.0.428 is missing; pass --dotnet')
         subprocess.run([dotnet, 'build', str(repo / 'RmUdpStreamer.csproj')], cwd=repo, env=env, check=True)

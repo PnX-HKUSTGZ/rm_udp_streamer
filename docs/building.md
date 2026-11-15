@@ -4,7 +4,7 @@
 
 ## 官方构建基线
 
-Windows x86_64：MinGW GCC/G++15.2.0 win32-seh、CMake4.1.3、.NET SDK8.0.428；Linux x86_64：Ubuntu24.04、GCC/G++13.3.0、CMake3.28.3、.NET SDK8.0.428。引擎Godot4.7.2 Mono，固定godot-cpp与FFmpeg提交在`build/dependencies.lock.json`。
+Windows x86_64：MinGW GCC/G++15.2.0 win32-seh、GNU Make4.4.1、CMake4.1.3、.NET SDK8.0.428；Linux x86_64：Ubuntu24.04、GCC/G++13.3.0、GNU Make4.3、CMake3.28.3、.NET SDK8.0.428。引擎Godot4.7.2 Mono，固定godot-cpp与FFmpeg提交在`build/dependencies.lock.json`。
 
 默认缓存为仓库上层`.tools/rm-video`，可用`--cache`指定。缓存布局：
 
@@ -20,6 +20,37 @@ release-sources/           prepare_release_sources.py生成的对应源码归档
 可从D3包的`relink/ffmpeg`恢复该平台已锁定的FFmpeg依赖。构建器同时核对三个静态库和完整的`include/`、`lib/`、`build-manifest.json`文件清单、大小与SHA256；头文件或配置被替换、缺失或混入未知文件都会失败。清单采用前缀相对路径，原样迁移缓存不会改变校验结果。历史构建配置中的路径仅用于追溯，CMake使用本次`--cache`指定的实际位置。
 
 修改FFmpeg时使用包内重链接流程，不能把变化的库假装为已验证的原始库。源代码重建可能因编译器或绝对配置路径而有不同字节摘要，须单独记录变更及验收。`build_project.py --dependency-lock PATH`可显式选择独立记录的开发者锁文件；构建证据将记录其摘要并标为`developer`，不覆盖官方锁文件或继承官方验收结论。
+
+## 准备新依赖缓存
+
+先准备Python 3.12+、Git，以及上述固定版本的编译器、Make、CMake和.NET SDK。以下入口恢复FFmpeg的完整固定输入，并获取固定提交的godot-cpp：
+
+```text
+python build/prepare_dependencies.py --cache PATH/receiver-deps --ffmpeg PATH/receiver-release.zip
+```
+
+`--ffmpeg`也接受发布包解压目录、tar归档或完整FFmpeg前缀。归档成员按锁文件逐项读取并核验，不按归档路径直接解包。已验证的缓存可重复使用；已有目录不匹配时明确失败，不覆盖。失败的暂存目录会保留以便定位。输出中的`prepare-*.json`记录本次依赖来源及锁文件摘要。
+
+godot-cpp默认从锁文件指定的Git仓库获取。离线时增加`--godot-cpp-source PATH`，复用固定提交的干净检出；仅恢复一个组件可使用`--components ffmpeg`或`--components godot-cpp`。此入口不安装GPU驱动或系统构建工具。
+
+新目录构建可显式指定工具位置，避免依赖历史CMake缓存或PATH：
+
+```text
+python build/build_project.py --cache PATH/receiver-deps --cmake PATH/cmake --cxx PATH/g++ --make PATH/make --dotnet PATH/dotnet
+```
+
+Windows将路径换为对应`.exe`；带空格的路径使用引号。构建器为所选SDK设置`DOTNET_ROOT`和子进程PATH，并记录实际工具版本、路径和摘要。`export_project.py`接受相同四个工具参数。
+
+开发者重新构建固定源码后，保留原官方锁文件并记录新依赖：
+
+```text
+python build/record_dependency_lock.py --ffmpeg PATH/rebuilt-prefix --platform linux --output PATH/developer.lock.json
+python build/build_project.py --cache PATH/developer-cache --dependency-lock PATH/developer.lock.json
+```
+
+新前缀必须包含构建器产生的`build-manifest.json`。记录器核对源码版本、目标平台和既有LGPL构建约束；新锁明确标记`developer`及`validated: false`。它只记录产物身份，不证明重新构建、功能、颜色或性能已验收。构建及导出均需显式传入该锁，导出包保留实际锁文件与类别。改变源码版本需先建立和审查新的源码锁定信息。
+
+## 构建与导出
 
 ```text
 python build/build_project.py --verify-only
