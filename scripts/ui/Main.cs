@@ -167,6 +167,10 @@ public partial class Main : Control
         record.Put("cadence_requested", Cadences[_cadence.Selected]); record.Put("cadence_applied", _cadencePolicy?.Applied ?? "engine");
         record.Put("engine_max_fps", Engine.MaxFps); record.Put("vsync_mode", (int)DisplayServer.WindowGetVsyncMode());
         record.Put("engine_process_frames", Engine.GetProcessFrames());
+        record.Put("frame_timer_status", _cadencePolicy?.TimerStatus ?? "not requested");
+        record.Put("window_mode", (int)DisplayServer.WindowGetMode());
+        record.Put("window_can_draw", DisplayServer.WindowCanDraw());
+        record.Put("display_refresh_hz", DisplayServer.ScreenGetRefreshRate(DisplayServer.WindowGetCurrentScreen()));
         string json = SnapshotAccess.Serialize(record);
         _diagnostics?.WriteLine(json); return json;
     }
@@ -236,6 +240,7 @@ public partial class Main : Control
             using var stopped = new Godot.Collections.Dictionary();
             stopped.Put("event", stopError.Length > 0 ? "stop_failed" : "stopped"); stopped.Put("core", status);
             stopped.Put("cadence_restored", _cadencePolicy?.LaunchSettingsRestored ?? true);
+            stopped.Put("frame_timer_status", _cadencePolicy?.TimerStatus ?? "not requested");
             stopped.Put("stop_elapsed_ms", stopClock.Elapsed.TotalMilliseconds); stopped.Put("stop_error", stopError); stopped.Put("exit_code", exitCode);
             string stoppedJson = SnapshotAccess.Serialize(stopped);
             _diagnostics?.WriteLine(stoppedJson);

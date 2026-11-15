@@ -8,9 +8,11 @@ public sealed class FrameCadence
     private readonly int _initialMaxFps = Engine.MaxFps;
     private readonly DisplayServer.VSyncMode _initialVsync = DisplayServer.WindowGetVsyncMode();
     private readonly string _automatic;
+    private readonly WindowsFrameTimer? _timer = OperatingSystem.IsWindows() ? new WindowsFrameTimer() : null;
     public string Applied { get; private set; } = "engine";
     public string Description { get; private set; } = "沿用引擎设置";
-    public bool LaunchSettingsRestored => Engine.MaxFps == _initialMaxFps && DisplayServer.WindowGetVsyncMode() == _initialVsync;
+    public string TimerStatus => _timer?.Status ?? "platform default";
+    public bool LaunchSettingsRestored => Engine.MaxFps == _initialMaxFps && DisplayServer.WindowGetVsyncMode() == _initialVsync && (_timer?.Restored ?? true);
 
     public FrameCadence()
     {
@@ -31,13 +33,16 @@ public sealed class FrameCadence
     {
         string policy = !active ? "engine" : requested == "auto" ? _automatic : requested;
         if (policy == Applied) return;
+        if (policy != "responsive") _timer?.Restore();
         switch (policy)
         {
             case "responsive":
+                _timer?.Request();
                 bool compatibility = RenderingServer.GetCurrentRenderingMethod() == "gl_compatibility";
                 DisplayServer.WindowSetVsyncMode(compatibility ? DisplayServer.VSyncMode.Disabled : DisplayServer.VSyncMode.Mailbox);
                 Engine.MaxFps = 120;
                 Description = compatibility ? "低延迟 · 120 次/秒处理上限，关闭显示同步" : "低延迟 · 120 次/秒处理上限，Mailbox 显示同步";
+                if (_timer != null && !_timer.RequestSucceeded) Description += " · 定时精度请求未完整生效";
                 break;
             case "display":
                 DisplayServer.WindowSetVsyncMode(DisplayServer.VSyncMode.Enabled); Engine.MaxFps = 0;
@@ -50,5 +55,5 @@ public sealed class FrameCadence
         }
         Applied = policy;
     }
-    public void Restore() => Apply("engine", false);
+    public void Restore() { Apply("engine", false); _timer?.Restore(); }
 }
