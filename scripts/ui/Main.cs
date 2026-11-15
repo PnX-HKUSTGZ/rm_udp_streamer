@@ -2,6 +2,8 @@ using Godot;
 using System;
 using System.IO;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 public partial class Main : Control
 {
@@ -168,18 +170,38 @@ public partial class Main : Control
         string json = SnapshotAccess.Serialize(record);
         _diagnostics?.WriteLine(json); return json;
     }
+    private async Task CaptureSnapshot()
+    {
+        if (File.Exists(_options.Snapshot)) throw new IOException("Snapshot output already exists");
+        int drawn = 0;
+        void OnFrameDrawn() => Interlocked.Exchange(ref drawn, 1);
+        var clock = Stopwatch.StartNew();
+        RenderingServer.FramePostDraw += OnFrameDrawn;
+        try
+        {
+            // A minimized or non-drawing window may never emit FramePostDraw.
+            // Keep the deadline on the main loop so capture cannot prevent stop.
+            while (Volatile.Read(ref drawn) == 0)
+            {
+                if (clock.Elapsed.TotalSeconds >= 2)
+                    throw new TimeoutException("Snapshot timed out waiting for a rendered frame");
+                await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+            }
+            using var image = GetViewport().GetTexture().GetImage();
+            if (image.SavePng(_options.Snapshot) != Error.Ok) throw new IOException("Could not write snapshot");
+        }
+        finally { RenderingServer.FramePostDraw -= OnFrameDrawn; }
+    }
     private async void FinishTimedRun()
     {
         int exitCode = 0;
         try
         {
-            await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
-            if (_options.Snapshot.Length > 0)
-            {
-                if (File.Exists(_options.Snapshot)) throw new IOException("Snapshot output already exists");
-                using var image = GetViewport().GetTexture().GetImage();
-                if (image.SavePng(_options.Snapshot) != Error.Ok) throw new IOException("Could not write snapshot");
-            }
+            if (_options.Snapshot.Length > 0) await CaptureSnapshot();
+        }
+        catch (Exception error) { GD.PushError(error.Message); exitCode = 2; }
+        try
+        {
             var final = RecordDiagnostics();
             GD.Print("RM_FINAL ", final);
             using var finalCore = _session!.Snapshot(false); using var finalSurface = SnapshotAccess.Read(_surface, "get_metrics", false);
