@@ -40,8 +40,7 @@ void MediaSession::request_stop() {
     quit_.store(true);
     std::lock_guard<std::mutex> lock(mutex_);
     discard_pending(Discard::Stop);
-    if (!done_.load()) state_.state = "Stopping";
-    else if (state_.state != "Faulted") state_.state = "Stopped";
+    if (state_.state != "Faulted") state_.state = done_.load() ? "Stopped" : "Stopping";
 }
 void MediaSession::poll_stop() {
     if (done_.load() && worker_.joinable()) worker_.join();
