@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
+from dependency_inputs import verify_ffmpeg_inputs
 
 def digest(path):
     value = hashlib.sha256()
@@ -29,7 +30,11 @@ def pinned_sources(cache, lock, platform):
         if actual != expected: raise RuntimeError('FFmpeg archive differs from lock: ' + name)
         archives[name] = actual
     if len(archives) != 3: raise RuntimeError('Expected three pinned FFmpeg archives')
-    return {'godot_cpp': revision, 'ffmpeg_archives': archives}
+    inputs = lock.get('ffmpeg_inputs', {}).get(platform)
+    if inputs is None:
+        raise RuntimeError('Dependency lock has no complete FFmpeg input manifest; use the current official lock or record a new developer lock')
+    inputs = verify_ffmpeg_inputs(cache / ('ffmpeg-static-' + platform), inputs)
+    return {'godot_cpp': revision, 'ffmpeg_archives': archives, 'ffmpeg_inputs': inputs}
 
 def cached_tool(output, key):
     cache = output / 'CMakeCache.txt'
@@ -72,6 +77,7 @@ def main():
     parser.add_argument('--cmake', help='Explicit CMake executable')
     parser.add_argument('--dotnet', help='Explicit .NET SDK executable')
     parser.add_argument('--cxx', help='Explicit compiler from the pinned toolchain')
+    parser.add_argument('--dependency-lock', type=Path, help='Explicit independently recorded developer lock; defaults to the official lock')
     parser.add_argument('--verify-only', action='store_true')
     parser.add_argument('--native-only', action='store_true')
     parser.add_argument('--jobs', type=int, default=8)
@@ -79,7 +85,9 @@ def main():
     cache = args.cache.resolve()
     windows = os.name == 'nt'
     platform = 'windows' if windows else 'linux'
-    lock = json.loads((repo / 'build/dependencies.lock.json').read_text())
+    official_lock = repo / 'build/dependencies.lock.json'
+    lock_path = (args.dependency_lock or official_lock).resolve()
+    lock = json.loads(lock_path.read_text(encoding='utf-8'))
     cmake = args.cmake or (str(cache / 'python-tools/cmake/data/bin/cmake.exe') if windows else '/usr/bin/cmake')
     if not cmake:
         raise RuntimeError('CMake is missing; prepare the build tools or pass --cmake')
@@ -88,6 +96,8 @@ def main():
     dotnet = args.dotnet or (shutil.which('dotnet') if windows else str(cache / 'dotnet-8.0.428/dotnet'))
     # Validate the actual tools, rather than merely reporting a lockfile string.
     evidence = pinned_sources(cache, lock, platform)
+    evidence['dependency_lock'] = {'path': str(lock_path), 'sha256': digest(lock_path),
+                                   'kind': 'official' if lock_path == official_lock.resolve() else 'developer'}
     evidence['tools'] = {
         'cmake': checked_tool(cmake, ['--version'], 'cmake version ' + ('4.1.3' if windows else '3.28.3'), 'CMake'),
         'cxx': checked_tool(compiler, ['-dumpfullversion'], '15.2.0' if windows else '13.3.0', 'G++'),

@@ -17,7 +17,9 @@ dotnet-8.0.428/dotnet       Linux SDK
 release-sources/           prepare_release_sources.py生成的对应源码归档
 ```
 
-可从D3包的`relink/ffmpeg`恢复该平台已锁定的FFmpeg库；构建器核对三个静态库SHA256。修改FFmpeg时使用包内重链接流程，不能把变化的库假装为已验证的原始库。源代码重建可能因编译器或绝对配置路径而有不同字节摘要，须单独记录变更及验收。
+可从D3包的`relink/ffmpeg`恢复该平台已锁定的FFmpeg依赖。构建器同时核对三个静态库和完整的`include/`、`lib/`、`build-manifest.json`文件清单、大小与SHA256；头文件或配置被替换、缺失或混入未知文件都会失败。清单采用前缀相对路径，原样迁移缓存不会改变校验结果。历史构建配置中的路径仅用于追溯，CMake使用本次`--cache`指定的实际位置。
+
+修改FFmpeg时使用包内重链接流程，不能把变化的库假装为已验证的原始库。源代码重建可能因编译器或绝对配置路径而有不同字节摘要，须单独记录变更及验收。`build_project.py --dependency-lock PATH`可显式选择独立记录的开发者锁文件；构建证据将记录其摘要并标为`developer`，不覆盖官方锁文件或继承官方验收结论。
 
 ```text
 python build/build_project.py --verify-only
