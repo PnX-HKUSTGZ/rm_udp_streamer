@@ -1,6 +1,7 @@
 #pragma once
 #include "media/session.hpp"
 #include "cuda_gl_bridge.hpp"
+#include "cpu_upload_buffers.hpp"
 #include <godot_cpp/classes/control.hpp>
 #include <godot_cpp/classes/image_texture.hpp>
 #include <godot_cpp/classes/shader_material.hpp>
@@ -20,9 +21,12 @@ struct RmUploadState {
     std::mutex mutex;
     std::shared_ptr<Publication> published;
     std::vector<godot::Ref<godot::ImageTexture>> textures;
+    RmCpuUploadBuffers cpu_buffers;
     std::string layout;
     std::atomic<bool> active{true}, busy{false};
     std::atomic<uint64_t> submitted{0};
+    std::atomic<uint64_t> cpu_upload_storage_changes{0}, cpu_upload_copied_bytes{0}, cpu_upload_images_created{0};
+    std::atomic<uint64_t> cpu_upload_cached_bytes{0}, cpu_upload_cached_peak_bytes{0};
     std::string error;
     std::shared_ptr<RmCudaGlBridge> gpu;
     bool gpu_registered=false;

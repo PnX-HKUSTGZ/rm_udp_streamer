@@ -62,14 +62,16 @@ void RmCpuUpload::run(const Ref<RmCpuUpload> &keep_alive) {
             } else {
             auto layout = frame->path + ":" + std::to_string(frame->info.width) + ":" + std::to_string(frame->info.height);
             bool recreate = layout != state->layout;
-            if (recreate) { state->textures.clear(); state->layout = layout; }
+            if (recreate) { state->textures.clear(); state->cpu_buffers.clear(); state->layout = layout; }
             for (size_t i = 0; i < frame->planes.size(); ++i) {
                 const auto &plane = frame->planes[i];
-                PackedByteArray packed; packed.resize(static_cast<int64_t>(plane.pixels.size()));
-                std::memcpy(packed.ptrw(), plane.pixels.data(), plane.pixels.size());
-                auto format = plane.channels == 4 ? Image::FORMAT_RGBA8 : plane.channels == 2 ? Image::FORMAT_RG8 : Image::FORMAT_R8;
-                Ref<Image> image = Image::create_from_data(plane.width, plane.height, false, format, packed);
-                if (image.is_null() || image->is_empty()) throw std::runtime_error("Cannot allocate CPU upload image");
+                Ref<Image> image = state->cpu_buffers.copy(i, plane);
+                state->cpu_upload_storage_changes.store(state->cpu_buffers.storage_changes);
+                state->cpu_upload_copied_bytes.store(state->cpu_buffers.copied_bytes);
+                state->cpu_upload_images_created.store(state->cpu_buffers.images_created);
+                auto bytes = state->cpu_buffers.cached_bytes();
+                state->cpu_upload_cached_bytes.store(bytes);
+                state->cpu_upload_cached_peak_bytes.store(std::max(state->cpu_upload_cached_peak_bytes.load(), bytes));
                 if (recreate) state->textures.push_back(ImageTexture::create_from_image(image));
                 else state->textures[i]->update(image);
                 if (state->textures[i].is_null()) throw std::runtime_error("Cannot allocate video texture");
@@ -143,6 +145,11 @@ Dictionary RmVideoSurface::get_metrics(bool detailed) const {
     Dictionary result;
     result["submitted"] = int64_t(upload_->submitted.load());
     result["upload_pending"] = upload_->busy.load();
+    result["cpu_upload_storage_changes"] = int64_t(upload_->cpu_upload_storage_changes.load());
+    result["cpu_upload_copied_bytes"] = int64_t(upload_->cpu_upload_copied_bytes.load());
+    result["cpu_upload_images_created"] = int64_t(upload_->cpu_upload_images_created.load());
+    result["cpu_upload_cached_bytes"] = int64_t(upload_->cpu_upload_cached_bytes.load());
+    result["cpu_upload_cached_peak_bytes"] = int64_t(upload_->cpu_upload_cached_peak_bytes.load());
     { std::lock_guard<std::mutex> lock(upload_->mutex); result["error"] = String(upload_->error.c_str());
       if(upload_->gpu) {auto metrics=upload_->gpu->metrics(detailed);for(const auto &key:metrics.keys())result[key]=metrics[key];}}
     if (shown_) {

@@ -88,6 +88,8 @@ submitted_total = shown_total + publication_replaced + publication_stale + pendi
 
 CPU 准备输出池最多三份。只有外部消费者全部释放后才复用；三份都被持有时，在回读之前返回容量不足并计 `decoded_capacity_drops` / `preparation_pool_misses`。正常单上传消费不应触发此项。`output_buffers_allocated`、`output_buffer_growths`、`readback_allocations`、`scratch_buffer_growths` 统计本会话的输出对象、平面容量增长、硬件回读存储及编码空间 RGBA 临时存储的分配次数。对应 `*_capacity_peak_bytes` 是准备器拥有的容量峰值，既不代表停止后的存活资源，也不包含 FFmpeg 内部/渲染器分配。`plane_copy_bytes` 和 `rgba_crop_copy_bytes` 只统计准备器显式复制的像素字节；CPU 上传到 Godot 及驱动内部复制应分别评估。
 
+CPU 上传按平面缓存最多三份 `PackedByteArray`，格式改变时清空。写入时若旧图像仍被消费者持有，Godot 的写时复制会分离存储；不会覆盖在用像素。`surface.cpu_upload_storage_changes` 统计缓存可写数据地址的变化次数，不能覆盖分配器内部的全部分配；`cpu_upload_copied_bytes` 与 `cpu_upload_images_created` 分别统计复制字节及图像对象创建次数。`cpu_upload_cached_bytes/peak_bytes` 是当前缓存逻辑字节数及峰值，不含引擎/驱动持有的其他副本。这些 surface 计数在 clear 时重新开始，区别于 core 的会话累计计数。
+
 `upload_busy_polls` 统计主循环发现上传繁忙的次数，不是丢帧数；`shown_invalidated` 统计已接受画面失效，不从累计接受数扣除。正常停止应无 decoded_pending/preparing/prepared_pending/pending_uploads/pending_publications，压缩队列资源也归零。接收器停止保留累计输入统计；新会话才清空。解码、准备与渲染统计分别发布锁保护的快照，GPU 完成数可晚于提交数。
 
 `submission_windows` 从第一张被接受的纹理提交时刻 `origin_us` 开始，以原生单调时钟精确分成一秒。`closed` 包含 `[index,count]`，只导出闭合窗口；无提交的窗口明确为零。固定 64 槽包含当前秒，保证最近 63 个闭合窗口；`first_index`、`current_index` 使观察者检测缺失历史。观察间隔超过保存范围时标记测量缺口，不能补零冒充已观测。索引必须去重，P10 对完整一秒窗口的计数做 nearest-rank；均值为这些窗口的提交总数除以秒数。暖机和输入停止后的窗口不得混入有效输入测量。
