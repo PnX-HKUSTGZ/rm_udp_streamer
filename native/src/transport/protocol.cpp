@@ -44,7 +44,7 @@ ProtocolCore::ProtocolCore(TransportConfig config, uint64_t generation) : config
     stats_.generation = generation;
 }
 void ProtocolCore::establish(uint16_t id, Endpoint source, Millis now, bool restart) {
-    if (restart) { ++stats_.restarts; ++stats_.generation; stats_.queue_dropped += output_.size(); }
+    if (restart) { ++stats_.restarts; ++stats_.generation; stats_.queue_dropped += output_.size(); stats_.queue_restart_dropped += output_.size(); }
     entries_.clear(); output_.clear();
     stats_.pending_bytes = 0; stats_.queue_bytes = 0;
     stats_.source = source; stats_.source_locked = true;
@@ -128,20 +128,24 @@ void ProtocolCore::ingest(const uint8_t *packet, size_t length, Endpoint source,
     entry.received[index] = 1;
     if (++entry.fragments == count) {
         entry.complete = true; entry.completed_at = now; ++stats_.complete;
+        if (config_.diagnostics) stats_.assembly_time.observe((now-entry.first)*1000);
     }
     drain(now);
 }
-void ProtocolCore::emit(uint64_t serial, Entry &entry) {
+void ProtocolCore::emit(uint64_t serial, Entry &entry, Millis now) {
     EncodedGroup group;
     group.frame_id = uint16_t(serial); group.serial = serial; group.generation = stats_.generation;
     group.first_packet_ms = entry.first; group.complete_ms = entry.completed_at;
+    group.queued_ms = now;
+    if (config_.diagnostics) stats_.order_wait.observe((now-entry.completed_at)*1000);
     group.discontinuity_before = discontinuity_;
     size_t bytes = entry.data.size();
     if (bytes > config_.max_queue_bytes) {
-        ++stats_.queue_dropped; discontinuity_ = true; return;
+        ++stats_.queue_dropped; ++stats_.queue_oversize_dropped; discontinuity_ = true; return;
     }
     if (output_.size() >= config_.max_queue_frames || bytes > config_.max_queue_bytes - stats_.queue_bytes) {
         stats_.queue_dropped += output_.size();
+        stats_.queue_overflow_dropped += output_.size();
         output_.clear(); stats_.queue_bytes = 0;
         group.discontinuity_before = true;
     }
@@ -150,6 +154,7 @@ void ProtocolCore::emit(uint64_t serial, Entry &entry) {
     stats_.queue_bytes += bytes;
     stats_.peak_queue_bytes = std::max(stats_.peak_queue_bytes, stats_.queue_bytes);
     output_.push_back(std::move(group));
+    stats_.peak_queue_frames = std::max(stats_.peak_queue_frames, output_.size());
     discontinuity_ = false; emitted_ = true; ++stats_.ordered;
 }
 void ProtocolCore::drain(Millis now) {
@@ -171,7 +176,7 @@ void ProtocolCore::drain(Millis now) {
             discontinuity_ = true; ++stats_.missing;
             erase(found); ++expected_; emitted_ = true;
         } else if (entry.complete) {
-            emit(expected_, entry);
+            emit(expected_, entry, now);
             erase(found); ++expected_; emitted_ = true;
         } else break;
     }
@@ -198,13 +203,17 @@ std::optional<EncodedGroup> ProtocolCore::pop(Millis now) {
     tick(now);
     if (output_.empty()) return {};
     auto result = std::move(output_.front()); output_.pop_front();
+    result.dequeued_ms = now;
+    if (config_.diagnostics) stats_.compressed_queue_wait.observe((now-result.queued_ms)*1000);
     stats_.queue_bytes -= result.bytes.size(); ++stats_.consumed;
     if (consumer_gap_) { result.discontinuity_before = true; consumer_gap_ = false; }
     return result;
 }
-TransportStats ProtocolCore::stats() const {
+TransportStats ProtocolCore::stats(Millis now) const {
     auto result = stats_;
     result.pending_frames = entries_.size(); result.queue_frames = output_.size();
+    for (const auto &item : entries_) result.pending_oldest_ms = std::max(result.pending_oldest_ms, now-item.second.first);
+    for (const auto &item : output_) result.queue_oldest_ms = std::max(result.queue_oldest_ms, now-item.first_packet_ms);
     return result;
 }
 }

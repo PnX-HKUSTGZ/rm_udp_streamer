@@ -83,6 +83,7 @@ HevcPacketInfo HevcConfiguration::observe(const uint8_t *data, size_t size) {
             info.has_vcl = true; info.rasl |= nal.type == 8 || nal.type == 9;
             info.leading |= nal.type >= 6 && nal.type <= 9;
             bool first = bits.read(1);
+            if (first) ++info.first_slices;
             if (nal.type >= 16 && nal.type <= 23) {
                 bits.read(1);
                 if (first) {

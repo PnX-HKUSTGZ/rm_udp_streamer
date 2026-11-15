@@ -41,6 +41,7 @@ struct UdpReceiver::Impl {
     mutable std::mutex data_mutex;
     std::mutex lifecycle_mutex;
     std::unique_ptr<ProtocolCore> core;
+    TransportStats final_stats;
     std::thread worker;
     std::atomic<bool> quit{false}, running{false};
     Socket socket = invalid_socket;
@@ -60,7 +61,13 @@ struct UdpReceiver::Impl {
         if (winsock_started) { WSACleanup(); winsock_started = false; }
 #endif
         std::lock_guard<std::mutex> lock(data_mutex);
-        if (core) generation = core->stats().generation;
+        if (core) {
+            final_stats = core->stats(); generation = final_stats.generation;
+            // Preserve cumulative counters, but no stopped queue owns memory.
+            final_stats.pending_frames = final_stats.pending_bytes = 0;
+            final_stats.queue_frames = final_stats.queue_bytes = 0;
+            final_stats.pending_oldest_ms = final_stats.queue_oldest_ms = 0;
+        }
         core.reset();
         bound_port = 0;
     }
@@ -131,6 +138,7 @@ bool UdpReceiver::start(const TransportConfig &config) {
     auto &self = *impl_;
     std::lock_guard<std::mutex> lifecycle(self.lifecycle_mutex);
     self.stop_locked();
+    { std::lock_guard<std::mutex> lock(self.data_mutex); self.final_stats = {}; }
     try {
         auto invalid = config.validate();
         if (!invalid.empty()) throw std::invalid_argument(invalid);
@@ -169,6 +177,7 @@ bool UdpReceiver::start(const TransportConfig &config) {
             self.error.clear(); self.bound_port = ntohs(address.sin_port);
             getsockopt(self.socket, SOL_SOCKET, SO_RCVBUF, reinterpret_cast<char *>(&self.socket_buffer_bytes), &option_size);
             self.core = std::make_unique<ProtocolCore>(config, ++self.generation);
+            self.final_stats = {};
         }
         self.quit.store(false); self.running.store(true);
         self.worker = std::thread([&self] { self.run(); });
@@ -192,7 +201,7 @@ ReceiverSnapshot UdpReceiver::snapshot() const {
     std::lock_guard<std::mutex> lock(impl_->data_mutex);
     ReceiverSnapshot result;
     if (impl_->core) result.transport = impl_->core->stats();
-    else result.transport.generation = impl_->generation;
+    else { result.transport = impl_->final_stats; result.transport.generation = impl_->generation; }
     result.running = impl_->running.load(); result.bound_port = impl_->bound_port;
     result.socket_buffer_bytes = impl_->socket_buffer_bytes; result.error = impl_->error;
     return result;

@@ -22,6 +22,11 @@ typedef rm::gpu::Stream CUstream;
 
 namespace rm {
 namespace {
+struct TimingOpaque {
+    static constexpr uint64_t tag = 0x524d54494d450001ULL;
+    uint64_t magic = tag;
+    FrameTiming timing;
+};
 void check(int code, const char *operation, MediaFailure kind = MediaFailure::Input) {
     if (code >= 0) return;
     char text[AV_ERROR_MAX_STRING_SIZE]{};
@@ -217,6 +222,7 @@ void Decoder::open(const std::string &backend) {
 #endif
     }
     codec_->max_pixels = config_.max_pixels;
+    if (config_.diagnostics) codec_->flags |= AV_CODEC_FLAG_COPY_OPAQUE;
     codec_->thread_count = 2; codec_->thread_type = FF_THREAD_SLICE;
     codec_->apply_cropping = 0;
     codec_->err_recognition = AV_EF_CAREFUL;
@@ -229,17 +235,19 @@ void Decoder::reset(uint64_t generation) {
     avcodec_flush_buffers(codec_);
     if (generation_ != generation) { parameters_.clear(); validated_parameters_.clear(); validated_generation_ = 0; }
     generation_ = generation; ++resources_; ++counters_.resets;
-    parser_bytes_ = 0; awaiting_key_ = true; discard_rasl_ = false;
+    parser_bytes_ = 0; parser_input_offset_ = 0; input_history_.clear();
+    awaiting_key_ = true; discard_rasl_ = false;
     auto configuration = parameters_.all();
     if (!configuration.empty()) {
         int length = static_cast<int>(configuration.size());
         configuration.resize(configuration.size()+AV_INPUT_BUFFER_PADDING_SIZE, 0);
         uint8_t *output = nullptr; int output_size = 0;
         int consumed = av_parser_parse2(parser_, codec_, &output, &output_size, configuration.data(), length,
-            AV_NOPTS_VALUE, AV_NOPTS_VALUE, -1);
+            AV_NOPTS_VALUE, AV_NOPTS_VALUE, 0);
         check(consumed, "restore parser parameters");
         if (consumed != length || output_size) throw MediaError(MediaFailure::Input, "Invalid cached parser configuration");
         parser_bytes_ = length;
+        parser_input_offset_ = length;
     }
 }
 void Decoder::recover() {
@@ -252,23 +260,52 @@ void Decoder::recover() {
 void Decoder::feed(EncodedGroup group) {
     if (generation_ != group.generation || group.discontinuity_before) reset(group.generation);
     size_t size = group.bytes.size();
+    if (size > size_t(std::numeric_limits<int64_t>::max()-parser_input_offset_))
+        throw MediaError(MediaFailure::Input, "Parser byte position exhausted");
+    if (config_.diagnostics) {
+        FrameTiming timing; timing.enabled = true; timing.correlation = Correlation::ExactGroup;
+        timing.input_serial = group.serial; timing.input_frame_id = group.frame_id;
+        timing.ingress_us = group.first_packet_ms*1000; timing.complete_us = group.complete_ms*1000;
+        timing.queued_us = group.queued_ms*1000; timing.dequeued_us = group.dequeued_ms*1000;
+        if (timing.ingress_us <= 0 || timing.complete_us < timing.ingress_us ||
+            timing.queued_us < timing.complete_us || timing.dequeued_us < timing.queued_us)
+            timing.unknown(Correlation::MissingClock);
+        input_history_.add({parser_input_offset_,parser_input_offset_+int64_t(size),timing});
+        counters_.timing_history_evicted = input_history_.evicted;
+        counters_.timing_history_peak = input_history_.peak;
+    }
     group.bytes.resize(size + AV_INPUT_BUFFER_PADDING_SIZE, 0);
     size_t offset = 0;
     while (offset < size) {
         uint8_t *payload = nullptr; int length = 0;
-        int used = av_parser_parse2(parser_, codec_, &payload, &length, group.bytes.data()+offset,
-            static_cast<int>(size-offset), AV_NOPTS_VALUE, AV_NOPTS_VALUE, -1);
+        int used;
+        {
+            ScopedTiming timer(config_.diagnostics ? &counters_.parser_cpu : nullptr);
+            used = av_parser_parse2(parser_, codec_, &payload, &length, group.bytes.data()+offset,
+                static_cast<int>(size-offset), AV_NOPTS_VALUE, AV_NOPTS_VALUE, parser_input_offset_);
+        }
         check(used, "parse HEVC");
         if (!used && !length) throw MediaError(MediaFailure::Input, "HEVC parser made no progress");
-        offset += used; parser_bytes_ += used;
+        offset += used; parser_bytes_ += used; parser_input_offset_ += used;
         if (parser_bytes_ > 8 * 1024 * 1024) throw MediaError(MediaFailure::Input, "HEVC access unit exceeds parser budget");
-        if (length) { send(payload, length); parser_bytes_ = 0; }
+        if (length) { send(payload, length, packet_timing(length)); parser_bytes_ = 0; }
     }
 }
-void Decoder::send(const uint8_t *data, int size) {
+FrameTiming Decoder::packet_timing(int length, bool eof) {
+    if (!config_.diagnostics) return {};
+    // At EOF the HEVC parser may report a negative sentinel as its next
+    // offset. The actual consumed end is known; take still requires that the
+    // output length exactly covers this range and one complete input group.
+    auto timing = input_history_.take(parser_->frame_offset, eof ? parser_input_offset_ : parser_->next_frame_offset, length);
+    timing.packet_ready_us = monotonic_us();
+    return timing;
+}
+void Decoder::send(const uint8_t *data, int size, FrameTiming timing) {
     if (!size) return;
+    Micros prepare_started = config_.diagnostics ? monotonic_us() : 0;
     ++counters_.parser_packets;
     auto picture = parameters_.observe(data, size);
+    if (timing.enabled && picture.first_slices != 1) timing.unknown(Correlation::NotSinglePicture);
     std::vector<uint8_t> prefixed;
     if (awaiting_key_) {
         auto configuration = parameters_.for_picture(picture.pps_id);
@@ -289,14 +326,29 @@ void Decoder::send(const uint8_t *data, int size) {
         ~PacketScope() { av_packet_unref(packet); }
     } packet_scope{packet_};
     std::memcpy(packet_->data, data, size);
-    int result = avcodec_send_packet(codec_, packet_);
-    if (result == AVERROR(EAGAIN)) { receive(); result = avcodec_send_packet(codec_, packet_); }
+    if (config_.diagnostics) {
+        TimingOpaque trace; trace.timing = timing;
+        packet_->opaque_ref = av_buffer_alloc(sizeof(trace));
+        if (!packet_->opaque_ref) throw std::bad_alloc();
+        std::memcpy(packet_->opaque_ref->data, &trace, sizeof(trace));
+        counters_.packet_prepare_cpu.observe(monotonic_us()-prepare_started);
+    }
+    auto submit = [&] {
+        ScopedTiming timer(config_.diagnostics ? &counters_.decode_send_cpu : nullptr);
+        return avcodec_send_packet(codec_, packet_);
+    };
+    int result = submit();
+    if (result == AVERROR(EAGAIN)) { receive(); result = submit(); }
     av_packet_unref(packet_);
     check_decode(result, "submit HEVC packet"); receive();
 }
 void Decoder::receive() {
     while (true) {
-        int result = avcodec_receive_frame(codec_, scratch_);
+        int result;
+        {
+            ScopedTiming timer(config_.diagnostics ? &counters_.decode_receive_cpu : nullptr);
+            result = avcodec_receive_frame(codec_, scratch_);
+        }
         if (result == AVERROR(EAGAIN) || result == AVERROR_EOF) return;
         check_decode(result, "decode HEVC");
         auto source = make_frame(); av_frame_move_ref(source.get(), scratch_);
@@ -346,6 +398,16 @@ void Decoder::receive() {
         if (!same_format(info, last_format_)) { ++resources_; ++counters_.format_changes; last_format_ = info; }
         info.resource_generation = resources_;
         info.decoded_ms = monotonic_ms(); info.media_pts = f.pts;
+        if (config_.diagnostics) {
+            info.timing.enabled = true; info.timing.correlation = Correlation::MissingOpaque;
+            if (f.opaque_ref && f.opaque_ref->size == sizeof(TimingOpaque)) {
+                TimingOpaque trace; std::memcpy(&trace, f.opaque_ref->data, sizeof(trace));
+                if (trace.magic == TimingOpaque::tag) info.timing = trace.timing;
+            }
+            info.timing.decoded_us = monotonic_us();
+            if (info.timing.correlated()) ++counters_.correlated_frames;
+            else ++counters_.unknown_timing_frames;
+        }
         ++counters_.decoded; if (hardware) ++counters_.hardware_frames;
         output_({std::move(info), std::move(source)});
         if (validated_generation_ != generation_ || validated_parameters_.revision() != parameters_.revision()) {
@@ -355,8 +417,8 @@ void Decoder::receive() {
 }
 void Decoder::finish() {
     uint8_t *data = nullptr; int size = 0;
-    check(av_parser_parse2(parser_, codec_, &data, &size, nullptr, 0, AV_NOPTS_VALUE, AV_NOPTS_VALUE, -1), "finish parser");
-    send(data, size);
+    check(av_parser_parse2(parser_, codec_, &data, &size, nullptr, 0, AV_NOPTS_VALUE, AV_NOPTS_VALUE, parser_input_offset_), "finish parser");
+    send(data, size, packet_timing(size, true));
     int result = avcodec_send_packet(codec_, nullptr);
     if (result == AVERROR(EAGAIN)) { receive(); result = avcodec_send_packet(codec_, nullptr); }
     check_decode(result, "finish decoder"); receive();
@@ -386,8 +448,10 @@ void Decoder::configure_scaler(int width, int height, AVPixelFormat format, AVCh
     scaler_width_ = width; scaler_height_ = height; scaler_format_ = format; scaler_chroma_ = chroma;
 }
 std::shared_ptr<PreparedFrame> Decoder::prepare_cpu(FrameLease lease) {
+    ScopedTiming preparation(config_.diagnostics ? &counters_.prepare_total : nullptr);
     auto source = lease.frame;
     if (source->hw_frames_ctx) {
+        ScopedTiming readback(config_.diagnostics ? &counters_.cpu_readback : nullptr);
         auto downloaded = make_frame();
         check(av_hwframe_transfer_data(downloaded.get(), source.get(), 0), "download hardware frame", MediaFailure::Backend);
         check(av_frame_copy_props(downloaded.get(), source.get()), "copy frame metadata");
@@ -400,6 +464,7 @@ std::shared_ptr<PreparedFrame> Decoder::prepare_cpu(FrameLease lease) {
     auto format = static_cast<AVPixelFormat>(source->format);
     bool rgba = config_.transfer == "rgba" || (format != AV_PIX_FMT_YUV420P && format != AV_PIX_FMT_YUVJ420P && format != AV_PIX_FMT_NV12);
     if (rgba) {
+        ScopedTiming conversion(config_.diagnostics ? &counters_.rgba_conversion : nullptr);
         const size_t left = source->crop_left, right = source->crop_right;
         const size_t top = source->crop_top, bottom = source->crop_bottom;
         if (source->width <= 0 || source->height <= 0 || left >= size_t(source->width) ||
@@ -430,6 +495,7 @@ std::shared_ptr<PreparedFrame> Decoder::prepare_cpu(FrameLease lease) {
         prepared->planes.push_back(std::move(plane)); prepared->path = "cpu_rgba"; ++counters_.converted_rgba;
         if (lease.info.bit_depth > 8) { prepared->info.precision_reduced = true; ++counters_.precision_reduced; }
     } else {
+        ScopedTiming packing(config_.diagnostics ? &counters_.plane_pack : nullptr);
         // Plane paths retain their native layout and signed line stride.
         check(av_frame_apply_cropping(source.get(), AV_FRAME_CROP_UNALIGNED), "apply visible crop");
         prepared->info.width = source->width; prepared->info.height = source->height;
@@ -448,6 +514,7 @@ std::shared_ptr<PreparedFrame> Decoder::prepare_cpu(FrameLease lease) {
         }
         prepared->path = format == AV_PIX_FMT_NV12 ? "cpu_nv12" : "cpu_yuv420p";
     }
+    if (config_.diagnostics) prepared->info.timing.prepared_us = monotonic_us();
     return prepared;
 }
 }

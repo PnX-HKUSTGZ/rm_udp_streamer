@@ -15,6 +15,7 @@ public:
 };
 struct HevcPacketInfo {
     bool has_vcl = false, rasl = false, leading = false;
+    unsigned first_slices = 0;
     int random_access = -1, pps_id = -1;
 };
 // Parameter sets are selected by the slice's PPS -> SPS -> VPS references.

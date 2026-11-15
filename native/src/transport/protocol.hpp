@@ -1,4 +1,5 @@
 #pragma once
+#include "diagnostics/timing.hpp"
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
@@ -27,6 +28,7 @@ struct Endpoint {
 std::optional<uint32_t> parse_ipv4(const std::string &address);
 
 struct TransportConfig {
+    bool diagnostics = false;
     std::string bind_address = "0.0.0.0";
     uint16_t port = 3334;
     uint32_t source_address = 0; // 0 permits first valid sender, then locks its tuple.
@@ -50,6 +52,7 @@ struct EncodedGroup {
     uint64_t generation = 0;
     Millis first_packet_ms = 0;
     Millis complete_ms = 0;
+    Millis queued_ms = 0, dequeued_ms = 0;
     bool discontinuity_before = false;
 };
 
@@ -61,6 +64,10 @@ struct TransportStats {
     uint64_t generation = 1;
     size_t pending_frames = 0, pending_bytes = 0, queue_frames = 0, queue_bytes = 0;
     size_t peak_pending_bytes = 0, peak_pending_frames = 0, peak_queue_bytes = 0;
+    size_t peak_queue_frames = 0;
+    Millis pending_oldest_ms = 0, queue_oldest_ms = 0;
+    uint64_t queue_overflow_dropped = 0, queue_restart_dropped = 0, queue_oversize_dropped = 0;
+    TimingHistogram assembly_time, order_wait, compressed_queue_wait;
     Millis last_packet_ms = 0;
     Endpoint source;
     bool source_locked = false;
@@ -75,7 +82,7 @@ public:
     void tick(Millis now);
     std::optional<EncodedGroup> pop(Millis now);
     void note_oversized(size_t length);
-    TransportStats stats() const;
+    TransportStats stats(Millis now = monotonic_ms()) const;
     const TransportConfig &config() const { return config_; }
 private:
     struct Entry {
@@ -96,7 +103,7 @@ private:
     void invalidate(Entry &entry);
     void erase(std::map<uint64_t, Entry>::iterator item);
     void drain(Millis now);
-    void emit(uint64_t serial, Entry &entry);
+    void emit(uint64_t serial, Entry &entry, Millis now);
     void expire_output(Millis now);
 };
 }
