@@ -1,6 +1,7 @@
 #include "decoder.hpp"
 #include "interop/gpu_api.hpp"
 #include <algorithm>
+#include <climits>
 #include <cstring>
 #include <stdexcept>
 #include <iomanip>
@@ -299,6 +300,7 @@ FrameTiming Decoder::packet_timing(int length, bool eof) {
 }
 void Decoder::send(const uint8_t *data, int size, FrameTiming timing) {
     if (!size) return;
+    if (size < 0 || !data) throw MediaError(MediaFailure::Input, "Invalid HEVC parser packet");
     Micros prepare_started = config_.diagnostics ? monotonic_us() : 0;
     ++counters_.parser_packets;
     auto picture = parameters_.observe(data, size);
@@ -311,7 +313,13 @@ void Decoder::send(const uint8_t *data, int size, FrameTiming timing) {
             ++counters_.skipped_until_key; return;
         }
         prefixed = std::move(configuration);
-        prefixed.insert(prefixed.end(), data, data+size);
+        const size_t prefix_size = prefixed.size();
+        if (prefix_size > size_t(INT_MAX) || size_t(size) > size_t(INT_MAX)-prefix_size)
+            throw MediaError(MediaFailure::Input, "HEVC packet with cached parameters exceeds packet size limit");
+        // Bound the packet's int-sized API before growing its storage. Explicit
+        // resize/copy also avoids GCC 13's vector range-insert overflow warning.
+        prefixed.resize(prefix_size+size_t(size));
+        std::memcpy(prefixed.data()+prefix_size,data,size_t(size));
         data = prefixed.data(); size = static_cast<int>(prefixed.size());
         awaiting_key_ = false;
         discard_rasl_ = picture.random_access == 21 || picture.random_access <= 18;
