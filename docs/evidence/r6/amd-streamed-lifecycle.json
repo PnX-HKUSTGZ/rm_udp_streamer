@@ -1,0 +1,142 @@
+{
+  "source_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "native_sha256": "32af73a97a4dc73c7d9388524406a253a36e81bb52218ec880bd1a2575e56cc5",
+  "script_sha256": "b77838bff5635bdb16e7bbee6c9aec6d1839a938e49de4a129e231ebedab665c",
+  "cycles": 60,
+  "max_stop_ms": 17,
+  "min_new_submissions": 30,
+  "min_new_main_accepted": 30,
+  "all_stop_resource_checks_passed": true,
+  "godot_static_bytes_per_10_cycles": [
+    {
+      "cycles": [
+        1,
+        10
+      ],
+      "first": 43228311,
+      "last": 43741267,
+      "median": 43703877.0,
+      "min": 43228311,
+      "max": 43748527
+    },
+    {
+      "cycles": [
+        11,
+        20
+      ],
+      "first": 43690349,
+      "last": 43718661,
+      "median": 43715953.0,
+      "min": 43690349,
+      "max": 43753763
+    },
+    {
+      "cycles": [
+        21,
+        30
+      ],
+      "first": 43709749,
+      "last": 43732741,
+      "median": 43723887.0,
+      "min": 43706709,
+      "max": 43775247
+    },
+    {
+      "cycles": [
+        31,
+        40
+      ],
+      "first": 43780347,
+      "last": 43803471,
+      "median": 43765067.0,
+      "min": 43722353,
+      "max": 43803471
+    },
+    {
+      "cycles": [
+        41,
+        50
+      ],
+      "first": 43757401,
+      "last": 43761561,
+      "median": 43762721.0,
+      "min": 43739481,
+      "max": 43814451
+    },
+    {
+      "cycles": [
+        51,
+        60
+      ],
+      "first": 43784137,
+      "last": 43793597,
+      "median": 43791495.0,
+      "min": 43759017,
+      "max": 43851399
+    }
+  ],
+  "resource_observation_quartiles": [
+    {
+      "quartile": 1,
+      "samples": 16,
+      "median": {
+        "rss_bytes": 483653632.0,
+        "threads": 51.0,
+        "fds": 70.0
+      },
+      "max": {
+        "rss_bytes": 514879488,
+        "threads": 52,
+        "fds": 70
+      }
+    },
+    {
+      "quartile": 2,
+      "samples": 16,
+      "median": {
+        "rss_bytes": 495132672.0,
+        "threads": 50.0,
+        "fds": 70.0
+      },
+      "max": {
+        "rss_bytes": 514859008,
+        "threads": 50,
+        "fds": 71
+      }
+    },
+    {
+      "quartile": 3,
+      "samples": 16,
+      "median": {
+        "rss_bytes": 495126528.0,
+        "threads": 50.0,
+        "fds": 70.0
+      },
+      "max": {
+        "rss_bytes": 514969600,
+        "threads": 50,
+        "fds": 70
+      }
+    },
+    {
+      "quartile": 4,
+      "samples": 16,
+      "median": {
+        "rss_bytes": 494761984.0,
+        "threads": 50.0,
+        "fds": 70.0
+      },
+      "max": {
+        "rss_bytes": 514396160,
+        "threads": 50,
+        "fds": 70
+      }
+    }
+  ],
+  "display_mode_restored": true,
+  "restored_power": 3,
+  "lock_state": "yes",
+  "passed": true,
+  "created": 1794772665.6340783,
+  "scope": "Same exact release native library, 60 modes/format lifetimes, every detailed snapshot retained on disk. No performance or exhaustive leak-freedom claim."
+}

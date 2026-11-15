@@ -1,0 +1,512 @@
+{
+  "created": 1794780296.5596614,
+  "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "summary": {
+    "runs": [
+      {
+        "name": "1-off",
+        "diagnostics": "off",
+        "errors": [],
+        "fps": 59.99666666666667,
+        "p10": 59,
+        "cpu_cores": 0.5837927067798194,
+        "late_sender_frames": 0,
+        "cadence": {
+          "cadence_requested": "responsive",
+          "cadence_applied": "responsive",
+          "engine_max_fps": 120,
+          "vsync_mode": 3,
+          "observed_process_fps": 120.00322216799539
+        },
+        "counters": {
+          "decoded": 18078,
+          "submitted_total": 18078,
+          "mailbox_replaced": 0,
+          "gpu_slot_drops": 0,
+          "queue_expired": 0,
+          "recoveries": 0
+        },
+        "ingress_to_submit": null
+      },
+      {
+        "name": "2-on",
+        "diagnostics": "on",
+        "errors": [],
+        "fps": 60.0,
+        "p10": 60,
+        "cpu_cores": 0.5555256418659662,
+        "late_sender_frames": 0,
+        "cadence": {
+          "cadence_requested": "responsive",
+          "cadence_applied": "responsive",
+          "engine_max_fps": 120,
+          "vsync_mode": 3,
+          "observed_process_fps": 120.00364042703522
+        },
+        "counters": {
+          "decoded": 18067,
+          "submitted_total": 18066,
+          "mailbox_replaced": 0,
+          "gpu_slot_drops": 0,
+          "queue_expired": 0,
+          "recoveries": 0
+        },
+        "ingress_to_submit": {
+          "count": 18066,
+          "sum_us": 495581719,
+          "p50_us": 29000,
+          "p95_us": 32000,
+          "p99_us": 34000,
+          "percentile_upper_bound": true,
+          "bins": [
+            [
+              111,
+              23
+            ],
+            [
+              112,
+              307
+            ],
+            [
+              113,
+              1168
+            ],
+            [
+              114,
+              1578
+            ],
+            [
+              115,
+              1431
+            ],
+            [
+              116,
+              1418
+            ],
+            [
+              117,
+              1491
+            ],
+            [
+              118,
+              1605
+            ],
+            [
+              119,
+              2714
+            ],
+            [
+              120,
+              2765
+            ],
+            [
+              121,
+              2063
+            ],
+            [
+              122,
+              1005
+            ],
+            [
+              123,
+              218
+            ],
+            [
+              124,
+              102
+            ],
+            [
+              125,
+              93
+            ],
+            [
+              126,
+              41
+            ],
+            [
+              127,
+              28
+            ],
+            [
+              128,
+              13
+            ],
+            [
+              129,
+              3
+            ],
+            [
+              132,
+              0
+            ],
+            [
+              159,
+              0
+            ]
+          ]
+        }
+      },
+      {
+        "name": "3-on",
+        "diagnostics": "on",
+        "errors": [],
+        "fps": 60.0,
+        "p10": 60,
+        "cpu_cores": 0.5456079363139452,
+        "late_sender_frames": 0,
+        "cadence": {
+          "cadence_requested": "responsive",
+          "cadence_applied": "responsive",
+          "engine_max_fps": 120,
+          "vsync_mode": 3,
+          "observed_process_fps": 120.00363666702702
+        },
+        "counters": {
+          "decoded": 18069,
+          "submitted_total": 18070,
+          "mailbox_replaced": 0,
+          "gpu_slot_drops": 0,
+          "queue_expired": 0,
+          "recoveries": 0
+        },
+        "ingress_to_submit": {
+          "count": 18070,
+          "sum_us": 484762641,
+          "p50_us": 27000,
+          "p95_us": 32000,
+          "p99_us": 35000,
+          "percentile_upper_bound": true,
+          "bins": [
+            [
+              111,
+              15
+            ],
+            [
+              112,
+              158
+            ],
+            [
+              113,
+              635
+            ],
+            [
+              114,
+              1354
+            ],
+            [
+              115,
+              2440
+            ],
+            [
+              116,
+              2912
+            ],
+            [
+              117,
+              2935
+            ],
+            [
+              118,
+              2460
+            ],
+            [
+              119,
+              1574
+            ],
+            [
+              120,
+              1388
+            ],
+            [
+              121,
+              1017
+            ],
+            [
+              122,
+              476
+            ],
+            [
+              123,
+              284
+            ],
+            [
+              124,
+              240
+            ],
+            [
+              125,
+              106
+            ],
+            [
+              126,
+              45
+            ],
+            [
+              127,
+              27
+            ],
+            [
+              128,
+              3
+            ],
+            [
+              129,
+              1
+            ],
+            [
+              153,
+              0
+            ]
+          ]
+        }
+      },
+      {
+        "name": "4-off",
+        "diagnostics": "off",
+        "errors": [],
+        "fps": 60.0,
+        "p10": 60,
+        "cpu_cores": 0.5469801766507715,
+        "late_sender_frames": 0,
+        "cadence": {
+          "cadence_requested": "responsive",
+          "cadence_applied": "responsive",
+          "engine_max_fps": 120,
+          "vsync_mode": 3,
+          "observed_process_fps": 120.00363926965773
+        },
+        "counters": {
+          "decoded": 18079,
+          "submitted_total": 18079,
+          "mailbox_replaced": 0,
+          "gpu_slot_drops": 0,
+          "queue_expired": 0,
+          "recoveries": 0
+        },
+        "ingress_to_submit": null
+      }
+    ],
+    "claim": "Engineering observation, not formal-duration acceptance or a confidence bound.",
+    "means": {
+      "on": {
+        "cpu_cores": 0.5505667890899557,
+        "fps": 60.0
+      },
+      "off": {
+        "cpu_cores": 0.5653864417152954,
+        "fps": 59.998333333333335
+      }
+    },
+    "diagnostic_delta_percent": {
+      "cpu_cores": -2.621154582409002,
+      "fps": 0.0027778549404056108
+    }
+  },
+  "variation": {
+    "runs": [
+      {
+        "name": "1-off",
+        "mean_cpu": 0.5837927067798194,
+        "cpu_by_30_seconds": [
+          0.587946,
+          0.592748,
+          0.579075,
+          0.583912,
+          0.587846,
+          0.573833,
+          0.568385,
+          0.565698,
+          0.606421,
+          0.590895
+        ],
+        "engine_loop_hz": 120.00322216799539,
+        "timer_status": [
+          "1 ms requested; honor while occluded"
+        ],
+        "cadence": [
+          "responsive"
+        ],
+        "window_mode": [
+          0
+        ],
+        "drawable": true,
+        "refresh_hz": [
+          165.001327514648
+        ],
+        "fps": 59.99666666666667
+      },
+      {
+        "name": "2-on",
+        "mean_cpu": 0.5555256418659662,
+        "cpu_by_30_seconds": [
+          0.587368,
+          0.548449,
+          0.550995,
+          0.58142,
+          0.568349,
+          0.559232,
+          0.557567,
+          0.537652,
+          0.53292,
+          0.540402
+        ],
+        "engine_loop_hz": 120.00364042703522,
+        "timer_status": [
+          "1 ms requested; honor while occluded"
+        ],
+        "cadence": [
+          "responsive"
+        ],
+        "window_mode": [
+          0
+        ],
+        "drawable": true,
+        "refresh_hz": [
+          165.001327514648
+        ],
+        "fps": 60.0
+      },
+      {
+        "name": "3-on",
+        "mean_cpu": 0.5456079363139452,
+        "cpu_by_30_seconds": [
+          0.560053,
+          0.524894,
+          0.557803,
+          0.55841,
+          0.546478,
+          0.541384,
+          0.550874,
+          0.545113,
+          0.517441,
+          0.544706
+        ],
+        "engine_loop_hz": 120.00363666702702,
+        "timer_status": [
+          "1 ms requested; honor while occluded"
+        ],
+        "cadence": [
+          "responsive"
+        ],
+        "window_mode": [
+          0
+        ],
+        "drawable": true,
+        "refresh_hz": [
+          165.001327514648
+        ],
+        "fps": 60.0
+      },
+      {
+        "name": "4-off",
+        "mean_cpu": 0.5469801766507715,
+        "cpu_by_30_seconds": [
+          0.539346,
+          0.549751,
+          0.527045,
+          0.540772,
+          0.558876,
+          0.527863,
+          0.551739,
+          0.545319,
+          0.565699,
+          0.55611
+        ],
+        "engine_loop_hz": 120.00363926965773,
+        "timer_status": [
+          "1 ms requested; honor while occluded"
+        ],
+        "cadence": [
+          "responsive"
+        ],
+        "window_mode": [
+          0
+        ],
+        "drawable": true,
+        "refresh_hz": [
+          165.001327514648
+        ],
+        "fps": 60.0
+      }
+    ],
+    "note": "Descriptive breakdown of all completed runs, not selected measurement windows or causal attribution. No current long-run metrics read."
+  },
+  "paired_cpu_deltas_percent": [
+    -4.841969518559663,
+    -0.2508756981338234
+  ],
+  "identities": [
+    {
+      "release_package": {
+        "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\windows-preparation-ui-v1\\playback\\original-package",
+        "manifest_sha256": "37519b1c9851bbdcb9cee96cb97623b28b70a33d5c244c18c9fcd0de4be9ebec",
+        "commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+        "verified_files": 512,
+        "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+        "dependency_kind": "official",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "native_sha256": "10cff3de5321e2480224713a5eea744cb2593a7b8f77c48c790dac2b60009703",
+      "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+      "name": "1-off",
+      "result_sha256": "d349c6ca287a435fd66890700e1e71b2a1fe19c616791ecbc30a8bc203f1fde8"
+    },
+    {
+      "release_package": {
+        "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\windows-preparation-ui-v1\\playback\\original-package",
+        "manifest_sha256": "37519b1c9851bbdcb9cee96cb97623b28b70a33d5c244c18c9fcd0de4be9ebec",
+        "commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+        "verified_files": 512,
+        "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+        "dependency_kind": "official",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "native_sha256": "10cff3de5321e2480224713a5eea744cb2593a7b8f77c48c790dac2b60009703",
+      "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+      "name": "2-on",
+      "result_sha256": "d98bf035bbbacc4115a599e4aa8900f0035fb5d431398203c0ff4b16f258f806"
+    },
+    {
+      "release_package": {
+        "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\windows-preparation-ui-v1\\playback\\original-package",
+        "manifest_sha256": "37519b1c9851bbdcb9cee96cb97623b28b70a33d5c244c18c9fcd0de4be9ebec",
+        "commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+        "verified_files": 512,
+        "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+        "dependency_kind": "official",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "native_sha256": "10cff3de5321e2480224713a5eea744cb2593a7b8f77c48c790dac2b60009703",
+      "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+      "name": "3-on",
+      "result_sha256": "0fccb5ad371157c10d528ad12f022ec74413f6bc29d7a30e3f709b3f77929997"
+    },
+    {
+      "release_package": {
+        "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\windows-preparation-ui-v1\\playback\\original-package",
+        "manifest_sha256": "37519b1c9851bbdcb9cee96cb97623b28b70a33d5c244c18c9fcd0de4be9ebec",
+        "commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+        "verified_files": 512,
+        "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+        "dependency_kind": "official",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "native_sha256": "10cff3de5321e2480224713a5eea744cb2593a7b8f77c48c790dac2b60009703",
+      "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+      "name": "4-off",
+      "result_sha256": "5f06739e3cd531ec6df16b94ca1fc6cd3bf8be8970cd5c8a84e89e173770abf3"
+    }
+  ],
+  "diagnostic_point_estimate_within_2_percent_target": true,
+  "errors": [],
+  "passed": true,
+  "scope": "New D3D11VA package point estimate. Retain every predeclared round; no confidence-bound claim or result-dependent reruns."
+}

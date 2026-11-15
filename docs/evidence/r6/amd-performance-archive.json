@@ -1,0 +1,7 @@
+{
+  "archive": "/home/luckiop/qixuan/processing/rm-r6-20261116/amd-ui-candidate-v1-evidence.tar.gz",
+  "bytes": 9504674,
+  "sha256": "f8fc65864da6b0078ffcb2bce691a12683a083c397ab5d02a9c718a3918542b7",
+  "audit_passed": true,
+  "source_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5"
+}

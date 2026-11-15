@@ -1,0 +1,429 @@
+{
+  "created": 1794778797.9133697,
+  "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "runs": [
+    {
+      "directory": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\windows-lifecycle-resumed-v2",
+      "source_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+      "native_sha256": "10cff3de5321e2480224713a5eea744cb2593a7b8f77c48c790dac2b60009703",
+      "manifest_sha256": "37519b1c9851bbdcb9cee96cb97623b28b70a33d5c244c18c9fcd0de4be9ebec",
+      "script_sha256": "50ffe0126285442485dd5e7295734110bac867650f10d0111af76bd1ccc82baf",
+      "engine_sha256": "45336315eb6f1a52a8923bc4f2ce8079a03dc4939dcb7d531047890f1f7cdfab",
+      "fixture_sha256": {
+        "probe1080.units": "6b39b4ca8e19f218e78d0123d0eafd5557841cc0a3068aa234078eead71ada04",
+        "bars720.units": "47167139504e6bfc1ae9f25927b3c6e5932f862693692e1871664353e2d15d37"
+      },
+      "runtime_kind": "editor with exported native library",
+      "cycles": 60,
+      "max_stop_ms": 49,
+      "min_new_submissions": 30,
+      "min_new_main_accepted": 30,
+      "godot_static_bytes_per_10_cycles": [
+        {
+          "cycles": [
+            1,
+            10
+          ],
+          "first": 37221724,
+          "last": 40675284,
+          "median": 38934326.0,
+          "min": 37221724,
+          "max": 40675284
+        },
+        {
+          "cycles": [
+            11,
+            20
+          ],
+          "first": 41038096,
+          "last": 44554212,
+          "median": 42798962.0,
+          "min": 41038096,
+          "max": 44554212
+        },
+        {
+          "cycles": [
+            21,
+            30
+          ],
+          "first": 44961172,
+          "last": 48399056,
+          "median": 46694430.0,
+          "min": 44961172,
+          "max": 48399056
+        },
+        {
+          "cycles": [
+            31,
+            40
+          ],
+          "first": 48793624,
+          "last": 52291252,
+          "median": 50524278.0,
+          "min": 48793624,
+          "max": 52291252
+        },
+        {
+          "cycles": [
+            41,
+            50
+          ],
+          "first": 52673924,
+          "last": 56099304,
+          "median": 54398806.0,
+          "min": 52673924,
+          "max": 56099304
+        },
+        {
+          "cycles": [
+            51,
+            60
+          ],
+          "first": 56488584,
+          "last": 59964652,
+          "median": 58232014.0,
+          "min": 56488584,
+          "max": 59964652
+        }
+      ],
+      "process_resource_quartiles": [
+        {
+          "quartile": 1,
+          "samples": 19,
+          "resource_samples": 19,
+          "missing_or_failed_samples": [],
+          "median": {
+            "rss_bytes": 429404160,
+            "threads": 67,
+            "handles": 875
+          },
+          "min": {
+            "rss_bytes": 2289664,
+            "threads": 5,
+            "handles": 46
+          },
+          "max": {
+            "rss_bytes": 463294464,
+            "threads": 69,
+            "handles": 879
+          }
+        },
+        {
+          "quartile": 2,
+          "samples": 20,
+          "resource_samples": 20,
+          "missing_or_failed_samples": [],
+          "median": {
+            "rss_bytes": 451854336.0,
+            "threads": 67.0,
+            "handles": 875.0
+          },
+          "min": {
+            "rss_bytes": 414453760,
+            "threads": 64,
+            "handles": 863
+          },
+          "max": {
+            "rss_bytes": 480718848,
+            "threads": 68,
+            "handles": 876
+          }
+        },
+        {
+          "quartile": 3,
+          "samples": 19,
+          "resource_samples": 19,
+          "missing_or_failed_samples": [],
+          "median": {
+            "rss_bytes": 459583488,
+            "threads": 66,
+            "handles": 874
+          },
+          "min": {
+            "rss_bytes": 360378368,
+            "threads": 65,
+            "handles": 845
+          },
+          "max": {
+            "rss_bytes": 497238016,
+            "threads": 67,
+            "handles": 875
+          }
+        },
+        {
+          "quartile": 4,
+          "samples": 20,
+          "resource_samples": 20,
+          "missing_or_failed_samples": [],
+          "median": {
+            "rss_bytes": 471549952.0,
+            "threads": 63.0,
+            "handles": 868.0
+          },
+          "min": {
+            "rss_bytes": 386682880,
+            "threads": 59,
+            "handles": 853
+          },
+          "max": {
+            "rss_bytes": 504889344,
+            "threads": 66,
+            "handles": 874
+          }
+        }
+      ],
+      "observer_abort_samples": [
+        {
+          "seconds": 0.01599999999962165,
+          "cpu_seconds": 0.0,
+          "rss_bytes": 2289664,
+          "ac_line_status": 1,
+          "battery_percent": 100,
+          "battery_saver": 0,
+          "external_window_drawable": false,
+          "external_windows": [],
+          "observer_abort": "test window minimized, hidden, cloaked or absent",
+          "sender_priority_class": 32,
+          "engine_priority_class": 32,
+          "handles": 46,
+          "threads": 5
+        }
+      ],
+      "evidence": {
+        "status.json": {
+          "bytes": 2697,
+          "sha256": "21ad4c96f4bc571cee7ed1d0a09cc5a1ae2709bc46288b7fa4dcd6c18ed1e834"
+        },
+        "lifecycle/runner.json": {
+          "bytes": 103641,
+          "sha256": "14408b1495ee584838e4dab21a83f638a592b1dc81ea10b20cd838f427627060"
+        },
+        "lifecycle/lifecycle.json": {
+          "bytes": 5391735,
+          "sha256": "f2c53f6895f57130944b0f9d0d82a7bfee09c722918ba4f687862c64dd5d6f6e"
+        },
+        "lifecycle/engine.log": {
+          "bytes": 409,
+          "sha256": "2975142ff4806093caa48b2a913985ba3cfc18b7427952b7a2e375dd386f6ab2"
+        }
+      },
+      "errors": [],
+      "passed": true
+    },
+    {
+      "directory": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\windows-lifecycle-streamed-resumed-v2",
+      "source_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+      "native_sha256": "10cff3de5321e2480224713a5eea744cb2593a7b8f77c48c790dac2b60009703",
+      "manifest_sha256": "37519b1c9851bbdcb9cee96cb97623b28b70a33d5c244c18c9fcd0de4be9ebec",
+      "script_sha256": "b77838bff5635bdb16e7bbee6c9aec6d1839a938e49de4a129e231ebedab665c",
+      "engine_sha256": "45336315eb6f1a52a8923bc4f2ce8079a03dc4939dcb7d531047890f1f7cdfab",
+      "fixture_sha256": {
+        "probe1080.units": "6b39b4ca8e19f218e78d0123d0eafd5557841cc0a3068aa234078eead71ada04",
+        "bars720.units": "47167139504e6bfc1ae9f25927b3c6e5932f862693692e1871664353e2d15d37"
+      },
+      "runtime_kind": "editor with exported native library",
+      "cycles": 60,
+      "max_stop_ms": 42,
+      "min_new_submissions": 30,
+      "min_new_main_accepted": 30,
+      "godot_static_bytes_per_10_cycles": [
+        {
+          "cycles": [
+            1,
+            10
+          ],
+          "first": 37223584,
+          "last": 37762236,
+          "median": 37746066.0,
+          "min": 37223584,
+          "max": 37789852
+        },
+        {
+          "cycles": [
+            11,
+            20
+          ],
+          "first": 37715332,
+          "last": 37775672,
+          "median": 37759504.0,
+          "min": 37715332,
+          "max": 37820996
+        },
+        {
+          "cycles": [
+            21,
+            30
+          ],
+          "first": 37801108,
+          "last": 37774496,
+          "median": 37783464.0,
+          "min": 37731676,
+          "max": 37828076
+        },
+        {
+          "cycles": [
+            31,
+            40
+          ],
+          "first": 37773260,
+          "last": 37833048,
+          "median": 37804916.0,
+          "min": 37760684,
+          "max": 37856268
+        },
+        {
+          "cycles": [
+            41,
+            50
+          ],
+          "first": 37845572,
+          "last": 37812160,
+          "median": 37819544.0,
+          "min": 37770308,
+          "max": 37878940
+        },
+        {
+          "cycles": [
+            51,
+            60
+          ],
+          "first": 37788876,
+          "last": 37867920,
+          "median": 37852404.0,
+          "min": 37788876,
+          "max": 37878292
+        }
+      ],
+      "process_resource_quartiles": [
+        {
+          "quartile": 1,
+          "samples": 18,
+          "resource_samples": 18,
+          "missing_or_failed_samples": [],
+          "median": {
+            "rss_bytes": 423071744.0,
+            "threads": 67.5,
+            "handles": 875.5
+          },
+          "min": {
+            "rss_bytes": 2265088,
+            "threads": 4,
+            "handles": 46
+          },
+          "max": {
+            "rss_bytes": 454053888,
+            "threads": 69,
+            "handles": 880
+          }
+        },
+        {
+          "quartile": 2,
+          "samples": 19,
+          "resource_samples": 19,
+          "missing_or_failed_samples": [],
+          "median": {
+            "rss_bytes": 426737664,
+            "threads": 67,
+            "handles": 875
+          },
+          "min": {
+            "rss_bytes": 388591616,
+            "threads": 65,
+            "handles": 864
+          },
+          "max": {
+            "rss_bytes": 461524992,
+            "threads": 68,
+            "handles": 876
+          }
+        },
+        {
+          "quartile": 3,
+          "samples": 19,
+          "resource_samples": 19,
+          "missing_or_failed_samples": [],
+          "median": {
+            "rss_bytes": 432037888,
+            "threads": 66,
+            "handles": 875
+          },
+          "min": {
+            "rss_bytes": 372563968,
+            "threads": 65,
+            "handles": 859
+          },
+          "max": {
+            "rss_bytes": 463814656,
+            "threads": 67,
+            "handles": 876
+          }
+        },
+        {
+          "quartile": 4,
+          "samples": 19,
+          "resource_samples": 19,
+          "missing_or_failed_samples": [],
+          "median": {
+            "rss_bytes": 432369664,
+            "threads": 62,
+            "handles": 868
+          },
+          "min": {
+            "rss_bytes": 332288000,
+            "threads": 61,
+            "handles": 845
+          },
+          "max": {
+            "rss_bytes": 467255296,
+            "threads": 67,
+            "handles": 876
+          }
+        }
+      ],
+      "observer_abort_samples": [
+        {
+          "seconds": 0.014999999999417923,
+          "cpu_seconds": 0.0,
+          "rss_bytes": 2265088,
+          "ac_line_status": 1,
+          "battery_percent": 99,
+          "battery_saver": 0,
+          "external_window_drawable": false,
+          "external_windows": [],
+          "observer_abort": "test window minimized, hidden, cloaked or absent",
+          "sender_priority_class": 32,
+          "engine_priority_class": 32,
+          "handles": 46,
+          "threads": 4
+        }
+      ],
+      "evidence": {
+        "status.json": {
+          "bytes": 2748,
+          "sha256": "c387f8513dacd7109642cc59c1a98474cd59346e6d63689ba6d2b26b1f126f9a"
+        },
+        "lifecycle/runner.json": {
+          "bytes": 99706,
+          "sha256": "f9ebffdaea56c5686c118e759583dff6675f637e0175eb321da270af2e3bd0f3"
+        },
+        "lifecycle/lifecycle.json": {
+          "bytes": 18319,
+          "sha256": "4185b1ec1f314f153845f5505edfb849864ccbcb4a6b4dbc4eedef85eb6126f6"
+        },
+        "lifecycle/engine.log": {
+          "bytes": 409,
+          "sha256": "2975142ff4806093caa48b2a913985ba3cfc18b7427952b7a2e375dd386f6ab2"
+        },
+        "lifecycle/lifecycle.json.cycles.ndjson": {
+          "bytes": 2072742,
+          "sha256": "275416c179d5c40e9ad60bdb467ec8a067258e191eeb7a58e082fe8c83ae2151"
+        }
+      },
+      "errors": [],
+      "passed": true
+    }
+  ],
+  "scope": "Both original and streamed 60-cycle records retained. Dedicated editor scene loads the exact exported DLL; this is not 60 release-GUI button cycles. Resource observations are descriptive and do not prove exhaustive leak freedom or a performance grade.",
+  "errors": [],
+  "passed": true
+}

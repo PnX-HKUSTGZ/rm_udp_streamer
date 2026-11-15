@@ -1,0 +1,1263 @@
+{
+  "created": 1794778582.9209611,
+  "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "formal": {
+    "formal-gpu": {
+      "formal_analysis": {
+        "formal_performance_and_counter_checks_passed": true,
+        "errors": [],
+        "mean_fps": 59.99722222222222,
+        "p10_fps": 60,
+        "latency_p95_us": 30000,
+        "latency_p99_us": 32000,
+        "resources_300_second_windows": [
+          {
+            "window": 1,
+            "native_samples": 293,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 438861824,
+              "max": 453799936,
+              "median": 453373952.0
+            },
+            "threads": {
+              "min": 57,
+              "max": 62,
+              "median": 59.0
+            },
+            "handles": {
+              "min": 855,
+              "max": 873,
+              "median": 861.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 1,
+            "gpu_sources_live_max": 1,
+            "output_buffers_allocated_max": 0
+          },
+          {
+            "window": 2,
+            "native_samples": 293,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 443199488,
+              "max": 443379712,
+              "median": 443363328.0
+            },
+            "threads": {
+              "min": 56,
+              "max": 58,
+              "median": 57.0
+            },
+            "handles": {
+              "min": 853,
+              "max": 860,
+              "median": 855.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 1,
+            "gpu_sources_live_max": 1,
+            "output_buffers_allocated_max": 0
+          },
+          {
+            "window": 3,
+            "native_samples": 293,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 443346944,
+              "max": 443367424,
+              "median": 443367424.0
+            },
+            "threads": {
+              "min": 56,
+              "max": 57,
+              "median": 57.0
+            },
+            "handles": {
+              "min": 853,
+              "max": 856,
+              "median": 855.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 1,
+            "gpu_sources_live_max": 1,
+            "output_buffers_allocated_max": 0
+          },
+          {
+            "window": 4,
+            "native_samples": 293,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 443367424,
+              "max": 443949056,
+              "median": 443367424.0
+            },
+            "threads": {
+              "min": 56,
+              "max": 57,
+              "median": 57.0
+            },
+            "handles": {
+              "min": 853,
+              "max": 857,
+              "median": 855.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 1,
+            "gpu_sources_live_max": 1,
+            "output_buffers_allocated_max": 0
+          },
+          {
+            "window": 5,
+            "native_samples": 293,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 443940864,
+              "max": 444370944,
+              "median": 443949056.0
+            },
+            "threads": {
+              "min": 56,
+              "max": 57,
+              "median": 57.0
+            },
+            "handles": {
+              "min": 853,
+              "max": 857,
+              "median": 855.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 1,
+            "gpu_sources_live_max": 1,
+            "output_buffers_allocated_max": 0
+          },
+          {
+            "window": 6,
+            "native_samples": 292,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 444370944,
+              "max": 444571648,
+              "median": 444489728.0
+            },
+            "threads": {
+              "min": 56,
+              "max": 57,
+              "median": 57.0
+            },
+            "handles": {
+              "min": 853,
+              "max": 857,
+              "median": 855.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 1,
+            "gpu_sources_live_max": 1,
+            "output_buffers_allocated_max": 0
+          }
+        ],
+        "sender": {
+          "frames": 119040,
+          "lateness_p95_us": 634.2,
+          "lateness_p99_us": 815.667,
+          "lateness_max_us": 27036.734,
+          "late_over_frame": 1,
+          "send_p99_us": 1388.3,
+          "interval_p1_us": 16132.2,
+          "interval_p99_us": 17237.8
+        },
+        "sequence_wraps_exercised": 1,
+        "limits": [
+          "Resource trends require review; bounded counters and normal stop do not by themselves prove absence of all allocator/driver leaks.",
+          "Native metric and sender/process clock intervals are separately defined, unchanged from R2.",
+          "Window drawability is not proof of physical screen scanout; end-to-end latency stops at texture submission."
+        ]
+      },
+      "result_errors": [],
+      "exit": 0,
+      "release_package": {
+        "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\windows-preparation-ui-v1\\playback\\original-package",
+        "manifest_sha256": "37519b1c9851bbdcb9cee96cb97623b28b70a33d5c244c18c9fcd0de4be9ebec",
+        "commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+        "verified_files": 512,
+        "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+        "dependency_kind": "official",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "native_sha256": "10cff3de5321e2480224713a5eea744cb2593a7b8f77c48c790dac2b60009703",
+      "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+      "result_sha256": "4b18660e3c8ca10be976d6bbc96e9b3cfab1b78cd25d84147326638c6b5340e8",
+      "formal_observer": {
+        "wrapper_sha256": "521ee6dfab63f57aeb7c2061779a69e0d0eee745a19c9a8d958c66d8ec455c76",
+        "base_runner_sha256": "975b617d12c5423c89e84e56e86511b3158dae4ee37bade0d4a74f8df85222b1",
+        "extended_fields": [
+          "handles",
+          "threads",
+          "window state and process priority (Windows)"
+        ],
+        "observer_interval_seconds": 1,
+        "note": "Additional process resources; sending and native metric sampling unchanged."
+      },
+      "power_observer": {
+        "platform": "nt",
+        "samples": 1988,
+        "ac_line_status_values": [
+          1
+        ],
+        "continuous_observed_ac_without_saver": true,
+        "wrapper_sha256": "44c2dfece96c20f431e66b55cf681e59ec936dffc75752d741eea95c92c8a5b9",
+        "base_runner_sha256": "975b617d12c5423c89e84e56e86511b3158dae4ee37bade0d4a74f8df85222b1",
+        "note": "Power fields extend the existing external 1 Hz observation only; sender, native sampling and statistics are unchanged."
+      }
+    },
+    "formal-d3d11va": {
+      "formal_analysis": {
+        "formal_performance_and_counter_checks_passed": true,
+        "errors": [],
+        "mean_fps": 59.998333333333335,
+        "p10_fps": 60,
+        "latency_p95_us": 32000,
+        "latency_p99_us": 34000,
+        "resources_300_second_windows": [
+          {
+            "window": 1,
+            "native_samples": 293,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 828502016,
+              "max": 843063296,
+              "median": 837943296.0
+            },
+            "threads": {
+              "min": 79,
+              "max": 85,
+              "median": 82.0
+            },
+            "handles": {
+              "min": 1131,
+              "max": 1152,
+              "median": 1139.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 0,
+            "gpu_sources_live_max": 0,
+            "output_buffers_allocated_max": 2
+          },
+          {
+            "window": 2,
+            "native_samples": 293,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 828518400,
+              "max": 828792832,
+              "median": 828780544.0
+            },
+            "threads": {
+              "min": 79,
+              "max": 81,
+              "median": 80.0
+            },
+            "handles": {
+              "min": 1131,
+              "max": 1140,
+              "median": 1135.0
+            },
+            "queue_oldest_ms_max": 1,
+            "pending_oldest_ms_max": 1,
+            "gpu_sources_live_max": 0,
+            "output_buffers_allocated_max": 2
+          },
+          {
+            "window": 3,
+            "native_samples": 293,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 828788736,
+              "max": 828805120,
+              "median": 828792832.0
+            },
+            "threads": {
+              "min": 80,
+              "max": 80,
+              "median": 80.0
+            },
+            "handles": {
+              "min": 1135,
+              "max": 1137,
+              "median": 1135.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 1,
+            "gpu_sources_live_max": 0,
+            "output_buffers_allocated_max": 2
+          },
+          {
+            "window": 4,
+            "native_samples": 293,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 828805120,
+              "max": 828821504,
+              "median": 828817408.0
+            },
+            "threads": {
+              "min": 80,
+              "max": 80,
+              "median": 80.0
+            },
+            "handles": {
+              "min": 1135,
+              "max": 1137,
+              "median": 1135.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 1,
+            "gpu_sources_live_max": 0,
+            "output_buffers_allocated_max": 2
+          },
+          {
+            "window": 5,
+            "native_samples": 292,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 828821504,
+              "max": 828825600,
+              "median": 828821504.0
+            },
+            "threads": {
+              "min": 80,
+              "max": 80,
+              "median": 80.0
+            },
+            "handles": {
+              "min": 1135,
+              "max": 1137,
+              "median": 1135.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 1,
+            "gpu_sources_live_max": 0,
+            "output_buffers_allocated_max": 2
+          },
+          {
+            "window": 6,
+            "native_samples": 293,
+            "process_samples": 300,
+            "rss_bytes": {
+              "min": 828825600,
+              "max": 828837888,
+              "median": 828829696.0
+            },
+            "threads": {
+              "min": 80,
+              "max": 80,
+              "median": 80.0
+            },
+            "handles": {
+              "min": 1135,
+              "max": 1137,
+              "median": 1135.0
+            },
+            "queue_oldest_ms_max": 2,
+            "pending_oldest_ms_max": 2,
+            "gpu_sources_live_max": 0,
+            "output_buffers_allocated_max": 2
+          }
+        ],
+        "sender": {
+          "frames": 119040,
+          "lateness_p95_us": 647.767,
+          "lateness_p99_us": 834.567,
+          "lateness_max_us": 15303.9,
+          "late_over_frame": 0,
+          "send_p99_us": 1407.7,
+          "interval_p1_us": 16128.4,
+          "interval_p99_us": 17250.0
+        },
+        "sequence_wraps_exercised": 1,
+        "limits": [
+          "Resource trends require review; bounded counters and normal stop do not by themselves prove absence of all allocator/driver leaks.",
+          "Native metric and sender/process clock intervals are separately defined, unchanged from R2.",
+          "Window drawability is not proof of physical screen scanout; end-to-end latency stops at texture submission."
+        ]
+      },
+      "result_errors": [],
+      "exit": 0,
+      "release_package": {
+        "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\windows-preparation-ui-v1\\playback\\original-package",
+        "manifest_sha256": "37519b1c9851bbdcb9cee96cb97623b28b70a33d5c244c18c9fcd0de4be9ebec",
+        "commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+        "verified_files": 512,
+        "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+        "dependency_kind": "official",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "native_sha256": "10cff3de5321e2480224713a5eea744cb2593a7b8f77c48c790dac2b60009703",
+      "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+      "result_sha256": "8549c0f34c08b43d279a277bf329c68709b985f3b5bd51190fb12f5e9f35ed8e",
+      "formal_observer": {
+        "wrapper_sha256": "521ee6dfab63f57aeb7c2061779a69e0d0eee745a19c9a8d958c66d8ec455c76",
+        "base_runner_sha256": "975b617d12c5423c89e84e56e86511b3158dae4ee37bade0d4a74f8df85222b1",
+        "extended_fields": [
+          "handles",
+          "threads",
+          "window state and process priority (Windows)"
+        ],
+        "observer_interval_seconds": 1,
+        "note": "Additional process resources; sending and native metric sampling unchanged."
+      },
+      "power_observer": {
+        "platform": "nt",
+        "samples": 1988,
+        "ac_line_status_values": [
+          1
+        ],
+        "continuous_observed_ac_without_saver": true,
+        "wrapper_sha256": "44c2dfece96c20f431e66b55cf681e59ec936dffc75752d741eea95c92c8a5b9",
+        "base_runner_sha256": "975b617d12c5423c89e84e56e86511b3158dae4ee37bade0d4a74f8df85222b1",
+        "note": "Power fields extend the existing external 1 Hz observation only; sender, native sampling and statistics are unchanged."
+      }
+    }
+  },
+  "orchestration_interruption": {
+    "original_failed_status": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\windows-ui-candidate-v1\\status.json",
+    "gap_seconds": 1029.2071435451508,
+    "completed_rounds_replaced": false,
+    "all_original_rounds_retained": true
+  },
+  "diagnostic_summary": {
+    "runs": [
+      {
+        "name": "1-off",
+        "diagnostics": "off",
+        "errors": [],
+        "fps": 59.99,
+        "p10": 60,
+        "cpu_cores": 0.28176640172092426,
+        "late_sender_frames": 0,
+        "cadence": {
+          "cadence_requested": "responsive",
+          "cadence_applied": "responsive",
+          "engine_max_fps": 120,
+          "vsync_mode": 0,
+          "observed_process_fps": 119.98565988119388
+        },
+        "counters": {
+          "decoded": 18074,
+          "submitted_total": 18071,
+          "mailbox_replaced": 3,
+          "gpu_slot_drops": 0,
+          "queue_expired": 0,
+          "recoveries": 0
+        },
+        "ingress_to_submit": null
+      },
+      {
+        "name": "2-on",
+        "diagnostics": "on",
+        "errors": [],
+        "fps": 60.0,
+        "p10": 60,
+        "cpu_cores": 0.2890412227344701,
+        "late_sender_frames": 0,
+        "cadence": {
+          "cadence_requested": "responsive",
+          "cadence_applied": "responsive",
+          "engine_max_fps": 120,
+          "vsync_mode": 0,
+          "observed_process_fps": 120.00271405773019
+        },
+        "counters": {
+          "decoded": 18069,
+          "submitted_total": 18068,
+          "mailbox_replaced": 0,
+          "gpu_slot_drops": 0,
+          "queue_expired": 0,
+          "recoveries": 0
+        },
+        "ingress_to_submit": {
+          "count": 18068,
+          "sum_us": 455832072,
+          "p50_us": 26000,
+          "p95_us": 29000,
+          "p99_us": 32000,
+          "percentile_upper_bound": true,
+          "bins": [
+            [
+              109,
+              3
+            ],
+            [
+              110,
+              94
+            ],
+            [
+              111,
+              606
+            ],
+            [
+              112,
+              1226
+            ],
+            [
+              113,
+              1378
+            ],
+            [
+              114,
+              1956
+            ],
+            [
+              115,
+              2905
+            ],
+            [
+              116,
+              2978
+            ],
+            [
+              117,
+              2946
+            ],
+            [
+              118,
+              1986
+            ],
+            [
+              119,
+              1152
+            ],
+            [
+              120,
+              446
+            ],
+            [
+              121,
+              161
+            ],
+            [
+              122,
+              89
+            ],
+            [
+              123,
+              85
+            ],
+            [
+              124,
+              48
+            ],
+            [
+              125,
+              9
+            ]
+          ]
+        }
+      },
+      {
+        "name": "3-on",
+        "diagnostics": "on",
+        "errors": [],
+        "fps": 60.0,
+        "p10": 60,
+        "cpu_cores": 0.28848384596424975,
+        "late_sender_frames": 0,
+        "cadence": {
+          "cadence_requested": "responsive",
+          "cadence_applied": "responsive",
+          "engine_max_fps": 120,
+          "vsync_mode": 0,
+          "observed_process_fps": 120.00267230247607
+        },
+        "counters": {
+          "decoded": 18076,
+          "submitted_total": 18076,
+          "mailbox_replaced": 0,
+          "gpu_slot_drops": 0,
+          "queue_expired": 0,
+          "recoveries": 0
+        },
+        "ingress_to_submit": {
+          "count": 18076,
+          "sum_us": 460414075,
+          "p50_us": 26000,
+          "p95_us": 29000,
+          "p99_us": 32000,
+          "percentile_upper_bound": true,
+          "bins": [
+            [
+              109,
+              7
+            ],
+            [
+              110,
+              112
+            ],
+            [
+              111,
+              540
+            ],
+            [
+              112,
+              1195
+            ],
+            [
+              113,
+              1442
+            ],
+            [
+              114,
+              1450
+            ],
+            [
+              115,
+              2298
+            ],
+            [
+              116,
+              2966
+            ],
+            [
+              117,
+              2935
+            ],
+            [
+              118,
+              2798
+            ],
+            [
+              119,
+              1501
+            ],
+            [
+              120,
+              494
+            ],
+            [
+              121,
+              134
+            ],
+            [
+              122,
+              55
+            ],
+            [
+              123,
+              75
+            ],
+            [
+              124,
+              61
+            ],
+            [
+              125,
+              12
+            ],
+            [
+              126,
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "name": "4-off",
+        "diagnostics": "off",
+        "errors": [],
+        "fps": 59.99666666666667,
+        "p10": 60,
+        "cpu_cores": 0.30348166229226936,
+        "late_sender_frames": 0,
+        "cadence": {
+          "cadence_requested": "responsive",
+          "cadence_applied": "responsive",
+          "engine_max_fps": 120,
+          "vsync_mode": 0,
+          "observed_process_fps": 120.00326903052172
+        },
+        "counters": {
+          "decoded": 18067,
+          "submitted_total": 18067,
+          "mailbox_replaced": 0,
+          "gpu_slot_drops": 0,
+          "queue_expired": 0,
+          "recoveries": 0
+        },
+        "ingress_to_submit": null
+      }
+    ],
+    "claim": "Engineering observation, not formal-duration acceptance or a confidence bound.",
+    "means": {
+      "on": {
+        "cpu_cores": 0.28876253434935995,
+        "fps": 60.0
+      },
+      "off": {
+        "cpu_cores": 0.2926240320065968,
+        "fps": 59.99333333333334
+      }
+    },
+    "diagnostic_delta_percent": {
+      "cpu_cores": -1.319610570176899,
+      "fps": 0.011112345816188807
+    }
+  },
+  "diagnostic_variation": {
+    "runs": [
+      {
+        "name": "1-off",
+        "mean_cpu": 0.28176640172092426,
+        "cpu_by_30_seconds": [
+          0.27643,
+          0.289347,
+          0.28879,
+          0.280184,
+          0.281183,
+          0.288637,
+          0.27054,
+          0.269568,
+          0.293601,
+          0.283964
+        ],
+        "engine_loop_hz": 119.98565988119388,
+        "timer_status": [
+          "1 ms requested; honor while occluded"
+        ],
+        "cadence": [
+          "responsive"
+        ],
+        "window_mode": [
+          0
+        ],
+        "drawable": true,
+        "refresh_hz": [
+          165.001327514648
+        ],
+        "fps": 59.99
+      },
+      {
+        "name": "2-on",
+        "mean_cpu": 0.2890412227344701,
+        "cpu_by_30_seconds": [
+          0.299546,
+          0.275775,
+          0.289775,
+          0.303348,
+          0.27963,
+          0.293248,
+          0.286201,
+          0.282863,
+          0.282339,
+          0.290882
+        ],
+        "engine_loop_hz": 120.00271405773019,
+        "timer_status": [
+          "1 ms requested; honor while occluded"
+        ],
+        "cadence": [
+          "responsive"
+        ],
+        "window_mode": [
+          0
+        ],
+        "drawable": true,
+        "refresh_hz": [
+          165.001327514648
+        ],
+        "fps": 60.0
+      },
+      {
+        "name": "3-on",
+        "mean_cpu": 0.28848384596424975,
+        "cpu_by_30_seconds": [
+          0.289469,
+          0.281282,
+          0.297298,
+          0.282893,
+          0.301707,
+          0.297269,
+          0.28015,
+          0.29843,
+          0.265693,
+          0.292065
+        ],
+        "engine_loop_hz": 120.00267230247607,
+        "timer_status": [
+          "1 ms requested; honor while occluded"
+        ],
+        "cadence": [
+          "responsive"
+        ],
+        "window_mode": [
+          0
+        ],
+        "drawable": true,
+        "refresh_hz": [
+          165.001327514648
+        ],
+        "fps": 60.0
+      },
+      {
+        "name": "4-off",
+        "mean_cpu": 0.30348166229226936,
+        "cpu_by_30_seconds": [
+          0.307158,
+          0.302178,
+          0.306607,
+          0.307204,
+          0.312569,
+          0.31026,
+          0.295803,
+          0.301649,
+          0.294686,
+          0.307163
+        ],
+        "engine_loop_hz": 120.00326903052172,
+        "timer_status": [
+          "1 ms requested; honor while occluded"
+        ],
+        "cadence": [
+          "responsive"
+        ],
+        "window_mode": [
+          0
+        ],
+        "drawable": true,
+        "refresh_hz": [
+          165.001327514648
+        ],
+        "fps": 59.99666666666667
+      }
+    ],
+    "note": "Descriptive breakdown of all completed runs, not selected measurement windows or causal attribution. No current long-run metrics read."
+  },
+  "original_interrupted_abba": {
+    "summary": {
+      "runs": [
+        {
+          "name": "1-off",
+          "diagnostics": "off",
+          "errors": [],
+          "fps": 60.0,
+          "p10": 60,
+          "cpu_cores": 0.3061596727623766,
+          "late_sender_frames": 0,
+          "cadence": {
+            "cadence_requested": "responsive",
+            "cadence_applied": "responsive",
+            "engine_max_fps": 120,
+            "vsync_mode": 0,
+            "observed_process_fps": 120.00473523942006
+          },
+          "counters": {
+            "decoded": 18069,
+            "submitted_total": 18069,
+            "mailbox_replaced": 0,
+            "gpu_slot_drops": 0,
+            "queue_expired": 0,
+            "recoveries": 0
+          },
+          "ingress_to_submit": null
+        },
+        {
+          "name": "2-on",
+          "diagnostics": "on",
+          "errors": [],
+          "fps": 59.983333333333334,
+          "p10": 60,
+          "cpu_cores": 0.3070342814357334,
+          "late_sender_frames": 0,
+          "cadence": {
+            "cadence_requested": "responsive",
+            "cadence_applied": "responsive",
+            "engine_max_fps": 120,
+            "vsync_mode": 0,
+            "observed_process_fps": 119.98106884218707
+          },
+          "counters": {
+            "decoded": 18076,
+            "submitted_total": 18071,
+            "mailbox_replaced": 5,
+            "gpu_slot_drops": 0,
+            "queue_expired": 0,
+            "recoveries": 0
+          },
+          "ingress_to_submit": {
+            "count": 18071,
+            "sum_us": 455578413,
+            "p50_us": 26000,
+            "p95_us": 29000,
+            "p99_us": 33000,
+            "percentile_upper_bound": true,
+            "bins": [
+              [
+                109,
+                3
+              ],
+              [
+                110,
+                68
+              ],
+              [
+                111,
+                302
+              ],
+              [
+                112,
+                1144
+              ],
+              [
+                113,
+                1349
+              ],
+              [
+                114,
+                1919
+              ],
+              [
+                115,
+                3881
+              ],
+              [
+                116,
+                3364
+              ],
+              [
+                117,
+                2715
+              ],
+              [
+                118,
+                1603
+              ],
+              [
+                119,
+                872
+              ],
+              [
+                120,
+                381
+              ],
+              [
+                121,
+                171
+              ],
+              [
+                122,
+                97
+              ],
+              [
+                123,
+                105
+              ],
+              [
+                124,
+                92
+              ],
+              [
+                125,
+                4
+              ],
+              [
+                128,
+                1
+              ],
+              [
+                136,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "3-on",
+          "diagnostics": "on",
+          "errors": [],
+          "fps": 59.99666666666667,
+          "p10": 60,
+          "cpu_cores": 0.2992564836798571,
+          "late_sender_frames": 0,
+          "cadence": {
+            "cadence_requested": "responsive",
+            "cadence_applied": "responsive",
+            "engine_max_fps": 120,
+            "vsync_mode": 0,
+            "observed_process_fps": 120.00474160864701
+          },
+          "counters": {
+            "decoded": 18067,
+            "submitted_total": 18068,
+            "mailbox_replaced": 0,
+            "gpu_slot_drops": 0,
+            "queue_expired": 0,
+            "recoveries": 0
+          },
+          "ingress_to_submit": {
+            "count": 18068,
+            "sum_us": 461786048,
+            "p50_us": 26000,
+            "p95_us": 30000,
+            "p99_us": 32000,
+            "percentile_upper_bound": true,
+            "bins": [
+              [
+                109,
+                1
+              ],
+              [
+                110,
+                134
+              ],
+              [
+                111,
+                534
+              ],
+              [
+                112,
+                1185
+              ],
+              [
+                113,
+                1364
+              ],
+              [
+                114,
+                1422
+              ],
+              [
+                115,
+                2059
+              ],
+              [
+                116,
+                2906
+              ],
+              [
+                117,
+                2970
+              ],
+              [
+                118,
+                2897
+              ],
+              [
+                119,
+                1655
+              ],
+              [
+                120,
+                553
+              ],
+              [
+                121,
+                176
+              ],
+              [
+                122,
+                81
+              ],
+              [
+                123,
+                78
+              ],
+              [
+                124,
+                39
+              ],
+              [
+                125,
+                14
+              ],
+              [
+                130,
+                0
+              ]
+            ]
+          }
+        },
+        {
+          "name": "4-off",
+          "diagnostics": "off",
+          "errors": [],
+          "fps": 60.0,
+          "p10": 60,
+          "cpu_cores": 0.30555278510028777,
+          "late_sender_frames": 0,
+          "cadence": {
+            "cadence_requested": "responsive",
+            "cadence_applied": "responsive",
+            "engine_max_fps": 120,
+            "vsync_mode": 0,
+            "observed_process_fps": 120.00414554345666
+          },
+          "counters": {
+            "decoded": 18081,
+            "submitted_total": 18082,
+            "mailbox_replaced": 0,
+            "gpu_slot_drops": 0,
+            "queue_expired": 0,
+            "recoveries": 0
+          },
+          "ingress_to_submit": null
+        }
+      ],
+      "claim": "Engineering observation, not formal-duration acceptance or a confidence bound.",
+      "means": {
+        "on": {
+          "cpu_cores": 0.3031453825577952,
+          "fps": 59.99
+        },
+        "off": {
+          "cpu_cores": 0.3058562289313322,
+          "fps": 60.0
+        }
+      },
+      "diagnostic_delta_percent": {
+        "cpu_cores": -0.8863139335133718,
+        "fps": -0.01666666666666483
+      }
+    },
+    "variation": {
+      "runs": [
+        {
+          "name": "1-off",
+          "mean_cpu": 0.3061596727623766,
+          "cpu_by_30_seconds": [
+            0.306469,
+            0.308731,
+            0.3163,
+            0.29258,
+            0.306692,
+            0.311366,
+            0.300209,
+            0.300764,
+            0.319314,
+            0.300114
+          ],
+          "engine_loop_hz": 120.00473523942006,
+          "timer_status": [
+            "1 ms requested; honor while occluded"
+          ],
+          "cadence": [
+            "responsive"
+          ],
+          "window_mode": [
+            0
+          ],
+          "drawable": true,
+          "refresh_hz": [
+            165.001327514648
+          ],
+          "fps": 60.0
+        },
+        {
+          "name": "2-on",
+          "mean_cpu": 0.3070342814357334,
+          "cpu_by_30_seconds": [
+            0.313996,
+            0.30279,
+            0.311857,
+            0.282897,
+            0.312576,
+            0.314012,
+            0.304539,
+            0.327014,
+            0.306548,
+            0.297004
+          ],
+          "engine_loop_hz": 119.98106884218707,
+          "timer_status": [
+            "1 ms requested; honor while occluded"
+          ],
+          "cadence": [
+            "responsive"
+          ],
+          "window_mode": [
+            0
+          ],
+          "drawable": true,
+          "refresh_hz": [
+            165.001327514648
+          ],
+          "fps": 59.983333333333334
+        },
+        {
+          "name": "3-on",
+          "mean_cpu": 0.2992564836798571,
+          "cpu_by_30_seconds": [
+            0.299085,
+            0.288232,
+            0.291492,
+            0.288757,
+            0.312536,
+            0.304383,
+            0.308716,
+            0.293748,
+            0.303447,
+            0.296475
+          ],
+          "engine_loop_hz": 120.00474160864701,
+          "timer_status": [
+            "1 ms requested; honor while occluded"
+          ],
+          "cadence": [
+            "responsive"
+          ],
+          "window_mode": [
+            0
+          ],
+          "drawable": true,
+          "refresh_hz": [
+            165.001327514648
+          ],
+          "fps": 59.99666666666667
+        },
+        {
+          "name": "4-off",
+          "mean_cpu": 0.30555278510028777,
+          "cpu_by_30_seconds": [
+            0.314394,
+            0.307701,
+            0.310796,
+            0.317874,
+            0.293018,
+            0.30337,
+            0.308674,
+            0.307558,
+            0.302258,
+            0.292574
+          ],
+          "engine_loop_hz": 120.00414554345666,
+          "timer_status": [
+            "1 ms requested; honor while occluded"
+          ],
+          "cadence": [
+            "responsive"
+          ],
+          "window_mode": [
+            0
+          ],
+          "drawable": true,
+          "refresh_hz": [
+            165.001327514648
+          ],
+          "fps": 60.0
+        }
+      ],
+      "note": "Descriptive breakdown of all completed runs, not selected measurement windows or causal attribution. No current long-run metrics read."
+    }
+  },
+  "predeclared_primary": "overhead-uninterrupted",
+  "paired_cpu_deltas_percent": [
+    2.581862482224251,
+    -4.941918472021511
+  ],
+  "diagnostic_point_estimate_within_2_percent_target": true,
+  "scope": "All planned 88bf17a runs retained, including the original first two rounds and the explicit between-pair orchestration pause. That original block is not uninterrupted. A separately predeclared fresh complete ABBA is the primary comparison, with the original set retained alongside it. CPU estimates are descriptive and do not establish confidence bounds or diagnostic speedup. Package, native, and assembly identities remain explicit.",
+  "errors": [],
+  "passed": true
+}

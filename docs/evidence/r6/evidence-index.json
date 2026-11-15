@@ -1,0 +1,90 @@
+{
+  "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "files": [
+    {
+      "file": "windows-performance.json",
+      "bytes": 35517,
+      "sha256": "8ff6644850ab06b173e6942116fcc2543352980acd28a4f67c454d218a8690ed",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/windows-ui-continuation-v2/post-run-audit.json"
+    },
+    {
+      "file": "windows-d3d11va-diagnostics.json",
+      "bytes": 14571,
+      "sha256": "368377456748df140097f40944bad5fd9b9ef68eb29673af757d77f1af957564",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/windows-d3d11va-diagnostics-v1/post-run-audit.json"
+    },
+    {
+      "file": "windows-lifecycles.json",
+      "bytes": 12527,
+      "sha256": "054e4f764a2c279e150c4500cd156611d999894a873f12c11cd4dd40b79d2325",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/windows-lifecycle-comparison-v2.json"
+    },
+    {
+      "file": "windows-gpu-faults.json",
+      "bytes": 7553,
+      "sha256": "4784d74b495253614ad8ee282869ad88487e6bc97bf0eab0b6f2c713716bf3ce",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/final-gpu-faults-v2/status.json"
+    },
+    {
+      "file": "windows-records-archive.json",
+      "bytes": 698,
+      "sha256": "54559e2310d894fd34794a167b8e7c46eaa1805730ed7759f2da5bc6ed442359",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/windows-evidence-v1/archive.json"
+    },
+    {
+      "file": "amd-performance.json",
+      "bytes": 73252,
+      "sha256": "4c9d779099c28958dd099a23d22230b8740e2038344c4185162d1ce34b58d651",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/results/amd-ui-candidate-v1/post-run-audit.json"
+    },
+    {
+      "file": "amd-functional.json",
+      "bytes": 2684,
+      "sha256": "fc6bbb45bb1181bd62bee7673c3c1044bd71c84529a8956bb2b4e4b9c2c5ce5e",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/results/amd-final-functional-v1/audit.json"
+    },
+    {
+      "file": "amd-original-probe-memory.json",
+      "bytes": 1921,
+      "sha256": "3e5edb2b8b56e6f175810c97f225a2bf687a797f74d2717f4c4cfa9dd3c350c6",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/results/amd-final-functional-v1/memory-context.json"
+    },
+    {
+      "file": "amd-streamed-lifecycle.json",
+      "bytes": 2899,
+      "sha256": "7cca7c83c90038f31458c9372c6c2a42d9b67648893ce6576159009c508ecaff",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/results/amd-lifecycle-streamed-v1/audit.json"
+    },
+    {
+      "file": "amd-performance-archive.json",
+      "bytes": 288,
+      "sha256": "168efcba88bb8b7024269dfe21f7e9ac18bc239a29bc4073563ffec44df23e7e",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/results/amd-ui-candidate-v1/archive.json"
+    },
+    {
+      "file": "amd-functional-archive.json",
+      "bytes": 292,
+      "sha256": "af5c4a1e139af93ea6c0e7ff5d00661c19fa389b64ffaf1c19a8f1c95f483a44",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/results/amd-final-functional-v1/archive.json"
+    },
+    {
+      "file": "amd-streamed-lifecycle-archive.json",
+      "bytes": 231,
+      "sha256": "82dd2b6d0139760a77a48c754c3da78675a9dac9260b93c7acc9034f70d824fb",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/results/amd-lifecycle-streamed-v1/archive.json"
+    },
+    {
+      "file": "amd-retrieval-index.json",
+      "bytes": 750002,
+      "sha256": "e04146af839f32f7a51bdf306c1847c0acec3dabc78f8baebcd2785ba898cfeb",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/remote-evidence-v1/index.json"
+    },
+    {
+      "file": "native-sanitizer-input-scope.json",
+      "bytes": 4449,
+      "sha256": "b1a155c7b5e05ee24c7e19b22e5047f30c1cb0ff0fd298c441c409ac2e66f0a1",
+      "original_workspace_path": "processing/2026-11-16-rm-r6-integration/results/native-evidence-scope-v2.json"
+    }
+  ],
+  "scope": "Immutable sample/device receipt summaries copied byte-for-byte. Raw archives are separate, all failed and interrupted evidence is retained, and the complete R4/R6 real-device and hardware gates have not passed. Human report prose is versioned by Git and the delivery manifest rather than this receipt index."
+}

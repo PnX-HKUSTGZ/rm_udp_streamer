@@ -1,0 +1,115 @@
+{
+  "created": 1794772425.6106625,
+  "source_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "native_sha256": "32af73a97a4dc73c7d9388524406a253a36e81bb52218ec880bd1a2575e56cc5",
+  "manifest_sha256": "55c7fc12151d779475454a62534d0622e7f4023c7fbba5a018032b638fb729a5",
+  "fault_phases": [
+    "normal_wrap",
+    "fragment_reorder_duplicate",
+    "missing_fragment_recovery",
+    "conflicting_fragment_recovery",
+    "damaged_hevc_recovery",
+    "silence",
+    "source_restart_resolution",
+    "range_change",
+    "overload_input",
+    "overload_recovery"
+  ],
+  "recovery": {
+    "deliberate_upstream_wait_ms": 2002.541191,
+    "native_first_keyframe_ingress_to_submit_ms": 31.438,
+    "native_parser_output_to_submit_ms": 12.879
+  },
+  "lifecycle": {
+    "cycles": 60,
+    "modes": [
+      "auto",
+      "rgba",
+      "yuv"
+    ],
+    "min_new_submissions": 30,
+    "min_new_main_accepted": 30,
+    "max_stop_ms": 17,
+    "resource_observation_quartiles": [
+      {
+        "quartile": 1,
+        "samples": 16,
+        "median": {
+          "rss_bytes": 483555328.0,
+          "threads": 51.0,
+          "fds": 69.0
+        },
+        "max": {
+          "rss_bytes": 523931648,
+          "threads": 52,
+          "fds": 69
+        }
+      },
+      {
+        "quartile": 2,
+        "samples": 17,
+        "median": {
+          "rss_bytes": 514199552,
+          "threads": 50,
+          "fds": 69
+        },
+        "max": {
+          "rss_bytes": 534646784,
+          "threads": 50,
+          "fds": 69
+        }
+      },
+      {
+        "quartile": 3,
+        "samples": 16,
+        "median": {
+          "rss_bytes": 518735872.0,
+          "threads": 50.0,
+          "fds": 69.0
+        },
+        "max": {
+          "rss_bytes": 542777344,
+          "threads": 50,
+          "fds": 69
+        }
+      },
+      {
+        "quartile": 4,
+        "samples": 17,
+        "median": {
+          "rss_bytes": 527519744,
+          "threads": 50,
+          "fds": 69
+        },
+        "max": {
+          "rss_bytes": 547389440,
+          "threads": 50,
+          "fds": 69
+        }
+      }
+    ],
+    "forced": false
+  },
+  "restored_modes": [
+    [
+      "2560x1600@29.986",
+      2560,
+      1600,
+      29.985794067382812,
+      1.0,
+      [
+        1.0,
+        2.0,
+        3.0
+      ],
+      {
+        "is-current": true
+      }
+    ]
+  ],
+  "restored_power": 3,
+  "lock_state": "yes",
+  "errors": [],
+  "passed": true,
+  "scope": "Original release GUI faults/recovery and editor harness with the byte-identical exported native library. Sixty real-image native/surface lifetimes, not sixty GUI-button cycles. Resource quartiles are descriptive, not an exhaustive leak proof."
+}

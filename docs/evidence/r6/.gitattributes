@@ -1,0 +1,2 @@
+# Keep copied evidence bytes identical across platforms.
+* -text whitespace=cr-at-eol

@@ -1,0 +1,85 @@
+{
+  "cycles": 60,
+  "serialized_detailed_snapshots_bytes": 4638436,
+  "godot_static_bytes_per_10_cycles": [
+    {
+      "cycles": [
+        1,
+        10
+      ],
+      "godot_static_bytes": {
+        "first": 43224923,
+        "last": 46300279,
+        "min": 43224923,
+        "max": 46300279,
+        "median": 44709871.0
+      }
+    },
+    {
+      "cycles": [
+        11,
+        20
+      ],
+      "godot_static_bytes": {
+        "first": 46585253,
+        "last": 49694365,
+        "min": 46585253,
+        "max": 49694365,
+        "median": 48167652.0
+      }
+    },
+    {
+      "cycles": [
+        21,
+        30
+      ],
+      "godot_static_bytes": {
+        "first": 50032893,
+        "last": 53097217,
+        "min": 50032893,
+        "max": 53097217,
+        "median": 51588402.0
+      }
+    },
+    {
+      "cycles": [
+        31,
+        40
+      ],
+      "godot_static_bytes": {
+        "first": 53484519,
+        "last": 56557467,
+        "min": 53484519,
+        "max": 56557467,
+        "median": 54974527.0
+      }
+    },
+    {
+      "cycles": [
+        41,
+        50
+      ],
+      "godot_static_bytes": {
+        "first": 56837629,
+        "last": 59894041,
+        "min": 56837629,
+        "max": 59894041,
+        "median": 58398620.0
+      }
+    },
+    {
+      "cycles": [
+        51,
+        60
+      ],
+      "godot_static_bytes": {
+        "first": 60255861,
+        "last": 63302513,
+        "min": 60255861,
+        "max": 63302513,
+        "median": 61796736.0
+      }
+    }
+  ],
+  "scope": "The bounded 60-cycle probe retains complete first/second-format and stopped dictionaries for every cycle until final JSON output. Its process RSS therefore mixes test evidence storage, engine/driver caches, and product allocations. Do not use this retained-data probe to claim a flat process memory trend; use the separate 1800-second real release-process evidence and per-stop ownership counters."
+}

@@ -1,0 +1,10 @@
+{
+  "archive": "windows-evidence-v1.tar.gz",
+  "bytes": 29620304,
+  "sha256": "ff31ef4342720ff80e4ec2ecbcbb858d849007a201b009b5c3d88983b4f5f371",
+  "record_files": 489,
+  "all_members_verified": true,
+  "source_records_preserved": true,
+  "index_sha256": "fa767dbfdc80497340c4405cd2d54e59cee94c2285dd2435a5964cdb77fbdbe6",
+  "scope": "Full selected measurement records, completed and failed orchestration records, lifecycle NDJSON, fault receipts and scripts. The tested runtime package, build trees and duplicated caches are separate; all source files remain intact. Historical 04737bd results and task notes keep their original identity, dates and status and do not certify 88bf17a."
+}

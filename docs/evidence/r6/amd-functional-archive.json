@@ -1,0 +1,7 @@
+{
+  "archive": "/home/luckiop/qixuan/processing/rm-r6-20261116/amd-final-functional-v1-evidence.tar.gz",
+  "bytes": 4986325,
+  "sha256": "1c2a81452c453758eaa7baae129a5b8e63d739080bc1eb4fc559fbf0386f1145",
+  "audit_passed": true,
+  "source_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5"
+}

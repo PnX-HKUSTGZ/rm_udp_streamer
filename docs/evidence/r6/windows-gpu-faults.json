@@ -1,0 +1,179 @@
+{
+  "status": "passed",
+  "started": 1794770446.340849,
+  "source_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "steps": [
+    {
+      "name": "prepare-ownership",
+      "command": [
+        "C:\\Program Files\\WindowsApps\\OpenAI.CodexPrimaryRuntime.v26-1112-737-0_26.1112.737.0_x64__3k8sg7r9htsxt\\dependencies\\python\\pythonw.exe",
+        "-X",
+        "utf8",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r2-observability\\prepare_ownership_fault.py",
+        "--repo",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\release-windows-v3\\product",
+        "--output",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\final-gpu-faults-v2\\ownership\\product"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "build-ownership",
+      "command": [
+        "C:\\Program Files\\WindowsApps\\OpenAI.CodexPrimaryRuntime.v26-1112-737-0_26.1112.737.0_x64__3k8sg7r9htsxt\\dependencies\\python\\pythonw.exe",
+        "-X",
+        "utf8",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\final-gpu-faults-v2\\ownership\\product\\build\\build_project.py",
+        "--cache",
+        "D:\\Code\\udp_streamer_godot\\.tools\\rm-video"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "prepare-timing",
+      "command": [
+        "C:\\Program Files\\WindowsApps\\OpenAI.CodexPrimaryRuntime.v26-1112-737-0_26.1112.737.0_x64__3k8sg7r9htsxt\\dependencies\\python\\pythonw.exe",
+        "-X",
+        "utf8",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r2-observability\\prepare_timing_fault.py",
+        "--repo",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\release-windows-v3\\product",
+        "--output",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\final-gpu-faults-v2\\timing\\product"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "build-timing",
+      "command": [
+        "C:\\Program Files\\WindowsApps\\OpenAI.CodexPrimaryRuntime.v26-1112-737-0_26.1112.737.0_x64__3k8sg7r9htsxt\\dependencies\\python\\pythonw.exe",
+        "-X",
+        "utf8",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\final-gpu-faults-v2\\timing\\product\\build\\build_project.py",
+        "--cache",
+        "D:\\Code\\udp_streamer_godot\\.tools\\rm-video"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "faults",
+      "command": [
+        "C:\\Program Files\\WindowsApps\\OpenAI.CodexPrimaryRuntime.v26-1112-737-0_26.1112.737.0_x64__3k8sg7r9htsxt\\dependencies\\python\\pythonw.exe",
+        "-X",
+        "utf8",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r3-performance\\run_final_faults.py",
+        "--ownership-product",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\final-gpu-faults-v2\\ownership\\product",
+        "--timing-product",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\final-gpu-faults-v2\\timing\\product",
+        "--output",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\final-gpu-faults-v2\\results"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "recovery-cuda",
+      "command": [
+        "C:\\Program Files\\WindowsApps\\OpenAI.CodexPrimaryRuntime.v26-1112-737-0_26.1112.737.0_x64__3k8sg7r9htsxt\\dependencies\\python\\pythonw.exe",
+        "-X",
+        "utf8",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\package_recovery_timing.py",
+        "--package",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\windows-preparation-ui-v1\\playback\\original-package",
+        "--bundle",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\rm-validation-r5-v5",
+        "--output",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\final-gpu-faults-v2\\recovery-cuda",
+        "--decoder",
+        "cuda",
+        "--device",
+        "cuda:GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a",
+        "--transfer",
+        "gpu",
+        "--renderer",
+        "gl_compatibility"
+      ],
+      "exit": 0
+    },
+    {
+      "name": "recovery-d3d11va",
+      "command": [
+        "C:\\Program Files\\WindowsApps\\OpenAI.CodexPrimaryRuntime.v26-1112-737-0_26.1112.737.0_x64__3k8sg7r9htsxt\\dependencies\\python\\pythonw.exe",
+        "-X",
+        "utf8",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\package_recovery_timing.py",
+        "--package",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\windows-preparation-ui-v1\\playback\\original-package",
+        "--bundle",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-15-rm-r5-build-release\\rm-validation-r5-v5",
+        "--output",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-r6-integration\\final-gpu-faults-v2\\recovery-d3d11va",
+        "--decoder",
+        "d3d11va",
+        "--device",
+        "d3d11va:LUID=0:95085",
+        "--transfer",
+        "yuv",
+        "--renderer",
+        "mobile"
+      ],
+      "exit": 0
+    }
+  ],
+  "scope": "External fault builds derived from the final clean source. These are not unchanged release binaries.",
+  "cases": {
+    "ownership-event": {
+      "errors": [],
+      "exit": 2,
+      "native_sha256": "b1b67bdc3d023e3623efcc5e8c9f9f10699ff5c66d57c1d10096d83949d325bf",
+      "result_sha256": "4a06d2125fe058ad0a00c4c71441650a03bb8e568d758b7cf89bca317ed5b727"
+    },
+    "ownership-fence": {
+      "errors": [],
+      "exit": 2,
+      "native_sha256": "b1b67bdc3d023e3623efcc5e8c9f9f10699ff5c66d57c1d10096d83949d325bf",
+      "result_sha256": "d3fbd97d2261683b8a492ef90df6a2288dab5d21bac18f5d58bcd2996ed7380a"
+    },
+    "ownership-timeout": {
+      "errors": [],
+      "exit": 2,
+      "native_sha256": "b1b67bdc3d023e3623efcc5e8c9f9f10699ff5c66d57c1d10096d83949d325bf",
+      "result_sha256": "d791ed36343361c71ae348f35e9bc54c504315b3409904c167e9c88e69d94c76"
+    },
+    "timing-elapsed_error": {
+      "errors": [],
+      "exit": 0,
+      "native_sha256": "8831e9790b812563ba8d6894de72d59dd17f6ee262162ecec15ee7f57f1e5be5",
+      "result_sha256": "d2f2b033dfa1b9296d4b7ad42ca99a39b80aa10db6f6a25a59f16b59e59beb10"
+    },
+    "timing-gl_delayed": {
+      "errors": [],
+      "exit": 0,
+      "native_sha256": "8831e9790b812563ba8d6894de72d59dd17f6ee262162ecec15ee7f57f1e5be5",
+      "result_sha256": "d6dd54d15f8644b9af4e0fb6b74c31c1815734246142d5bc62dc539dbe82bd92"
+    },
+    "timing-unavailable": {
+      "errors": [],
+      "exit": 0,
+      "native_sha256": "8831e9790b812563ba8d6894de72d59dd17f6ee262162ecec15ee7f57f1e5be5",
+      "result_sha256": "d333870c3ef5388019cd1c20c7c34a0dca8c25de46e1b56b0a6e0d9187daaf1d"
+    }
+  },
+  "recovery_timing": {
+    "cuda": {
+      "status": "passed",
+      "errors": [],
+      "deliberate_upstream_wait_ms": 2003.9911,
+      "native_first_keyframe_ingress_to_submit_ms": 31.632,
+      "native_parser_output_to_submit_ms": 11.338
+    },
+    "d3d11va": {
+      "status": "passed",
+      "errors": [],
+      "deliberate_upstream_wait_ms": 2003.3609,
+      "native_first_keyframe_ingress_to_submit_ms": 33.977,
+      "native_parser_output_to_submit_ms": 13.995
+    }
+  },
+  "finished": 1794770666.9016862
+}
