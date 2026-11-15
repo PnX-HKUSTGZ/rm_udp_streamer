@@ -22,6 +22,7 @@ public partial class Main : Control
     private RuntimeOptions _options = new();
     private StreamWriter? _diagnostics;
     private double _uptime, _diagnosticTime;
+    private readonly Stopwatch _wallClock = new();
     private bool _readyLogged, _finishing;
     private static readonly string[] Decoders = { "auto", "software", "cuda", "d3d11va" };
     private static readonly string[] Transfers = { "yuv", "rgba", "gpu", "auto" };
@@ -29,6 +30,7 @@ public partial class Main : Control
 
     public override void _Ready()
     {
+        _wallClock.Start();
         BuildInterface();
         try
         {
@@ -141,8 +143,11 @@ public partial class Main : Control
     }
     public override void _Process(double delta)
     {
-        _uptime += delta; _diagnosticTime += delta;
-        _elapsed += delta; _rateTime += delta;
+        // Godot's simulation delta may be clamped after a stalled frame or
+        // scaled by Engine.TimeScale. Duration and reported rates use real time.
+        double now = _wallClock.Elapsed.TotalSeconds;
+        double elapsed = Math.Max(0, now - _uptime); _uptime = now;
+        _diagnosticTime += elapsed; _elapsed += elapsed; _rateTime += elapsed;
         if (_elapsed < .25) return; _elapsed = 0;
         if (_session != null && !_finishing)
         {
