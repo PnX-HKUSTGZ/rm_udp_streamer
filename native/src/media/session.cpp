@@ -19,7 +19,9 @@ bool MediaSession::start(const TransportConfig &network, const MediaConfig &medi
     }
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        state_ = {}; latest_.reset(); state_.state = "Starting"; state_.started_ms = monotonic_ms();
+        state_ = {}; preparation_ = {}; latest_.reset(); decoded_latest_ = {};
+        preparation_error_ = {}; preparation_epoch_ = 0;
+        state_.state = "Starting"; state_.started_ms = monotonic_ms();
         state_.requested_decoder = media.decoder; state_.requested_transfer = media.transfer;
         state_.diagnostics = media.diagnostics;
     }
@@ -37,9 +39,7 @@ bool MediaSession::start(const TransportConfig &network, const MediaConfig &medi
 void MediaSession::request_stop() {
     quit_.store(true);
     std::lock_guard<std::mutex> lock(mutex_);
-    if (latest_) ++state_.prepared_discarded_stop;
-    latest_.reset();
-    state_.accepted_stream = state_.accepted_resource = 0;
+    discard_pending(Discard::Stop);
     if (!done_.load()) state_.state = "Stopping";
     else if (state_.state != "Faulted") state_.state = "Stopped";
 }
@@ -60,12 +60,16 @@ std::shared_ptr<PreparedFrame> MediaSession::take_frame() {
             state_.prepared_wait.observe(latest_->info.timing.upload_queued_us-latest_->info.timing.prepared_us);
         }
     }
-    return std::exchange(latest_, {});
+    auto result = std::exchange(latest_, {});
+    if (result) prepare_ready_.notify_one();
+    return result;
 }
 MediaSnapshot MediaSession::snapshot() const {
     MediaSnapshot snapshot;
     { std::lock_guard<std::mutex> lock(mutex_);
-      snapshot = state_; snapshot.prepared_pending=bool(latest_); snapshot.snapshot_us=monotonic_us();
+      snapshot = state_; snapshot.prepared_pending=bool(latest_); snapshot.decoded_pending=bool(decoded_latest_.frame);
+      static_cast<CpuPreparationCounters &>(snapshot.decode) = preparation_;
+      snapshot.snapshot_us=monotonic_us();
       snapshot.worker_done=done_.load(); }
     snapshot.receiver = receiver_.snapshot(); return snapshot;
 }
@@ -123,59 +127,120 @@ bool MediaSession::presentation_failed(const std::string &error, bool gpu_failur
         if (!state_.gpu_disabled) {
             state_.gpu_disabled = true; ++state_.presentation_fallbacks;
             state_.presentation_fallback = "GPU transfer -> CPU: " + error;
-            state_.accepted_stream = state_.accepted_resource = 0;
-            if (latest_) ++state_.prepared_discarded_generation;
-            latest_.reset();
+            discard_pending(Discard::Generation);
             state_.path = "cpu_pending"; state_.state = "Recovering";
             state_.recovery_reason = state_.presentation_fallback;
         }
         return true;
     }
     quit_.store(true); state_.error=error;state_.state="Faulted";
-    state_.accepted_stream=state_.accepted_resource=0;
-    if (latest_) ++state_.prepared_discarded_failure;
-    latest_.reset();
+    discard_pending(Discard::Failure);
     return false;
+}
+void MediaSession::discard_pending(Discard reason) {
+    if (decoded_latest_.frame) {
+        if (reason == Discard::Stop) ++state_.decoded_discarded_stop;
+        else if (reason == Discard::Generation) ++state_.decoded_discarded_generation;
+        else ++state_.decoded_discarded_failure;
+    }
+    if (latest_) {
+        if (reason == Discard::Stop) ++state_.prepared_discarded_stop;
+        else if (reason == Discard::Generation) ++state_.prepared_discarded_generation;
+        else ++state_.prepared_discarded_failure;
+    }
+    decoded_latest_ = {}; latest_.reset(); ++preparation_epoch_; preparation_error_ = {};
+    state_.accepted_stream = state_.accepted_resource = 0;
+    prepare_ready_.notify_all();
+}
+void MediaSession::complete_preparation(std::shared_ptr<PreparedFrame> prepared, uint64_t epoch) {
+    ++state_.prepared_completed; state_.last_prepared = prepared->info;
+    const auto &info = prepared->info;
+    if (quit_.load() || epoch != preparation_epoch_ || info.stream_generation != state_.accepted_stream ||
+        info.resource_generation != state_.accepted_resource || info.presentation_generation != state_.accepted_presentation) {
+        ++state_.prepared_discarded_race; return;
+    }
+    if (latest_) ++state_.mailbox_replaced;
+    state_.format = info;
+    if (prepared->path != "gpu_pending" || state_.path.empty()) state_.path = prepared->path;
+    state_.last_frame_ms = monotonic_ms(); ++state_.prepared;
+    latest_ = std::move(prepared); state_.state = "Running"; state_.recovery_reason.clear();
+}
+void MediaSession::prepare(MediaConfig config) noexcept {
+    try {
+        CpuPreparer preparer(std::move(config));
+        while (true) {
+            FrameLease frame; uint64_t epoch;
+            {
+                std::unique_lock<std::mutex> lock(mutex_);
+                prepare_ready_.wait(lock, [&] {
+                    return quit_.load() || (decoded_latest_.frame && !latest_ && !preparation_error_);
+                });
+                if (quit_.load()) break;
+                frame = std::exchange(decoded_latest_, {}); epoch = preparation_epoch_;
+                state_.preparing = true;
+                if (state_.diagnostics) state_.preparation_queue_wait.observe(monotonic_us()-frame.info.timing.decoded_us);
+            }
+            std::shared_ptr<PreparedFrame> prepared;
+            std::exception_ptr failure;
+            try { prepared = preparer.prepare(std::move(frame)); }
+            catch (...) { failure = std::current_exception(); }
+            std::lock_guard<std::mutex> lock(mutex_);
+            preparation_ = preparer.counters(); state_.preparing = false;
+            if (failure) {
+                ++state_.prepare_failures;
+                if (!quit_.load() && epoch == preparation_epoch_) preparation_error_ = failure;
+            } else complete_preparation(std::move(prepared), epoch);
+        }
+    } catch (...) {
+        std::lock_guard<std::mutex> lock(mutex_);
+        preparation_error_ = std::current_exception();
+    }
 }
 void MediaSession::run(MediaConfig config) noexcept {
     try {
         std::unique_ptr<Decoder> decoder;
         decoder = std::make_unique<Decoder>(config, [&](FrameLease frame) {
-            {
-                std::lock_guard<std::mutex> lock(mutex_);
-                state_.last_decoded=frame.info;
-                state_.decode=decoder->counters();
-                if (quit_.load()) { ++state_.decoded_discarded_stop; return; }
-                state_.preparing=true;
-            }
             if (config.transfer == "auto" && frame.info.decoder != "cuda")
                 presentation_failed("CUDA/OpenGL bridge is unavailable for " + frame.info.decoder, true);
-            bool gpu_disabled;
-            { std::lock_guard<std::mutex> lock(mutex_); gpu_disabled = state_.gpu_disabled; }
-            frame.info.presentation_generation = gpu_disabled ? 1 : 0;
-            { std::lock_guard<std::mutex> lock(mutex_); state_.last_decoded=frame.info; }
+            uint64_t epoch;
+            bool gpu;
+            {
+                std::lock_guard<std::mutex> lock(mutex_);
+                frame.info.presentation_generation = state_.gpu_disabled ? 1 : 0;
+                state_.last_decoded = frame.info;
+                state_.decode=decoder->counters();
+                if (quit_.load()) { ++state_.decoded_discarded_stop; return; }
+                if (frame.info.stream_generation != state_.accepted_stream || frame.info.resource_generation != state_.accepted_resource ||
+                    frame.info.presentation_generation != state_.accepted_presentation) {
+                    discard_pending(Discard::Generation);
+                    state_.accepted_stream = frame.info.stream_generation; state_.accepted_resource = frame.info.resource_generation;
+                    state_.accepted_presentation = frame.info.presentation_generation;
+                }
+                epoch = preparation_epoch_;
+                gpu = config.transfer == "gpu" || (config.transfer == "auto" && !state_.gpu_disabled);
+                if (!gpu) {
+                    if (decoded_latest_.frame) ++state_.decoded_replaced;
+                    decoded_latest_ = std::move(frame);
+                    state_.cpu_sources_peak = std::max(state_.cpu_sources_peak, uint64_t(1+unsigned(state_.preparing)));
+                } else state_.preparing = true;
+            }
+            if (!gpu) {
+                // Only the decoder worker creates/joins this thread. GPU-only
+                // sessions retain their direct publication path.
+                if (!preparer_.joinable()) preparer_ = std::thread([this, config] { prepare(config); });
+                prepare_ready_.notify_one(); return;
+            }
             std::shared_ptr<PreparedFrame> prepared;
             try {
-            if(config.transfer=="gpu" || (config.transfer=="auto" && !gpu_disabled)) {
                 prepared=std::make_shared<PreparedFrame>();prepared->info=frame.info;
                 prepared->path="gpu_pending";prepared->gpu_source=std::move(frame);
                 if (config.diagnostics) prepared->info.timing.prepared_us=monotonic_us();
-            } else prepared = decoder->prepare_cpu(std::move(frame));
             } catch (...) {
                 std::lock_guard<std::mutex> lock(mutex_);
-                state_.preparing=false;++state_.prepare_failures;state_.decode=decoder->counters();throw;
+                state_.preparing=false;++state_.prepare_failures;throw;
             }
             std::lock_guard<std::mutex> lock(mutex_);
-            state_.preparing=false;state_.decode=decoder->counters();
-            ++state_.prepared_completed; state_.last_prepared=prepared->info;
-            if (quit_.load() || gpu_disabled != state_.gpu_disabled) { ++state_.prepared_discarded_race; return; }
-            if (latest_) ++state_.mailbox_replaced;
-            state_.format = prepared->info;
-            if(prepared->path!="gpu_pending"||state_.path.empty())state_.path=prepared->path;
-            state_.accepted_stream = prepared->info.stream_generation; state_.accepted_resource = prepared->info.resource_generation;
-            state_.accepted_presentation = prepared->info.presentation_generation;
-            state_.last_frame_ms = monotonic_ms(); ++state_.prepared;
-            latest_ = std::move(prepared); state_.state = "Running"; state_.recovery_reason.clear();
+            state_.preparing=false;complete_preparation(std::move(prepared), epoch);
         });
         auto update_decoder_status = [&] {
             std::lock_guard<std::mutex> lock(mutex_);
@@ -191,34 +256,42 @@ void MediaSession::run(MediaConfig config) noexcept {
         uint64_t current_generation = 0;
         auto invalidate = [&](const std::string &reason, bool error) {
             std::lock_guard<std::mutex> lock(mutex_);
-            if (latest_) ++state_.prepared_discarded_generation;
-            latest_.reset(); state_.accepted_stream = state_.accepted_resource = 0;
+            discard_pending(Discard::Generation);
             ++state_.recoveries; if (error) ++state_.decode_errors;
             state_.state = "Recovering"; state_.recovery_reason = reason;
         };
+        auto recover = [&](const MediaError &error) {
+            if (error.kind == MediaFailure::Input) {
+                invalidate(error.what(), true); decoder->recover();
+            } else if (error.kind == MediaFailure::Backend) {
+                invalidate(error.what(), false);
+                bool switched = false;
+                try { switched = decoder->fallback_backend(error.what()); }
+                catch (...) { update_decoder_status(); throw; }
+                if (!switched) {
+                    update_decoder_status();
+                    throw MediaError(MediaFailure::Backend, decoder->backend()+": "+error.what());
+                }
+                if (config.transfer == "auto" && decoder->backend() != "cuda")
+                    presentation_failed("decoder changed to " + decoder->backend(), true);
+            } else { update_decoder_status(); throw error; }
+        };
         while (!quit_.load()) {
+            std::exception_ptr failure;
+            { std::lock_guard<std::mutex> lock(mutex_); failure = preparation_error_; }
+            if (failure) {
+                try { std::rethrow_exception(failure); }
+                catch (const MediaError &error) { recover(error); }
+                update_decoder_status();
+                continue;
+            }
             auto group = receiver_.pop();
             if (group) {
                 if (current_generation && (group->generation != current_generation || group->discontinuity_before))
                     invalidate(group->generation != current_generation ? "Sender restarted or source changed; waiting for a random access point" : "Compressed stream discontinuity; waiting for a random access point", false);
                 current_generation = group->generation;
                 try { decoder->feed(std::move(*group)); }
-                catch (const MediaError &error) {
-                    if (error.kind == MediaFailure::Input) {
-                        invalidate(error.what(), true); decoder->recover();
-                    } else if (error.kind == MediaFailure::Backend) {
-                        invalidate(error.what(), false);
-                        bool switched = false;
-                        try { switched = decoder->fallback_backend(error.what()); }
-                        catch (...) { update_decoder_status(); throw; }
-                        if (!switched) {
-                            update_decoder_status();
-                            throw MediaError(MediaFailure::Backend, decoder->backend()+": "+error.what());
-                        }
-                        if (config.transfer == "auto" && decoder->backend() != "cuda")
-                            presentation_failed("decoder changed to " + decoder->backend(), true);
-                    } else { update_decoder_status(); throw; }
-                }
+                catch (const MediaError &error) { recover(error); }
                 update_decoder_status();
             } else {
                 auto status = receiver_.snapshot();
@@ -231,14 +304,12 @@ void MediaSession::run(MediaConfig config) noexcept {
     } catch (...) {
         std::lock_guard<std::mutex> lock(mutex_); state_.error = "Unexpected decoder failure"; state_.state = "Faulted";
     }
+    quit_.store(true); prepare_ready_.notify_all();
+    if (preparer_.joinable()) preparer_.join();
     receiver_.stop();
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if (latest_) {
-            if (state_.state=="Faulted") ++state_.prepared_discarded_failure;
-            else ++state_.prepared_discarded_stop;
-        }
-        latest_.reset(); state_.accepted_stream = state_.accepted_resource = 0;
+        discard_pending(state_.state == "Faulted" ? Discard::Failure : Discard::Stop);
         if (state_.state != "Faulted") state_.state = "Stopped";
     }
     done_.store(true);

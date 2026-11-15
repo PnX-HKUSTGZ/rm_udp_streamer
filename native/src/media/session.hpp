@@ -3,6 +3,8 @@
 #include "transport/udp_receiver.hpp"
 #include "diagnostics/submission_windows.hpp"
 #include <atomic>
+#include <condition_variable>
+#include <exception>
 #include <mutex>
 #include <thread>
 
@@ -18,7 +20,10 @@ struct MediaSnapshot {
     FrameInfo last_decoded, last_prepared, last_submitted, last_shown;
     uint64_t mailbox_replaced = 0, prepared = 0;
     uint64_t prepared_completed = 0, prepare_failures = 0, decoded_discarded_stop = 0, prepared_discarded_stop = 0;
-    bool preparing = false, prepared_pending = false;
+    uint64_t decoded_replaced = 0, decoded_discarded_generation = 0, decoded_discarded_failure = 0;
+    bool preparing = false, prepared_pending = false, decoded_pending = false;
+    uint64_t cpu_sources_peak = 0;
+    TimingHistogram preparation_queue_wait;
     uint64_t prepared_discarded_generation = 0, prepared_discarded_failure = 0, prepared_discarded_race = 0;
     uint64_t upload_requested = 0, submitted_total = 0, shown_total = 0;
     uint64_t upload_busy_polls = 0, upload_stale_before = 0, upload_stale_after = 0, gpu_slot_drops = 0, upload_failures = 0;
@@ -55,10 +60,20 @@ public:
 private:
     UdpReceiver receiver_;
     mutable std::mutex mutex_;
-    std::thread worker_;
+    std::thread worker_, preparer_;
+    std::condition_variable prepare_ready_;
     std::atomic<bool> quit_{false}, done_{true};
     MediaSnapshot state_;
+    CpuPreparationCounters preparation_;
+    FrameLease decoded_latest_;
+    uint64_t preparation_epoch_ = 0;
+    std::exception_ptr preparation_error_;
     std::shared_ptr<PreparedFrame> latest_;
+    enum class Discard { Stop, Generation, Failure };
+    // Caller holds mutex_. The epoch also invalidates same-format recovery.
+    void discard_pending(Discard);
+    void complete_preparation(std::shared_ptr<PreparedFrame>, uint64_t epoch);
+    void prepare(MediaConfig) noexcept;
     void run(MediaConfig) noexcept;
 };
 }

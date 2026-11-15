@@ -71,7 +71,9 @@ C# 调用方负责及时释放读取快照的 `Variant` 及 `Dictionary`。`Snap
 同一 core 快照应满足：
 
 ```text
-decoded = prepared_completed + prepare_failures + decoded_discarded_stop + preparing
+decoded = prepared_completed + prepare_failures + decoded_discarded_stop
+        + decoded_discarded_generation + decoded_discarded_failure
+        + decoded_replaced + preparing + decoded_pending
 prepared_completed = prepared + prepared_discarded_race
 prepared = mailbox_replaced + prepared_discarded_stop + prepared_discarded_generation
          + prepared_discarded_failure + upload_requested + prepared_pending
@@ -80,7 +82,9 @@ upload_requested = submitted_total + upload_stale_before + upload_stale_after
 submitted_total = shown_total + publication_replaced + publication_stale + pending_publications
 ```
 
-`upload_busy_polls` 统计主循环发现上传繁忙的次数，不是丢帧数；`shown_invalidated` 统计已接受画面失效，不从累计接受数扣除。正常停止应无 preparing/prepared_pending/pending_uploads/pending_publications，压缩队列资源也归零。接收器停止保留累计输入统计；新会话才清空。解码与渲染统计各自加锁，GPU 完成数可晚于提交数。
+`accounting_schema=2` 增加 CPU 准备前的原始帧邮箱。`decoded_replaced` 表示在回读/转色前被更新帧替换；它与准备后替换的 `mailbox_replaced` 分开。`decoded_pending` 和 `preparing` 各最多一帧，`cpu_sources_peak` 是这两个位置合计的峰值，不包含解码器内部帧池或正在交付的解码回调。CPU 结果未被取走时不会开始下一次准备；GPU 路径仍直接发布。`preparation_queue_wait` 测量解码完成到实际开始 CPU 准备的等待，保持同一 native 时钟。
+
+`upload_busy_polls` 统计主循环发现上传繁忙的次数，不是丢帧数；`shown_invalidated` 统计已接受画面失效，不从累计接受数扣除。正常停止应无 decoded_pending/preparing/prepared_pending/pending_uploads/pending_publications，压缩队列资源也归零。接收器停止保留累计输入统计；新会话才清空。解码、准备与渲染统计分别发布锁保护的快照，GPU 完成数可晚于提交数。
 
 `submission_windows` 从第一张被接受的纹理提交时刻 `origin_us` 开始，以原生单调时钟精确分成一秒。`closed` 包含 `[index,count]`，只导出闭合窗口；无提交的窗口明确为零。固定 64 槽包含当前秒，保证最近 63 个闭合窗口；`first_index`、`current_index` 使观察者检测缺失历史。观察间隔超过保存范围时标记测量缺口，不能补零冒充已观测。索引必须去重，P10 对完整一秒窗口的计数做 nearest-rank；均值为这些窗口的提交总数除以秒数。暖机和输入停止后的窗口不得混入有效输入测量。
 

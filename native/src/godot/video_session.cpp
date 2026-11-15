@@ -76,6 +76,7 @@ Dictionary RmVideoSession::snapshot(bool detailed) const {
     Dictionary result;
     auto sample_us=state.snapshot_us;
     result["snapshot_us"]=sample_us;result["diagnostics_enabled"]=state.diagnostics;result["timing_schema"]=1;
+    result["accounting_schema"]=2;
     if(detailed) {
         result["last_decoded"]=rm::binding::frame(state.last_decoded);
         result["last_prepared"]=rm::binding::frame(state.last_prepared);
@@ -87,6 +88,7 @@ Dictionary RmVideoSession::snapshot(bool detailed) const {
         state.upload_stale_after+state.gpu_slot_drops+state.upload_failures);
     result["pending_uploads"]=pending_uploads;
     result["preparing"]=state.preparing;result["prepared_pending"]=state.prepared_pending;
+    result["decoded_pending"]=state.decoded_pending;
     result["pending_publications"]=int64_t(state.submitted_total)-int64_t(state.shown_total+state.publication_replaced+state.publication_stale);
     unsigned gpu_pending=gpu_holders_.load();
     result["render_pending"]=int64_t(gpu_pending);
@@ -148,6 +150,7 @@ Dictionary RmVideoSession::snapshot(bool detailed) const {
 #undef METRIC
 #define METRIC(field) result[#field] = int64_t(state.field)
     METRIC(prepared_completed); METRIC(prepare_failures); METRIC(decoded_discarded_stop); METRIC(prepared_discarded_stop);
+    METRIC(decoded_replaced); METRIC(decoded_discarded_generation); METRIC(decoded_discarded_failure); METRIC(cpu_sources_peak);
     METRIC(prepared_discarded_generation); METRIC(prepared_discarded_failure); METRIC(prepared_discarded_race);
     METRIC(upload_requested); METRIC(submitted_total); METRIC(shown_total); METRIC(upload_busy_polls);
     METRIC(upload_stale_before); METRIC(upload_stale_after); METRIC(gpu_slot_drops); METRIC(upload_failures);
@@ -162,6 +165,7 @@ Dictionary RmVideoSession::snapshot(bool detailed) const {
         TIMING(decode_send_cpu,state.decode); TIMING(decode_receive_cpu,state.decode);
         TIMING(dequeue_to_packet,state.decode); TIMING(packet_to_decoded,state.decode);
         TIMING(cpu_readback,state.decode); TIMING(rgba_conversion,state.decode); TIMING(plane_pack,state.decode); TIMING(prepare_total,state.decode);
+        TIMING(preparation_queue_wait,state);
         TIMING(prepared_wait,state); TIMING(render_dispatch_wait,state); TIMING(upload_cpu,state); TIMING(submission_commit_wait,state);
         TIMING(ingress_to_submit,state); TIMING(submit_to_main_accept,state);
 #undef TIMING
