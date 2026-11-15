@@ -87,6 +87,9 @@ private:
     AVPacket *packet_ = nullptr;
     AVFrame *scratch_ = nullptr;
     SwsContext *scaler_ = nullptr;
+    int scaler_width_ = 0, scaler_height_ = 0;
+    AVPixelFormat scaler_format_ = AV_PIX_FMT_NONE;
+    AVChromaLocation scaler_chroma_ = AVCHROMA_LOC_UNSPECIFIED;
     AVPixelFormat hardware_format_ = AV_PIX_FMT_NONE;
     DecodeCounters counters_;
     std::string backend_, identity_, fallback_;
@@ -108,6 +111,7 @@ private:
     void reset(uint64_t generation);
     void send(const uint8_t *data, int size);
     void receive();
+    void configure_scaler(int width, int height, AVPixelFormat format, AVChromaLocation chroma);
     static AVPixelFormat choose_format(AVCodecContext *, const AVPixelFormat *);
 };
 }
