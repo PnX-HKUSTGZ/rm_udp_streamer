@@ -5,6 +5,7 @@
 当前分支正在实施 R0–R6 审查改进，R0、R1、R2 已通过指定的独立审查；R3–R6 尚未完成。此前 M0–M6 的 D3 发布记录保留为历史基线，不能代替当前候选的完整验收。Windows NVIDIA 已实现零视频像素回读的 CUDA/OpenGL 路径；原生 Ubuntu 新增 VAAPI 与设备身份核验，当前仍在补齐桌面、性能和发布证据。
 
 - [当前实现架构](docs/current-architecture.md)：线程、最新帧准备、缓冲复用、代际和资源所有权。
+- [当前能力与验收边界](docs/support-matrix.md)：逐设备的实测范围、性能证据与待验证项目。
 - [交互使用与渲染切换](docs/usage.md)、[设备身份](docs/devices.md)、[固定依赖构建](docs/building.md)。
 
 - [架构设计](docs/architecture.md)：GPU 帧传递为目标，CPU 中转为兼容路径；模块、帧接口、同步与恢复。

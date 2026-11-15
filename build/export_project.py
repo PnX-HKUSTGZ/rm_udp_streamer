@@ -34,7 +34,7 @@ def validate_runtime(output, windows):
         if not any(file.stat().st_size > 0 for file in output.rglob(name)):
             raise RuntimeError('Incomplete self-contained .NET export: missing ' + name)
     config = next(output.rglob('RmUdpStreamer.runtimeconfig.json'))
-    runtime = json.loads(config.read_text())['runtimeOptions']
+    runtime = json.loads(config.read_text(encoding='utf-8'))['runtimeOptions']
     if runtime.get('framework') or runtime.get('frameworks'):
         raise RuntimeError('Export requires an external .NET runtime')
     frameworks = runtime.get('includedFrameworks', [])
@@ -57,7 +57,7 @@ def main():
     parser.add_argument('--dependency-lock', type=Path, help='Explicit independently recorded developer dependency lock')
     parser.add_argument('--templates',type=Path,required=True,help='Locked Godot Mono .tpz archive')
     parser.add_argument('--output',type=Path,required=True,help='New or empty package directory')
-    parser.add_argument('--label',default='D3')
+    parser.add_argument('--label',default='R-candidate')
     args=parser.parse_args()
     cache=args.cache.resolve();output=args.output.resolve();windows=os.name=='nt';platform='windows' if windows else 'linux'
     if subprocess.check_output(['git','-C',str(repo),'status','--porcelain'],text=True).strip():
@@ -105,7 +105,7 @@ def main():
     native=stage/'addons/rm_video/bin'/binary;native.parent.mkdir(parents=True,exist_ok=True)
     shutil.copy2(repo/'addons/rm_video/bin'/binary,native)
     prepare_extension_discovery(stage)
-    presets=(stage/'export_presets.cfg').read_text()
+    presets=(stage/'export_presets.cfg').read_text(encoding='utf-8')
     # Only the staging checkout receives machine-specific template paths.
     sections=presets.split('[preset.')
     for index in range(1,len(sections)):
@@ -116,7 +116,7 @@ def main():
             filename='windows_'+kind+'_x86_64.exe' if windows else 'linux_'+kind+'.x86_64'
             section=section.replace('custom_template/'+kind+'=""','custom_template/'+kind+'="'+(templates/filename).as_posix()+'"')
         sections[index]=section
-    (stage/'export_presets.cfg').write_text('[preset.'.join(sections))
+    (stage/'export_presets.cfg').write_text('[preset.'.join(sections),encoding='utf-8')
     subprocess.run([dotnet,'build',str(stage/'RmUdpStreamer.csproj')],env=env,check=True)
     run_engine([str(engine),'--headless','--editor','--path',str(stage),'--import','--quit'],env,stage/'import.log')
     executable=output/('RmVideoReceiver.exe' if windows else 'RmVideoReceiver.x86_64')
@@ -125,7 +125,7 @@ def main():
     validate_runtime(output,windows)
     if not windows:executable.chmod(executable.stat().st_mode|0o111)
     shutil.copy2(lock_path,output/'dependencies.lock.json')
-    shutil.copy2(repo/'docs/m6-release.md',output/'CAPABILITIES.md')
+    shutil.copy2(repo/'docs/support-matrix.md',output/'CAPABILITIES.md')
     # Keep the evidence referenced by the reports with the distributable docs.
     shutil.copytree(repo/'docs',output/'docs')
     (output/'README.txt').write_text(
@@ -135,14 +135,16 @@ def main():
         'Godot and .NET runtime files are included; no editor or SDK is needed. Keep all package files together.\n'
         'GPU drivers and desktop OS libraries are supplied by the operating system.\n'
         'Linux baseline: Ubuntu 24.04 x86_64, glibc 2.39 or compatible, X11/Wayland desktop, Vulkan/OpenGL drivers, fontconfig and standard .NET native dependencies.\n'
-        'WSL was tested with WSLg/llvmpipe. This does not certify native Ubuntu GPU interoperability.\n'
+        'See CAPABILITIES.md for the current candidate matrix and outstanding acceptance checks; historical D3 results do not certify this package.\n'
         'Software decoding is selectable. CPU transfer reads back hardware pixels; performance depends on the measured configuration.\n'
-        'D3 GPU path: Windows NVIDIA, same-device CUDA and Compatibility/OpenGL, NV12 8-bit. Other tested modes retain CPU transfer.\n'
+        'GPU bridge: same-device CUDA and Compatibility/OpenGL, NV12 8-bit; validate the specific platform/device combination before deployment.\n'
+        'VAAPI builds require system libva/libva-drm/libdrm and the vendor media driver, including when using software decoding.\n'
         'For GPU mode start with --rendering-method gl_compatibility -- --start --decoder cuda --transfer gpu\n'
         'Use --transfer auto to try GPU transfer once and keep healthy decoding through CPU transfer if the bridge is unavailable.\n'
         'For deployment/diagnostics append -- --start --bind 127.0.0.1 --port 3334 --decoder software\n'
         'Optional: --duration 60 --metrics new-file.ndjson --snapshot new-file.png (new files only).\n'
-        'Use -- --help for all receiver options. Normal launch opens the interactive interface.\n'
+        'Use -- --help for all receiver options. Normal launch restores interactive connection/device settings without auto-start.\n'
+        'The interface offers source IP/port filtering and a renderer restart which preserves connection/device settings. See docs/usage.md.\n'
         'Unsupported HDR, wide-gamut primaries and LINEAR/LOG transfer input are rejected. See CAPABILITIES.md.\n',encoding='utf-8')
     prepare_release_materials(repo,cache,output,engine,env,lock,windows)
     manifest={'label':args.label,'platform':platform,'commit':commit,'dependency_lock_sha256':digest(lock_path),

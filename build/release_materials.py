@@ -14,7 +14,7 @@ def prepare(repo,cache,output,engine,env,lock,windows):
     licensing_env=env.copy();licensing_env['RM_ENGINE_NOTICES']=str(notices/'Godot-engine-notices.json')
     result=subprocess.run([str(engine),'--headless','--path',str(repo),'--script',str(repo/'build/engine_notices.gd')],env=licensing_env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,encoding='utf-8',errors='replace')
     if result.returncode or not (notices/'Godot-engine-notices.json').is_file():raise RuntimeError('Cannot extract engine notices: '+result.stdout)
-    engine_info=json.loads((notices/'Godot-engine-notices.json').read_text())
+    engine_info=json.loads((notices/'Godot-engine-notices.json').read_text(encoding='utf-8'))
     if not engine_info['license'] or not engine_info['copyright'] or not engine_info['third_party_licenses']:raise RuntimeError('Incomplete engine license inventory')
     (notices/'Godot-LICENSE.txt').write_text(engine_info['license'],encoding='utf-8')
     third=engine_info['third_party_licenses']
@@ -25,14 +25,14 @@ def prepare(repo,cache,output,engine,env,lock,windows):
     for name in ['LICENSE.TXT','THIRD-PARTY-NOTICES.TXT']:
         shutil.copy2(runtime/name,notices/('.NET-'+name))
     if windows:
-        build=json.loads((repo/'out/windows/build-manifest.json').read_text());compiler=Path(build['tools']['cxx']['path']).parent.parent
+        build=json.loads((repo/'out/windows/build-manifest.json').read_text(encoding='utf-8'));compiler=Path(build['tools']['cxx']['path']).parent.parent
         for name in ['gcc','mingw-w64','winpthreads']:
             shutil.copytree(compiler/'licenses'/name,notices/('runtime-'+name))
     else:
         shutil.copy2('/usr/share/doc/gcc-13-base/copyright',notices/'GCC-runtime-copyright.txt')
         for name in ['GPL-3','LGPL-2.1','LGPL-3']:shutil.copy2('/usr/share/common-licenses/'+name,notices/('GCC-'+name+'.txt'))
     kit=output/'relink';kit.mkdir();source_cache=cache/'release-sources'
-    manifest=json.loads((source_cache/'source-manifest.json').read_text())
+    manifest=json.loads((source_cache/'source-manifest.json').read_text(encoding='utf-8'))
     for name,key in [('ffmpeg','ffmpeg'),('nv-codec-headers','nv_codec_headers')]:
         item=manifest[name]
         if item['commit']!=lock[key]['commit'] or sha(source_cache/item['archive'])!=item['sha256']:raise RuntimeError('Unpinned release source: '+name)
@@ -73,7 +73,7 @@ def prepare(repo,cache,output,engine,env,lock,windows):
     m={'platform':platform,'compiler_version':'15.2.0' if windows else '13.3.0','objects':object_names,'application_libraries':app_libraries,'link_flags':link_flags,'system_libraries':system,'files':{}}
     for file in sorted(kit.rglob('*')):
         if file.is_file():m['files'][file.relative_to(kit).as_posix()]=sha(file)
-    (kit/'relink-manifest.json').write_text(json.dumps(m,indent=2)+'\n')
+    (kit/'relink-manifest.json').write_text(json.dumps(m,indent=2)+'\n',encoding='utf-8')
     # Source for the native application adapter is included for inspection and rebuilding.
     source_out=kit/'application-source';source_out.mkdir()
     for name in ['native','build']:

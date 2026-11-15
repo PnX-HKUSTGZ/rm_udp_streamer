@@ -1,0 +1,37 @@
+# 当前候选的能力与验收边界
+
+更新时间：2026-11-16。本文用于 R0–R6 改进分支的候选包。R0、R1、R2 已独立审查通过；R3–R6 仍在验收。历史 D3 的结果仅适用于其原始二进制，不构成当前包的最终验收。
+
+## 平台、后端与传输
+
+| 平台与设备 | 已实现路径 | 当前实测范围 | 未完成项目 |
+| --- | --- | --- | --- |
+| Windows / NVIDIA RTX 5070 Laptop | CUDA 硬解，CPU YUV/RGBA；同设备 CUDA/OpenGL GPU 桥接 | 实际硬解/呈现、身份、颜色与 GPU 故障退役；隔离短测可达 60 fps | 正式长测的完整环境验收、诊断开销和最终包验收 |
+| Windows / Intel Arc 140T、NVIDIA | D3D11VA 硬解与 CPU 回读上传 | 实际硬件帧、设备选择和桌面播放 | 各拟声明性能档位及最终包验收 |
+| Ubuntu 24.04 / Intel N250 | VAAPI 硬解与 CPU 回读上传 | 核心像素、身份、帧寿命、恢复、格式变化、Main10 策略 | 当前没有连接物理显示器，桌面与性能待验证 |
+| Ubuntu 24.04 / AMD Radeon 780M | VAAPI 硬解与 CPU 回读上传 | 核心像素、身份和帧寿命；Wayland/Vulkan Mobile/低延迟组合完成 180 秒预热与 1800 秒输入 | 新版完整恢复矩阵、最终包和生命周期验收 |
+| Windows / Ubuntu 软件解码 | HEVC 软件解码，CPU YUV/RGBA | 功能、恢复、颜色及已有桌面样本检查 | 性能等级须对应具体设备、配置和最终二进制 |
+| WSL / WSLg | 已验证的软件及部分 CUDA/CPU 路径 | 开发环境回归 | 不替代原生 Ubuntu GPU 桌面验收 |
+| 原生 Ubuntu / NVIDIA；Windows / AMD | 已有相关后端实现 | 当前未取得完整实机证据 | 实际设备、呈现、回退、性能和最终包验收 |
+
+AMD 上述单个长测组合的均值/P10 为 60/60 fps，首包到纹理提交延迟 P95/P99 为 33/42 ms。它使用该设备独立构建的 VAAPI 依赖和阶段冻结候选；不能自动套用到别的依赖、渲染器、包或硬件。测试时应用持续可绘制、报告刷新率 60 Hz，但桌面电源属性记录存在限制，未验证物理屏幕实际扫描。
+
+Windows 已有完整 1800 秒输入的吞吐/延迟达标记录，但中途最小化与外部资源采样覆盖不足使正式验收不通过。这些失败记录保留，不作为性能通过证据。目标仍为均值 ≥59.4 fps、完整秒窗 P10 ≥58、关联延迟 P95 ≤50 ms/P99 ≤100 ms、刷新率 ≥60 Hz、测量期间持续可绘制。
+
+## 输入与回退
+
+基线为 1920×1080、60 fps、HEVC 8 位 4:2:0 SDR。矩阵/range、裁剪、比例、色度位置和格式变化按实际输入元数据处理。Main10 的 CPU 路径需显式允许降精度；HDR、未支持的宽色域及 LINEAR/LOG transfer 明确拒绝。GPU 桥接当前限定 NV12 8 位、CUDA 与 OpenGL 同设备，仍包含 GPU 内复制。
+
+`--transfer gpu` 要求明确选择 CUDA，不满足条件时失败。`--transfer auto` 允许 GPU 尝试失败后保留解码并回退 CPU YUV，界面报告实际路径和原因。VAAPI 仅交付 CPU 回读路径；VAAPI/DMA-BUF/Vulkan、D3D11/Vulkan 直传尚未实现。
+
+固定样本与模拟发送器能验证协议处理及恢复逻辑，真实 RoboMaster 图传设备验收仍待完成。没有实机证据时不声明具体固件兼容或相机到屏幕延迟。
+
+## 运行与依赖
+
+解压后运行 `RmVideoReceiver.exe`（Windows）或 `RmVideoReceiver.x86_64`（Ubuntu）；保留包内文件结构。包应自带 Godot 与 .NET 运行时，仍需操作系统的显示环境和 GPU 驱动。Ubuntu 基线为 24.04 x86_64、glibc 2.39、X11/Wayland，以及标准 .NET 原生依赖和 fontconfig；不声明兼容 Ubuntu 22.04。
+
+旧官方 Linux FFmpeg 锁没有 VAAPI。启用 VAAPI 的候选使用独立 developer 锁，包中记录实际依赖类别及摘要。VAAPI 包启动时需系统 `libva2`、`libva-drm2`、`libdrm2` 和对应 Intel/AMD 媒体驱动，即使选择软件解码也不能省略这些动态依赖。
+
+最终运行、许可、对应源码、实际重链接与无 SDK 启动验收仍须与包内 `manifest.json` 的具体提交和文件摘要对应。`validated: false` 的开发者依赖不因部分测试通过而自动升级为已验收依赖。
+
+使用方法见[交互使用](usage.md)、[设备身份](devices.md)和[构建发布](building.md)。当前线程、所有权和停止边界见[当前架构](current-architecture.md)。
