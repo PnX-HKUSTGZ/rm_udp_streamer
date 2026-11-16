@@ -69,14 +69,28 @@ def main():
     archive=args.templates.resolve()
     if archive.stat().st_size!=asset['size'] or digest(archive,'sha512')!=asset['sha512']:
         raise RuntimeError('Export template archive does not match the pinned SHA512')
-    templates=cache/'export-templates'/lock['godot']['version']
+    # Independently recorded templates must not overwrite an upstream cache.
+    templates=cache/'export-templates'/lock['godot']['version']/asset['sha512'][:16]
     templates.mkdir(parents=True,exist_ok=True)
     names=['version.txt']
     names += ['windows_'+kind+'_x86_64'+suffix for kind in ['debug','release'] for suffix in ['.exe','_console.exe']] if windows else ['linux_debug.x86_64','linux_release.x86_64']
+    variant = lock['godot'].get('template_variant')
+    material_names = ['rm-engine-notices.json', 'rm-engine-build.json', 'rm-wayland-stop.patch', 'rm-wayland_thread.cpp']
+    if variant:
+        if windows or variant.get('kind') != 'rm-wayland-stop' or variant.get('platform') != 'linux' or set(variant.get('materials', {})) != set(material_names):
+            raise RuntimeError('Unsupported template variant or material inventory')
+        names += material_names
     with zipfile.ZipFile(archive) as bundle:
         for name in names:
             # Fixed allowlist: no archive-supplied relative paths are extracted.
             with bundle.open('templates/'+name) as source,(templates/name).open('wb') as target:shutil.copyfileobj(source,target)
+    if variant:
+        if digest(templates/'linux_release.x86_64') != variant['release_sha256']:
+            raise RuntimeError('Rebuilt release template does not match its recorded identity')
+        for name in material_names:
+            material = templates/name; expected = variant['materials'][name]
+            if material.stat().st_size != expected['bytes'] or digest(material) != expected['sha256']:
+                raise RuntimeError('Rebuilt engine material mismatch: ' + name)
     engine=args.godot
     if engine is None:
         engine=repo.parent/'Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe' if windows else cache/'godot/Godot_v4.7.2-stable_mono_linux_x86_64/Godot_v4.7.2-stable_mono_linux.x86_64'
@@ -122,6 +136,8 @@ def main():
     executable=output/('RmVideoReceiver.exe' if windows else 'RmVideoReceiver.x86_64')
     run_engine([str(engine),'--headless','--path',str(stage),'--export-release','Windows' if windows else 'Linux',str(executable)],env,stage/'export.log')
     if not executable.is_file() or not (output/'RmVideoReceiver.pck').is_file():raise RuntimeError('Incomplete engine export')
+    if variant and digest(executable) != variant['release_sha256']:
+        raise RuntimeError('Export did not use the recorded rebuilt release engine')
     validate_runtime(output,windows)
     if not windows:executable.chmod(executable.stat().st_mode|0o111)
     shutil.copy2(lock_path,output/'dependencies.lock.json')
@@ -146,10 +162,11 @@ def main():
         'Use -- --help for all receiver options. Normal launch restores interactive connection/device settings without auto-start.\n'
         'The interface offers source IP/port filtering and a renderer restart which preserves connection/device settings. See docs/usage.md.\n'
         'Unsupported HDR, wide-gamut primaries and LINEAR/LOG transfer input are rejected. See CAPABILITIES.md.\n',encoding='utf-8')
-    prepare_release_materials(repo,cache,output,engine,env,lock,windows)
+    prepare_release_materials(repo,cache,output,engine,env,lock,windows,templates if variant else None)
     manifest={'label':args.label,'platform':platform,'commit':commit,'dependency_lock_sha256':digest(lock_path),
               'dependency_kind':'official' if lock_path==(repo/'build/dependencies.lock.json').resolve() and not lock.get('dependency_variant') else 'developer',
-              'engine_sha256':digest(engine),'template_sha512':asset['sha512'],'native_sha256':digest(native),'files':{}}
+              'engine_sha256':digest(engine),'runtime_engine_sha256':digest(executable),
+              'template_variant':variant,'template_sha512':asset['sha512'],'native_sha256':digest(native),'files':{}}
     for file in sorted(output.rglob('*')):
         if file.is_file():manifest['files'][file.relative_to(output).as_posix()]={'bytes':file.stat().st_size,'sha256':digest(file)}
     (output/'manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')

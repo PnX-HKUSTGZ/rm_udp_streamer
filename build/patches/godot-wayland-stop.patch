@@ -1,0 +1,22 @@
+--- a/platform/linuxbsd/wayland/wayland_thread.cpp
++++ b/platform/linuxbsd/wayland/wayland_thread.cpp
+@@ -3850,15 +3850,16 @@
+ 
+ 		wl_display_flush(data->wl_display);
+ 
+-		// Wait for the event file descriptor to have new data.
+-		poll(&poll_fd, 1, -1);
++		// Bound the wait so shutdown is observed even if another reader
++		// consumes the final display event before this thread polls.
++		const int poll_result = poll(&poll_fd, 1, 100);
+ 
+ 		if (data->thread_done.is_set()) {
+ 			wl_display_cancel_read(data->wl_display);
+ 			break;
+ 		}
+ 
+-		if (poll_fd.revents | POLLIN) {
++		if (poll_result > 0 && (poll_fd.revents & (POLLIN | POLLHUP | POLLERR))) {
+ 			// Load the queues with fresh new data.
+ 			wl_display_read_events(data->wl_display);
+ 		} else {

@@ -65,6 +65,22 @@ Linux 的依赖开发可额外传 `--vaapi`，明确编入 HEVC VAAPI 与 DRM。
 
 ## 最终包与许可材料
 
+### 独立的 Linux Wayland 退出修复模板
+
+`build/build_godot_template.py` 为固定 Godot 源码构建独立的 Mono Linux release 模板。它将 Wayland 事件线程的无限等待改为 100 ms 的有界等待，并修正事件就绪位判断，防止退出标志设置后线程仍等不到下一次显示事件。官方编辑器、官方锁文件和已安装模板保持原样；这是需要重新验收的开发者构建。
+
+在 Ubuntu 24.04 准备 Godot Linux 构建依赖（包括 GCC/G++ 13.3、SCons 4.8.1、pkg-config、X11/Wayland 开发库和 .NET SDK 8.0.428），然后执行：
+
+```text
+python3 build/build_godot_template.py --source-archive PATH/godot-source.tar.gz --official-templates PATH/Godot_v4.7.2-stable_mono_export_templates.tpz --base-lock PATH/vaapi-developer.lock.json --scons-package PATH/python-tools --dotnet PATH/dotnet-8.0.428/dotnet --godot PATH/Godot_v4.7.2-stable_mono_linux.x86_64 --work NEW_DIRECTORY --jobs 8
+```
+
+源码必须来自 `https://codeload.github.com/godotengine/godot/tar.gz/ed1daf0bf001b61586d9930840f2f1394092c079`，SHA256 为 `e607e9985e1c201bc9cdc1aec8a120f0c3f53b9603f1f828e2b748534a2471ef`。`--scons-package` 指向隔离安装 SCons 4.8.1 的目录；构建器核对版本并记录其 Python 源文件摘要。`--base-lock` 可以省略以使用官方依赖，也可以选择已独立记录的 VAAPI 依赖锁；不能用已经含模板变体的锁再次构建。
+
+新目录保留源码、补丁、编译日志、工具摘要和 `build-receipt.json`。输出 `godot-mono-linux-rm-wayland.tpz` 与 `dependencies.developer.lock.json`，后者同时保留原 FFmpeg 依赖身份。导出时须将这两个文件一起显式传给 `export_project.py --templates ... --dependency-lock ...`。模板缓存按归档摘要分目录，导出器核对补丁材料和实际运行引擎的摘要。包内 `licenses/engine-build/` 保留构建收据及修改源码，许可证清单从实际修改后的运行模板提取。
+
+此归档只包含 Linux 模板，其中 debug 模板仍为官方原版；修复仅用于 release 导出。构建成功仅证明产物已生成，`validated: false` 不会因此变为通过。新的包还需验证解码、呈现、恢复、反复退出、无 SDK 启动及性能；源码和工具清单用于重建追溯，不承诺跨环境构建的字节摘要相同。
+
 先准备FFmpeg与nv-codec-headers对应源码：
 
 ```text

@@ -9,11 +9,21 @@ def sha(path):
         for part in iter(lambda:source.read(1024*1024),b''):result.update(part)
     return result.hexdigest()
 
-def prepare(repo,cache,output,engine,env,lock,windows):
+def prepare(repo,cache,output,engine,env,lock,windows,engine_materials=None):
     platform='windows' if windows else 'linux';notices=output/'licenses';notices.mkdir(exist_ok=True)
-    licensing_env=env.copy();licensing_env['RM_ENGINE_NOTICES']=str(notices/'Godot-engine-notices.json')
-    result=subprocess.run([str(engine),'--headless','--path',str(repo),'--script',str(repo/'build/engine_notices.gd')],env=licensing_env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,encoding='utf-8',errors='replace')
-    if result.returncode or not (notices/'Godot-engine-notices.json').is_file():raise RuntimeError('Cannot extract engine notices: '+result.stdout)
+    if engine_materials:
+        # These notices came from the actual rebuilt template, not the editor.
+        variant=lock['godot']['template_variant'];destination=notices/'engine-build';destination.mkdir()
+        for name,expected in variant['materials'].items():
+            source=engine_materials/name
+            if sha(source)!=expected['sha256'] or source.stat().st_size!=expected['bytes']:
+                raise RuntimeError('Rebuilt engine materials changed before packaging')
+            shutil.copy2(source,destination/name)
+        shutil.copy2(engine_materials/'rm-engine-notices.json',notices/'Godot-engine-notices.json')
+    else:
+        licensing_env=env.copy();licensing_env['RM_ENGINE_NOTICES']=str(notices/'Godot-engine-notices.json')
+        result=subprocess.run([str(engine),'--headless','--path',str(repo),'--script',str(repo/'build/engine_notices.gd')],env=licensing_env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,encoding='utf-8',errors='replace')
+        if result.returncode or not (notices/'Godot-engine-notices.json').is_file():raise RuntimeError('Cannot extract engine notices: '+result.stdout)
     engine_info=json.loads((notices/'Godot-engine-notices.json').read_text(encoding='utf-8'))
     if not engine_info['license'] or not engine_info['copyright'] or not engine_info['third_party_licenses']:raise RuntimeError('Incomplete engine license inventory')
     (notices/'Godot-LICENSE.txt').write_text(engine_info['license'],encoding='utf-8')

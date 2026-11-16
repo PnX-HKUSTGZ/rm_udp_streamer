@@ -2,3 +2,5 @@
 docs/evidence/m6/independent/** -text whitespace=cr-at-eol
 docs/evidence/m6/review.md -text whitespace=cr-at-eol
 docs/evidence/r4/*.json -text whitespace=cr-at-eol
+# Unified diffs require leading context spaces, including before tabs.
+build/patches/*.patch text eol=lf -whitespace
