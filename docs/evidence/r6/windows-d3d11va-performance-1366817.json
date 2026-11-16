@@ -1,0 +1,533 @@
+{
+  "status": "failed-throughput-retained",
+  "product_commit": "136681794a862d9086ec196590fc886491d55c4d",
+  "release_package": {
+    "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-stop-race\\windows-release-v1\\package",
+    "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+    "commit": "136681794a862d9086ec196590fc886491d55c4d",
+    "verified_files": 588,
+    "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+    "dependency_kind": "official",
+    "runtime_kind": "self-contained exported package",
+    "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+    "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+  },
+  "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+  "assembly_sha256": "c4968b78e97dd695d79bb6b03d43c4faa88f97c6116aa9283806d0ec6ced5446",
+  "engine_sha256": "27fc0a42f8bddbaffc6a58e629102f2155e9ff78a7f04cf906cff6cfaeef36bd",
+  "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+  "declaration": {
+    "paths": [
+      [
+        "d3d11va",
+        "d3d11va:LUID=0:92536",
+        "yuv",
+        "mobile"
+      ]
+    ],
+    "engineering": [
+      10,
+      60
+    ],
+    "formal": [
+      180,
+      1800
+    ],
+    "diagnostics": [
+      "off",
+      "on",
+      "on",
+      "off"
+    ],
+    "diagnostic_duration": [
+      30,
+      300
+    ],
+    "resolution": "1920x1080",
+    "cadence": "responsive",
+    "mean_fps_min": 59.4,
+    "p10_fps_min": 58,
+    "p95_us_max": 50000,
+    "p99_us_max": 100000,
+    "isolation": "All same-machine builds, functional checks and measurements are sequential. No active metrics reads or archive transfer during measurement.",
+    "priority": {
+      "sender": 32,
+      "engine_default": 32768,
+      "manual_priority_changes": false
+    },
+    "scope": "First current-candidate D3D11VA-only performance sequence; it was not reached in the CUDA-gated prior sequence. CUDA failures are preserved. No socket profiling or sender changes."
+  },
+  "preflight": {
+    "mean_fps": 59.916666666666664,
+    "p10_fps": 60,
+    "result_sha256": "fb84e404e26fb84acfbac311f5fb8c2f518ccf1cb9a5d6eadf48ad6509e20d8d"
+  },
+  "diagnostics_abba": "Not started after the formal throughput failure.",
+  "files": {
+    "result.json": "1a0c6a1c531d3659e9ba1555daed91a9caa5300657f20462d422793ffb06758b",
+    "metrics.ndjson": "8009efad097f131fdc9f81704e81521941db73a1b5376c01577f3fc3cf5002ee",
+    "process.json": "95a0dd6fb814097c69ae9eae66f2f441d640f2b882f43704c03a0f002cf5be52",
+    "sender.tsv": "a9d086b2e26bc34f2048e1bdba6e1afc65b485f1ba706bdbea49d9a0957f477d"
+  },
+  "script_sha256": "be4ec2210915fd619a080f808159723716c84474dcbbe07c7bccf6c1996fdb39",
+  "mean_fps": 57.208888888888886,
+  "p10_fps": 59,
+  "complete_seconds": 1800,
+  "zero_submission_seconds": 10,
+  "seconds_below_58": 129,
+  "timings": {
+    "assembly_time": {
+      "count": 107895,
+      "sum_us": 92942000,
+      "p50_us": 0,
+      "p95_us": 1000,
+      "p99_us": 20000,
+      "percentile_upper_bound": true
+    },
+    "compressed_queue_wait": {
+      "count": 107773,
+      "sum_us": 138007000,
+      "p50_us": 1000,
+      "p95_us": 3000,
+      "p99_us": 6000,
+      "percentile_upper_bound": true
+    },
+    "cpu_readback": {
+      "count": 103083,
+      "sum_us": 488212511,
+      "p50_us": 4000,
+      "p95_us": 9200,
+      "p99_us": 15000,
+      "percentile_upper_bound": true
+    },
+    "decode_receive_cpu": {
+      "count": 207622,
+      "sum_us": 342307,
+      "p50_us": 100,
+      "p95_us": 100,
+      "p99_us": 100,
+      "percentile_upper_bound": true
+    },
+    "decode_send_cpu": {
+      "count": 103811,
+      "sum_us": 55268790,
+      "p50_us": 500,
+      "p95_us": 600,
+      "p99_us": 3300,
+      "percentile_upper_bound": true
+    },
+    "dequeue_to_packet": {
+      "count": 107304,
+      "sum_us": 1840047473,
+      "p50_us": 18000,
+      "p95_us": 22000,
+      "p99_us": 36000,
+      "percentile_upper_bound": true
+    },
+    "ingress_to_submit": {
+      "count": 103071,
+      "sum_us": 3074477002,
+      "p50_us": 30000,
+      "p95_us": 37000,
+      "p99_us": 48000,
+      "percentile_upper_bound": true
+    },
+    "order_wait": {
+      "count": 107895,
+      "sum_us": 0,
+      "p50_us": 0,
+      "p95_us": 0,
+      "p99_us": 0,
+      "percentile_upper_bound": true
+    },
+    "packet_prepare_cpu": {
+      "count": 103811,
+      "sum_us": 4105712,
+      "p50_us": 100,
+      "p95_us": 100,
+      "p99_us": 200,
+      "percentile_upper_bound": true
+    },
+    "packet_to_decoded": {
+      "count": 103811,
+      "sum_us": 60234619,
+      "p50_us": 500,
+      "p95_us": 700,
+      "p99_us": 3500,
+      "percentile_upper_bound": true
+    },
+    "parser_cpu": {
+      "count": 215310,
+      "sum_us": 5052250,
+      "p50_us": 100,
+      "p95_us": 100,
+      "p99_us": 100,
+      "percentile_upper_bound": true
+    },
+    "plane_pack": {
+      "count": 103083,
+      "sum_us": 36021804,
+      "p50_us": 400,
+      "p95_us": 600,
+      "p99_us": 700,
+      "percentile_upper_bound": true
+    },
+    "preparation_queue_wait": {
+      "count": 103082,
+      "sum_us": 18827532,
+      "p50_us": 100,
+      "p95_us": 400,
+      "p99_us": 5000,
+      "percentile_upper_bound": true
+    },
+    "prepare_total": {
+      "count": 103083,
+      "sum_us": 524874122,
+      "p50_us": 4300,
+      "p95_us": 9600,
+      "p99_us": 15000,
+      "percentile_upper_bound": true
+    },
+    "prepared_wait": {
+      "count": 103077,
+      "sum_us": 441804020,
+      "p50_us": 4300,
+      "p95_us": 8000,
+      "p99_us": 9700,
+      "percentile_upper_bound": true
+    },
+    "render_dispatch_wait": {
+      "count": 103077,
+      "sum_us": 4303979,
+      "p50_us": 100,
+      "p95_us": 100,
+      "p99_us": 100,
+      "percentile_upper_bound": true
+    },
+    "rgba_conversion": {
+      "count": 0,
+      "sum_us": 0,
+      "p50_us": null,
+      "p95_us": null,
+      "p99_us": null,
+      "percentile_upper_bound": true
+    },
+    "submission_commit_wait": {
+      "count": 103077,
+      "sum_us": 57313,
+      "p50_us": 100,
+      "p95_us": 100,
+      "p99_us": 100,
+      "percentile_upper_bound": true
+    },
+    "submit_to_main_accept": {
+      "count": 103075,
+      "sum_us": 778018100,
+      "p50_us": 7700,
+      "p95_us": 9000,
+      "p99_us": 12000,
+      "percentile_upper_bound": true
+    },
+    "upload_cpu": {
+      "count": 103077,
+      "sum_us": 73258581,
+      "p50_us": 700,
+      "p95_us": 1100,
+      "p99_us": 1200,
+      "percentile_upper_bound": true
+    }
+  },
+  "gpu_timings": {},
+  "measured_native_counters": {
+    "complete": 107895,
+    "consumed": 107773,
+    "decoded": 103811,
+    "prepared": 103079,
+    "submitted_total": 103077,
+    "shown_total": 103075,
+    "mailbox_replaced": 0,
+    "queue_expired": 34,
+    "decoded_replaced": 726,
+    "decoded_discarded_generation": 3,
+    "decoded_discarded_failure": 0,
+    "queue_dropped": 88,
+    "timeouts": 204,
+    "missing": 204,
+    "recoveries": 236,
+    "correlated_submitted": 103071,
+    "unknown_submitted": 6,
+    "gpu_slot_drops": 0,
+    "upload_busy_polls": 0
+  },
+  "sender_all": {
+    "frames": 119040,
+    "send_p95_ms": 1.0792,
+    "send_p99_ms": 25.55,
+    "send_max_ms": 111.2546,
+    "sends_over_50_ms": 275,
+    "late_over_frame": 1472,
+    "lateness_max_ms": 113.137067
+  },
+  "sender_after_warmup": {
+    "frames": 108000,
+    "send_p95_ms": 1.0925,
+    "send_p99_ms": 27.4473,
+    "send_max_ms": 111.2546,
+    "sends_over_50_ms": 274,
+    "late_over_frame": 1463,
+    "lateness_max_ms": 113.137067
+  },
+  "packet_accounting_entire_run": {
+    "expected_datagrams": 2752800,
+    "received_datagrams": 2752800,
+    "complete_groups": 118836,
+    "timeout_groups": 204,
+    "note": "All-run aggregate accounting, not an assertion that every group arrived within its 50 ms assembly budget."
+  },
+  "observed_environment": {
+    "sender_priority_class": {
+      "32": 1988
+    },
+    "engine_priority_class": {
+      "32768": 1988
+    },
+    "ac_line_status": {
+      "1": 1988
+    },
+    "battery_saver": {
+      "0": 1988
+    },
+    "external_window_drawable": {
+      "true": 1988
+    }
+  },
+  "declared_engine_priority_confirmed": true,
+  "observer": {
+    "sample_p95_ms": 35.5916,
+    "sample_max_ms": 70.35210000000001,
+    "long_send_count": 274,
+    "long_sends_overlapping_observer": 35,
+    "note": "Interval overlap uses the same Python monotonic clock and is observational, not causal proof."
+  },
+  "resource_300s_windows": [
+    {
+      "offset_seconds": 0,
+      "samples": 300,
+      "cpu_cores": 0.5192862503251144,
+      "rss_median_bytes": 934203392.0,
+      "rss_min_max_bytes": [
+        930394112,
+        935190528
+      ],
+      "threads_min_max": [
+        61,
+        66
+      ],
+      "handles_min_max": [
+        1032,
+        1050
+      ]
+    },
+    {
+      "offset_seconds": 300,
+      "samples": 300,
+      "cpu_cores": 0.5238288235163822,
+      "rss_median_bytes": 937078784.0,
+      "rss_min_max_bytes": [
+        930574336,
+        937197568
+      ],
+      "threads_min_max": [
+        61,
+        63
+      ],
+      "handles_min_max": [
+        1032,
+        1041
+      ]
+    },
+    {
+      "offset_seconds": 600,
+      "samples": 300,
+      "cpu_cores": 0.4891130781388195,
+      "rss_median_bytes": 939905024.0,
+      "rss_min_max_bytes": [
+        937197568,
+        939954176
+      ],
+      "threads_min_max": [
+        61,
+        62
+      ],
+      "handles_min_max": [
+        1032,
+        1038
+      ]
+    },
+    {
+      "offset_seconds": 900,
+      "samples": 300,
+      "cpu_cores": 0.5124519136738537,
+      "rss_median_bytes": 939958272.0,
+      "rss_min_max_bytes": [
+        939859968,
+        939958272
+      ],
+      "threads_min_max": [
+        61,
+        62
+      ],
+      "handles_min_max": [
+        1032,
+        1036
+      ]
+    },
+    {
+      "offset_seconds": 1200,
+      "samples": 300,
+      "cpu_cores": 0.5165906658841318,
+      "rss_median_bytes": 940027904.0,
+      "rss_min_max_bytes": [
+        939876352,
+        940081152
+      ],
+      "threads_min_max": [
+        61,
+        62
+      ],
+      "handles_min_max": [
+        1032,
+        1036
+      ]
+    },
+    {
+      "offset_seconds": 1500,
+      "samples": 300,
+      "cpu_cores": 0.5080490271969285,
+      "rss_median_bytes": 940081152.0,
+      "rss_min_max_bytes": [
+        940064768,
+        940081152
+      ],
+      "threads_min_max": [
+        61,
+        62
+      ],
+      "handles_min_max": [
+        1032,
+        1036
+      ]
+    }
+  ],
+  "throughput_300s_windows": [
+    {
+      "offset_seconds": 0,
+      "mean_fps": 59.93333333333333,
+      "p10_fps": 59,
+      "zero_seconds": 0
+    },
+    {
+      "offset_seconds": 300,
+      "mean_fps": 59.66,
+      "p10_fps": 59,
+      "zero_seconds": 0
+    },
+    {
+      "offset_seconds": 600,
+      "mean_fps": 48.10333333333333,
+      "p10_fps": 7,
+      "zero_seconds": 7
+    },
+    {
+      "offset_seconds": 900,
+      "mean_fps": 55.92333333333333,
+      "p10_fps": 57,
+      "zero_seconds": 3
+    },
+    {
+      "offset_seconds": 1200,
+      "mean_fps": 59.88333333333333,
+      "p10_fps": 59,
+      "zero_seconds": 0
+    },
+    {
+      "offset_seconds": 1500,
+      "mean_fps": 59.75,
+      "p10_fps": 60,
+      "zero_seconds": 0
+    }
+  ],
+  "stop_ms": 114.3732,
+  "normal_exit": true,
+  "port_rebind": true,
+  "boundary": "Retain the failed D3D11VA formal result. No blind retry or relaxed gate is performed. Sender stalls and observer overlap do not identify a Windows driver or establish a product regression.",
+  "scope": "First independently declared current-candidate Windows Intel D3D11VA sequence. Preflight passed; full 180/1800 throughput failed; diagnostic ABBA was not started. This is local replay, not new real-device input.",
+  "actual_device_observation": {
+    "samples": 1758,
+    "decode_devices": [
+      "Intel(R) Arc(TM) 140T GPU (16GB) LUID=0:92536"
+    ],
+    "render_devices": [
+      "NVIDIA GeForce RTX 5070 Laptop GPU"
+    ],
+    "display_refresh_hz": [
+      165.001327514648
+    ]
+  },
+  "analysis_sha256": "59694e883f0d56ee0531088612bf1952f53577e368d6b63d0e059d9fc51c602c",
+  "analysis_provenance": {
+    "original_sha256": "ead27d6e892e73a87eb209493289c0444432ffcc34bb2ea266dc93008f0ce3f7",
+    "derived_sha256": "be4ec2210915fd619a080f808159723716c84474dcbbe07c7bccf6c1996fdb39",
+    "changes": [
+      "Select the current D3D11VA/yuv result instead of the prior CUDA/gpu result.",
+      "Confirm the predeclared Normal sender and Above Normal engine defaults; preserve original priorities.",
+      "Recompute preflight as well as formal measurements; retain the original windows, percentile and sender/resource-clock algorithms.",
+      "Check completed state, exact commit, actual device path, power/window conditions and the recorded failure. No performance gate or measured record is modified."
+    ]
+  },
+  "sequence_provenance": {
+    "coordinator_sha256": "d6981f82fd72067005960433ffddd1434c7bccdd4a644fdb65798007a5bdaf77",
+    "original_coordinator_sha256": "48df7ee9d1a88ab0fdb7fc1e5b26d392c2490ef2af83873fae3ec7a6a3bfd460",
+    "audit_sha256": "336bd0a641170bfe99a0887675734e9942a985066ccb98acfa18190c5856a2c1",
+    "scope": "First independent D3D11VA path on current candidate, unchanged frozen sender and measurement algorithms. Default engine priority is observed explicitly rather than claiming it was Normal; original R3 required Normal sender only. Existing CUDA formal failure is not retried. Audit adds explicit backend and engine-priority parameters, otherwise retains v2 gates and JSON normalization."
+  },
+  "archive": {
+    "label": "windows-d3d11va-performance-failed-v1",
+    "folders": [
+      "windows-d3d11va-performance-v1"
+    ],
+    "sha256": "7b25c517a10a59dab7532f1f1f02cee533cb69b5eb4abcb63adc9b39f4850dda",
+    "bytes": 8167809,
+    "members": 62,
+    "excluded_directories": [
+      "__pycache__",
+      "build",
+      "native-project",
+      "product",
+      "relinked-package",
+      "ui-product"
+    ],
+    "excluded_files": [
+      "Probe.exe",
+      "Probe.x86_64"
+    ],
+    "scope": "Raw results, logs, metrics, screenshots, process observations, validation scripts and package identities. Duplicate runtimes, build trees and UI product clones excluded; original packages remain on their hosts."
+  },
+  "archive_verification": {
+    "status": "passed",
+    "label": "windows-d3d11va-performance-failed-v1",
+    "local_archive": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-windows-pacing\\windows-d3d11va-performance-failed-v1.tar.gz",
+    "sha256": "7b25c517a10a59dab7532f1f1f02cee533cb69b5eb4abcb63adc9b39f4850dda",
+    "bytes": 8167809,
+    "verified_members": 62,
+    "verification": "Archive SHA256 and all member names, sizes and SHA256 hashes match; verified directly without extraction.",
+    "verifier_sha256": "4c091f2115a79c0f5425fc380479177efeeb4df43b060524aeb00edfd4402ba6"
+  },
+  "status_sha256": "aa4793d2c61199cae241252f2adadd7344b65c5a1980d34607c18e92876595c0",
+  "publication_script_sha256": "1da1623008f2d1f109e10d1f81e57714869546b1d7a495a33340d27dd9b926cb",
+  "remaining": [
+    "Windows CUDA and Intel D3D11VA current-candidate formal throughput gates failed; neither gains a 1080p60 grade.",
+    "The constrained candidate LAN firewall proposal has not been applied.",
+    "Native Ubuntu NVIDIA and Windows AMD hardware are unavailable; current-package real-device acceptance and complete R4/R6 review remain pending."
+  ]
+}

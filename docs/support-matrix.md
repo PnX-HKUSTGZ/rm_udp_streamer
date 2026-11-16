@@ -1,6 +1,6 @@
 # 当前候选的能力与验收边界
 
-更新时间：2026-11-17。当前运行候选 `1366817` 已完成 Windows CUDA/D3D11VA、Ubuntu Intel/AMD VAAPI 的新包功能回归，包含默认参数、断链恢复、组件启停，以及 Ubuntu 的独立进程退出和桌面矩阵；见[当前候选记录](evidence/r6/candidate-1366817.md)。两台 Ubuntu 的各自包通过 VAAPI/YUV/Wayland/Mobile 组合的 180/1800 正式长测与完整诊断对照；Windows CUDA 正式帧率未达门槛，D3D11VA 新包正式性能尚未执行。详见[本候选性能记录](evidence/r6/candidate-1366817-performance.md)。R4、R6 尚未完成。
+更新时间：2026-11-17。当前运行候选 `1366817` 已完成 Windows CUDA/D3D11VA、Ubuntu Intel/AMD VAAPI 的新包功能回归，包含默认参数、断链恢复、组件启停，以及 Ubuntu 的独立进程退出和桌面矩阵；见[当前候选记录](evidence/r6/candidate-1366817.md)。两台 Ubuntu 的各自包通过 VAAPI/YUV/Wayland/Mobile 组合的 180/1800 正式长测与完整诊断对照；Windows CUDA 和 Intel D3D11VA 新包正式平均帧率均未达门槛，不能声明本候选在这两条路径通过 1080p60 等级。详见[本候选性能记录](evidence/r6/candidate-1366817-performance.md)。R4、R6 尚未完成。
 
 默认参数与自动保存的来源及此前真实 3334 默认启动见[默认参数记录](evidence/r4/persisted-parameters.md)。用户将关闭真实推流后，新候选通过回放验证，不称为新包实流验收。此前不使用启动缓存的观察及长测保留在[ae15111 候选记录](evidence/r6/candidate-ae15111.md)。下述正式性能及历史独立审查结论对应 `88bf17a9e046db6d75d3301e09d893fb1e8f4ed5`，不自动适用于后续运行文件。[固定输入回归](evidence/r4/real-input-regression.md)和[启动参数记录](evidence/r4/startup-parameters.md)分别说明既有修复与缺口。[R3 独立审查](evidence/r3/report.md)限定下述三条历史性能组合。
 
@@ -9,7 +9,7 @@
 | 平台与设备 | 已实现路径 | 当前实测范围 | 未完成项目 |
 | --- | --- | --- | --- |
 | Windows / NVIDIA RTX 5070 Laptop | CUDA硬解，CPU YUV/RGBA；同设备CUDA/OpenGL GPU桥接 | 1366817包功能、恢复及60轮生命周期通过；CUDA/GPU正式长测56.17fps/P10=57，帧率未达标 | 新候选正式性能、诊断对照及完整R4/R6验收；CUDA/CPU及RGBA没有同等正式性能等级 |
-| Windows / Intel Arc 140T | D3D11VA硬解与CPU回读上传 | 1366817包原始/重链接播放、恢复及60轮生命周期通过 | 新候选正式性能和完整R4/R6验收；不扩展到未测的D3D设备 |
+| Windows / Intel Arc 140T | D3D11VA硬解与CPU回读上传 | 1366817包原始/重链接播放、恢复及60轮生命周期通过；D3D11VA/YUV/Mobile正式57.21fps/P10=59，P95/P99=37/48ms，平均帧率未达标 | 正式性能、诊断对照及完整R4/R6验收；不扩展到未测的D3D设备 |
 | Ubuntu 24.04 / Intel N250 | VAAPI 硬解与 CPU 回读上传 | 1366817独立包14项桌面/回退、60轮组件与60次进程退出通过；VAAPI/YUV/Wayland/Mobile正式59.93fps/P10=59，P95/P99=43/49ms，完整诊断对照通过 | RGBA及其他渲染组合没有同等性能等级；X11通过Xwayland，非原生Xorg；完整R4/R6验收未完成 |
 | Ubuntu 24.04 / AMD Radeon 780M | VAAPI硬解与CPU回读上传 | 1366817独立包14项桌面/回退、60轮组件与60次进程退出通过；VAAPI/YUV/Wayland/Mobile正式60fps/P10=60，P95/P99=31/33ms，完整诊断对照通过 | 完整R4/R6验收；没有物理扫描测量，其他渲染组合没有同等性能声明；原生库摘要与Intel包不同 |
 | Windows / Ubuntu 软件解码 | HEVC 软件解码，CPU YUV/RGBA | 功能、恢复、颜色及已有桌面样本检查 | 性能等级须对应具体设备、配置和最终二进制 |
@@ -44,7 +44,7 @@ Windows同一新DLL的原版/逐轮写盘探针也各完成60轮GPU/YUV/RGBA/aut
 
 Intel接屏后的完整10/60工程对照中，balanced为55.8667/55.85fps，performance为57.5667/57.05fps，均未达到门槛。临时UI刷新探针有改善，但不是发行候选的正式性能证据。实际画面、生命周期、失败记录、恢复状态及完整归档见[Intel补验报告](evidence/r4/report.md)。
 
-固定样本与模拟发送器能验证协议处理及恢复逻辑。真实UDP已接入本机`192.168.12.2:3334`：先前中途捕获有IDR而没有VPS/SPS/PPS，解码失败；随后提前监听并重新开流，网卡抓到第1组参数集与IDR，同一发行包已实际D3D11VA硬解1920×1080并显示真实画面，独立FFmpeg也成功。历史观察见[真实流检查](evidence/r4/real-stream.md)。bac87ac支持显式加载已核对的固定输入参数，已在当前真实视频中完成D3D11VA/CUDA直接接收与进程重启，并通过本地丢包恢复检查；无任何初始化参数的首次接入仍等待参数。最新包还完成三条路径的断流矩阵成功复跑及各60轮原生组件生命周期，但Ubuntu首轮有一次资源退役后进程未退出，仍待定位，详见[断流与重连验收](evidence/r4/disconnect-recovery.md)。完整平台、性能和阶段验收仍未完成，不声明具体固件兼容或相机到屏幕延迟。
+固定样本与模拟发送器能验证协议处理及恢复逻辑。真实UDP曾接入本机`192.168.12.2:3334`：先前中途捕获有IDR而没有VPS/SPS/PPS，解码失败；随后提前监听并重新开流，网卡抓到第1组参数集与IDR，同一发行包已实际D3D11VA硬解1920×1080并显示真实画面，独立FFmpeg也成功。历史观察见[真实流检查](evidence/r4/real-stream.md)。bac87ac 的显式启动参数、直接接收和进程重启记录见[断流与重连验收](evidence/r4/disconnect-recovery.md)，其中 Ubuntu 首轮进程退出失败保留为历史问题。后续 1366817 包的停止修复和两台 Ubuntu 各 60 次独立进程退出已通过，见[当前候选记录](evidence/r6/candidate-1366817.md)。当前自动缓存可复用匹配来源的已验证参数；没有带内参数或匹配缓存时仍等待参数。用户关闭真实推流后的新候选使用回放验证，完整平台、性能和阶段验收仍未完成，不声明新的实流验收或相机到屏幕延迟。
 
 ## 运行与依赖
 
