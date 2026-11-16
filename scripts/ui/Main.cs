@@ -127,10 +127,11 @@ public partial class Main : Control
         bool displayed=presentation.Has("shown_sequence"); _placeholder.Visible=!displayed;
         _placeholder.Text = _running ? age>2000 ? "视频信号已中断" : "等待可解码的视频画面" : "等待视频画面";
         string source = data.Text("source"); _source.Text = "来源："+(source.Length==0 ? "等待数据" : source);
-        _path.Text = $"解码：{data.Text("decoder")} · {data.Text("decode_device")}  |  传输：{data.Text("mode")}  |  {data.Number("width")} × {data.Number("height")}";
-        if (data.Flag("color_defaulted")) _path.Text += " · 未标注颜色采用 SDR 默认值";
-        _path.Text += $"\n渲染：{RenderingServer.GetVideoAdapterName()}";
-        if (_cadencePolicy != null) _path.Text += "  |  " + _cadencePolicy.Description;
+        string path = $"解码：{data.Text("decoder")} · {data.Text("decode_device")}  |  传输：{data.Text("mode")}  |  {data.Number("width")} × {data.Number("height")}";
+        if (data.Flag("color_defaulted")) path += " · 未标注颜色采用 SDR 默认值";
+        path += $"\n渲染：{RenderingServer.GetVideoAdapterName()}";
+        if (_cadencePolicy != null) path += "  |  " + _cadencePolicy.Description;
+        if (_path.Text != path) _path.Text = path;
         if (_rateTime >= 1)
         {
             long complete=data.Number("complete"), decoded=data.Number("decoded"), prepared=data.Number("prepared"), submitted=data.Number("submitted_total");
