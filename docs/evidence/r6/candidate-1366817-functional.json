@@ -1,0 +1,768 @@
+{
+  "commit": "136681794a862d9086ec196590fc886491d55c4d",
+  "scope": "Completed functional evidence only. Formal performance and stage acceptance are separate.",
+  "hosts": {
+    "windows": {
+      "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "runtime_engine_sha256": "27fc0a42f8bddbaffc6a58e629102f2155e9ff78a7f04cf906cff6cfaeef36bd",
+      "verified_package_members": 588,
+      "dependency_kind": "official",
+      "archive_sha256": "b2640c56c156548024b90f6970a4d3a796b73fdb6e91098f4527aff5cacee6db",
+      "archive_members": 277,
+      "matrix_audit_sha256": "b9120c7da4ad93abb2a2059f21c8bc9654b5d64a5292f7ae4f6e53f5e41c8c48",
+      "matrix": [
+        {
+          "backend": "cuda",
+          "seeded": true,
+          "status": "passed",
+          "result_sha256": "7847740008ef316518626590c313667e8d256e8f2df964a349d31078e6a524e4",
+          "metrics_sha256": "ccdd9b80f2df4ff70b5006317efe846ed72a1e4f6fe7a72dbbbda3a805af9045",
+          "stop_elapsed_ms": 86.6037,
+          "phases": [
+            "cold_join_with_explicit_parameters",
+            "actual_parameters_initialize",
+            "silence_0.1",
+            "silence_0.5",
+            "silence_1.2",
+            "silence_3.2",
+            "silence_15",
+            "whole_group_burst_loss",
+            "continuous_missing_fragments",
+            "fragment_reordering_and_duplicates",
+            "conflicting_duplicate_fragments",
+            "invalid_datagram_headers",
+            "late_old_groups",
+            "damaged_hevc",
+            "frame_id_reset_without_silence",
+            "frame_id_forward_jump_without_silence",
+            "frame_id_wrap_after_reanchor",
+            "new_port_with_explicit_parameters",
+            "foreign_ip_after_idle_rejected",
+            "selected_source_returns_after_foreign_noise",
+            "compressed_queue_overload",
+            "repeated_outage_1",
+            "repeated_outage_2",
+            "repeated_outage_3",
+            "in_band_resolution_change_after_gap",
+            "actual_1080_format_restored"
+          ]
+        },
+        {
+          "backend": "cuda",
+          "seeded": false,
+          "status": "passed",
+          "result_sha256": "39d9f9b8b476823660c1e411ae1c54adbcf2b9d398fd460b2221e8e475305aef",
+          "metrics_sha256": "5c4b79d64cbe1b1ba083760e61cefc849d21190adbd26710f3bad00ce4ff92cc",
+          "stop_elapsed_ms": 65.1077,
+          "phases": [
+            "cold_join_without_parameters_waits",
+            "actual_parameters_initialize",
+            "silence_0.1",
+            "silence_0.5",
+            "silence_1.2",
+            "silence_3.2",
+            "silence_15",
+            "whole_group_burst_loss",
+            "continuous_missing_fragments",
+            "fragment_reordering_and_duplicates",
+            "conflicting_duplicate_fragments",
+            "invalid_datagram_headers",
+            "late_old_groups",
+            "damaged_hevc",
+            "frame_id_reset_without_silence",
+            "frame_id_forward_jump_without_silence",
+            "frame_id_wrap_after_reanchor",
+            "new_port_reuses_validated_parameters",
+            "new_port_actual_parameters_restore",
+            "foreign_ip_after_idle_rejected",
+            "selected_source_returns_after_foreign_noise",
+            "compressed_queue_overload",
+            "repeated_outage_1",
+            "repeated_outage_2",
+            "repeated_outage_3",
+            "in_band_resolution_change_after_gap",
+            "actual_1080_format_restored"
+          ]
+        },
+        {
+          "backend": "d3d11va",
+          "seeded": true,
+          "status": "passed",
+          "result_sha256": "7c780baf1e2e01abfc9086a82746ce2bbca0d7a22ad831cc9b27e85f1fdaa3cf",
+          "metrics_sha256": "dff9b8a7c1c02d83607d5bc493f2e7339ce59f661bced33d4498b0f94ff522f8",
+          "stop_elapsed_ms": 69.8343,
+          "phases": [
+            "cold_join_with_explicit_parameters",
+            "actual_parameters_initialize",
+            "silence_0.1",
+            "silence_0.5",
+            "silence_1.2",
+            "silence_3.2",
+            "silence_15",
+            "whole_group_burst_loss",
+            "continuous_missing_fragments",
+            "fragment_reordering_and_duplicates",
+            "conflicting_duplicate_fragments",
+            "invalid_datagram_headers",
+            "late_old_groups",
+            "damaged_hevc",
+            "frame_id_reset_without_silence",
+            "frame_id_forward_jump_without_silence",
+            "frame_id_wrap_after_reanchor",
+            "new_port_with_explicit_parameters",
+            "foreign_ip_after_idle_rejected",
+            "selected_source_returns_after_foreign_noise",
+            "compressed_queue_overload",
+            "repeated_outage_1",
+            "repeated_outage_2",
+            "repeated_outage_3",
+            "in_band_resolution_change_after_gap",
+            "actual_1080_format_restored"
+          ]
+        },
+        {
+          "backend": "d3d11va",
+          "seeded": false,
+          "status": "passed",
+          "result_sha256": "59c2f9f959c24c9156ca31a68279f3b34779b7698ce75efdede6b25569760d68",
+          "metrics_sha256": "0fc3938dcbfb77e2df0c9825010de44e10cab015ae6c61e7d63e928d6cbeca45",
+          "stop_elapsed_ms": 79.7329,
+          "phases": [
+            "cold_join_without_parameters_waits",
+            "actual_parameters_initialize",
+            "silence_0.1",
+            "silence_0.5",
+            "silence_1.2",
+            "silence_3.2",
+            "silence_15",
+            "whole_group_burst_loss",
+            "continuous_missing_fragments",
+            "fragment_reordering_and_duplicates",
+            "conflicting_duplicate_fragments",
+            "invalid_datagram_headers",
+            "late_old_groups",
+            "damaged_hevc",
+            "frame_id_reset_without_silence",
+            "frame_id_forward_jump_without_silence",
+            "frame_id_wrap_after_reanchor",
+            "new_port_reuses_validated_parameters",
+            "new_port_actual_parameters_restore",
+            "foreign_ip_after_idle_rejected",
+            "selected_source_returns_after_foreign_noise",
+            "compressed_queue_overload",
+            "repeated_outage_1",
+            "repeated_outage_2",
+            "repeated_outage_3",
+            "in_band_resolution_change_after_gap",
+            "actual_1080_format_restored"
+          ]
+        }
+      ],
+      "lifecycle_audit_sha256": "01aa97a294162e38e66e0a4d4a810e3102da3f7e9b142ce299a53e408886efb9",
+      "lifecycle": [
+        {
+          "status": "passed",
+          "cycles": 60,
+          "modes": {
+            "gpu": 15,
+            "yuv": 15,
+            "rgba": 15,
+            "auto": 15
+          },
+          "gpu_cycles": 30,
+          "maximum_stop_ms": 117,
+          "resource_quarter_medians": [
+            {
+              "rss_bytes": 430948352,
+              "threads": 67,
+              "handles": 879
+            },
+            {
+              "rss_bytes": 441593856,
+              "threads": 66,
+              "handles": 878
+            },
+            {
+              "rss_bytes": 447545344,
+              "threads": 62,
+              "handles": 872
+            },
+            {
+              "rss_bytes": 450955264.0,
+              "threads": 62.0,
+              "handles": 871.0
+            }
+          ],
+          "static_memory_first": 35926045,
+          "static_memory_last": 36574101,
+          "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7"
+        },
+        {
+          "status": "passed",
+          "cycles": 60,
+          "modes": {
+            "yuv": 20,
+            "rgba": 20,
+            "auto": 20
+          },
+          "gpu_cycles": 0,
+          "maximum_stop_ms": 337,
+          "resource_quarter_medians": [
+            {
+              "rss_bytes": 1036406784,
+              "threads": 71,
+              "handles": 1061
+            },
+            {
+              "rss_bytes": 1075130368,
+              "threads": 66,
+              "handles": 1059
+            },
+            {
+              "rss_bytes": 1048285184,
+              "threads": 66,
+              "handles": 1061
+            },
+            {
+              "rss_bytes": 1020264448,
+              "threads": 63,
+              "handles": 1060
+            }
+          ],
+          "static_memory_first": 42034374,
+          "static_memory_last": 42657996,
+          "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7"
+        }
+      ],
+      "lifecycle_scope": "Editor harness with byte-identical exported native library",
+      "parameter_cache": {
+        "status": "passed",
+        "case_count": 8,
+        "result_sha256": "52cecbbcd9dd7508809c7f22aed8ea4a5e8a69c24a748441645b31e37fb53eaa"
+      },
+      "core_and_both_relinked_playback": "passed",
+      "final_checks_sha256": "aa7302969411734930f069a96b58b0fa30a306300f5943cd1c36ed9759a32adf",
+      "parameter_update_then_port_change": {
+        "status": "passed",
+        "result_sha256": "565aa5a0ee82f26af127a8ac1d8d1235b4a740a63daf517ec430d590a2ac29ba"
+      }
+    },
+    "intel": {
+      "manifest_sha256": "c4f50b2b5e57824cc2877bc210b8b81a9e0a64f56371257ba568a44b9ddc3f0f",
+      "native_sha256": "5e75ed631410f944fa912a617a6e58ae78557fb9cbc00c40f4af84c3dcc5797e",
+      "runtime_engine_sha256": "05c2a8e5632d8a49588e8a63e170209432a6fa2e011fd6aa6a8c798c6e86aadf",
+      "verified_package_members": 556,
+      "dependency_kind": "developer",
+      "archive_sha256": "e27402449140d97baf3fde3cea6590721f360d5d428177398182dfd41d0fdd75",
+      "archive_members": 3362,
+      "matrix_audit_sha256": "cdb628da045b2b546184bae71b5e18a4e1705f29d3fbe50e2e90d7deb9d4e8ce",
+      "matrix": [
+        {
+          "backend": "vaapi",
+          "seeded": false,
+          "status": "passed",
+          "result_sha256": "3e538ce783caf6219e92c2c66adb86876a2ed3e94cc5eba65676bdfb0316796b",
+          "metrics_sha256": "274470cf79b0b2a960bd7c7d007c2d320ff784a11cad2a81ce5c19546c90e8a1",
+          "stop_elapsed_ms": 14.4132,
+          "phases": [
+            "cold_join_without_parameters_waits",
+            "actual_parameters_initialize",
+            "silence_0.1",
+            "silence_0.5",
+            "silence_1.2",
+            "silence_3.2",
+            "silence_15",
+            "whole_group_burst_loss",
+            "continuous_missing_fragments",
+            "fragment_reordering_and_duplicates",
+            "conflicting_duplicate_fragments",
+            "invalid_datagram_headers",
+            "late_old_groups",
+            "damaged_hevc",
+            "frame_id_reset_without_silence",
+            "frame_id_forward_jump_without_silence",
+            "frame_id_wrap_after_reanchor",
+            "new_port_reuses_validated_parameters",
+            "new_port_actual_parameters_restore",
+            "foreign_ip_after_idle_rejected",
+            "selected_source_returns_after_foreign_noise",
+            "compressed_queue_overload",
+            "repeated_outage_1",
+            "repeated_outage_2",
+            "repeated_outage_3",
+            "in_band_resolution_change_after_gap",
+            "actual_1080_format_restored"
+          ]
+        },
+        {
+          "backend": "vaapi",
+          "seeded": true,
+          "status": "passed",
+          "result_sha256": "6f51d7950d11fc1240f256a17aa9867e89edff7f4176d490bc61e421c9173546",
+          "metrics_sha256": "bc566db05b6a4c0e2e37cc5452107a3454d53903b2b60ad972d74ed645da75fa",
+          "stop_elapsed_ms": 34.1297,
+          "phases": [
+            "cold_join_with_explicit_parameters",
+            "actual_parameters_initialize",
+            "silence_0.1",
+            "silence_0.5",
+            "silence_1.2",
+            "silence_3.2",
+            "silence_15",
+            "whole_group_burst_loss",
+            "continuous_missing_fragments",
+            "fragment_reordering_and_duplicates",
+            "conflicting_duplicate_fragments",
+            "invalid_datagram_headers",
+            "late_old_groups",
+            "damaged_hevc",
+            "frame_id_reset_without_silence",
+            "frame_id_forward_jump_without_silence",
+            "frame_id_wrap_after_reanchor",
+            "new_port_with_explicit_parameters",
+            "foreign_ip_after_idle_rejected",
+            "selected_source_returns_after_foreign_noise",
+            "compressed_queue_overload",
+            "repeated_outage_1",
+            "repeated_outage_2",
+            "repeated_outage_3",
+            "in_band_resolution_change_after_gap",
+            "actual_1080_format_restored"
+          ]
+        }
+      ],
+      "lifecycle_audit_sha256": "045badb61754107207c23f7ad3096d96b07259a98806ecb82b14a4e4ad9cdb38",
+      "lifecycle": [
+        {
+          "status": "passed",
+          "cycles": 60,
+          "modes": {
+            "yuv": 20,
+            "rgba": 20,
+            "auto": 20
+          },
+          "gpu_cycles": 0,
+          "maximum_stop_ms": 17,
+          "resource_quarter_medians": [
+            {
+              "rss_bytes": 353718272,
+              "threads": 24,
+              "fds": 40
+            },
+            {
+              "rss_bytes": 355227648.0,
+              "threads": 23.0,
+              "fds": 40.0
+            },
+            {
+              "rss_bytes": 354760704.0,
+              "threads": 23.0,
+              "fds": 40.0
+            },
+            {
+              "rss_bytes": 354920448.0,
+              "threads": 23.0,
+              "fds": 40.0
+            }
+          ],
+          "static_memory_first": 0,
+          "static_memory_last": 0,
+          "native_sha256": "5e75ed631410f944fa912a617a6e58ae78557fb9cbc00c40f4af84c3dcc5797e"
+        }
+      ],
+      "lifecycle_scope": "Packed probe with byte-identical exported release engine and native library",
+      "parameter_cache": {
+        "status": "passed",
+        "case_count": 8,
+        "result_sha256": "2f1dda1eb71dfc0a0ca0ab21841b90d74bbf4d2a679596d01e7c918099bfde24"
+      },
+      "desktop_cases": [
+        {
+          "name": "wayland-mobile-yuv",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_nv12",
+          "fallback": "",
+          "snapshot_sha256": "a59505759c3dee115692b4a0556d27fabbb0619b42ba5a170e40da9c5cd3312f"
+        },
+        {
+          "name": "wayland-mobile-rgba",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_rgba",
+          "fallback": "",
+          "snapshot_sha256": "d0f8ead458410ffe5fd0e84526cb65a2042a402e88abfd0e3a9ead8760ded85e"
+        },
+        {
+          "name": "wayland-gl_compatibility-yuv",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_nv12",
+          "fallback": "",
+          "snapshot_sha256": "75b861bc7b6a91d1e5371ec30808003950836320b538ddc4f2bf0ada44a5ed64"
+        },
+        {
+          "name": "wayland-gl_compatibility-rgba",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_rgba",
+          "fallback": "",
+          "snapshot_sha256": "feedbe963700eb43ae742eef78dd08362466c1c0e35cd77a3ea11b03ff734357"
+        },
+        {
+          "name": "x11-mobile-yuv",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_nv12",
+          "fallback": "",
+          "snapshot_sha256": "a4071a5f2b7d4f46310303cec91c83c1b6e9d89d7c8127167c6f4929da45cdff"
+        },
+        {
+          "name": "x11-mobile-rgba",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_rgba",
+          "fallback": "",
+          "snapshot_sha256": "306f6c8c1930e60df1000670fdb78b341fb0228bc15926b87aece59fc269cd06"
+        },
+        {
+          "name": "x11-gl_compatibility-yuv",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_nv12",
+          "fallback": "",
+          "snapshot_sha256": "26aadc2d1d378f84099dd0c70dd300aa41d83514880f1c7b790e87d45208f500"
+        },
+        {
+          "name": "x11-gl_compatibility-rgba",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_rgba",
+          "fallback": "",
+          "snapshot_sha256": "002ecec58c5966e3fb7e276783bb5ae02d872b4446294fc9780498bc6abcfc9c"
+        },
+        {
+          "name": "auto-transfer",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_nv12",
+          "fallback": "GPU transfer -> CPU: CUDA/OpenGL bridge is unavailable for vaapi",
+          "snapshot_sha256": "ce811ae5ca9c8980f0317e32ca3aed575c8cfbe3d3397d1b988b9c394a052498"
+        },
+        {
+          "name": "identity-software-fallback",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "software",
+          "mode": "cpu_yuv420p",
+          "fallback": "vaapi: Requested vaapi device does not exist: vaapi:pci:0000:ff:1f.0",
+          "snapshot_sha256": "649607aad2d13176b6b13a6c493c7024e9ae45b591d3cccddb033a6cd5dab755"
+        },
+        {
+          "name": "software-explicit",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "software",
+          "mode": "cpu_yuv420p",
+          "fallback": "",
+          "snapshot_sha256": "85badbc0004959143de8255107228968830ff44ab190eac412c59b6f77f5a3d4"
+        },
+        {
+          "name": "unknown-device",
+          "exit": 2,
+          "status": "passed"
+        },
+        {
+          "name": "forced-vaapi-gpu",
+          "exit": 2,
+          "status": "passed"
+        },
+        {
+          "name": "cuda-unavailable",
+          "exit": 2,
+          "status": "passed"
+        }
+      ],
+      "separate_release_processes": {
+        "count": 60,
+        "status": "passed",
+        "status_sha256": "fe567248da58dff94c511c1dbb4aba9e21dab997d2770b17e2b489863c128704"
+      },
+      "core_and_relinked_playback": "passed",
+      "display_status_sha256": "5e49302dad160543f75ad298d5c76483555846c7ed824df274a5a6e6d0b4c5b6"
+    },
+    "amd": {
+      "manifest_sha256": "9e54b8238b93f26f9786b3323c26cb458c7e2f33cf25232ea6c8f65ffb80d39a",
+      "native_sha256": "b54ba0c54f1d0b3f319205ef9a0e05566bbe1984f693f839083aebe08d528870",
+      "runtime_engine_sha256": "05c2a8e5632d8a49588e8a63e170209432a6fa2e011fd6aa6a8c798c6e86aadf",
+      "verified_package_members": 556,
+      "dependency_kind": "developer",
+      "archive_sha256": "868a6f4aae0a04c38c60eda15500f69ba1a37a0e0717d05c4fb45f0640bbbcf4",
+      "archive_members": 3500,
+      "matrix_audit_sha256": "178a034876c9236a12da17065218c7e0afea671a0ae4ee336e59b9d2dbe365b7",
+      "matrix": [
+        {
+          "backend": "vaapi",
+          "seeded": false,
+          "status": "passed",
+          "result_sha256": "8ded9498916447c14f4be6d22122a1bfce3a39404f07f9fb7fa0fa16e2286c64",
+          "metrics_sha256": "4bbbc46f6172d8a03b343b84e8c175fb35abbac354751295bb7647adb2301323",
+          "stop_elapsed_ms": 14.615,
+          "phases": [
+            "cold_join_without_parameters_waits",
+            "actual_parameters_initialize",
+            "silence_0.1",
+            "silence_0.5",
+            "silence_1.2",
+            "silence_3.2",
+            "silence_15",
+            "whole_group_burst_loss",
+            "continuous_missing_fragments",
+            "fragment_reordering_and_duplicates",
+            "conflicting_duplicate_fragments",
+            "invalid_datagram_headers",
+            "late_old_groups",
+            "damaged_hevc",
+            "frame_id_reset_without_silence",
+            "frame_id_forward_jump_without_silence",
+            "frame_id_wrap_after_reanchor",
+            "new_port_reuses_validated_parameters",
+            "new_port_actual_parameters_restore",
+            "foreign_ip_after_idle_rejected",
+            "selected_source_returns_after_foreign_noise",
+            "compressed_queue_overload",
+            "repeated_outage_1",
+            "repeated_outage_2",
+            "repeated_outage_3",
+            "in_band_resolution_change_after_gap",
+            "actual_1080_format_restored"
+          ]
+        },
+        {
+          "backend": "vaapi",
+          "seeded": true,
+          "status": "passed",
+          "result_sha256": "b7121a29cb8f6d3958ba73c7bdc753581f73395520af74b538068a6c63e2e1b8",
+          "metrics_sha256": "a3be7e5644c2975e2eb51d92ec5cb958eec7da8d943a3e6c7f5474cbaf5aee64",
+          "stop_elapsed_ms": 7.0934,
+          "phases": [
+            "cold_join_with_explicit_parameters",
+            "actual_parameters_initialize",
+            "silence_0.1",
+            "silence_0.5",
+            "silence_1.2",
+            "silence_3.2",
+            "silence_15",
+            "whole_group_burst_loss",
+            "continuous_missing_fragments",
+            "fragment_reordering_and_duplicates",
+            "conflicting_duplicate_fragments",
+            "invalid_datagram_headers",
+            "late_old_groups",
+            "damaged_hevc",
+            "frame_id_reset_without_silence",
+            "frame_id_forward_jump_without_silence",
+            "frame_id_wrap_after_reanchor",
+            "new_port_with_explicit_parameters",
+            "foreign_ip_after_idle_rejected",
+            "selected_source_returns_after_foreign_noise",
+            "compressed_queue_overload",
+            "repeated_outage_1",
+            "repeated_outage_2",
+            "repeated_outage_3",
+            "in_band_resolution_change_after_gap",
+            "actual_1080_format_restored"
+          ]
+        }
+      ],
+      "lifecycle_audit_sha256": "3b210735baef7cd966a13ef7b6260040105e5b9fa9b70ac89cd0df0a792723c9",
+      "lifecycle": [
+        {
+          "status": "passed",
+          "cycles": 60,
+          "modes": {
+            "yuv": 20,
+            "rgba": 20,
+            "auto": 20
+          },
+          "gpu_cycles": 0,
+          "maximum_stop_ms": 17,
+          "resource_quarter_medians": [
+            {
+              "rss_bytes": 429944832,
+              "threads": 44,
+              "fds": 34
+            },
+            {
+              "rss_bytes": 432439296,
+              "threads": 43,
+              "fds": 34
+            },
+            {
+              "rss_bytes": 446713856,
+              "threads": 43,
+              "fds": 34
+            },
+            {
+              "rss_bytes": 447533056,
+              "threads": 43,
+              "fds": 34
+            }
+          ],
+          "static_memory_first": 0,
+          "static_memory_last": 0,
+          "native_sha256": "b54ba0c54f1d0b3f319205ef9a0e05566bbe1984f693f839083aebe08d528870"
+        }
+      ],
+      "lifecycle_scope": "Packed probe with byte-identical exported release engine and native library",
+      "parameter_cache": {
+        "status": "passed",
+        "case_count": 8,
+        "result_sha256": "7e8dbb09bc8208ef4c9df72df3601e2256f2294ba8ff3f5ccb03baea5700bfbf"
+      },
+      "desktop_cases": [
+        {
+          "name": "wayland-mobile-yuv",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_nv12",
+          "fallback": "",
+          "snapshot_sha256": "11653f13badce9337effdfcc5ae5ede93cccc28846b320395c96c6b397440cc7"
+        },
+        {
+          "name": "wayland-mobile-rgba",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_rgba",
+          "fallback": "",
+          "snapshot_sha256": "96f272ed5656ec858df376426d19506e60169afc7f2e4456a59f11336644c2b2"
+        },
+        {
+          "name": "wayland-gl_compatibility-yuv",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_nv12",
+          "fallback": "",
+          "snapshot_sha256": "0bea6b56d0c5448c5ecb140b372edbf4dfba279ea05ba3e7f67ded9503a2f866"
+        },
+        {
+          "name": "wayland-gl_compatibility-rgba",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_rgba",
+          "fallback": "",
+          "snapshot_sha256": "d8796547559e53349625445a05ca1f6dd0205efae16bd6b6a36058cc331a82a5"
+        },
+        {
+          "name": "x11-mobile-yuv",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_nv12",
+          "fallback": "",
+          "snapshot_sha256": "ef8130c75fa2ae2b212cad75f88a935dc236b7f548469bd70b5cada28cc13805"
+        },
+        {
+          "name": "x11-mobile-rgba",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_rgba",
+          "fallback": "",
+          "snapshot_sha256": "ece16a14c65891af09ee8a7219b98e8d6951ae64d19e2e48b6cdde0abcb196b8"
+        },
+        {
+          "name": "x11-gl_compatibility-yuv",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_nv12",
+          "fallback": "",
+          "snapshot_sha256": "bfc32057990a187a6698380020fcc53fe5878d721468a4b054ecdd8ff3a5a8b4"
+        },
+        {
+          "name": "x11-gl_compatibility-rgba",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_rgba",
+          "fallback": "",
+          "snapshot_sha256": "d5e9e100f367291d5752e6be2bb5c344ffe2f62778e49b6e11ce8cdfbcadaae7"
+        },
+        {
+          "name": "auto-transfer",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "vaapi",
+          "mode": "cpu_nv12",
+          "fallback": "GPU transfer -> CPU: CUDA/OpenGL bridge is unavailable for vaapi",
+          "snapshot_sha256": "0d93cf135a6dc89c685acb52a850265a114235b36eb7e6f18870092d1befb1ae"
+        },
+        {
+          "name": "identity-software-fallback",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "software",
+          "mode": "cpu_yuv420p",
+          "fallback": "vaapi: Requested vaapi device does not exist: vaapi:pci:0000:ff:1f.0",
+          "snapshot_sha256": "80ccd51c8f4fe724e540bda7da178b7c164e548714776f3bf8479022ca73b91a"
+        },
+        {
+          "name": "software-explicit",
+          "status": "passed",
+          "exit": 0,
+          "actual_decoder": "software",
+          "mode": "cpu_yuv420p",
+          "fallback": "",
+          "snapshot_sha256": "f6c922d93f2453a6eb1b4b58e8cc06abbe014817a21049becea0d9ffe0d54081"
+        },
+        {
+          "name": "unknown-device",
+          "exit": 2,
+          "status": "passed"
+        },
+        {
+          "name": "forced-vaapi-gpu",
+          "exit": 2,
+          "status": "passed"
+        },
+        {
+          "name": "cuda-unavailable",
+          "exit": 2,
+          "status": "passed"
+        }
+      ],
+      "separate_release_processes": {
+        "count": 60,
+        "status": "passed",
+        "status_sha256": "429d17a36aa3374e7453514e6f740bed98aafdb9e91cca1221ce29b645140518"
+      },
+      "core_and_relinked_playback": "passed",
+      "display_status_sha256": "d457344a3b7f24770b68795b3b26a6aece831b475c6e864e6eb1dc5834a00b68",
+      "sanitizers": {
+        "status": "passed",
+        "scope": "Application transport/media sources and probes use AddressSanitizer and UndefinedBehaviorSanitizer. Prebuilt FFmpeg/system libraries and Godot are not instrumented; this is software-core coverage, not GPU-driver or engine memory coverage.",
+        "status_sha256": "a8d78ca734a90ed677407f810f518b6b5083848e6a1a9684f09c8cc2ba6fc4b9"
+      },
+      "template_rejections": {
+        "status": "passed",
+        "cases": 5,
+        "result_sha256": "f80018687ff3224660c48b284aa5facd177d33d354d2b385916acf9f2db85de3"
+      }
+    }
+  }
+}

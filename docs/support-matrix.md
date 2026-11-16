@@ -1,6 +1,8 @@
 # 当前候选的能力与验收边界
 
-更新时间：2026-11-16。当前实现已在 `ae15111` 基础上增加用户要求的默认参数与自动保存，真实 3334 默认启动和双平台参数更新验证见[默认参数记录](evidence/r4/persisted-parameters.md)。此前不使用启动缓存的观察及长测保留在[ae15111 候选记录](evidence/r6/candidate-ae15111.md)。下述正式性能及历史独立审查结论对应 `88bf17a9e046db6d75d3301e09d893fb1e8f4ed5`，不自动适用于后续运行文件。R4、R6 尚未完成。[固定输入回归](evidence/r4/real-input-regression.md)和[启动参数记录](evidence/r4/startup-parameters.md)分别说明既有修复与缺口。[R3 独立审查](evidence/r3/report.md)限定下述三条历史性能组合。
+更新时间：2026-11-17。当前运行候选 `1366817` 已完成 Windows CUDA/D3D11VA、Ubuntu Intel/AMD VAAPI 的新包功能回归，包含默认参数、断链恢复、组件启停，以及 Ubuntu 的独立进程退出和桌面矩阵；见[当前候选记录](evidence/r6/candidate-1366817.md)。Windows CUDA 首次短测帧率未达门槛，Ubuntu 正式长测仍在执行，尚未授予新候选正式性能等级。R4、R6 尚未完成。
+
+默认参数与自动保存的来源及此前真实 3334 默认启动见[默认参数记录](evidence/r4/persisted-parameters.md)。用户将关闭真实推流后，新候选通过回放验证，不称为新包实流验收。此前不使用启动缓存的观察及长测保留在[ae15111 候选记录](evidence/r6/candidate-ae15111.md)。下述正式性能及历史独立审查结论对应 `88bf17a9e046db6d75d3301e09d893fb1e8f4ed5`，不自动适用于后续运行文件。[固定输入回归](evidence/r4/real-input-regression.md)和[启动参数记录](evidence/r4/startup-parameters.md)分别说明既有修复与缺口。[R3 独立审查](evidence/r3/report.md)限定下述三条历史性能组合。
 
 ## 平台、后端与传输
 
