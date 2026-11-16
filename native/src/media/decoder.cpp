@@ -95,7 +95,7 @@ bool Decoder::fallback_backend(const std::string &reason) {
     close_codec(); open_next(); ++counters_.backend_switches;
     // Preserve parsed parameter sets, discard old parser/codec output and wait
     // for the next matched IRAP. Never reuse memory owned by an unwound parser.
-    reset(generation_);
+    reset(generation_, configuration_generation_);
     return true;
 }
 void Decoder::check_decode(int code, const char *operation) {
@@ -132,12 +132,20 @@ void Decoder::open(const std::string &backend) {
     codec_->err_recognition = AV_EF_CAREFUL;
     check(avcodec_open2(codec_, decoder, nullptr), "open HEVC decoder", MediaFailure::Backend);
 }
-void Decoder::reset(uint64_t generation) {
+void Decoder::reset(uint64_t generation, uint64_t configuration_generation) {
     if (parser_) av_parser_close(parser_);
     parser_ = av_parser_init(AV_CODEC_ID_HEVC);
     if (!parser_) throw std::bad_alloc();
     avcodec_flush_buffers(codec_);
-    if (generation_ != generation) { parameters_.clear(); validated_parameters_.clear(); validated_generation_ = 0; }
+    if (configuration_generation_ != configuration_generation) {
+        parameters_.clear(); validated_parameters_.clear(); validated_configuration_generation_ = 0;
+    } else if (generation_ != generation) {
+        // Only configuration that actually decoded a frame survives an idle
+        // restart of this sender. Parser/codec output still retires below.
+        if (validated_configuration_generation_ == configuration_generation_) parameters_ = validated_parameters_;
+        else parameters_.clear();
+    }
+    configuration_generation_ = configuration_generation;
     generation_ = generation; ++resources_; ++counters_.resets;
     parser_bytes_ = 0; parser_input_offset_ = 0; input_history_.clear();
     awaiting_key_ = true; discard_rasl_ = false;
@@ -157,12 +165,14 @@ void Decoder::reset(uint64_t generation) {
 void Decoder::recover() {
     // Failed parameter updates must not poison subsequent recovery. Only a
     // bundle that has produced a valid frame may replace the recovery cache.
-    if (validated_generation_ == generation_) parameters_ = validated_parameters_;
+    if (validated_configuration_generation_ == configuration_generation_) parameters_ = validated_parameters_;
     else parameters_.clear();
-    reset(generation_);
+    reset(generation_, configuration_generation_);
 }
 void Decoder::feed(EncodedGroup group) {
-    if (generation_ != group.generation || group.discontinuity_before) reset(group.generation);
+    const uint64_t configuration_generation = group.configuration_generation ? group.configuration_generation : group.generation;
+    if (generation_ != group.generation || configuration_generation_ != configuration_generation || group.discontinuity_before)
+        reset(group.generation, configuration_generation);
     size_t size = group.bytes.size();
     if (size > size_t(std::numeric_limits<int64_t>::max()-parser_input_offset_))
         throw MediaError(MediaFailure::Input, "Parser byte position exhausted");
@@ -323,8 +333,8 @@ void Decoder::receive() {
         }
         ++counters_.decoded; if (hardware) ++counters_.hardware_frames;
         output_({std::move(info), std::move(source)});
-        if (validated_generation_ != generation_ || validated_parameters_.revision() != parameters_.revision()) {
-            validated_parameters_ = parameters_; validated_generation_ = generation_;
+        if (validated_configuration_generation_ != configuration_generation_ || validated_parameters_.revision() != parameters_.revision()) {
+            validated_parameters_ = parameters_; validated_configuration_generation_ = configuration_generation_;
         }
     }
 }

@@ -45,6 +45,7 @@ ProtocolCore::ProtocolCore(TransportConfig config, uint64_t generation) : config
 }
 void ProtocolCore::establish(uint16_t id, Endpoint source, Millis now, bool restart) {
     if (restart) { ++stats_.restarts; ++stats_.generation; stats_.queue_dropped += output_.size(); stats_.queue_restart_dropped += output_.size(); }
+    if (!anchored_ || !(stats_.source == source)) configuration_generation_ = stats_.generation;
     entries_.clear(); output_.clear();
     stats_.pending_bytes = 0; stats_.queue_bytes = 0;
     stats_.source = source; stats_.source_locked = true;
@@ -135,6 +136,7 @@ void ProtocolCore::ingest(const uint8_t *packet, size_t length, Endpoint source,
 void ProtocolCore::emit(uint64_t serial, Entry &entry, Millis now) {
     EncodedGroup group;
     group.frame_id = uint16_t(serial); group.serial = serial; group.generation = stats_.generation;
+    group.configuration_generation = configuration_generation_;
     group.first_packet_ms = entry.first; group.complete_ms = entry.completed_at;
     group.queued_ms = now;
     if (config_.diagnostics) stats_.order_wait.observe((now-entry.completed_at)*1000);

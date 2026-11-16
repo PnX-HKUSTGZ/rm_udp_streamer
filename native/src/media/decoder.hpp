@@ -56,6 +56,7 @@ private:
     size_t next_candidate_ = 0;
     bool negotiation_failed_ = false;
     uint64_t generation_ = 0, resources_ = 1, output_sequence_ = 0;
+    uint64_t configuration_generation_ = 0;
     size_t parser_bytes_ = 0;
     int64_t parser_input_offset_ = 0;
     InputHistory input_history_;
@@ -63,13 +64,13 @@ private:
     bool awaiting_key_ = true, discard_rasl_ = false;
     HevcConfiguration parameters_;
     HevcConfiguration validated_parameters_;
-    uint64_t validated_generation_ = 0;
+    uint64_t validated_configuration_generation_ = 0;
     void open(const std::string &backend);
     void open_next();
     void record_failure(const std::string &reason);
     void check_decode(int code, const char *operation);
     void close_codec();
-    void reset(uint64_t generation);
+    void reset(uint64_t generation, uint64_t configuration_generation);
     void send(const uint8_t *data, int size, FrameTiming timing = {});
     FrameTiming packet_timing(int length, bool eof = false);
     void receive();

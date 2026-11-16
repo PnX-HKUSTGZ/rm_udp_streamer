@@ -54,6 +54,10 @@ struct EncodedGroup {
     Millis complete_ms = 0;
     Millis queued_ms = 0, dequeued_ms = 0;
     bool discontinuity_before = false;
+    // An idle gap retires frames, but the same sender may emit parameters only
+    // once. Keep their scope separate from the frame generation. Zero lets
+    // callers without transport provenance use generation as the scope.
+    uint64_t configuration_generation = 0;
 };
 
 struct TransportStats {
@@ -97,6 +101,7 @@ private:
     std::map<uint64_t, Entry> entries_;
     std::deque<EncodedGroup> output_;
     uint64_t expected_ = 0, initial_anchor_ = 0;
+    uint64_t configuration_generation_ = 0;
     Millis startup_at_ = 0;
     bool anchored_ = false, emitted_ = false, discontinuity_ = true, consumer_gap_ = false;
     void establish(uint16_t id, Endpoint source, Millis now, bool restart);

@@ -1,7 +1,7 @@
 {
   "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
   "stage_completed": false,
-  "scope": "Intel display follow-up, retained real-input failures, and verified real-stream startup/decode success. No R4/R6 completion or formal real-stream performance grade.",
+  "scope": "Intel display follow-up, real startup and live natural wrap, and controlled real-input regressions on 88bf17a. Same-source idle without repeated parameters was not covered by those regressions; see follow-up gap-recovery report. No R4/R6 completion.",
   "files": [
     {
       "published": "intel-matrix-review.json",
@@ -173,6 +173,27 @@
       "source": "processing/2026-11-16-rm-real-stream/restart-wire-v2/capture-receipt.json",
       "bytes": 467,
       "sha256": "ae504bd7afdb58915628d4e63803c1f2c2ebb5730dbf613737b7e8af46420013",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-input-regression.json",
+      "source": "processing/2026-11-16-rm-real-regression/audit-v1.json",
+      "bytes": 69115,
+      "sha256": "fa3995688fcc0486fd7cd80ef81c08f3bb49830c922d545667a3a471f607a76a",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-natural-wrap.json",
+      "source": "processing/2026-11-16-rm-real-regression/wrap-v1/result.json",
+      "bytes": 3245,
+      "sha256": "6935cfe40b0a663a8cacd719ada6f8b618a96b5a5eef97398eb1195a90044ebc",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-regression-intel-archive.json",
+      "source": "processing/2026-11-16-rm-real-regression/intel-local-verification-v1.json",
+      "bytes": 240,
+      "sha256": "30d4d8b350604d673e422301147b04dd252b6491e1722c9ea354c349fb883a86",
       "kind": "byte-identical copy"
     }
   ]

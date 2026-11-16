@@ -1,0 +1,127 @@
+{
+  "capture_sha256": "4c2f0f482789704814dc01062e4ffa149fac6030a623fd068e71c0aad4a69e8b",
+  "packets": 10789,
+  "first": {
+    "packet": 1,
+    "epoch": "1794821550.119689700",
+    "source": [
+      "192.168.12.1",
+      57108
+    ],
+    "frame_id": 63967,
+    "group_bytes": 28128
+  },
+  "last": {
+    "packet": 10789,
+    "epoch": "1794821730.113275700",
+    "source": [
+      "192.168.12.1",
+      57108
+    ],
+    "frame_id": 9219,
+    "group_bytes": 2132
+  },
+  "wraps": [
+    {
+      "before": {
+        "packet": 1569,
+        "epoch": "1794821576.281915900",
+        "source": [
+          "192.168.12.1",
+          57108
+        ],
+        "frame_id": 65535,
+        "group_bytes": 5167
+      },
+      "after": {
+        "packet": 1570,
+        "epoch": "1794821576.308436200",
+        "source": [
+          "192.168.12.1",
+          57108
+        ],
+        "frame_id": 0,
+        "group_bytes": 32402
+      }
+    }
+  ],
+  "sequence_anomalies": [],
+  "near_wrap_receiver": [
+    [
+      {
+        "snapshot_us": 1794821574073803,
+        "state": "Running",
+        "source": "192.168.12.1:57108",
+        "decoded": 65326,
+        "submitted_total": 64980,
+        "shown_total": 64980,
+        "restarts": 5,
+        "missing": 2,
+        "decode_errors": 0,
+        "hardware": true
+      },
+      {
+        "snapshot_us": 1794821575098809,
+        "state": "Running",
+        "source": "192.168.12.1:57108",
+        "decoded": 65387,
+        "submitted_total": 65042,
+        "shown_total": 65041,
+        "restarts": 5,
+        "missing": 2,
+        "decode_errors": 0,
+        "hardware": true
+      },
+      {
+        "snapshot_us": 1794821576132026,
+        "state": "Running",
+        "source": "192.168.12.1:57108",
+        "decoded": 65449,
+        "submitted_total": 65104,
+        "shown_total": 65103,
+        "restarts": 5,
+        "missing": 2,
+        "decode_errors": 0,
+        "hardware": true
+      },
+      {
+        "snapshot_us": 1794821577148673,
+        "state": "Running",
+        "source": "192.168.12.1:57108",
+        "decoded": 65510,
+        "submitted_total": 65164,
+        "shown_total": 65164,
+        "restarts": 5,
+        "missing": 2,
+        "decode_errors": 0,
+        "hardware": true
+      },
+      {
+        "snapshot_us": 1794821578173722,
+        "state": "Running",
+        "source": "192.168.12.1:57108",
+        "decoded": 65571,
+        "submitted_total": 65226,
+        "shown_total": 65225,
+        "restarts": 5,
+        "missing": 2,
+        "decode_errors": 0,
+        "hardware": true
+      },
+      {
+        "snapshot_us": 1794821579199106,
+        "state": "Running",
+        "source": "192.168.12.1:57108",
+        "decoded": 65633,
+        "submitted_total": 65287,
+        "shown_total": 65287,
+        "restarts": 5,
+        "missing": 2,
+        "decode_errors": 0,
+        "hardware": true
+      }
+    ]
+  ],
+  "capture_drops": 0,
+  "scope": "Only first-fragment headers with snaplen256; not full payload capture or a throughput measurement. Native snapshot versus capture wall-clock correspondence is approximate, not a latency calculation."
+}
