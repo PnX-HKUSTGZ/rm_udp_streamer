@@ -1,6 +1,6 @@
 # 当前候选的能力与验收边界
 
-更新时间：2026-11-17。当前运行候选 `1366817` 已完成 Windows CUDA/D3D11VA、Ubuntu Intel/AMD VAAPI 的新包功能回归，包含默认参数、断链恢复、组件启停，以及 Ubuntu 的独立进程退出和桌面矩阵；见[当前候选记录](evidence/r6/candidate-1366817.md)。Windows CUDA 首次短测帧率未达门槛，Ubuntu 正式长测仍在执行，尚未授予新候选正式性能等级。R4、R6 尚未完成。
+更新时间：2026-11-17。当前运行候选 `1366817` 已完成 Windows CUDA/D3D11VA、Ubuntu Intel/AMD VAAPI 的新包功能回归，包含默认参数、断链恢复、组件启停，以及 Ubuntu 的独立进程退出和桌面矩阵；见[当前候选记录](evidence/r6/candidate-1366817.md)。两台 Ubuntu 的各自包通过 VAAPI/YUV/Wayland/Mobile 组合的 180/1800 正式长测与完整诊断对照；Windows CUDA 正式帧率未达门槛，D3D11VA 新包正式性能尚未执行。详见[本候选性能记录](evidence/r6/candidate-1366817-performance.md)。R4、R6 尚未完成。
 
 默认参数与自动保存的来源及此前真实 3334 默认启动见[默认参数记录](evidence/r4/persisted-parameters.md)。用户将关闭真实推流后，新候选通过回放验证，不称为新包实流验收。此前不使用启动缓存的观察及长测保留在[ae15111 候选记录](evidence/r6/candidate-ae15111.md)。下述正式性能及历史独立审查结论对应 `88bf17a9e046db6d75d3301e09d893fb1e8f4ed5`，不自动适用于后续运行文件。[固定输入回归](evidence/r4/real-input-regression.md)和[启动参数记录](evidence/r4/startup-parameters.md)分别说明既有修复与缺口。[R3 独立审查](evidence/r3/report.md)限定下述三条历史性能组合。
 
@@ -8,10 +8,10 @@
 
 | 平台与设备 | 已实现路径 | 当前实测范围 | 未完成项目 |
 | --- | --- | --- | --- |
-| Windows / NVIDIA RTX 5070 Laptop | CUDA硬解，CPU YUV/RGBA；同设备CUDA/OpenGL GPU桥接 | 88bf17a包CUDA/GPU完成180/1800、完整诊断对照、故障与60轮原生库生命周期；身份和颜色有对应证据 | 完整R4/R6验收；CUDA/CPU及RGBA没有同等正式性能等级 |
-| Windows / Intel Arc 140T | D3D11VA硬解与CPU回读上传 | 实际硬件帧、身份、新包原始/重链接播放及准备指标；88bf17a包D3D11VA/YUV/Mobile完成180/1800及完整诊断对照 | 完整R4/R6验收；不扩展到未测的D3D设备 |
-| Ubuntu 24.04 / Intel N250 | VAAPI 硬解与 CPU 回读上传 | 已接物理屏幕；核心像素、身份、帧寿命、恢复、格式变化、Main10策略；14项桌面/回退矩阵、4项收流截图、故障/恢复和60轮原生库生命周期通过 | 88bf17a 包未达到 1080p60 门槛；新候选另行验收；X11 通过 Xwayland，非原生 Xorg；完整 R4/R6 验收未完成 |
-| Ubuntu 24.04 / AMD Radeon 780M | VAAPI硬解与CPU回读上传 | 核心像素、身份、帧寿命、桌面/回退矩阵；88bf17a包Wayland/Vulkan Mobile/低延迟组合完成180/1800、完整诊断对照、故障/恢复及60轮原生库生命周期 | 完整R4/R6验收；没有物理扫描测量，其他渲染组合没有同等性能声明 |
+| Windows / NVIDIA RTX 5070 Laptop | CUDA硬解，CPU YUV/RGBA；同设备CUDA/OpenGL GPU桥接 | 1366817包功能、恢复及60轮生命周期通过；CUDA/GPU正式长测56.17fps/P10=57，帧率未达标 | 新候选正式性能、诊断对照及完整R4/R6验收；CUDA/CPU及RGBA没有同等正式性能等级 |
+| Windows / Intel Arc 140T | D3D11VA硬解与CPU回读上传 | 1366817包原始/重链接播放、恢复及60轮生命周期通过 | 新候选正式性能和完整R4/R6验收；不扩展到未测的D3D设备 |
+| Ubuntu 24.04 / Intel N250 | VAAPI 硬解与 CPU 回读上传 | 1366817独立包14项桌面/回退、60轮组件与60次进程退出通过；VAAPI/YUV/Wayland/Mobile正式59.93fps/P10=59，P95/P99=43/49ms，完整诊断对照通过 | RGBA及其他渲染组合没有同等性能等级；X11通过Xwayland，非原生Xorg；完整R4/R6验收未完成 |
+| Ubuntu 24.04 / AMD Radeon 780M | VAAPI硬解与CPU回读上传 | 1366817独立包14项桌面/回退、60轮组件与60次进程退出通过；VAAPI/YUV/Wayland/Mobile正式60fps/P10=60，P95/P99=31/33ms，完整诊断对照通过 | 完整R4/R6验收；没有物理扫描测量，其他渲染组合没有同等性能声明；原生库摘要与Intel包不同 |
 | Windows / Ubuntu 软件解码 | HEVC 软件解码，CPU YUV/RGBA | 功能、恢复、颜色及已有桌面样本检查 | 性能等级须对应具体设备、配置和最终二进制 |
 | WSL / WSLg | 已验证的软件及部分 CUDA/CPU 路径 | 开发环境回归 | 不替代原生 Ubuntu GPU 桌面验收 |
 | 原生 Ubuntu / NVIDIA；Windows / AMD | 已有相关后端实现 | 当前未取得完整实机证据 | 实际设备、呈现、回退、性能和最终包验收 |
