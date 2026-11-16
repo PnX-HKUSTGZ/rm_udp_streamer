@@ -1,0 +1,787 @@
+{
+  "commit": "136681794a862d9086ec196590fc886491d55c4d",
+  "scope": "Diagnostic observations only. These runs do not replace the failed formal CUDA result or qualify 1080p60.",
+  "cases": {
+    "system-cpu": {
+      "result_sha256": "162617ad9fcf43c0c259bdf3ed418bc4ed7f10954d9e6bee6f66244df6eca5e0",
+      "metrics_sha256": "d893812461a04f12750714b6819c12986eb59ddfc288ed76db4d376589e760db",
+      "sender_sha256": "fabe40028afc8c2a712822e140e4262c55b763f64e61a26c7d5127f5c693d9f2",
+      "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "warmup": 10,
+      "seconds": 180,
+      "mean_fps": 54.78333333333333,
+      "p10_fps": 38,
+      "counters": {
+        "complete": 10853,
+        "consumed": 10833,
+        "decoded": 10121,
+        "prepared": 10121,
+        "submitted_total": 9938,
+        "shown_total": 9937,
+        "mailbox_replaced": 182,
+        "queue_expired": 4,
+        "decoded_replaced": 0,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 16,
+        "timeouts": 23,
+        "missing": 23,
+        "recoveries": 30,
+        "correlated_submitted": 9938,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 11640,
+        "lateness_p95_us": 4443.967,
+        "lateness_p99_us": 25665.534,
+        "lateness_max_us": 111935.834,
+        "late_over_frame": 218,
+        "send_p99_us": 34026.0,
+        "interval_p1_us": 529.6,
+        "interval_p99_us": 34141.0
+      },
+      "exit": 0,
+      "forced": false,
+      "errors": []
+    },
+    "thread-cpu-gc": {
+      "result_sha256": "b9e5f7b25498e630d3e06d803cb486f0bf4a0f79ca939a30cfe9edcc1f524eb2",
+      "metrics_sha256": "5d50a683b95bc27795e287cc1ace5753a71ea1416973eb17f7b1ff67a5e49e1f",
+      "sender_sha256": "90d8bf353f924c6e91b8b3f0cee7bd6fdb5b5b058e6d0099282029d9d125ced0",
+      "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "warmup": 10,
+      "seconds": 180,
+      "mean_fps": 59.583333333333336,
+      "p10_fps": 58,
+      "counters": {
+        "complete": 10874,
+        "consumed": 10873,
+        "decoded": 10865,
+        "prepared": 10865,
+        "submitted_total": 10800,
+        "shown_total": 10800,
+        "mailbox_replaced": 65,
+        "queue_expired": 1,
+        "decoded_replaced": 0,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 1,
+        "correlated_submitted": 10800,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 11640,
+        "lateness_p95_us": 2322.734,
+        "lateness_p99_us": 5048.567,
+        "lateness_max_us": 32688.167,
+        "late_over_frame": 4,
+        "send_p99_us": 1496.2,
+        "interval_p1_us": 12214.1,
+        "interval_p99_us": 21036.3
+      },
+      "exit": 0,
+      "forced": false,
+      "errors": []
+    },
+    "packet-calls": {
+      "result_sha256": "da2323e22473d97683992a63955713239728048d8a53034d7a954df5f35d081d",
+      "metrics_sha256": "8be3a29d6fb1487bc79a87cd8bf66315747a3c07190477eb7a60e20ae9b9680a",
+      "sender_sha256": "db2b6918d100a11950caf909b13e98fe305eeccf75be4e735ca74fc045854bbb",
+      "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "warmup": 10,
+      "seconds": 180,
+      "mean_fps": 59.138888888888886,
+      "p10_fps": 58,
+      "counters": {
+        "complete": 10875,
+        "consumed": 10875,
+        "decoded": 10782,
+        "prepared": 10782,
+        "submitted_total": 10721,
+        "shown_total": 10720,
+        "mailbox_replaced": 61,
+        "queue_expired": 0,
+        "decoded_replaced": 0,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 2,
+        "missing": 2,
+        "recoveries": 2,
+        "correlated_submitted": 10721,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 11640,
+        "lateness_p95_us": 2350.234,
+        "lateness_p99_us": 5064.034,
+        "lateness_max_us": 44154.267,
+        "late_over_frame": 7,
+        "send_p99_us": 1648.6,
+        "interval_p1_us": 12060.7,
+        "interval_p99_us": 21100.0
+      },
+      "exit": 0,
+      "forced": false,
+      "errors": []
+    },
+    "explicit-select": {
+      "result_sha256": "71f92e3a4d148594f194b7ea4602cf4316a613527607598235792b865b81d1de",
+      "metrics_sha256": "af867e5354892e76a67f0f152cf975210fb6252ceafdfbd42876ea17968d4cda",
+      "sender_sha256": "6d41e0ea34ef380e43873402da39e7fe29b098e1f2efceddcf34e0d6ecefc9d0",
+      "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "warmup": 10,
+      "seconds": 180,
+      "mean_fps": 59.34444444444444,
+      "p10_fps": 58,
+      "counters": {
+        "complete": 10866,
+        "consumed": 10866,
+        "decoded": 10824,
+        "prepared": 10824,
+        "submitted_total": 10749,
+        "shown_total": 10748,
+        "mailbox_replaced": 76,
+        "queue_expired": 0,
+        "decoded_replaced": 0,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 1,
+        "missing": 1,
+        "recoveries": 1,
+        "correlated_submitted": 10749,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 11640,
+        "lateness_p95_us": 2161.834,
+        "lateness_p99_us": 4860.734,
+        "lateness_max_us": 62236.367,
+        "late_over_frame": 9,
+        "send_p99_us": 1940.5,
+        "interval_p1_us": 12322.6,
+        "interval_p99_us": 20915.5
+      },
+      "exit": 0,
+      "forced": false,
+      "errors": []
+    },
+    "native-timeout": {
+      "result_sha256": "5b5723fb7eca1f61dab32ae0d9b31b31f0fd140c7effd1b9285ce4d35b5a59a4",
+      "metrics_sha256": "3944ba0cbeb49e7d5a8d24541d77a58b01681e4657be6d7cd72e6297c5447607",
+      "sender_sha256": "cd569aa1a6db15914db985d3dfb5cc03d1962a4bce0299bd30af8e4fe1b438d4",
+      "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "warmup": 10,
+      "seconds": 180,
+      "mean_fps": 59.37777777777778,
+      "p10_fps": 59,
+      "counters": {
+        "complete": 10876,
+        "consumed": 10871,
+        "decoded": 10814,
+        "prepared": 10814,
+        "submitted_total": 10762,
+        "shown_total": 10761,
+        "mailbox_replaced": 52,
+        "queue_expired": 0,
+        "decoded_replaced": 0,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 4,
+        "timeouts": 1,
+        "missing": 1,
+        "recoveries": 1,
+        "correlated_submitted": 10762,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 11640,
+        "lateness_p95_us": 2439.234,
+        "lateness_p99_us": 5085.967,
+        "lateness_max_us": 69515.4,
+        "late_over_frame": 15,
+        "send_p99_us": 1558.9,
+        "interval_p1_us": 12140.3,
+        "interval_p99_us": 21100.4
+      },
+      "exit": 0,
+      "forced": false,
+      "errors": []
+    },
+    "independent-lan-input": {
+      "result_sha256": "51428479df6130d4ca917d2028c59b16356e89cf2fd9e2b6f80c17d952a39240",
+      "metrics_sha256": "ae85fd3ef2bf2737599548bac2174c0dc1be95571003c31690e230bd429d7967",
+      "sender_sha256": "a685a5bbc9d17a2254319060425c9ea98d30e91c433e0c976ddced39be32e3e5",
+      "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "warmup": 10,
+      "seconds": 60,
+      "mean_fps": null,
+      "p10_fps": null,
+      "counters": null,
+      "sender": {
+        "frames": 4440,
+        "lateness_p95_us": 170.643,
+        "lateness_p99_us": 488.818,
+        "lateness_max_us": 860.19,
+        "late_over_frame": 0,
+        "send_p99_us": 402.046,
+        "interval_p1_us": 16295.139,
+        "interval_p99_us": 17054.124
+      },
+      "exit": 0,
+      "forced": false,
+      "errors": [
+        "validation exception: KeyError('gpu_copies')",
+        "measurement coverage: ValueError('no submission window origin')"
+      ]
+    }
+  },
+  "packet_call_analysis": {
+    "fps": 59.138888888888886,
+    "p10": 58,
+    "counters": {
+      "complete": 10875,
+      "consumed": 10875,
+      "decoded": 10782,
+      "prepared": 10782,
+      "submitted_total": 10721,
+      "shown_total": 10720,
+      "mailbox_replaced": 61,
+      "queue_expired": 0,
+      "decoded_replaced": 0,
+      "decoded_discarded_generation": 0,
+      "decoded_discarded_failure": 0,
+      "queue_dropped": 0,
+      "timeouts": 2,
+      "missing": 2,
+      "recoveries": 2,
+      "correlated_submitted": 10721,
+      "unknown_submitted": 0,
+      "gpu_slot_drops": 0,
+      "upload_busy_polls": 0
+    },
+    "sender": {
+      "frames": 11640,
+      "lateness_p95_us": 2350.234,
+      "lateness_p99_us": 5064.034,
+      "lateness_max_us": 44154.267,
+      "late_over_frame": 7,
+      "send_p99_us": 1648.6,
+      "interval_p1_us": 12060.7,
+      "interval_p99_us": 21100.0
+    },
+    "long_frames": 2,
+    "slowest_frames": [
+      {
+        "frame": 1579,
+        "offset": 26.3167533,
+        "frame_ms": 60.6498,
+        "kernel_ms": 46.875,
+        "user_ms": 15.625,
+        "sendto_ms": 60.2152,
+        "sendto_max_ms": 16.2403,
+        "packets": 22
+      },
+      {
+        "frame": 5349,
+        "offset": 89.1501542,
+        "frame_ms": 60.1207,
+        "kernel_ms": 62.5,
+        "user_ms": 0.0,
+        "sendto_ms": 59.6312,
+        "sendto_max_ms": 15.382,
+        "packets": 23
+      },
+      {
+        "frame": 6575,
+        "offset": 109.5835627,
+        "frame_ms": 46.7331,
+        "kernel_ms": 46.875,
+        "user_ms": 0.0,
+        "sendto_ms": 46.3215,
+        "sendto_max_ms": 12.6664,
+        "packets": 25
+      },
+      {
+        "frame": 8873,
+        "offset": 147.8838263,
+        "frame_ms": 39.2681,
+        "kernel_ms": 31.25,
+        "user_ms": 15.625,
+        "sendto_ms": 38.8747,
+        "sendto_max_ms": 6.7449,
+        "packets": 22
+      },
+      {
+        "frame": 41,
+        "offset": 0.6836479,
+        "frame_ms": 37.1349,
+        "kernel_ms": 15.625,
+        "user_ms": 15.625,
+        "sendto_ms": 36.7429,
+        "sendto_max_ms": 11.6541,
+        "packets": 22
+      },
+      {
+        "frame": 5197,
+        "offset": 86.6169447,
+        "frame_ms": 29.972,
+        "kernel_ms": 31.25,
+        "user_ms": 0.0,
+        "sendto_ms": 29.4416,
+        "sendto_max_ms": 7.2801,
+        "packets": 23
+      },
+      {
+        "frame": 5353,
+        "offset": 89.2170321,
+        "frame_ms": 23.7089,
+        "kernel_ms": 31.25,
+        "user_ms": 0.0,
+        "sendto_ms": 23.368,
+        "sendto_max_ms": 8.6646,
+        "packets": 23
+      },
+      {
+        "frame": 5195,
+        "offset": 86.5839985,
+        "frame_ms": 20.3555,
+        "kernel_ms": 15.625,
+        "user_ms": 0.0,
+        "sendto_ms": 19.7174,
+        "sendto_max_ms": 4.2215,
+        "packets": 22
+      },
+      {
+        "frame": 473,
+        "offset": 7.8835238,
+        "frame_ms": 17.6824,
+        "kernel_ms": 0.0,
+        "user_ms": 15.625,
+        "sendto_ms": 17.4813,
+        "sendto_max_ms": 16.7006,
+        "packets": 22
+      },
+      {
+        "frame": 1263,
+        "offset": 21.0503923,
+        "frame_ms": 14.9985,
+        "kernel_ms": 15.625,
+        "user_ms": 0.0,
+        "sendto_ms": 14.8588,
+        "sendto_max_ms": 14.5346,
+        "packets": 21
+      },
+      {
+        "frame": 40,
+        "offset": 0.666872,
+        "frame_ms": 14.2837,
+        "kernel_ms": 15.625,
+        "user_ms": 0.0,
+        "sendto_ms": 14.0134,
+        "sendto_max_ms": 10.6508,
+        "packets": 22
+      },
+      {
+        "frame": 1583,
+        "offset": 26.3838629,
+        "frame_ms": 14.1039,
+        "kernel_ms": 15.625,
+        "user_ms": 0.0,
+        "sendto_ms": 13.9804,
+        "sendto_max_ms": 13.6258,
+        "packets": 24
+      },
+      {
+        "frame": 6878,
+        "offset": 114.6336972,
+        "frame_ms": 13.616,
+        "kernel_ms": 15.625,
+        "user_ms": 0.0,
+        "sendto_ms": 13.3659,
+        "sendto_max_ms": 4.5415,
+        "packets": 23
+      },
+      {
+        "frame": 5194,
+        "offset": 86.5672545,
+        "frame_ms": 11.9428,
+        "kernel_ms": 0.0,
+        "user_ms": 0.0,
+        "sendto_ms": 11.7265,
+        "sendto_max_ms": 7.6871,
+        "packets": 23
+      },
+      {
+        "frame": 0,
+        "offset": 0.0,
+        "frame_ms": 11.2285,
+        "kernel_ms": 15.625,
+        "user_ms": 0.0,
+        "sendto_ms": 11.005,
+        "sendto_max_ms": 10.0356,
+        "packets": 51
+      }
+    ],
+    "slow_sendto_count": 113,
+    "slowest_sendto": [
+      {
+        "frame": 473,
+        "bytes": 1400,
+        "offset": 7.8835954,
+        "ms": 16.7006
+      },
+      {
+        "frame": 1579,
+        "bytes": 1400,
+        "offset": 26.3605531,
+        "ms": 16.2403
+      },
+      {
+        "frame": 5349,
+        "bytes": 1400,
+        "offset": 89.1945346,
+        "ms": 15.382
+      },
+      {
+        "frame": 1263,
+        "bytes": 1400,
+        "offset": 21.0504756,
+        "ms": 14.5346
+      },
+      {
+        "frame": 1583,
+        "bytes": 1400,
+        "offset": 26.3839286,
+        "ms": 13.6258
+      },
+      {
+        "frame": 1579,
+        "bytes": 1400,
+        "offset": 26.3373364,
+        "ms": 13.2408
+      },
+      {
+        "frame": 6575,
+        "bytes": 1400,
+        "offset": 109.5960478,
+        "ms": 12.6664
+      },
+      {
+        "frame": 41,
+        "bytes": 1400,
+        "offset": 0.6837089,
+        "ms": 11.6541
+      }
+    ]
+  },
+  "socket_comparison": {
+    "explicit_select": {
+      "fps": 59.34444444444444,
+      "p10": 58,
+      "counters": {
+        "complete": 10866,
+        "consumed": 10866,
+        "decoded": 10824,
+        "prepared": 10824,
+        "submitted_total": 10749,
+        "shown_total": 10748,
+        "mailbox_replaced": 76,
+        "queue_expired": 0,
+        "decoded_replaced": 0,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 1,
+        "missing": 1,
+        "recoveries": 1,
+        "correlated_submitted": 10749,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 11640,
+        "lateness_p95_us": 2161.834,
+        "lateness_p99_us": 4860.734,
+        "lateness_max_us": 62236.367,
+        "late_over_frame": 9,
+        "send_p99_us": 1940.5,
+        "interval_p1_us": 12322.6,
+        "interval_p99_us": 20915.5
+      },
+      "long_frames": 2,
+      "call_time_seconds": {
+        "select": 1.4967002,
+        "send": 5.7922185
+      },
+      "slowest_frames": [
+        {
+          "frame": 10938,
+          "frame_ms": 78.3292,
+          "kernel_ms": 78.125,
+          "user_ms": 0.0,
+          "select_ms": 0.9673,
+          "send_ms": 76.7008,
+          "packets": 24
+        },
+        {
+          "frame": 1473,
+          "frame_ms": 51.1767,
+          "kernel_ms": 46.875,
+          "user_ms": 0.0,
+          "select_ms": 0.5738,
+          "send_ms": 49.6375,
+          "packets": 24
+        },
+        {
+          "frame": 127,
+          "frame_ms": 41.23,
+          "kernel_ms": 31.25,
+          "user_ms": 0.0,
+          "select_ms": 0.7131,
+          "send_ms": 39.9269,
+          "packets": 21
+        },
+        {
+          "frame": 3731,
+          "frame_ms": 38.5421,
+          "kernel_ms": 31.25,
+          "user_ms": 15.625,
+          "select_ms": 0.4294,
+          "send_ms": 37.0382,
+          "packets": 24
+        },
+        {
+          "frame": 2286,
+          "frame_ms": 32.2035,
+          "kernel_ms": 15.625,
+          "user_ms": 15.625,
+          "select_ms": 0.3684,
+          "send_ms": 31.4186,
+          "packets": 22
+        },
+        {
+          "frame": 2291,
+          "frame_ms": 28.2068,
+          "kernel_ms": 31.25,
+          "user_ms": 0.0,
+          "select_ms": 1.0577,
+          "send_ms": 26.1419,
+          "packets": 24
+        }
+      ],
+      "slowest_calls": [
+        {
+          "frame": 10938,
+          "bytes": 1400,
+          "total_ms": 14.124,
+          "select_ms": 0.0431,
+          "send_ms": 14.0703
+        },
+        {
+          "frame": 8683,
+          "bytes": 1400,
+          "total_ms": 13.7526,
+          "select_ms": 0.0597,
+          "send_ms": 13.6769
+        },
+        {
+          "frame": 2291,
+          "bytes": 1400,
+          "total_ms": 13.3706,
+          "select_ms": 0.2147,
+          "send_ms": 13.1374
+        },
+        {
+          "frame": 10938,
+          "bytes": 1400,
+          "total_ms": 13.2822,
+          "select_ms": 0.2024,
+          "send_ms": 13.07
+        }
+      ]
+    },
+    "native_timeout": {
+      "fps": 59.37777777777778,
+      "p10": 59,
+      "counters": {
+        "complete": 10876,
+        "consumed": 10871,
+        "decoded": 10814,
+        "prepared": 10814,
+        "submitted_total": 10762,
+        "shown_total": 10761,
+        "mailbox_replaced": 52,
+        "queue_expired": 0,
+        "decoded_replaced": 0,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 4,
+        "timeouts": 1,
+        "missing": 1,
+        "recoveries": 1,
+        "correlated_submitted": 10762,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 11640,
+        "lateness_p95_us": 2439.234,
+        "lateness_p99_us": 5085.967,
+        "lateness_max_us": 69515.4,
+        "late_over_frame": 15,
+        "send_p99_us": 1558.9,
+        "interval_p1_us": 12140.3,
+        "interval_p99_us": 21100.4
+      },
+      "long_frames": 2,
+      "call_time_seconds": {
+        "select": 0.0,
+        "send": 6.0596975
+      },
+      "slowest_frames": [
+        {
+          "frame": 3719,
+          "frame_ms": 85.6329,
+          "kernel_ms": 78.125,
+          "user_ms": 0.0,
+          "select_ms": 0.0,
+          "send_ms": 85.1951,
+          "packets": 24
+        },
+        {
+          "frame": 58,
+          "frame_ms": 74.7913,
+          "kernel_ms": 62.5,
+          "user_ms": 0.0,
+          "select_ms": 0.0,
+          "send_ms": 73.865,
+          "packets": 24
+        },
+        {
+          "frame": 518,
+          "frame_ms": 42.7585,
+          "kernel_ms": 46.875,
+          "user_ms": 0.0,
+          "select_ms": 0.0,
+          "send_ms": 42.207,
+          "packets": 23
+        },
+        {
+          "frame": 666,
+          "frame_ms": 38.3131,
+          "kernel_ms": 46.875,
+          "user_ms": 0.0,
+          "select_ms": 0.0,
+          "send_ms": 38.0165,
+          "packets": 23
+        },
+        {
+          "frame": 671,
+          "frame_ms": 37.988,
+          "kernel_ms": 31.25,
+          "user_ms": 0.0,
+          "select_ms": 0.0,
+          "send_ms": 37.5032,
+          "packets": 22
+        },
+        {
+          "frame": 466,
+          "frame_ms": 34.1874,
+          "kernel_ms": 31.25,
+          "user_ms": 0.0,
+          "select_ms": 0.0,
+          "send_ms": 33.7683,
+          "packets": 22
+        }
+      ],
+      "slowest_calls": [
+        {
+          "frame": 3719,
+          "bytes": 1400,
+          "total_ms": 18.6187,
+          "select_ms": 0.0,
+          "send_ms": 18.6111
+        },
+        {
+          "frame": 666,
+          "bytes": 1400,
+          "total_ms": 16.8859,
+          "select_ms": 0.0,
+          "send_ms": 16.8786
+        },
+        {
+          "frame": 469,
+          "bytes": 1400,
+          "total_ms": 15.4819,
+          "select_ms": 0.0,
+          "send_ms": 15.4418
+        },
+        {
+          "frame": 10978,
+          "bytes": 1400,
+          "total_ms": 15.3932,
+          "select_ms": 0.0,
+          "send_ms": 15.386
+        }
+      ]
+    }
+  },
+  "firewall": {
+    "snapshot_sha256": "20414a386153f6e2fd36e4c474734185342ae8e966b9b259ce9c4e9abdbe0438",
+    "rules": [
+      {
+        "action": "Block",
+        "enabled": "True",
+        "protocol": "TCP",
+        "profile": "Private, Public"
+      },
+      {
+        "action": "Block",
+        "enabled": "True",
+        "protocol": "UDP",
+        "profile": "Private, Public"
+      }
+    ],
+    "change_state": "Prepared, not applied; explicit user confirmation and Windows administrator consent requested.",
+    "proposal": "Current candidate only, Private network, UDP 3334 from the AMD test host. Preserve Public UDP block and TCP rules.",
+    "apply_script_sha256": "ec81373b82947a132f325f178535c445122d2930ec76f69f49ed1e47b7794cc3",
+    "restore_script_sha256": "356cb0afcb6ff2bdb36e5df9df39341ed9bc429745ff0ccedcf6d6ad2fa4c6a4"
+  },
+  "network_probe_sha256": "4753fb001ce3fa11bb06b20e83cc275272044927074a0e6c581e306424d504c4",
+  "limits": [
+    "User/kernel CPU values are quantized; do not interpret small per-frame deltas as exact timings.",
+    "The explicit-select comparison localizes long calls to transmission, not readiness polling; it does not identify a kernel driver or filter.",
+    "No frame was received by the LAN candidate while an explicit firewall block was active. This is not a decoding failure.",
+    "Independent input sender and resource clocks were not compared. No remote-input CPU overhead result is asserted.",
+    "The failed diagnostic-v2 setup did not launch the product and is preserved separately."
+  ]
+}
