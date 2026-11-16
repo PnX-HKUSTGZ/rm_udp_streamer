@@ -39,6 +39,7 @@ struct MediaSnapshot {
     bool gpu_disabled = false;
     bool worker_done = true;
     bool diagnostics = false;
+    bool initial_parameters_supplied = false;
     Millis last_frame_ms = 0, started_ms = 0;
 };
 class MediaSession {

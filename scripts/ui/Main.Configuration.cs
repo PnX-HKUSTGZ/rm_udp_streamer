@@ -171,6 +171,7 @@ public partial class Main
                 "--decoder",settings.Decoder,"--device",settings.Device,"--transfer",settings.Transfer,"--cadence",settings.Cadence,
                 "--source-port",settings.SourcePort.ToString(CultureInfo.InvariantCulture) });
             if(settings.SourceAddress.Length>0) args.AddRange(new[] { "--source-ip",settings.SourceAddress });
+            if(_options.HevcParameters.Length>0) args.AddRange(new[] { "--hevc-parameters",_options.HevcParameters });
             OS.SetRestartOnExit(true,args.ToArray()); GetTree().Quit();
         }
         catch(Exception error)

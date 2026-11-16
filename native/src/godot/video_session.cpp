@@ -4,6 +4,7 @@
 #include "media/device.hpp"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/godot.hpp>
+#include <godot_cpp/variant/packed_byte_array.hpp>
 #include <stdexcept>
 using namespace godot;
 namespace {
@@ -87,6 +88,13 @@ bool RmVideoSession::start(const Dictionary &values) {
             throw std::runtime_error("Previous GPU retirement failed; restart the application before allocating more GPU bridge resources");
         media.max_pixels = int(integer(values, "max_pixels", media.max_pixels, 256, 4096*2304));
         media.allow_10bit_to_8bit = boolean(values, "allow_10bit_to_8bit", false);
+        if (values.has("hevc_parameters")) {
+            Variant bytes = values["hevc_parameters"];
+            if (bytes.get_type() != Variant::PACKED_BYTE_ARRAY) throw std::invalid_argument("hevc_parameters must be bytes");
+            PackedByteArray parameters = bytes;
+            if (parameters.size() > 256*1024) throw std::invalid_argument("Initial HEVC parameters exceed 256 KiB");
+            if (!parameters.is_empty()) media.initial_parameters.assign(parameters.ptr(), parameters.ptr()+parameters.size());
+        }
         config_error_.clear();
         return receiver_.start(config, media);
     } catch (const std::exception &error) { config_error_ = error.what(); return false; }
@@ -99,6 +107,7 @@ Dictionary RmVideoSession::snapshot(bool detailed) const {
     Dictionary result;
     auto sample_us=state.snapshot_us;
     result["snapshot_us"]=sample_us;result["diagnostics_enabled"]=state.diagnostics;result["timing_schema"]=1;
+    result["initial_parameters_supplied"] = state.initial_parameters_supplied;
     result["accounting_schema"]=2;
     if(detailed) {
         result["last_decoded"]=rm::binding::frame(state.last_decoded);

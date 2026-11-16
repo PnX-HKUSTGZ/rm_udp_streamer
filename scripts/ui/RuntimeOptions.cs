@@ -16,6 +16,7 @@ public sealed class RuntimeOptions
     public string Device = "0";
     public double Duration;
     public string Metrics = "", Snapshot = "";
+    public string HevcParameters = "";
     public static RuntimeOptions Parse(string[] args)
     {
         var result = new RuntimeOptions();
@@ -39,6 +40,7 @@ public sealed class RuntimeOptions
                 case "--duration": result.Duration = double.Parse(value, CultureInfo.InvariantCulture); break;
                 case "--metrics": result.Metrics = Path.GetFullPath(value); break;
                 case "--snapshot": result.Snapshot = Path.GetFullPath(value); break;
+                case "--hevc-parameters": result.HevcParameters = Path.GetFullPath(value); break;
                 case "--diagnostics": result.Diagnostics = value switch { "on" => true, "off" => false, _ => throw new ArgumentException("Diagnostics must be on or off") }; break;
                 default: throw new ArgumentException("Unknown receiver option: " + option);
             }
@@ -64,10 +66,23 @@ public sealed class RuntimeOptions
             throw new ArgumentException("Duration must be 0 (unlimited) through 86400 seconds");
         if (Snapshot.Length > 0 && (Duration == 0 || File.Exists(Snapshot)))
             throw new ArgumentException("Snapshot needs a finite duration and a new output filename");
+        if (HevcParameters.Length > 0 && (SourceAddress.Length == 0 || !File.Exists(HevcParameters) ||
+            new FileInfo(HevcParameters).Length is <= 0 or > 262144))
+            throw new ArgumentException("HEVC parameter file needs a source IP filter and 1..262144 bytes");
+    }
+    public byte[]? ReadHevcParameters()
+    {
+        if (HevcParameters.Length == 0) return null;
+        using var stream = File.OpenRead(HevcParameters);
+        if (stream.Length is <= 0 or > 262144) throw new ArgumentException("HEVC parameter file needs 1..262144 bytes");
+        var bytes = new byte[(int)stream.Length];
+        stream.ReadExactly(bytes);
+        return bytes;
     }
     public const string Usage = "Receiver options (after --): --start --bind IPv4 --port 3334 --source-ip IPv4 --source-port 0 " +
         "--decoder auto|software|cuda|d3d11va|vaapi --device index-or-identity --transfer yuv|rgba|gpu|auto " +
-        "--duration seconds --metrics new-file.ndjson --snapshot new-file.png --diagnostics on|off --cadence auto|display|responsive|engine\n" +
+        "--duration seconds --metrics new-file.ndjson --snapshot new-file.png --hevc-parameters file.hevc --diagnostics on|off --cadence auto|display|responsive|engine\n" +
+        "An explicit HEVC parameter file contains only known Annex-B VPS/SPS/PPS and requires --source-ip. In-band updates supersede it; no configuration is guessed.\n" +
         "Auto uses a bounded 120 Hz loop on Windows hardware renderers (Mailbox on Vulkan; VSync off on OpenGL). " +
         "Linux/software rendering, nonzero launch FPS caps and nondefault VSync retain their launch policy. Display uses VSync; engine always preserves launch settings.\n" +
         "Device accepts a backend-local index, cuda:GPU-UUID, d3d11va:LUID=high:low (current boot), " +

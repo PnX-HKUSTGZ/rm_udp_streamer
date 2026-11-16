@@ -63,6 +63,7 @@ private:
     FrameInfo last_format_;
     bool awaiting_key_ = true, discard_rasl_ = false;
     HevcConfiguration parameters_;
+    HevcConfiguration initial_parameters_;
     HevcConfiguration validated_parameters_;
     uint64_t validated_configuration_generation_ = 0;
     void open(const std::string &backend);

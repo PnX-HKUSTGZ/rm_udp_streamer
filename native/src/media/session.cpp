@@ -14,6 +14,8 @@ bool MediaSession::start(const TransportConfig &network, const MediaConfig &medi
             state_.upload_stale_after+state_.gpu_slot_drops+state_.upload_failures) return false;
     }
     auto invalid = media.validate();
+    if (!media.initial_parameters.empty() && !network.source_address)
+        invalid = "Explicit HEVC parameters require a source IP filter";
     if (!invalid.empty()) {
         std::lock_guard<std::mutex> lock(mutex_); state_.error = invalid; state_.state = "Faulted"; return false;
     }
@@ -24,6 +26,7 @@ bool MediaSession::start(const TransportConfig &network, const MediaConfig &medi
         state_.state = "Starting"; state_.started_ms = monotonic_ms();
         state_.requested_decoder = media.decoder; state_.requested_transfer = media.transfer;
         state_.diagnostics = media.diagnostics;
+        state_.initial_parameters_supplied = !media.initial_parameters.empty();
     }
     if (!receiver_.start(network)) {
         std::lock_guard<std::mutex> lock(mutex_); state_.error = receiver_.snapshot().error; state_.state = "Faulted"; return false;

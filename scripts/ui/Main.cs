@@ -93,9 +93,11 @@ public partial class Main : Control
         else
         {
             var settings = ReadConfiguration();
+            byte[]? hevcParameters = null;
             try
             {
                 settings.Validate();
+                hevcParameters = _options.ReadHevcParameters();
                 if (_configurationBlock.Length > 0) throw new ArgumentException(_configurationBlock);
                 if (_interactiveSettings) ReceiverSettings.Save(settings);
             }
@@ -107,7 +109,8 @@ public partial class Main : Control
             }
             _lastComplete=_lastDecoded=_lastPrepared=_lastSubmitted=0; _rateTime=0; _receiveFps=_decodeFps=_prepareFps=_submitFps=0;
             _session.Start(settings.Address, settings.Port, settings.Decoder, settings.Device, settings.Transfer,
-                _options.Diagnostics ?? (_options.Metrics.Length > 0), settings.SourceAddress, settings.SourcePort);
+                _options.Diagnostics ?? (_options.Metrics.Length > 0), settings.SourceAddress, settings.SourcePort,
+                hevcParameters);
         }
         Refresh();
     }
@@ -129,6 +132,7 @@ public partial class Main : Control
         string source = data.Text("source"); _source.Text = "来源："+(source.Length==0 ? "等待数据" : source);
         string path = $"解码：{data.Text("decoder")} · {data.Text("decode_device")}  |  传输：{data.Text("mode")}  |  {data.Number("width")} × {data.Number("height")}";
         if (data.Flag("color_defaulted")) path += " · 未标注颜色采用 SDR 默认值";
+        if (data.Flag("initial_parameters_supplied")) path += " · 已加载指定图传参数";
         path += $"\n渲染：{RenderingServer.GetVideoAdapterName()}";
         if (_cadencePolicy != null) path += "  |  " + _cadencePolicy.Description;
         if (_path.Text != path) _path.Text = path;

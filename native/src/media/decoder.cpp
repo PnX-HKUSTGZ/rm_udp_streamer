@@ -46,6 +46,18 @@ std::string MediaConfig::validate() const {
     auto device_error = validate_device_selector(decoder, device);
     if (!device_error.empty()) return device_error;
     if (max_pixels < 256 || max_pixels > 4096 * 2304) return "max_pixels outside 256..9437184";
+    if (!initial_parameters.empty()) {
+        if (initial_parameters.size() > 256*1024) return "Initial HEVC parameters exceed 256 KiB";
+        try {
+            HevcConfiguration parameters;
+            auto info = parameters.observe(initial_parameters.data(), initial_parameters.size());
+            if (info.has_vcl || parameters.all() != initial_parameters)
+                return "Initial HEVC parameters must contain only canonical Annex-B VPS/SPS/PPS";
+            bool complete = false;
+            for (int id = 0; id < 64; ++id) complete |= !parameters.for_picture(id).empty();
+            if (!complete) return "Initial HEVC parameters lack a complete PPS/SPS/VPS chain";
+        } catch (const MediaError &error) { return error.what(); }
+    }
     return {};
 }
 AVPixelFormat Decoder::choose_format(AVCodecContext *context, const AVPixelFormat *formats) {
@@ -60,6 +72,8 @@ AVPixelFormat Decoder::choose_format(AVCodecContext *context, const AVPixelForma
 Decoder::Decoder(MediaConfig config, Output output) : config_(std::move(config)), output_(std::move(output)) {
     auto invalid = config_.validate();
     if (!invalid.empty()) throw std::invalid_argument(invalid);
+    if (!config_.initial_parameters.empty())
+        initial_parameters_.observe(config_.initial_parameters.data(), config_.initial_parameters.size());
     try {
         candidates_ = decoder_candidates(config_.decoder, config_.transfer, config_.device);
         open_next();
@@ -138,12 +152,12 @@ void Decoder::reset(uint64_t generation, uint64_t configuration_generation) {
     if (!parser_) throw std::bad_alloc();
     avcodec_flush_buffers(codec_);
     if (configuration_generation_ != configuration_generation) {
-        parameters_.clear(); validated_parameters_.clear(); validated_configuration_generation_ = 0;
+        parameters_ = initial_parameters_; validated_parameters_.clear(); validated_configuration_generation_ = 0;
     } else if (generation_ != generation) {
         // Only configuration that actually decoded a frame survives an idle
         // restart of this sender. Parser/codec output still retires below.
         if (validated_configuration_generation_ == configuration_generation_) parameters_ = validated_parameters_;
-        else parameters_.clear();
+        else parameters_ = initial_parameters_;
     }
     configuration_generation_ = configuration_generation;
     generation_ = generation; ++resources_; ++counters_.resets;
@@ -166,7 +180,7 @@ void Decoder::recover() {
     // Failed parameter updates must not poison subsequent recovery. Only a
     // bundle that has produced a valid frame may replace the recovery cache.
     if (validated_configuration_generation_ == configuration_generation_) parameters_ = validated_parameters_;
-    else parameters_.clear();
+    else parameters_ = initial_parameters_;
     reset(generation_, configuration_generation_);
 }
 void Decoder::feed(EncodedGroup group) {

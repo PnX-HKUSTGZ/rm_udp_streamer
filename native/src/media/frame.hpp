@@ -16,6 +16,8 @@ struct MediaConfig {
     int max_pixels = 1920 * 1088;
     bool allow_10bit_to_8bit = false;
     bool diagnostics = false;
+    // Optional explicit Annex-B VPS/SPS/PPS for a fixed, source-filtered input.
+    std::vector<uint8_t> initial_parameters;
     std::string validate() const;
 };
 struct FrameInfo {
