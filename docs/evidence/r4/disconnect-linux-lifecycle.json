@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "runs": [
+    {
+      "directory": "/home/minipc/qixuan/processing/rm-disconnect-matrix-20261116/linux-lifecycle-v2/vaapi",
+      "status": "passed",
+      "errors": [],
+      "cycles": 60,
+      "modes": {
+        "yuv": 20,
+        "rgba": 20,
+        "auto": 20
+      },
+      "gpu_cycles": 0,
+      "maximum_stop_ms": 17,
+      "resource_quarter_medians": [
+        {
+          "rss_bytes": 398106624,
+          "threads": 31,
+          "fds": 76
+        },
+        {
+          "rss_bytes": 399140864.0,
+          "threads": 30.0,
+          "fds": 76.0
+        },
+        {
+          "rss_bytes": 399284224.0,
+          "threads": 30.0,
+          "fds": 76.0
+        },
+        {
+          "rss_bytes": 399349760.0,
+          "threads": 30.0,
+          "fds": 76.0
+        }
+      ],
+      "static_memory_first": 40291590,
+      "static_memory_last": 40883004,
+      "native_sha256": "4b94f1ca496c7f6bbbdd74a9565eaf079e18f6e7524adda47c6814f53beb22cc",
+      "package_manifest_sha256": "0e33b2affa47d78c441d96a76694724a9dc26ce09462af842351c5fe9a0e16cc",
+      "files": {
+        "engine.log": "d4461b0e700f206d6fb537d35ae5da948db72b0bc1a96e46eddddf220dbbf83f",
+        "runner.json": "90e01d1168cdf4b171d2c65a0b66f673c8be69fdecc2a9dfa4bc16d1fd86a988",
+        "lifecycle.json.cycles.ndjson": "89afdd9b0f4e1beca71838c8260ec8963ee6a8a1b6950d26f5eb9f8526bc95ec",
+        "lifecycle.json": "70ddbc1c1f85b820587f0b4190cfb104bc80dae6aee6dcb9c8abeafb84fe9559"
+      }
+    }
+  ]
+}

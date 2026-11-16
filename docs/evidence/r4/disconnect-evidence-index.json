@@ -1,0 +1,73 @@
+{
+  "runtime_commit": "bac87ac2ccdfd78cc4c5f7304d19a231b7a558d1",
+  "stage_completed": false,
+  "unresolved": [
+    "Intermittent Ubuntu process exit after native retirement",
+    "Remaining platform and final performance gates"
+  ],
+  "files": [
+    {
+      "published": "disconnect-windows.json",
+      "source": "processing\\2026-11-16-rm-disconnect-matrix\\windows-evidence-summary-v2.json",
+      "bytes": 14912,
+      "sha256": "4c9fdfcb977f5237df1177928b05fc75d8751fb36dac77b5d1badcbd1cc6b383",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "disconnect-linux-matrix.json",
+      "source": "processing\\2026-11-16-rm-disconnect-matrix\\linux-audit-v2.json",
+      "bytes": 36111,
+      "sha256": "4dc3d213f75e0a1ca0c7b199fa91f41ff9a0beebe711a2647998a1d5b83aa2b6",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "disconnect-linux-lifecycle.json",
+      "source": "processing\\2026-11-16-rm-disconnect-matrix\\linux-lifecycle-audit-v1.json",
+      "bytes": 1501,
+      "sha256": "1f96867f1421cf618374432f490f11286aaedc4d4083042a2cc7f36e7e1faa69",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "disconnect-linux-exit.json",
+      "source": "processing\\2026-11-16-rm-disconnect-matrix\\linux-exit-issue-summary-v1.json",
+      "bytes": 6257,
+      "sha256": "1afe89c2a9c6e34052bca253997474fe5f4bb8df6359718c551be6b04cd0a669",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "disconnect-windows-archive.json",
+      "source": "processing\\2026-11-16-rm-disconnect-matrix\\windows-archive-v2\\receipt.json",
+      "bytes": 969,
+      "sha256": "068f246cbc58ee87b3d424091db865ce868ae82d9be35f3e4227a18a0a483973",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "disconnect-linux-archive.json",
+      "source": "processing\\2026-11-16-rm-disconnect-matrix\\linux-archive-retrieved-v1\\local-verification.json",
+      "bytes": 888,
+      "sha256": "aa768630a6e9bb63d1e972300ffef464db556060bd9875ee00746f14b556bc01",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "disconnect-current-live.json",
+      "source": "processing\\2026-11-16-rm-disconnect-matrix\\live-current-observed-v1\\result.json",
+      "bytes": 1614,
+      "sha256": "29e317ab41277de3df8bfdefb33f592c929879be8c95a6bf25695b2b632a4918",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "bootstrap-linux-archive.json",
+      "source": "processing\\2026-11-16-rm-gap-recovery\\linux-full-archive-retrieved-v1\\local-verification.json",
+      "bytes": 726,
+      "sha256": "c98893a4cdf8ad45268da1814753886b807d81b4f99eae5060d78685b943b223",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "disconnect-freshness.json",
+      "source": "processing\\2026-11-16-rm-disconnect-matrix\\recovery-freshness-audit-v1.json",
+      "bytes": 2626,
+      "sha256": "925bca2f2fb17fe5340540631471494fce4384a8e849d427c6061a15fdc517bf",
+      "kind": "byte-identical copy"
+    }
+  ]
+}

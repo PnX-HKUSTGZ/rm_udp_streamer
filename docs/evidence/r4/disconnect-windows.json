@@ -1,0 +1,462 @@
+{
+  "runtime_commit": "bac87ac2ccdfd78cc4c5f7304d19a231b7a558d1",
+  "formal_performance": false,
+  "matrix": {
+    "status": "passed",
+    "runs": [
+      {
+        "backend": "d3d11va",
+        "seeded": true,
+        "phases": 26,
+        "stop_elapsed_ms": 39.523,
+        "errors": []
+      },
+      {
+        "backend": "d3d11va",
+        "seeded": false,
+        "phases": 27,
+        "stop_elapsed_ms": 39.8983,
+        "errors": []
+      },
+      {
+        "backend": "cuda",
+        "seeded": true,
+        "phases": 26,
+        "stop_elapsed_ms": 80.6373,
+        "errors": []
+      },
+      {
+        "backend": "cuda",
+        "seeded": false,
+        "phases": 27,
+        "stop_elapsed_ms": 54.8788,
+        "errors": []
+      }
+    ]
+  },
+  "lifecycle": {
+    "status": "passed",
+    "runs": [
+      {
+        "directory": "processing\\2026-11-16-rm-disconnect-matrix\\windows-lifecycle-v1\\cuda",
+        "status": "passed",
+        "errors": [],
+        "cycles": 60,
+        "modes": {
+          "gpu": 15,
+          "yuv": 15,
+          "rgba": 15,
+          "auto": 15
+        },
+        "gpu_cycles": 30,
+        "maximum_stop_ms": 92,
+        "resource_quarter_medians": [
+          {
+            "rss_bytes": 420540416.0,
+            "threads": 67.0,
+            "handles": 876.0
+          },
+          {
+            "rss_bytes": 424448000.0,
+            "threads": 67.0,
+            "handles": 876.0
+          },
+          {
+            "rss_bytes": 429641728.0,
+            "threads": 63.0,
+            "handles": 869.0
+          },
+          {
+            "rss_bytes": 430477312.0,
+            "threads": 62.0,
+            "handles": 869.0
+          }
+        ],
+        "static_memory_first": 34428618,
+        "static_memory_last": 35123258,
+        "native_sha256": "7104ef8c3d45765a2e898595033eccc549e308a7d88e4c00e744e7a5970c0a31",
+        "package_manifest_sha256": "42d4de79028a26566fb5246cdbf5d274105dc8d608fcb613b899c114d5c3cc4d",
+        "files": {
+          "engine.log": "2975142ff4806093caa48b2a913985ba3cfc18b7427952b7a2e375dd386f6ab2",
+          "lifecycle.json": "263c989b89b25029fb05d50fc3670c913005fb822e3e4a0bafe7467a1beb33c9",
+          "lifecycle.json.cycles.ndjson": "9818710735369c2cee999e0fa7b2c9a5e6ad1e30409c5560c9edacfa66fe551c",
+          "runner.json": "a1484a72867dea87c1594e4c600ba564a1f7ff6e9b15123df6515cac697091e5"
+        }
+      },
+      {
+        "directory": "processing\\2026-11-16-rm-disconnect-matrix\\windows-lifecycle-v1\\d3d11va",
+        "status": "passed",
+        "errors": [],
+        "cycles": 60,
+        "modes": {
+          "yuv": 20,
+          "rgba": 20,
+          "auto": 20
+        },
+        "gpu_cycles": 0,
+        "maximum_stop_ms": 89,
+        "resource_quarter_medians": [
+          {
+            "rss_bytes": 780566528,
+            "threads": 88,
+            "handles": 1150
+          },
+          {
+            "rss_bytes": 781402112,
+            "threads": 87,
+            "handles": 1150
+          },
+          {
+            "rss_bytes": 790679552,
+            "threads": 83,
+            "handles": 1143
+          },
+          {
+            "rss_bytes": 810692608,
+            "threads": 83,
+            "handles": 1143
+          }
+        ],
+        "static_memory_first": 40543331,
+        "static_memory_last": 41130277,
+        "native_sha256": "7104ef8c3d45765a2e898595033eccc549e308a7d88e4c00e744e7a5970c0a31",
+        "package_manifest_sha256": "42d4de79028a26566fb5246cdbf5d274105dc8d608fcb613b899c114d5c3cc4d",
+        "files": {
+          "engine.log": "60c7acda70b72eebffa65ffd96a10a2c4af8adad2bec35c1546f7c9598cbdfab",
+          "lifecycle.json": "9fbbb2b023dbaf334337fff69920e6c4b01417dd92e2a1ca22dd45cb94f54850",
+          "lifecycle.json.cycles.ndjson": "d0729c28cd438db0a715c1d55f8c0abdeebdc380c737f7d53c7d3f4a2421abc2",
+          "runner.json": "319bb496d24ffe4d71e9d876940c20a9076bf7287a7ae183e879afb966c811d4"
+        }
+      }
+    ]
+  },
+  "direct_port_restarts": {
+    "status": "completed",
+    "package": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-gap-recovery\\windows-bootstrap-v1\\package",
+      "manifest_sha256": "42d4de79028a26566fb5246cdbf5d274105dc8d608fcb613b899c114d5c3cc4d",
+      "commit": "bac87ac2ccdfd78cc4c5f7304d19a231b7a558d1",
+      "verified_files": 567,
+      "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+      "dependency_kind": "official",
+      "runtime_kind": "self-contained exported package",
+      "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+      "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+    },
+    "scope": "Direct current 192.168.12.2:3334 network input; process stop/relaunch and exclusive rebind. No injected, forwarded or replayed picture bytes. Explicit captured 94-byte parameter sets. Functional only. This run does not request screenshots; the prior minimized-window snapshot timeout is retained separately.",
+    "runs": [
+      {
+        "name": "d3d11va-first",
+        "exit": 0,
+        "terminal": {
+          "state": "Stopped",
+          "source": "192.168.12.1:49940",
+          "decoder": "d3d11va",
+          "hardware": true,
+          "mode": "cpu_nv12",
+          "width": 1920,
+          "height": 1080,
+          "packets": 14904,
+          "complete": 1202,
+          "decoded": 1149,
+          "submitted_total": 1145,
+          "shown_total": 1145,
+          "decode_errors": 0,
+          "missing": 0,
+          "restarts": 0,
+          "stop_terminal": true,
+          "error": ""
+        },
+        "status": "passed",
+        "errors": [],
+        "port_rebind": true,
+        "files": {
+          "engine.log": "f3e7ba259aa9c038900653d9c6a36f88190ef218babc316b12dcde4ed7d7b53e",
+          "metrics.ndjson": "171cb5e83d515f33bb189d5ede6644746dd79370d8b2543e7fae0803751eab07"
+        }
+      },
+      {
+        "name": "cuda-restart",
+        "exit": 0,
+        "terminal": {
+          "state": "Stopped",
+          "source": "192.168.12.1:49940",
+          "decoder": "cuda",
+          "hardware": true,
+          "mode": "gpu_cuda_gl_nv12",
+          "width": 1920,
+          "height": 1080,
+          "packets": 14750,
+          "complete": 1195,
+          "decoded": 1134,
+          "submitted_total": 1127,
+          "shown_total": 1126,
+          "decode_errors": 0,
+          "missing": 0,
+          "restarts": 0,
+          "stop_terminal": true,
+          "error": ""
+        },
+        "status": "passed",
+        "errors": [],
+        "port_rebind": true,
+        "files": {
+          "engine.log": "711274610f020eb66d361e5a2f60eef25da9963c339ec38fa90df57393cef3fd",
+          "metrics.ndjson": "5076ab42822be2bdb667a3cbda023700be939a2f39c7f4918aee525b0357c020"
+        }
+      },
+      {
+        "name": "d3d11va-restart",
+        "exit": 0,
+        "terminal": {
+          "state": "Stopped",
+          "source": "192.168.12.1:49940",
+          "decoder": "d3d11va",
+          "hardware": true,
+          "mode": "cpu_nv12",
+          "width": 1920,
+          "height": 1080,
+          "packets": 14940,
+          "complete": 1201,
+          "decoded": 1194,
+          "submitted_total": 1183,
+          "shown_total": 1182,
+          "decode_errors": 0,
+          "missing": 0,
+          "restarts": 0,
+          "stop_terminal": true,
+          "error": ""
+        },
+        "status": "passed",
+        "errors": [],
+        "port_rebind": true,
+        "files": {
+          "engine.log": "d3a9ecf1e262917d20b653b53cfb6c86b9258fc6aa476eda98504f4690c3795f",
+          "metrics.ndjson": "aba0eb83b7321fce8a850bd8e4b3740e8a6639dc6450eff0f3f5fb28650a9d1b"
+        }
+      }
+    ]
+  },
+  "parameter_entry": {
+    "status": "passed",
+    "cases": [
+      {
+        "name": "help",
+        "status": "passed",
+        "exit": 0,
+        "errors": []
+      },
+      {
+        "name": "no-source",
+        "status": "passed",
+        "exit": 2,
+        "errors": []
+      },
+      {
+        "name": "missing-file",
+        "status": "passed",
+        "exit": 2,
+        "errors": []
+      },
+      {
+        "name": "empty-file",
+        "status": "passed",
+        "exit": 2,
+        "errors": []
+      },
+      {
+        "name": "oversize-file",
+        "status": "passed",
+        "exit": 2,
+        "errors": []
+      },
+      {
+        "name": "malformed-parameter",
+        "status": "passed",
+        "exit": 2,
+        "errors": []
+      },
+      {
+        "name": "picture-rejected",
+        "status": "passed",
+        "exit": 2,
+        "errors": []
+      },
+      {
+        "name": "valid-waits-for-pictures",
+        "status": "passed",
+        "exit": 0,
+        "errors": []
+      }
+    ]
+  },
+  "retained_failures": [
+    {
+      "path": "live-port-restarts-v1/d3d11va-restart",
+      "reason": "Window mode 1 and can_draw=false; requested final screenshot had no FramePostDraw and hit its 2-second bound. Video decode continued (2485 frames, 0 errors), stop completed in 70.2478 ms; process exited 2 for screenshot failure. Original failed result retained."
+    }
+  ],
+  "audit_inputs": {
+    "windows-audit-v1.json": "a182473330e43058dc46adce549b1d570cb7d569f142a8a8890ea4c7f2d27f4c",
+    "windows-lifecycle-audit-v1.json": "1e576abdc14e01add01b7a7c0140f40866a29f5438b52125e5d0df2d19e24526",
+    "live-port-restarts-v1/status.json": "cc92cfdc7c2c87fe4dd97ebe3ea981662e874051a852f6125d4c27be1b43c8ca",
+    "live-port-restarts-v2/status.json": "f98e297920e213add677a5c54a36c246f3917f2c0dc20b4f5f049ba6d4a05cce",
+    "windows-parameter-entry-v1/result.json": "117b37cb99cb0b9aea6a9c87f974c750ad34ad51fbc4de247940085b33db04e8",
+    "workspace-native-update-v1/receipt.json": "6e796d51989fdcfa4e0c0491dd41ce4ca59a530d95139e943d81ecfe321b92bd",
+    "live-outages-v1/result.json": "0fd8e175eafedfafb1199a1fa5d32a97666f287958670e177e438380fb2db859",
+    "live-outages-v1/metrics.ndjson": "e7e88e10734238c30b4ada62e34c90e0d958f0529e8c22009d87cfba594aee4b",
+    "live-outages-v1/engine.log": "23447aed46784631722f2b9d13cebf52478a158801f34f6541813888dec5d82e"
+  },
+  "current_live_outages": {
+    "status": "passed",
+    "scope": "Current physical packets arrive at 192.168.12.2:3334. Local forwarder discards selected intervals and changes its own source port. Release app receives forwarded packets on loopback. No stored picture replay, generated video, sender changes or picture-byte edits; not a direct real-source identity test or physical NIC outage.",
+    "exit": 0,
+    "errors": [],
+    "forwarder": {
+      "received": 66345,
+      "forwarded": 46374,
+      "dropped": 19971,
+      "foreign": 0,
+      "source_ports": [
+        49687,
+        65247
+      ],
+      "errors": [],
+      "network_source": [
+        "192.168.12.1",
+        49940
+      ]
+    },
+    "receiver_port_rebind": true,
+    "physical_port_rebind": true,
+    "phases": [
+      {
+        "name": "current_live_input",
+        "delta": {
+          "decoded": 101,
+          "submitted_total": 98,
+          "shown_total": 97,
+          "decode_errors": 0,
+          "restarts": 1,
+          "recoveries": 16
+        },
+        "requested_seconds": null,
+        "actual_seconds": null,
+        "packets_discarded": null
+      },
+      {
+        "name": "live_outage_1",
+        "delta": {
+          "decoded": 220,
+          "submitted_total": 220,
+          "shown_total": 220,
+          "decode_errors": 0,
+          "restarts": 0,
+          "recoveries": 1
+        },
+        "requested_seconds": 0.1,
+        "actual_seconds": 0.10129419999429956,
+        "packets_discarded": 63
+      },
+      {
+        "name": "live_outage_2",
+        "delta": {
+          "decoded": 228,
+          "submitted_total": 227,
+          "shown_total": 228,
+          "decode_errors": 0,
+          "restarts": 0,
+          "recoveries": 1
+        },
+        "requested_seconds": 0.5,
+        "actual_seconds": 0.5009910000080708,
+        "packets_discarded": 450
+      },
+      {
+        "name": "live_outage_3",
+        "delta": {
+          "decoded": 196,
+          "submitted_total": 196,
+          "shown_total": 196,
+          "decode_errors": 0,
+          "restarts": 1,
+          "recoveries": 1
+        },
+        "requested_seconds": 1.2,
+        "actual_seconds": 1.201227799989283,
+        "packets_discarded": 894
+      },
+      {
+        "name": "live_outage_4",
+        "delta": {
+          "decoded": 214,
+          "submitted_total": 213,
+          "shown_total": 213,
+          "decode_errors": 0,
+          "restarts": 1,
+          "recoveries": 1
+        },
+        "requested_seconds": 3.2,
+        "actual_seconds": 3.2010702999978093,
+        "packets_discarded": 2355
+      },
+      {
+        "name": "live_outage_5",
+        "delta": {
+          "decoded": 181,
+          "submitted_total": 180,
+          "shown_total": 180,
+          "decode_errors": 0,
+          "restarts": 1,
+          "recoveries": 1
+        },
+        "requested_seconds": 15,
+        "actual_seconds": 15.00180129999353,
+        "packets_discarded": 11196
+      },
+      {
+        "name": "live_outage_6",
+        "delta": {
+          "decoded": 285,
+          "submitted_total": 282,
+          "shown_total": 282,
+          "decode_errors": 0,
+          "restarts": 1,
+          "recoveries": 1
+        },
+        "requested_seconds": 1.3,
+        "actual_seconds": 1.3014500999997836,
+        "packets_discarded": 909
+      },
+      {
+        "name": "live_outage_7",
+        "delta": {
+          "decoded": 184,
+          "submitted_total": 184,
+          "shown_total": 184,
+          "decode_errors": 0,
+          "restarts": 1,
+          "recoveries": 1
+        },
+        "requested_seconds": 3.2,
+        "actual_seconds": 3.2014825000078417,
+        "packets_discarded": 2478
+      },
+      {
+        "name": "live_source_port_change",
+        "delta": {
+          "decoded": 195,
+          "submitted_total": 195,
+          "shown_total": 195,
+          "decode_errors": 0,
+          "restarts": 1,
+          "recoveries": 1
+        },
+        "requested_seconds": null,
+        "actual_seconds": null,
+        "packets_discarded": null
+      }
+    ],
+    "startup_note": "The capture socket was opened before the release listener became ready; initial buffered ingress produced an initial burst. This is a functional recovery check, not a clean-start latency or throughput measurement."
+  }
+}

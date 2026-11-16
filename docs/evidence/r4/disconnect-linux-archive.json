@@ -1,0 +1,18 @@
+{
+  "status": "verified",
+  "local_archive": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-disconnect-matrix\\linux-archive-retrieved-v1\\records.zip",
+  "archive_sha256": "19d0ad2de763d7829c30ee8c164abd162312ef851ff29f544000a635fb037619",
+  "manifest_sha256": "ffbe75506fd8483227892ae86268a6d063f347fd189d2d5f9e91114fe351f254",
+  "members_verified": 806,
+  "scope": "Complete file contents of the explicitly named run directories, root scripts and reports, plus package identity. Product binaries outside selected run directories are not a release archive. Original failed runs are retained.",
+  "directories": [
+    "linux-matrix-v1",
+    "linux-exit-investigation-v1",
+    "linux-learned-investigation-v1",
+    "linux-seeded-repeat-v2",
+    "linux-exit-stress-v1",
+    "linux-exit-stress-v2",
+    "linux-lifecycle-v2"
+  ],
+  "finished": 1794827803.4761012
+}

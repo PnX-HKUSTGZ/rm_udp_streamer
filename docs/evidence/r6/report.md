@@ -44,4 +44,4 @@ Windows发行DLL的原版和逐轮写盘探针各完成60轮，最大停止49/42
 
 AMD正式/诊断、功能、逐轮写盘生命周期和历史04737bd四份完整归档均已取回并校验，详见[取回索引](amd-retrieval-index.json)及[性能](amd-performance-archive.json)、[功能](amd-functional-archive.json)、[生命周期](amd-streamed-lifecycle-archive.json)归档收据。本目录只发布摘要，完整原始归档保存在外层`processing/2026-11-16-rm-r6-integration`，提取记录子集不替代完整原件。
 
-后续[Intel接屏补验](../r4/report.md)已完成实际桌面功能、故障/恢复及60轮精确发行SO生命周期，但该机88bf17a包未达到1080p60门槛。[真实UDP输入](../r4/real-stream.md)已完成实际硬解与画面检查，随后完成自然回绕与三条路径的真实输入回归；原始失败均保留。用户明确发送端固定，验收本侧代码，不将型号/固件或修改发送端列为前提。新回归又复现同来源断流后参数被错误清除的缺陷，修复与最终包验证见[真实输入回归](../r4/real-input-regression.md)。未完成门槛仍包括最新运行身份的功能/性能复验、Intel性能、原生Ubuntu NVIDIA、Windows AMD及完整R4/R6审查。其他RGBA、CUDA/CPU、WSL及未做正式长测的配置没有同等1080p60性能声明。
+后续[Intel接屏补验](../r4/report.md)已完成实际桌面功能、故障/恢复及60轮精确发行SO生命周期，但该机88bf17a包未达到1080p60门槛。[真实UDP输入](../r4/real-stream.md)已完成实际硬解与画面检查，随后完成自然回绕与三条路径的真实输入回归；原始失败均保留。用户明确发送端固定，验收本侧代码，不将型号/固件或修改发送端列为前提。新回归又复现同来源断流后参数被错误清除的缺陷，修复见[真实输入回归](../r4/real-input-regression.md)。bac87ac的完整断流矩阵成功复跑、当前真实视频恢复及三条路径各60轮生命周期见[最新断流验收](../r4/disconnect-recovery.md)；Ubuntu首轮退出卡住仍未闭环。未完成门槛仍包括该退出问题、最新运行身份其余受影响的功能/性能复验、Intel性能、原生Ubuntu NVIDIA、Windows AMD及完整R4/R6审查。其他RGBA、CUDA/CPU、WSL及未做正式长测的配置没有同等1080p60性能声明。

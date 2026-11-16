@@ -1,0 +1,1287 @@
+{
+  "status": "passed",
+  "scope": "Retrospective functional audit; no performance claim. Each before/after snapshot must exist in immutable raw metrics.",
+  "runs": [
+    {
+      "path": "/home/minipc/qixuan/processing/rm-disconnect-matrix-20261116/linux-exit-investigation-v1/matrix/result.json",
+      "result_sha256": "738f0b995b8c9f8dcdfa5fffc3031d28ab032295702c44f038f2eb69be990719",
+      "metrics_sha256": "0e89f834505c870dd04b6e1eb2994775e4794d10b4de8929cc2f29b3f1e4d97f",
+      "log_sha256": "f0dd45f2056a64c5a49aa60bd1bf77e09fca1237ac1b2369418e5e11ae7d9a06",
+      "package": {
+        "path": "/home/minipc/qixuan/processing/rm-gap-recovery-20261116/linux-bootstrap-v1/package",
+        "manifest_sha256": "0e33b2affa47d78c441d96a76694724a9dc26ce09462af842351c5fe9a0e16cc",
+        "commit": "bac87ac2ccdfd78cc4c5f7304d19a231b7a558d1",
+        "verified_files": 531,
+        "dependency_lock_sha256": "513cc4c0329a1fa0dd8522fa01c188176819950281760c88e0f04c11fb931866",
+        "dependency_kind": "developer",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "backend": "vaapi",
+      "seeded": true,
+      "raw_records": 239,
+      "phases": [
+        {
+          "name": "cold_join_with_explicit_parameters",
+          "delta": {
+            "complete": 180,
+            "decoded": 179,
+            "submitted_total": 176,
+            "shown_total": 176,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "actual_parameters_initialize",
+          "delta": {
+            "complete": 224,
+            "decoded": 224,
+            "submitted_total": 221,
+            "shown_total": 221,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_0.1",
+          "delta": {
+            "complete": 156,
+            "decoded": 156,
+            "submitted_total": 156,
+            "shown_total": 155,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_0.5",
+          "delta": {
+            "complete": 149,
+            "decoded": 149,
+            "submitted_total": 148,
+            "shown_total": 148,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_1.2",
+          "delta": {
+            "complete": 210,
+            "decoded": 209,
+            "submitted_total": 208,
+            "shown_total": 207,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_3.2",
+          "delta": {
+            "complete": 153,
+            "decoded": 152,
+            "submitted_total": 151,
+            "shown_total": 151,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_15",
+          "delta": {
+            "complete": 169,
+            "decoded": 168,
+            "submitted_total": 168,
+            "shown_total": 169,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "whole_group_burst_loss",
+          "delta": {
+            "complete": 257,
+            "decoded": 220,
+            "submitted_total": 219,
+            "shown_total": 219,
+            "missing": 25,
+            "timeouts": 1,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "continuous_missing_fragments",
+          "delta": {
+            "complete": 196,
+            "decoded": 195,
+            "submitted_total": 195,
+            "shown_total": 195,
+            "missing": 120,
+            "timeouts": 114,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "fragment_reordering_and_duplicates",
+          "delta": {
+            "complete": 303,
+            "decoded": 303,
+            "submitted_total": 302,
+            "shown_total": 302,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0,
+            "duplicate": 114
+          }
+        },
+        {
+          "name": "conflicting_duplicate_fragments",
+          "delta": {
+            "complete": 154,
+            "decoded": 150,
+            "submitted_total": 149,
+            "shown_total": 148,
+            "missing": 57,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 4,
+            "decode_errors": 0,
+            "conflicts": 57
+          }
+        },
+        {
+          "name": "invalid_datagram_headers",
+          "delta": {
+            "complete": 209,
+            "decoded": 209,
+            "submitted_total": 210,
+            "shown_total": 211,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0,
+            "invalid": 120
+          }
+        },
+        {
+          "name": "late_old_groups",
+          "delta": {
+            "complete": 157,
+            "decoded": 157,
+            "submitted_total": 156,
+            "shown_total": 155,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0,
+            "late": 716
+          }
+        },
+        {
+          "name": "damaged_hevc",
+          "delta": {
+            "complete": 204,
+            "decoded": 143,
+            "submitted_total": 142,
+            "shown_total": 143,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 1,
+            "decode_errors": 1
+          }
+        },
+        {
+          "name": "frame_id_reset_without_silence",
+          "delta": {
+            "complete": 314,
+            "decoded": 280,
+            "submitted_total": 279,
+            "shown_total": 278,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "frame_id_forward_jump_without_silence",
+          "delta": {
+            "complete": 349,
+            "decoded": 318,
+            "submitted_total": 319,
+            "shown_total": 320,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "frame_id_wrap_after_reanchor",
+          "delta": {
+            "complete": 223,
+            "decoded": 222,
+            "submitted_total": 220,
+            "shown_total": 219,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "new_port_with_explicit_parameters",
+          "delta": {
+            "complete": 197,
+            "decoded": 196,
+            "submitted_total": 197,
+            "shown_total": 198,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "foreign_ip_after_idle_rejected",
+          "delta": {
+            "complete": 0,
+            "decoded": 0,
+            "submitted_total": 0,
+            "shown_total": 0,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "selected_source_returns_after_foreign_noise",
+          "delta": {
+            "complete": 180,
+            "decoded": 179,
+            "submitted_total": 179,
+            "shown_total": 179,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "compressed_queue_overload",
+          "delta": {
+            "complete": 1951,
+            "decoded": 159,
+            "submitted_total": 148,
+            "shown_total": 148,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 1316,
+            "restarts": 0,
+            "recoveries": 114,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "repeated_outage_1",
+          "delta": {
+            "complete": 169,
+            "decoded": 169,
+            "submitted_total": 167,
+            "shown_total": 166,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "repeated_outage_2",
+          "delta": {
+            "complete": 191,
+            "decoded": 190,
+            "submitted_total": 191,
+            "shown_total": 192,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "repeated_outage_3",
+          "delta": {
+            "complete": 146,
+            "decoded": 145,
+            "submitted_total": 144,
+            "shown_total": 144,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "in_band_resolution_change_after_gap",
+          "delta": {
+            "complete": 167,
+            "decoded": 166,
+            "submitted_total": 165,
+            "shown_total": 164,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "actual_1080_format_restored",
+          "delta": {
+            "complete": 193,
+            "decoded": 193,
+            "submitted_total": 192,
+            "shown_total": 192,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        }
+      ],
+      "stop_elapsed_ms": 35.2042,
+      "terminal_decoded": 4973,
+      "terminal_submitted": 4947,
+      "terminal_gpu": {},
+      "errors": [],
+      "status": "passed"
+    },
+    {
+      "path": "/home/minipc/qixuan/processing/rm-disconnect-matrix-20261116/linux-learned-investigation-v1/matrix/result.json",
+      "result_sha256": "f3a11a754d5d843e65b68eb802c5ca86e27a871202157448df502b45db834423",
+      "metrics_sha256": "24b0c22255df047bdb170b564cbb36b74eadc3093d4a1a0cb6dd460d56c7af25",
+      "log_sha256": "74c35708422e0e8b9c7a83a89b842312f24c0c5ad2d167093d0472efa3d69ff2",
+      "package": {
+        "path": "/home/minipc/qixuan/processing/rm-gap-recovery-20261116/linux-bootstrap-v1/package",
+        "manifest_sha256": "0e33b2affa47d78c441d96a76694724a9dc26ce09462af842351c5fe9a0e16cc",
+        "commit": "bac87ac2ccdfd78cc4c5f7304d19a231b7a558d1",
+        "verified_files": 531,
+        "dependency_lock_sha256": "513cc4c0329a1fa0dd8522fa01c188176819950281760c88e0f04c11fb931866",
+        "dependency_kind": "developer",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "backend": "vaapi",
+      "seeded": false,
+      "raw_records": 239,
+      "phases": [
+        {
+          "name": "cold_join_without_parameters_waits",
+          "delta": {
+            "complete": 180,
+            "decoded": 0,
+            "submitted_total": 0,
+            "shown_total": 0,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "actual_parameters_initialize",
+          "delta": {
+            "complete": 225,
+            "decoded": 224,
+            "submitted_total": 221,
+            "shown_total": 220,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_0.1",
+          "delta": {
+            "complete": 155,
+            "decoded": 155,
+            "submitted_total": 155,
+            "shown_total": 156,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_0.5",
+          "delta": {
+            "complete": 152,
+            "decoded": 152,
+            "submitted_total": 150,
+            "shown_total": 149,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_1.2",
+          "delta": {
+            "complete": 208,
+            "decoded": 207,
+            "submitted_total": 208,
+            "shown_total": 209,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_3.2",
+          "delta": {
+            "complete": 156,
+            "decoded": 155,
+            "submitted_total": 153,
+            "shown_total": 152,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_15",
+          "delta": {
+            "complete": 172,
+            "decoded": 171,
+            "submitted_total": 171,
+            "shown_total": 171,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "whole_group_burst_loss",
+          "delta": {
+            "complete": 297,
+            "decoded": 260,
+            "submitted_total": 260,
+            "shown_total": 261,
+            "missing": 25,
+            "timeouts": 1,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "continuous_missing_fragments",
+          "delta": {
+            "complete": 191,
+            "decoded": 190,
+            "submitted_total": 191,
+            "shown_total": 191,
+            "missing": 120,
+            "timeouts": 114,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "fragment_reordering_and_duplicates",
+          "delta": {
+            "complete": 268,
+            "decoded": 268,
+            "submitted_total": 266,
+            "shown_total": 265,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0,
+            "duplicate": 114
+          }
+        },
+        {
+          "name": "conflicting_duplicate_fragments",
+          "delta": {
+            "complete": 200,
+            "decoded": 196,
+            "submitted_total": 195,
+            "shown_total": 195,
+            "missing": 57,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 4,
+            "decode_errors": 0,
+            "conflicts": 57
+          }
+        },
+        {
+          "name": "invalid_datagram_headers",
+          "delta": {
+            "complete": 195,
+            "decoded": 195,
+            "submitted_total": 196,
+            "shown_total": 197,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0,
+            "invalid": 120
+          }
+        },
+        {
+          "name": "late_old_groups",
+          "delta": {
+            "complete": 173,
+            "decoded": 173,
+            "submitted_total": 172,
+            "shown_total": 172,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0,
+            "late": 716
+          }
+        },
+        {
+          "name": "damaged_hevc",
+          "delta": {
+            "complete": 155,
+            "decoded": 94,
+            "submitted_total": 93,
+            "shown_total": 93,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 1,
+            "decode_errors": 1
+          }
+        },
+        {
+          "name": "frame_id_reset_without_silence",
+          "delta": {
+            "complete": 332,
+            "decoded": 299,
+            "submitted_total": 299,
+            "shown_total": 299,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "frame_id_forward_jump_without_silence",
+          "delta": {
+            "complete": 308,
+            "decoded": 279,
+            "submitted_total": 277,
+            "shown_total": 277,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "frame_id_wrap_after_reanchor",
+          "delta": {
+            "complete": 260,
+            "decoded": 259,
+            "submitted_total": 259,
+            "shown_total": 259,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "new_port_requires_parameters",
+          "delta": {
+            "complete": 152,
+            "decoded": 0,
+            "submitted_total": 0,
+            "shown_total": 0,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "new_port_actual_parameters_restore",
+          "delta": {
+            "complete": 208,
+            "decoded": 179,
+            "submitted_total": 179,
+            "shown_total": 179,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "foreign_ip_after_idle_rejected",
+          "delta": {
+            "complete": 0,
+            "decoded": 0,
+            "submitted_total": 0,
+            "shown_total": 0,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "selected_source_returns_after_foreign_noise",
+          "delta": {
+            "complete": 180,
+            "decoded": 179,
+            "submitted_total": 179,
+            "shown_total": 179,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "compressed_queue_overload",
+          "delta": {
+            "complete": 1950,
+            "decoded": 165,
+            "submitted_total": 148,
+            "shown_total": 147,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 1360,
+            "restarts": 0,
+            "recoveries": 117,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "repeated_outage_1",
+          "delta": {
+            "complete": 167,
+            "decoded": 167,
+            "submitted_total": 164,
+            "shown_total": 163,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "repeated_outage_2",
+          "delta": {
+            "complete": 193,
+            "decoded": 192,
+            "submitted_total": 193,
+            "shown_total": 194,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "repeated_outage_3",
+          "delta": {
+            "complete": 145,
+            "decoded": 144,
+            "submitted_total": 142,
+            "shown_total": 141,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "in_band_resolution_change_after_gap",
+          "delta": {
+            "complete": 166,
+            "decoded": 165,
+            "submitted_total": 163,
+            "shown_total": 162,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "actual_1080_format_restored",
+          "delta": {
+            "complete": 194,
+            "decoded": 194,
+            "submitted_total": 194,
+            "shown_total": 195,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        }
+      ],
+      "stop_elapsed_ms": 34.096,
+      "terminal_decoded": 4800,
+      "terminal_submitted": 4769,
+      "terminal_gpu": {},
+      "errors": [],
+      "status": "passed"
+    },
+    {
+      "path": "/home/minipc/qixuan/processing/rm-disconnect-matrix-20261116/linux-seeded-repeat-v2/matrix/result.json",
+      "result_sha256": "4af55fc660823aa86c1cd41aa4fd7065688492acb79cd78559c2c4f7f414d12b",
+      "metrics_sha256": "d34ee33b5d20b4f19766ff77f083d0eabf91a0608067cdfdd0df24f526d5103a",
+      "log_sha256": "50b0480f60710f9c08e828e95addf338682ed26176d29f4e491594dfbd00572f",
+      "package": {
+        "path": "/home/minipc/qixuan/processing/rm-gap-recovery-20261116/linux-bootstrap-v1/package",
+        "manifest_sha256": "0e33b2affa47d78c441d96a76694724a9dc26ce09462af842351c5fe9a0e16cc",
+        "commit": "bac87ac2ccdfd78cc4c5f7304d19a231b7a558d1",
+        "verified_files": 531,
+        "dependency_lock_sha256": "513cc4c0329a1fa0dd8522fa01c188176819950281760c88e0f04c11fb931866",
+        "dependency_kind": "developer",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "backend": "vaapi",
+      "seeded": true,
+      "raw_records": 238,
+      "phases": [
+        {
+          "name": "cold_join_with_explicit_parameters",
+          "delta": {
+            "complete": 180,
+            "decoded": 179,
+            "submitted_total": 176,
+            "shown_total": 176,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "actual_parameters_initialize",
+          "delta": {
+            "complete": 226,
+            "decoded": 226,
+            "submitted_total": 224,
+            "shown_total": 223,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_0.1",
+          "delta": {
+            "complete": 155,
+            "decoded": 155,
+            "submitted_total": 154,
+            "shown_total": 154,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_0.5",
+          "delta": {
+            "complete": 153,
+            "decoded": 153,
+            "submitted_total": 152,
+            "shown_total": 152,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_1.2",
+          "delta": {
+            "complete": 207,
+            "decoded": 206,
+            "submitted_total": 206,
+            "shown_total": 206,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_3.2",
+          "delta": {
+            "complete": 157,
+            "decoded": 156,
+            "submitted_total": 155,
+            "shown_total": 154,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "silence_15",
+          "delta": {
+            "complete": 175,
+            "decoded": 174,
+            "submitted_total": 174,
+            "shown_total": 175,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "whole_group_burst_loss",
+          "delta": {
+            "complete": 297,
+            "decoded": 260,
+            "submitted_total": 261,
+            "shown_total": 260,
+            "missing": 25,
+            "timeouts": 1,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "continuous_missing_fragments",
+          "delta": {
+            "complete": 187,
+            "decoded": 186,
+            "submitted_total": 186,
+            "shown_total": 187,
+            "missing": 120,
+            "timeouts": 114,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "fragment_reordering_and_duplicates",
+          "delta": {
+            "complete": 272,
+            "decoded": 271,
+            "submitted_total": 271,
+            "shown_total": 270,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0,
+            "duplicate": 114
+          }
+        },
+        {
+          "name": "conflicting_duplicate_fragments",
+          "delta": {
+            "complete": 200,
+            "decoded": 196,
+            "submitted_total": 194,
+            "shown_total": 194,
+            "missing": 57,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 4,
+            "decode_errors": 0,
+            "conflicts": 57
+          }
+        },
+        {
+          "name": "invalid_datagram_headers",
+          "delta": {
+            "complete": 153,
+            "decoded": 154,
+            "submitted_total": 153,
+            "shown_total": 154,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0,
+            "invalid": 120
+          }
+        },
+        {
+          "name": "late_old_groups",
+          "delta": {
+            "complete": 177,
+            "decoded": 177,
+            "submitted_total": 175,
+            "shown_total": 174,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0,
+            "late": 716
+          }
+        },
+        {
+          "name": "damaged_hevc",
+          "delta": {
+            "complete": 154,
+            "decoded": 93,
+            "submitted_total": 92,
+            "shown_total": 93,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 1,
+            "decode_errors": 1
+          }
+        },
+        {
+          "name": "frame_id_reset_without_silence",
+          "delta": {
+            "complete": 361,
+            "decoded": 329,
+            "submitted_total": 330,
+            "shown_total": 330,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "frame_id_forward_jump_without_silence",
+          "delta": {
+            "complete": 312,
+            "decoded": 283,
+            "submitted_total": 280,
+            "shown_total": 280,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "frame_id_wrap_after_reanchor",
+          "delta": {
+            "complete": 256,
+            "decoded": 255,
+            "submitted_total": 254,
+            "shown_total": 254,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "new_port_with_explicit_parameters",
+          "delta": {
+            "complete": 154,
+            "decoded": 153,
+            "submitted_total": 151,
+            "shown_total": 150,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "foreign_ip_after_idle_rejected",
+          "delta": {
+            "complete": 26,
+            "decoded": 26,
+            "submitted_total": 27,
+            "shown_total": 28,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "selected_source_returns_after_foreign_noise",
+          "delta": {
+            "complete": 151,
+            "decoded": 150,
+            "submitted_total": 148,
+            "shown_total": 148,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "compressed_queue_overload",
+          "delta": {
+            "complete": 2007,
+            "decoded": 212,
+            "submitted_total": 206,
+            "shown_total": 205,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 1384,
+            "restarts": 0,
+            "recoveries": 118,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "repeated_outage_1",
+          "delta": {
+            "complete": 182,
+            "decoded": 182,
+            "submitted_total": 181,
+            "shown_total": 182,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "repeated_outage_2",
+          "delta": {
+            "complete": 148,
+            "decoded": 147,
+            "submitted_total": 146,
+            "shown_total": 146,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "repeated_outage_3",
+          "delta": {
+            "complete": 170,
+            "decoded": 169,
+            "submitted_total": 167,
+            "shown_total": 167,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "in_band_resolution_change_after_gap",
+          "delta": {
+            "complete": 190,
+            "decoded": 189,
+            "submitted_total": 190,
+            "shown_total": 190,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 1,
+            "recoveries": 1,
+            "decode_errors": 0
+          }
+        },
+        {
+          "name": "actual_1080_format_restored",
+          "delta": {
+            "complete": 163,
+            "decoded": 163,
+            "submitted_total": 161,
+            "shown_total": 161,
+            "missing": 0,
+            "timeouts": 0,
+            "queue_dropped": 0,
+            "restarts": 0,
+            "recoveries": 0,
+            "decode_errors": 0
+          }
+        }
+      ],
+      "stop_elapsed_ms": 13.9514,
+      "terminal_decoded": 4970,
+      "terminal_submitted": 4944,
+      "terminal_gpu": {},
+      "errors": [],
+      "status": "passed"
+    }
+  ]
+}

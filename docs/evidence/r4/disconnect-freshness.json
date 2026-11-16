@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "auditor_sha256": "0701bd59e46d6f8872ddcc97ca438ae85a3069535b126432eece07c5d761a15e",
+  "runs": [
+    {
+      "source": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-disconnect-matrix\\windows-d3d11va-seeded-v1\\result.json",
+      "result_sha256": "d7ce5f854fe78f8d1583a17a6db93e12277db20f37562ca1b0292391c1ed1d58",
+      "fresh_recovery_phases": 25,
+      "maximum_frame_age_ms": 304,
+      "errors": []
+    },
+    {
+      "source": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-disconnect-matrix\\windows-followups-v1\\cuda-learned\\result.json",
+      "result_sha256": "fa51144e6afa0d93eae0b6334f48dabffeb53c48b79735c7264f339dad95b6cf",
+      "fresh_recovery_phases": 24,
+      "maximum_frame_age_ms": 300,
+      "errors": []
+    },
+    {
+      "source": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-disconnect-matrix\\windows-followups-v1\\cuda-seeded\\result.json",
+      "result_sha256": "71f8eea3968e3b2e052182a5d57f0287a7528c85ff8ba7a7c4b310e100318084",
+      "fresh_recovery_phases": 25,
+      "maximum_frame_age_ms": 325,
+      "errors": []
+    },
+    {
+      "source": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-disconnect-matrix\\windows-followups-v1\\d3d11va-learned\\result.json",
+      "result_sha256": "0373212dbbd4fe4587507dd4232376340b42b5843a2a6229f740ac6ba4eceb29",
+      "fresh_recovery_phases": 24,
+      "maximum_frame_age_ms": 278,
+      "errors": []
+    },
+    {
+      "source": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-disconnect-matrix\\live-outages-v1\\result.json",
+      "result_sha256": "0fd8e175eafedfafb1199a1fa5d32a97666f287958670e177e438380fb2db859",
+      "fresh_recovery_phases": 9,
+      "maximum_frame_age_ms": 23,
+      "errors": []
+    },
+    {
+      "source": "task/linux-exit-investigation-v1/matrix/result.json",
+      "result_sha256": "738f0b995b8c9f8dcdfa5fffc3031d28ab032295702c44f038f2eb69be990719",
+      "fresh_recovery_phases": 25,
+      "maximum_frame_age_ms": 315,
+      "errors": []
+    },
+    {
+      "source": "task/linux-learned-investigation-v1/matrix/result.json",
+      "result_sha256": "f3a11a754d5d843e65b68eb802c5ca86e27a871202157448df502b45db834423",
+      "fresh_recovery_phases": 24,
+      "maximum_frame_age_ms": 307,
+      "errors": []
+    },
+    {
+      "source": "task/linux-seeded-repeat-v2/matrix/result.json",
+      "result_sha256": "4af55fc660823aa86c1cd41aa4fd7065688492acb79cd78559c2c4f7f414d12b",
+      "fresh_recovery_phases": 25,
+      "maximum_frame_age_ms": 222,
+      "errors": []
+    }
+  ]
+}

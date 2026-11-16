@@ -1,0 +1,13 @@
+{
+  "status": "verified",
+  "local_archive": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-gap-recovery\\linux-full-archive-retrieved-v1\\records.zip",
+  "archive_sha256": "20a83a82e181a2ed08e155abc20b604452c35731d35dbb36d244942f8dd5cab1",
+  "manifest_sha256": "79652628b1c3497c5386b688db0ed22bde71c8ed80848f19daa6193ccf320f59",
+  "members_verified": 2480,
+  "scope": "Complete file contents of the explicitly named run directories, root scripts and reports, plus package identity. Product binaries outside selected run directories are not a release archive. Original failed runs are retained.",
+  "directories": [
+    "linux-bootstrap-v1",
+    "linux-followup-v1"
+  ],
+  "finished": 1794828016.907368
+}

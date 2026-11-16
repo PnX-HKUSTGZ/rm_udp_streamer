@@ -1,0 +1,189 @@
+{
+  "runtime_commit": "bac87ac2ccdfd78cc4c5f7304d19a231b7a558d1",
+  "status": "unresolved",
+  "reason": "One original process remained alive after native retirement; subsequent successful repetitions have not reproduced it. No root cause or product fix is claimed.",
+  "original": {
+    "supervisor_status": "failed",
+    "supervisor_error": "TimeoutExpired(['/usr/bin/python3', '-B', '/home/minipc/qixuan/processing/rm-disconnect-matrix-20261116/disconnect_matrix_v1.py', '--package', '/home/minipc/qixuan/processing/rm-gap-recovery-20261116/linux-bootstrap-v1/package', '--bundle', '/home/minipc/qixuan/processing/rm-r5-20261115/rm-validation-r5-v5', '--fixture', '/home/minipc/qixuan/processing/rm-gap-recovery-20261116/real1080.units', '--decoder', 'vaapi', '--device', 'vaapi:pci:0000:00:02.0', '--transfer', 'yuv', '--renderer', 'mobile', '--output', '/home/minipc/qixuan/processing/rm-disconnect-matrix-20261116/linux-matrix-v1/vaapi-seeded', '--parameters', '/home/minipc/qixuan/processing/rm-gap-recovery-20261116/captured-parameters.hevc', '--display-driver', 'wayland'], 300)",
+    "forced": true,
+    "functional_phases_completed": 26,
+    "stop_elapsed_ms": 34.2295,
+    "terminal_event": "stopped",
+    "terminal": {
+      "state": "Stopped",
+      "stop_terminal": true,
+      "worker_done": true,
+      "decoder_done": true,
+      "render_retired": true,
+      "error": "",
+      "decoded": 4976,
+      "submitted_total": 4943,
+      "pending_frames": 0,
+      "queue_frames": 0,
+      "pending_uploads": 0,
+      "pending_publications": 0,
+      "render_pending": 0
+    },
+    "display_state": "Last pre-stop window_can_draw=true; guard records show unlocked/power_save=0. Shutdown static-string errors were observed only in the retained log; their timing relative to forced termination is not established."
+  },
+  "complete_repeats": [
+    {
+      "backend": "vaapi",
+      "seeded": true,
+      "phases": 26,
+      "status": "passed",
+      "stop_elapsed_ms": 35.2042,
+      "result_sha256": "738f0b995b8c9f8dcdfa5fffc3031d28ab032295702c44f038f2eb69be990719"
+    },
+    {
+      "backend": "vaapi",
+      "seeded": false,
+      "phases": 27,
+      "status": "passed",
+      "stop_elapsed_ms": 34.096,
+      "result_sha256": "f3a11a754d5d843e65b68eb802c5ca86e27a871202157448df502b45db834423"
+    },
+    {
+      "backend": "vaapi",
+      "seeded": true,
+      "phases": 26,
+      "status": "passed",
+      "stop_elapsed_ms": 13.9514,
+      "result_sha256": "4af55fc660823aa86c1cd41aa4fd7065688492acb79cd78559c2c4f7f414d12b"
+    }
+  ],
+  "short_process_exits": {
+    "status": "completed",
+    "count": 12,
+    "runs": [
+      {
+        "index": 1,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 233,
+        "stop_ms": 13.568,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 2,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 235,
+        "stop_ms": 17.2126,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 3,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 232,
+        "stop_ms": 33.9601,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 4,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 235,
+        "stop_ms": 32.9318,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 5,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 235,
+        "stop_ms": 37.8373,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 6,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 232,
+        "stop_ms": 35.2594,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 7,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 234,
+        "stop_ms": 33.6178,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 8,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 236,
+        "stop_ms": 33.2944,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 9,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 235,
+        "stop_ms": 35.0242,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 10,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 234,
+        "stop_ms": 33.951,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 11,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 235,
+        "stop_ms": 34.6491,
+        "port_rebind": true,
+        "errors": []
+      },
+      {
+        "index": 12,
+        "status": "passed",
+        "exit": 0,
+        "decoded": 238,
+        "submitted": 237,
+        "stop_ms": 12.9146,
+        "port_rebind": true,
+        "errors": []
+      }
+    ]
+  },
+  "diagnostics": "Repetition supervisors capture /proc and gdb stacks before terminating a blocked process; none of the three complete repeats blocked, so no stalled-process stack was captured.",
+  "source_hashes": {
+    "linux-archive-retrieved-v1\\selected\\task\\linux-matrix-v1\\status.json": "af8347da3014f880487c599b3f07f3a1c1ea3a7dffe45145ea7fe5a07c05a9cd",
+    "linux-archive-retrieved-v1\\selected\\task\\linux-exit-stress-v2\\status.json": "b48ead4e34626a6886c2a8d34942483ac92a88bfdfb4b6de04429d539a237091",
+    "linux-archive-retrieved-v1\\selected\\task\\linux-seeded-repeat-v2\\status.json": "b0605097dcbb904b1caf056706cdd01ab1e6f69d7ffd36deec7ae4216681d21f",
+    "linux-seeded-failure-v1.ndjson": "ed2331c681ae5112e5f00a25880b7665131ca8e3840e7dac25944e7af52afbab",
+    "linux-audit-v2.json": "4dc3d213f75e0a1ca0c7b199fa91f41ff9a0beebe711a2647998a1d5b83aa2b6"
+  }
+}

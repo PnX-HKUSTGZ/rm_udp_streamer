@@ -1,0 +1,39 @@
+{
+  "observed": 1794827885.2505257,
+  "launch_pid": 39116,
+  "package": {
+    "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-gap-recovery\\windows-bootstrap-v1\\package",
+    "manifest_sha256": "42d4de79028a26566fb5246cdbf5d274105dc8d608fcb613b899c114d5c3cc4d",
+    "commit": "bac87ac2ccdfd78cc4c5f7304d19a231b7a558d1",
+    "verified_files": 567,
+    "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+    "dependency_kind": "official",
+    "runtime_kind": "self-contained exported package",
+    "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+    "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+  },
+  "scope": "Direct real UDP on 192.168.12.2:3334. Explicit 94-byte parameter sets from earlier actual capture; all picture data comes from current network input. No live-packet proxy, injection or replay.",
+  "metrics_sha256": "1def7ab19d3aac1e918d8f325c013891cfd27c910386037bd2223ae62168d8e4",
+  "observations": 369,
+  "last_seconds": 381.1941339,
+  "core": {
+    "state": "Running",
+    "source": "192.168.12.1:49940",
+    "decoder": "d3d11va",
+    "hardware": true,
+    "mode": "cpu_nv12",
+    "width": 1920,
+    "height": 1080,
+    "packets": 283983,
+    "complete": 22841,
+    "decoded": 22810,
+    "hardware_frames": 22810,
+    "submitted_total": 21870,
+    "shown_total": 21869,
+    "decode_errors": 0,
+    "missing": 0,
+    "restarts": 0,
+    "initial_parameters_supplied": true,
+    "error": ""
+  }
+}

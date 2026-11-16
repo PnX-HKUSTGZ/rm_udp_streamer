@@ -1,0 +1,21 @@
+{
+  "status": "verified",
+  "archive": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-disconnect-matrix\\windows-archive-v2\\records.zip",
+  "archive_bytes": 23954207,
+  "archive_sha256": "cb66477eec7d30e153583e6f60fbf79f1d530ab7897193a9a27768206af6471e",
+  "manifest_sha256": "574ebbf42e11cb1ff0ce5ca89a98ce31cc89c1e6ac210f01bf8652732d59abb6",
+  "members_verified": 137,
+  "uncompressed_bytes": 75043615,
+  "scope": "Complete file contents of the explicitly named run directories, root scripts and reports, plus package identity. Product binaries outside selected run directories are not a release archive. Original failed runs are retained.",
+  "directories": [
+    "windows-d3d11va-seeded-v1",
+    "windows-followups-v1",
+    "windows-lifecycle-v1",
+    "live-port-restarts-v1",
+    "live-port-restarts-v2",
+    "live-outages-v1",
+    "windows-parameter-entry-v1",
+    "workspace-native-update-v1"
+  ],
+  "finished": 1794827711.713773
+}
