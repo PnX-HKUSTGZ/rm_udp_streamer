@@ -1,0 +1,259 @@
+{
+  "scope": "Completed evidence for runtime candidate ae15111. Partial acceptance only. Historical stage reviews and performance are not transferred to this candidate.",
+  "runtime_commit": "ae15111bd66ddbb93cf06aff3f3ef0553d598ece",
+  "builds": {
+    "windows": {
+      "status": "passed",
+      "commit": "ae15111bd66ddbb93cf06aff3f3ef0553d598ece",
+      "verified_files": 579,
+      "manifest_sha256": "6cf46b32c8c59a85a7774683abc0b9702b2d0c08fa5e77005490df2dd9ab24c1",
+      "native_relinked_sha256": "5026d993462068a2fcde3063f26f48855fe7c69a3a2e9d6ba0f366e7aba2692e"
+    },
+    "intel_ubuntu": {
+      "status": "passed",
+      "commit": "ae15111bd66ddbb93cf06aff3f3ef0553d598ece",
+      "verified_files": 543,
+      "manifest_sha256": "753e216b1a298f7c856da217fde337981f5fe886fffa783274f26ceee66229a5",
+      "native_relinked_sha256": "b2f984b47fe223b6b7243ddce8add6c226b987589a8804489a42f7800afaa8e5"
+    },
+    "amd_ubuntu": {
+      "status": "passed",
+      "commit": "ae15111bd66ddbb93cf06aff3f3ef0553d598ece",
+      "verified_files": 543,
+      "manifest_sha256": "e3eb3538386377160ca4e0bf11a883d407cbd48d3f326de887ef9b442fdeae3a",
+      "native_relinked_sha256": "3a05b8c137b6b73b0eefe562530b127d61f0f893334a52f27b4fcc4d8660d955"
+    }
+  },
+  "windows_functional": {
+    "matrix": [
+      {
+        "backend": "cuda",
+        "seeded": true,
+        "status": "passed",
+        "phase_count": 26,
+        "errors": [],
+        "result_sha256": "dcf592dbef2218f45c4d7a7813a5c9348f8365a5861bbaf1eeedc011eba0a91e"
+      },
+      {
+        "backend": "cuda",
+        "seeded": false,
+        "status": "passed",
+        "phase_count": 27,
+        "errors": [],
+        "result_sha256": "8bbc78824881f56651d79b494d624d37c18ef38a58ec3a55d80b8ab9f93ee92e"
+      },
+      {
+        "backend": "d3d11va",
+        "seeded": true,
+        "status": "passed",
+        "phase_count": 26,
+        "errors": [],
+        "result_sha256": "07f47bd14d4e7ad0356b14ea69a1e97b4906e51971b518bb5416474cbaf68cd2"
+      },
+      {
+        "backend": "d3d11va",
+        "seeded": false,
+        "status": "passed",
+        "phase_count": 27,
+        "errors": [],
+        "result_sha256": "4e2400bc219c0c774a773bcda7cf867413a2222f4c6df25dcdfc585eb224caf9"
+      }
+    ],
+    "lifecycle": [
+      {
+        "status": "passed",
+        "cycles": 60,
+        "modes": {
+          "gpu": 15,
+          "yuv": 15,
+          "rgba": 15,
+          "auto": 15
+        },
+        "maximum_stop_ms": 93,
+        "errors": [],
+        "native_sha256": "f79b884f149b8052538977902792ee3de1c41b36465da73c0b135b458b73ec29",
+        "package_manifest_sha256": "6cf46b32c8c59a85a7774683abc0b9702b2d0c08fa5e77005490df2dd9ab24c1"
+      },
+      {
+        "status": "passed",
+        "cycles": 60,
+        "modes": {
+          "yuv": 20,
+          "rgba": 20,
+          "auto": 20
+        },
+        "maximum_stop_ms": 133,
+        "errors": [],
+        "native_sha256": "f79b884f149b8052538977902792ee3de1c41b36465da73c0b135b458b73ec29",
+        "package_manifest_sha256": "6cf46b32c8c59a85a7774683abc0b9702b2d0c08fa5e77005490df2dd9ab24c1"
+      }
+    ],
+    "relinked_playback": {
+      "status": "passed",
+      "exit": 0,
+      "forced": false,
+      "initial_parameters_supplied": false,
+      "port_rebind": {
+        "passed": true,
+        "attempts": 1
+      }
+    }
+  },
+  "windows_performance": {
+    "preflight_cuda": {
+      "status": "passed",
+      "mean_fps": 59.86666666666667,
+      "p10_fps": 60,
+      "result_sha256": "6b17b0d2d2ca86c15a1f6bc3389e0835c2f7ce39537fc2112b0074e52289016f"
+    },
+    "preflight_latency_us": {
+      "p95_us": 28000,
+      "p99_us": 31000
+    },
+    "formal_status": "not_completed",
+    "formal_errors": [
+      "missing stop terminal",
+      "RuntimeError('test window minimized, hidden, cloaked or absent')",
+      "measurement coverage: StopIteration()"
+    ],
+    "scope": "10/60 is engineering preflight only. Formal measurement was invalidated by window minimization. No current-candidate 1080p60 or complete ABBA claim."
+  },
+  "parameter_origin": {
+    "capture_sha256": "9ed6ef8073cd40f0f9be85b0c82219245be0c122f53324da39c1bf5f7141b151",
+    "parameter_sha256": "16ed4637880580da04bc3314f3c828fdd5bfdce893132d40ba186a8f0c7af9c8",
+    "parameter_bytes": 94,
+    "packet": 42,
+    "source": [
+      "192.168.12.1",
+      57108
+    ],
+    "frame_id": 1,
+    "fragment": 0,
+    "udp_payload_parameter_range": [
+      8,
+      102
+    ],
+    "byte_equal": true
+  },
+  "workspace_live": {
+    "native_sha256": "78875a37d77245d07e6d6979dd5bf57fb75bb7c218e18c369da0b139d68be421",
+    "packets": 41047,
+    "complete_groups": 3297,
+    "nal_types": {
+      "1": 3242,
+      "20": 55
+    },
+    "capture_sha256": "6410d1276bdf3165a24ff60aeb77449d3bb360730d30c9d7659aec641d4cf1ca",
+    "application": {
+      "state": "Stopped",
+      "packets": 33442,
+      "complete": 2688,
+      "decoded": 0,
+      "submitted_total": 0,
+      "shown_total": 0,
+      "source": "192.168.12.1:63045",
+      "decode_errors": 0,
+      "error": "",
+      "initial_parameters_supplied": false
+    }
+  },
+  "direct_start": {
+    "capture_sha256": "7b1c62e9e8cbaae30e24192c5be60404e65866f66af1de865308a8d03a0fe92d",
+    "packets": 22579,
+    "complete_groups": 1803,
+    "nal_types": {
+      "1": 1772,
+      "20": 31
+    },
+    "parameter_packets": [],
+    "application_observed": "2026-11-16T22:19:22.7157682+08:00",
+    "application": {
+      "packets": 110718,
+      "complete": 8873,
+      "decoded": 0,
+      "submitted": 0,
+      "shown": 0,
+      "initial_parameters_supplied": false
+    },
+    "scope": "Real Main scene, current workspace, automatic command-line start at the physical endpoint, no parameter file. Not a successful no-argument editor acceptance."
+  },
+  "outstanding": [
+    "Current-candidate formal Windows and Ubuntu performance and diagnostic comparisons.",
+    "Live initialization without supplied parameters.",
+    "Intermittent upstream Wayland process exit failure.",
+    "Native Ubuntu NVIDIA and Windows AMD device coverage.",
+    "Final package/documentation identity, affected checks and independent R4/R6 reviews."
+  ],
+  "inputs": {
+    "windows_build": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\windows-release-v1\\status.json",
+      "bytes": 2756,
+      "sha256": "bc9902b247b212ab4efbeee4343c4fdf2562a9f86a7972e2ee5e8f175ca2e17e"
+    },
+    "intel_build": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\intel-release-status.json",
+      "bytes": 2548,
+      "sha256": "f46b504c9f6a91b6896342be508a6520dce0732251ea1789e840624e63e1e41c"
+    },
+    "amd_build": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\amd-release-status.json",
+      "bytes": 2560,
+      "sha256": "c047283d41892efe6d0de8afae5be8eec967d2b2bae37bb460d966e3895c09e4"
+    },
+    "windows_matrix": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\windows-sequence-v2\\matrix-audit.json",
+      "bytes": 51953,
+      "sha256": "60ea9f4f9d9ca04052fe7a58e26bd86a7b47be937546d4ba847be278cdee79a6"
+    },
+    "windows_lifecycle": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\windows-sequence-v2\\lifecycle-audit.json",
+      "bytes": 3167,
+      "sha256": "7fae59022a2bd97b9e16c9e2ae9e01bef4eed9079b724ee2b6c73ec5a218c7f6"
+    },
+    "windows_relinked_playback": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\windows-followups-v1\\relinked-gap\\result.json",
+      "bytes": 401439,
+      "sha256": "a4a84969ca2d500e5a8f0bfdbb9e23637e0e5724305875d3bc87fb96faeeb328"
+    },
+    "windows_performance": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\windows-performance-v1\\status.json",
+      "bytes": 8147,
+      "sha256": "8c0458ce58f3fd0b0dfec8c3f278112d572c2f1c133fac823c50f8d78ee50ce9"
+    },
+    "windows_formal_failure": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\windows-performance-v1\\formal-cuda\\result.json",
+      "bytes": 7158,
+      "sha256": "f198ff3094193fed39e2d76541216be603b16db9481953daf5acb2abe89c3c11"
+    },
+    "parameter_origin": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\parameter-origin-v2.json",
+      "bytes": 1052,
+      "sha256": "ad146c46559c703c7d9e2a24ee64cd9ce45ce96ecd2b7c4049c0097c1498fa87"
+    },
+    "latest_workspace_wire": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\live-unseeded-v2\\analysis\\result.json",
+      "bytes": 987,
+      "sha256": "f2b84029b265ed640f0ad34905742cbf2679da2ae06b41f30587fee9fc5b3d7d"
+    },
+    "latest_workspace_app": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-candidate-ae15111\\live-unseeded-v2\\status.json",
+      "bytes": 1663,
+      "sha256": "bc3ecfad49271dbd69620181e938126d3a9005101f0bb5883d9031a2cd8025a3"
+    },
+    "direct_start_wire": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-port3334-now\\direct-wire-v1\\analysis\\result.json",
+      "bytes": 987,
+      "sha256": "f9aaddc8c65e492e460389c6278dd7eddbd9aaf75cca9f241ca905b75f84027c"
+    },
+    "direct_start_observation": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-port3334-now\\direct-observation.json",
+      "bytes": 381,
+      "sha256": "e99ee66d6c3990cc6834efaebd7d1cf886bf1601102f59470bf1e7e243f30c9b"
+    },
+    "direct_start_launch": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-port3334-now\\direct-launch.json",
+      "bytes": 691,
+      "sha256": "1200d0c1aa009cd156634cdea87422074337b4747c4bfddb3f8135390a8d6e59"
+    }
+  }
+}
