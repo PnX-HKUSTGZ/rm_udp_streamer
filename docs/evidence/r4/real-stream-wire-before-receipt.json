@@ -1,0 +1,13 @@
+{
+  "interface": "Ethernet 4 / ASIX USB Gigabit / 227E0D9D-1D9A-478D-9C6B-3CC0F9A77613",
+  "filter": "udp port 3334",
+  "packets_captured": 89900,
+  "packets_received": 89900,
+  "pcap_dropped": 0,
+  "dumpcap_dropped": 0,
+  "flushed": 0,
+  "interface_dropped": 0,
+  "exit": 0,
+  "termination": "duration bound",
+  "verification": "tshark parsed the completed file with exit 0; payload and reassembled NAL scans are separate"
+}

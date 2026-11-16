@@ -1,0 +1,27 @@
+{
+  "source": [
+    "192.168.12.1",
+    57108
+  ],
+  "first_group": {
+    "source": [
+      "192.168.12.1",
+      57108
+    ],
+    "frame_id": 1,
+    "first_packet": 42,
+    "last_packet": 103,
+    "first_ns": 1794820481937834200,
+    "bytes": 85268,
+    "nal_types": [
+      32,
+      33,
+      34,
+      20
+    ]
+  },
+  "excluded_leading_groups": 3,
+  "bytes": 52292150,
+  "sha256": "613be8e7ad990b02e26912453e378ea0d43737df2b5c45cf2c02a3a582f988d1",
+  "scope": "Actual captured bytes from new sender source, starting with VPS/SPS/PPS+IDR; no generated or borrowed parameters."
+}

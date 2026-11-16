@@ -1,0 +1,33 @@
+{
+  "capture_sha256": "ea9b1e602cc288e579005d9b742d8ad5e04cf2a36104b50ee8db761df6a79cde",
+  "capture_bytes": 127491900,
+  "packets": 89900,
+  "udp_payload_bytes": 120662197,
+  "first_packet_ns": 1794820141054756300,
+  "last_packet_ns": 1794820261103245000,
+  "sources": [
+    {
+      "endpoint": [
+        "192.168.12.1",
+        60019,
+        "192.168.12.2",
+        3334
+      ],
+      "packets": 89900
+    }
+  ],
+  "raw_payload_annexb_nal_types": {
+    "1": 7076,
+    "20": 120
+  },
+  "parameter_packets": [],
+  "complete_groups": 7195,
+  "remaining_partial_groups": 1,
+  "complete_group_annexb_nal_types": {
+    "1": 7075,
+    "20": 120
+  },
+  "errors": {},
+  "reassembled_sha256": "f14ea8eed9502278857312d30ddab190a05e359395e4c394e7cdf30e15feeed4",
+  "scope": "Independent NIC capture; raw-payload NAL scan does not depend on application reassembly. Only complete groups form the offline HEVC file; boundary partials retained in pcapng and datagrams."
+}

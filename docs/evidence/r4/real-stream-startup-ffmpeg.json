@@ -1,0 +1,21 @@
+{
+  "command": [
+    "D:\\Code\\udp_streamer_godot\\stream_sender\\.tools\\ffmpeg\\ffmpeg.exe",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-f",
+    "hevc",
+    "-i",
+    "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-real-stream\\decode-success-v1\\from-initialization.hevc",
+    "-frames:v",
+    "60",
+    "-f",
+    "framemd5",
+    "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-real-stream\\decode-success-v1\\decoded-60.framemd5"
+  ],
+  "exit": 0,
+  "frames": 60,
+  "log_bytes": 0,
+  "framemd5_sha256": "0fe694fc18a4a76733829bb3f826961fe3a84c2ab49c4ffaf10b0caed59f5278"
+}

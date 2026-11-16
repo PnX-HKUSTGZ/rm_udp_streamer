@@ -1,0 +1,20 @@
+{
+  "reader": "FFmpeg input inspection (ffprobe is not installed)",
+  "exit": 1,
+  "no_output_file_expected": true,
+  "stream_lines": [
+    "  Stream #0:0: Video: hevc (Main), yuv420p(tv, bt709), 1920x1080 [SAR 1:1 DAR 16:9], 25 fps, 60 tbr, 1200k tbn"
+  ],
+  "decoded_frame_headers": [
+    "#format: frame checksums",
+    "#version: 2",
+    "#hash: MD5",
+    "#software: Lavf61.7.100",
+    "#tb 0: 1/60",
+    "#media_type 0: video",
+    "#codec_id 0: rawvideo",
+    "#dimensions 0: 1920x1080",
+    "#sar 0: 1/1",
+    "#stream#, dts,        pts, duration,     size, hash"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "command": [
+    "D:\\Code\\udp_streamer_godot\\stream_sender\\.tools\\ffmpeg\\ffmpeg.exe",
+    "-hide_banner",
+    "-loglevel",
+    "error",
+    "-f",
+    "hevc",
+    "-i",
+    "D:\\Code\\udp_streamer_godot\\processing\\2026-11-16-rm-real-stream\\restart-wire-v1\\analysis\\reassembled.hevc",
+    "-frames:v",
+    "1",
+    "-f",
+    "null",
+    "-"
+  ],
+  "exit": 3199971767,
+  "seconds": 0.5641469955444336,
+  "lines": 13891,
+  "first_lines": [
+    "[hevc @ 0000022979151180] PPS id out of range: 0",
+    "    Last message repeated 250 times",
+    "[hevc @ 00000229792e7a00] PPS id out of range: 0",
+    "[hevc @ 0000022979181480] PPS id out of range: 0",
+    "[hevc @ 0000022979361940] PPS id out of range: 0"
+  ]
+}

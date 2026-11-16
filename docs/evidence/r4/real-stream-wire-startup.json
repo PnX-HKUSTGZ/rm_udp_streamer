@@ -1,0 +1,86 @@
+{
+  "capture_sha256": "9ed6ef8073cd40f0f9be85b0c82219245be0c122f53324da39c1bf5f7141b151",
+  "capture_bytes": 55663588,
+  "packets": 39242,
+  "udp_payload_bytes": 52682055,
+  "first_packet_ns": 1794820474959558200,
+  "last_packet_ns": 1794820535181548900,
+  "sources": [
+    {
+      "endpoint": [
+        "192.168.12.1",
+        60019,
+        "192.168.12.2",
+        3334
+      ],
+      "packets": 41
+    },
+    {
+      "endpoint": [
+        "192.168.12.1",
+        57108,
+        "192.168.12.2",
+        3334
+      ],
+      "packets": 39201
+    }
+  ],
+  "raw_payload_annexb_nal_types": {
+    "1": 3080,
+    "32": 1,
+    "33": 1,
+    "34": 1,
+    "20": 53
+  },
+  "parameter_packets": [
+    {
+      "packet": 42,
+      "epoch": "1794820481.937834200",
+      "source": [
+        "192.168.12.1",
+        57108
+      ],
+      "destination": [
+        "192.168.12.2",
+        3334
+      ],
+      "frame_id": 1,
+      "fragment": 0,
+      "group_bytes": 85268,
+      "nals": [
+        {
+          "type": 32,
+          "offset_in_udp_payload": 8,
+          "bytes_in_datagram": 27
+        },
+        {
+          "type": 33,
+          "offset_in_udp_payload": 35,
+          "bytes_in_datagram": 56
+        },
+        {
+          "type": 34,
+          "offset_in_udp_payload": 91,
+          "bytes_in_datagram": 11
+        },
+        {
+          "type": 20,
+          "offset_in_udp_payload": 102,
+          "bytes_in_datagram": 1298
+        }
+      ]
+    }
+  ],
+  "complete_groups": 3132,
+  "remaining_partial_groups": 1,
+  "complete_group_annexb_nal_types": {
+    "1": 3079,
+    "32": 1,
+    "33": 1,
+    "34": 1,
+    "20": 53
+  },
+  "errors": {},
+  "reassembled_sha256": "aa67e939033692ca07d4ea6b0a92ebdd47fb62928c4fe8b2136a43fee8d4bd6d",
+  "scope": "Independent NIC capture; raw-payload NAL scan does not depend on application reassembly. Only complete groups form the offline HEVC file; boundary partials retained in pcapng and datagrams."
+}

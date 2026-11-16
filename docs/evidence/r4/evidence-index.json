@@ -1,7 +1,7 @@
 {
   "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
   "stage_completed": false,
-  "scope": "Intel display follow-up and real-input failure evidence; no R4/R6 completion or new performance grade.",
+  "scope": "Intel display follow-up, retained real-input failures, and verified real-stream startup/decode success. No R4/R6 completion or formal real-stream performance grade.",
   "files": [
     {
       "published": "intel-matrix-review.json",
@@ -110,6 +110,69 @@
       "source": "processing/2026-11-16-rm-real-stream/awaiting-headers-v1/result.json",
       "bytes": 2804,
       "sha256": "7e57cd91e9647270f1a81f876f0cb4b459c2a51edfdd7f54118130bec1830d4f",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-wire-before.json",
+      "source": "processing/2026-11-16-rm-real-stream/restart-wire-v1/analysis/result.json",
+      "bytes": 991,
+      "sha256": "5f71f4bf212f2c0efb8f0f2a82658b9e09f00737311a280d7699e83056bd84ef",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-wire-before-ffmpeg.json",
+      "source": "processing/2026-11-16-rm-real-stream/restart-wire-v1/analysis/ffmpeg-check.json",
+      "bytes": 748,
+      "sha256": "7551a5a70492e71cbaf599d1f6953928683df28fff3abbdc7493ad0a2a34eea6",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-wire-startup.json",
+      "source": "processing/2026-11-16-rm-real-stream/restart-wire-v2/analysis/result.json",
+      "bytes": 2023,
+      "sha256": "4b1ca368e2b881d94b49861f5942564adc28eb28c89fd3a3db3797e263152cd4",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-live-success.json",
+      "source": "processing/2026-11-16-rm-real-stream/decode-success-v1/result.json",
+      "bytes": 4476,
+      "sha256": "3f7547f999408552dd9ac1a1171645d3c72f9e22e85ca0e8f810b80fc8911e7b",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-startup-ffmpeg.json",
+      "source": "processing/2026-11-16-rm-real-stream/decode-success-v1/ffmpeg-check.json",
+      "bytes": 607,
+      "sha256": "88a3c1b49306ba1596f6f3e1e666475f7456be026f7c2cffa69f6f4011de791f",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-startup-selection.json",
+      "source": "processing/2026-11-16-rm-real-stream/decode-success-v1/stream-selection.json",
+      "bytes": 582,
+      "sha256": "dbe2b865aae3e694701c98c57d5e71f213e45d8bca388ea54145b81fc92c348e",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-metadata.json",
+      "source": "processing/2026-11-16-rm-real-stream/decode-success-v1/stream-metadata.json",
+      "bytes": 578,
+      "sha256": "50a6d51951362d47eb9d61010630a0c0efa8a40643471ebaa119fd58beb78abf",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-wire-before-receipt.json",
+      "source": "processing/2026-11-16-rm-real-stream/restart-wire-v1/capture-receipt.json",
+      "bytes": 437,
+      "sha256": "4dde08a42aa9aea18a4f5c5386d1474abc841b028cace0c25eab103e69d76634",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-wire-startup-receipt.json",
+      "source": "processing/2026-11-16-rm-real-stream/restart-wire-v2/capture-receipt.json",
+      "bytes": 467,
+      "sha256": "ae504bd7afdb58915628d4e63803c1f2c2ebb5730dbf613737b7e8af46420013",
       "kind": "byte-identical copy"
     }
   ]
