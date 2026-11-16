@@ -1,0 +1,87 @@
+{
+  "created": 1794817227.544568,
+  "passed": true,
+  "cases": [
+    {
+      "name": "wayland-mobile-yuv",
+      "source": "/home/minipc/qixuan/processing/rm-intel-display-20261116/live-picture-v2/wayland-mobile-yuv",
+      "passed": true,
+      "mode": "cpu_nv12",
+      "frame_age_ms_after_capture": 115,
+      "submitted": 603,
+      "refresh_hz": [
+        60.0
+      ],
+      "snapshot_size": [
+        1544,
+        1011
+      ],
+      "snapshot_sha256": "4bd873242ec80c52e5d24f058a9c6876d99d239386a2d9c1aa2ce224b56cd98b",
+      "post_suite_port_rebind": true,
+      "native_sha256": "32af73a97a4dc73c7d9388524406a253a36e81bb52218ec880bd1a2575e56cc5",
+      "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+      "raw_metrics_sha256": "0273c3ca550f27ec5bc2f04844cf76d9d6006407b250048319e3e1c116bbe11d"
+    },
+    {
+      "name": "wayland-mobile-rgba",
+      "source": "/home/minipc/qixuan/processing/rm-intel-display-20261116/live-picture-v2/wayland-mobile-rgba",
+      "passed": true,
+      "mode": "cpu_rgba",
+      "frame_age_ms_after_capture": 117,
+      "submitted": 382,
+      "refresh_hz": [
+        60.0
+      ],
+      "snapshot_size": [
+        1544,
+        1011
+      ],
+      "snapshot_sha256": "8197ab1b52f46444c94f4890a045fb94848c826a8a3cfff1118c320c512024a0",
+      "post_suite_port_rebind": true,
+      "native_sha256": "32af73a97a4dc73c7d9388524406a253a36e81bb52218ec880bd1a2575e56cc5",
+      "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+      "raw_metrics_sha256": "6821cdd3e9e75c45f3c444960fd42473b75a9c393efe2ec7305b0c6903480f0f"
+    },
+    {
+      "name": "x11-mobile-yuv",
+      "source": "/home/minipc/qixuan/processing/rm-intel-display-20261116/live-picture-v2/x11-mobile-yuv",
+      "passed": true,
+      "mode": "cpu_nv12",
+      "frame_age_ms_after_capture": 123,
+      "submitted": 599,
+      "refresh_hz": [
+        59.9599990844727
+      ],
+      "snapshot_size": [
+        1544,
+        1011
+      ],
+      "snapshot_sha256": "ac0bc3b45a7c7a4c597109216e415ab3a3bcdf19d218818c2a9b07eecfe77990",
+      "post_suite_port_rebind": true,
+      "native_sha256": "32af73a97a4dc73c7d9388524406a253a36e81bb52218ec880bd1a2575e56cc5",
+      "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+      "raw_metrics_sha256": "497e77326c20ca787d4d453ec6964c886c59232dd190fc3fa9cf9ced61d4f39c"
+    },
+    {
+      "name": "x11-mobile-rgba",
+      "source": "/home/minipc/qixuan/processing/rm-intel-display-20261116/live-picture-v3/x11-mobile-rgba",
+      "passed": true,
+      "mode": "cpu_rgba",
+      "frame_age_ms_after_capture": 98,
+      "submitted": 351,
+      "refresh_hz": [
+        59.9599990844727
+      ],
+      "snapshot_size": [
+        1544,
+        1011
+      ],
+      "snapshot_sha256": "617a60d5ecf3d61943877c22a718504fa493225db3ca5f8d6dea385a30f531f3",
+      "post_suite_port_rebind": true,
+      "native_sha256": "32af73a97a4dc73c7d9388524406a253a36e81bb52218ec880bd1a2575e56cc5",
+      "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+      "raw_metrics_sha256": "5c7528991d797b5dffadf3d89a56dd6000e646ba3949b1d65cf133f7ccb8c398"
+    }
+  ],
+  "scope": "Four actual-stream functional snapshots. v1 buffered stdout readiness failure and v2 inapplicable 60Hz functional assertion are retained. Xwayland reports 59.96Hz; no formal threshold lowered. Viewport images 1544x1011, source video 1920x1080. No physical scanout measurement. Port rebind here is after whole suite, not immediate per-cycle proof."
+}

@@ -1,0 +1,734 @@
+{
+  "created": 1794817130.8889544,
+  "observations_valid": true,
+  "errors": [],
+  "order": [
+    "off",
+    "on",
+    "on",
+    "off"
+  ],
+  "rounds": [
+    {
+      "name": "1-off",
+      "mean_fps": 55.78333333333333,
+      "p10_fps": 54,
+      "latency": {
+        "p95_us": null,
+        "p99_us": null
+      },
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 106.00822853237523
+      },
+      "performance_thresholds_short_only": false,
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.8311127176651866,
+        "rss_min_bytes": 409485312,
+        "rss_max_bytes": 412237824
+      },
+      "sender": {
+        "frames": 4440,
+        "lateness_p95_us": 143.382,
+        "lateness_p99_us": 234.262,
+        "lateness_max_us": 3049.63,
+        "late_over_frame": 0,
+        "send_p99_us": 934.144,
+        "interval_p1_us": 16518.097,
+        "interval_p99_us": 16799.748
+      },
+      "counters": {
+        "complete": 3662,
+        "consumed": 3662,
+        "decoded": 3662,
+        "prepared": 3403,
+        "submitted_total": 3403,
+        "shown_total": 3403,
+        "mailbox_replaced": 0,
+        "queue_expired": 0,
+        "decoded_replaced": 259,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 0,
+        "correlated_submitted": 0,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "timings": {},
+      "profile_samples": 27,
+      "profiles": [
+        "balanced"
+      ],
+      "frequency_khz_per_core": {
+        "cpu3": {
+          "min": 1713737,
+          "median": 3200025,
+          "max": 3201258
+        },
+        "cpu1": {
+          "min": 2617118,
+          "median": 3200042,
+          "max": 3244740
+        },
+        "cpu2": {
+          "min": 2725522,
+          "median": 3199906,
+          "max": 3548461
+        },
+        "cpu0": {
+          "min": 2086743,
+          "median": 3199969,
+          "max": 3439708
+        }
+      },
+      "temperature_millidegrees": {
+        "thermal_zone2": {
+          "min": 74000,
+          "median": 77000,
+          "max": 81000
+        },
+        "thermal_zone0": {
+          "min": 40000,
+          "median": 40000,
+          "max": 40000
+        },
+        "thermal_zone3": {
+          "min": 74000,
+          "median": 77000,
+          "max": 81000
+        },
+        "thermal_zone1": {
+          "min": 68000,
+          "median": 72000,
+          "max": 76000
+        },
+        "thermal_zone4": {
+          "min": 44000,
+          "median": 45000,
+          "max": 45000
+        }
+      },
+      "mutter_power_values": [
+        0
+      ],
+      "raw_sha256": {
+        "result.json": "6d2b80e305c4c2206091e01d20c381d34c58817f0dc4ab793e6d0fddc65eb3ab",
+        "metrics.ndjson": "3e1be70f177d325fe3d09aaa78726ff7fdcedb9605b752adda228de2bdc04eb0",
+        "process.json": "a77ed2d8138c4929995c9cf4eb73f4d5b2265d85309670cb2b2b25f7dca75182",
+        "sender.tsv": "b0bacdea3eb6e0d1e3bc18b04322fa64a1a5b47078277b58698198425dd00d45"
+      }
+    },
+    {
+      "name": "2-on",
+      "mean_fps": 55.93333333333333,
+      "p10_fps": 55,
+      "latency": {
+        "count": 3464,
+        "p50_us": 31000,
+        "p95_us": 60000,
+        "p99_us": 68000
+      },
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 105.99266573395705
+      },
+      "performance_thresholds_short_only": false,
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.82285458620876,
+        "rss_min_bytes": 411594752,
+        "rss_max_bytes": 413954048
+      },
+      "sender": {
+        "frames": 4440,
+        "lateness_p95_us": 144.954,
+        "lateness_p99_us": 202.388,
+        "lateness_max_us": 2087.112,
+        "late_over_frame": 0,
+        "send_p99_us": 890.426,
+        "interval_p1_us": 16557.549,
+        "interval_p99_us": 16776.661
+      },
+      "counters": {
+        "complete": 3714,
+        "consumed": 3714,
+        "decoded": 3714,
+        "prepared": 3465,
+        "submitted_total": 3464,
+        "shown_total": 3465,
+        "mailbox_replaced": 0,
+        "queue_expired": 0,
+        "decoded_replaced": 250,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 0,
+        "correlated_submitted": 3464,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "timings": {
+        "assembly_time": {
+          "count": 3714,
+          "p50_us": 0,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "compressed_queue_wait": {
+          "count": 3714,
+          "p50_us": 1000,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "cpu_readback": {
+          "count": 3465,
+          "p50_us": 5200,
+          "p95_us": 6200,
+          "p99_us": 6600
+        },
+        "decode_receive_cpu": {
+          "count": 7428,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "decode_send_cpu": {
+          "count": 3714,
+          "p50_us": 400,
+          "p95_us": 500,
+          "p99_us": 700
+        },
+        "dequeue_to_packet": {
+          "count": 3714,
+          "p50_us": 18000,
+          "p95_us": 19000,
+          "p99_us": 19000
+        },
+        "ingress_to_submit": {
+          "count": 3464,
+          "p50_us": 31000,
+          "p95_us": 60000,
+          "p99_us": 68000
+        },
+        "order_wait": {
+          "count": 3714,
+          "p50_us": 0,
+          "p95_us": 0,
+          "p99_us": 0
+        },
+        "packet_prepare_cpu": {
+          "count": 3714,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 200
+        },
+        "packet_to_decoded": {
+          "count": 3714,
+          "p50_us": 500,
+          "p95_us": 600,
+          "p99_us": 800
+        },
+        "parser_cpu": {
+          "count": 7428,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "plane_pack": {
+          "count": 3465,
+          "p50_us": 700,
+          "p95_us": 1000,
+          "p99_us": 1100
+        },
+        "preparation_queue_wait": {
+          "count": 3464,
+          "p50_us": 100,
+          "p95_us": 7100,
+          "p99_us": 15000
+        },
+        "prepare_total": {
+          "count": 3465,
+          "p50_us": 5900,
+          "p95_us": 6900,
+          "p99_us": 7400
+        },
+        "prepared_wait": {
+          "count": 3464,
+          "p50_us": 4100,
+          "p95_us": 36000,
+          "p99_us": 42000
+        },
+        "render_dispatch_wait": {
+          "count": 3464,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "rgba_conversion": {
+          "count": 0,
+          "p50_us": null,
+          "p95_us": null,
+          "p99_us": null
+        },
+        "submission_commit_wait": {
+          "count": 3464,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "submit_to_main_accept": {
+          "count": 3465,
+          "p50_us": 6900,
+          "p95_us": 9600,
+          "p99_us": 46000
+        },
+        "upload_cpu": {
+          "count": 3464,
+          "p50_us": 1600,
+          "p95_us": 2300,
+          "p99_us": 2800
+        }
+      },
+      "profile_samples": 27,
+      "profiles": [
+        "balanced"
+      ],
+      "frequency_khz_per_core": {
+        "cpu3": {
+          "min": 2276270,
+          "median": 3199929,
+          "max": 3496528
+        },
+        "cpu1": {
+          "min": 1946823,
+          "median": 3199869,
+          "max": 3541265
+        },
+        "cpu2": {
+          "min": 1585980,
+          "median": 3199929,
+          "max": 3546553
+        },
+        "cpu0": {
+          "min": 1943239,
+          "median": 3199927,
+          "max": 3556348
+        }
+      },
+      "temperature_millidegrees": {
+        "thermal_zone2": {
+          "min": 77000,
+          "median": 78000,
+          "max": 82000
+        },
+        "thermal_zone0": {
+          "min": 40000,
+          "median": 40000,
+          "max": 40000
+        },
+        "thermal_zone3": {
+          "min": 77000,
+          "median": 78000,
+          "max": 83000
+        },
+        "thermal_zone1": {
+          "min": 73000,
+          "median": 75000,
+          "max": 77000
+        },
+        "thermal_zone4": {
+          "min": 45000,
+          "median": 45000,
+          "max": 45000
+        }
+      },
+      "mutter_power_values": [
+        0
+      ],
+      "raw_sha256": {
+        "result.json": "cc374de4dd45cfdf5e9f87f61f19083fc5ea6eee23c3121d68aa912ce4ac8142",
+        "metrics.ndjson": "96fe65a9316e57e7122b4c7b5b7b0b4ff6be49668797d0d81cbf8b21fea69b95",
+        "process.json": "3386bf3897343086b554fadf656102ac368aa3eabfb58d159a184eec0c47bd53",
+        "sender.tsv": "27a148c964954217b80b15cbe1204a39d732d44e1a9514fed2236559f602b9c0"
+      }
+    },
+    {
+      "name": "3-on",
+      "mean_fps": 55.96666666666667,
+      "p10_fps": 55,
+      "latency": {
+        "count": 3468,
+        "p50_us": 31000,
+        "p95_us": 60000,
+        "p99_us": 69000
+      },
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 105.97028894533179
+      },
+      "performance_thresholds_short_only": false,
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.8212699903759706,
+        "rss_min_bytes": 411037696,
+        "rss_max_bytes": 413528064
+      },
+      "sender": {
+        "frames": 4440,
+        "lateness_p95_us": 135.59,
+        "lateness_p99_us": 174.726,
+        "lateness_max_us": 1988.635,
+        "late_over_frame": 0,
+        "send_p99_us": 830.097,
+        "interval_p1_us": 16585.958,
+        "interval_p99_us": 16751.718
+      },
+      "counters": {
+        "complete": 3718,
+        "consumed": 3718,
+        "decoded": 3718,
+        "prepared": 3468,
+        "submitted_total": 3468,
+        "shown_total": 3468,
+        "mailbox_replaced": 0,
+        "queue_expired": 0,
+        "decoded_replaced": 250,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 0,
+        "correlated_submitted": 3468,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "timings": {
+        "assembly_time": {
+          "count": 3718,
+          "p50_us": 0,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "compressed_queue_wait": {
+          "count": 3718,
+          "p50_us": 1000,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "cpu_readback": {
+          "count": 3468,
+          "p50_us": 5300,
+          "p95_us": 6200,
+          "p99_us": 6700
+        },
+        "decode_receive_cpu": {
+          "count": 7436,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "decode_send_cpu": {
+          "count": 3718,
+          "p50_us": 400,
+          "p95_us": 600,
+          "p99_us": 700
+        },
+        "dequeue_to_packet": {
+          "count": 3718,
+          "p50_us": 18000,
+          "p95_us": 19000,
+          "p99_us": 19000
+        },
+        "ingress_to_submit": {
+          "count": 3468,
+          "p50_us": 31000,
+          "p95_us": 60000,
+          "p99_us": 69000
+        },
+        "order_wait": {
+          "count": 3718,
+          "p50_us": 0,
+          "p95_us": 0,
+          "p99_us": 0
+        },
+        "packet_prepare_cpu": {
+          "count": 3718,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 200
+        },
+        "packet_to_decoded": {
+          "count": 3718,
+          "p50_us": 500,
+          "p95_us": 700,
+          "p99_us": 800
+        },
+        "parser_cpu": {
+          "count": 7436,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 200
+        },
+        "plane_pack": {
+          "count": 3468,
+          "p50_us": 700,
+          "p95_us": 1000,
+          "p99_us": 1200
+        },
+        "preparation_queue_wait": {
+          "count": 3468,
+          "p50_us": 100,
+          "p95_us": 7500,
+          "p99_us": 15000
+        },
+        "prepare_total": {
+          "count": 3468,
+          "p50_us": 6000,
+          "p95_us": 7000,
+          "p99_us": 7600
+        },
+        "prepared_wait": {
+          "count": 3468,
+          "p50_us": 4100,
+          "p95_us": 36000,
+          "p99_us": 42000
+        },
+        "render_dispatch_wait": {
+          "count": 3468,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "rgba_conversion": {
+          "count": 0,
+          "p50_us": null,
+          "p95_us": null,
+          "p99_us": null
+        },
+        "submission_commit_wait": {
+          "count": 3468,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "submit_to_main_accept": {
+          "count": 3468,
+          "p50_us": 6900,
+          "p95_us": 8100,
+          "p99_us": 46000
+        },
+        "upload_cpu": {
+          "count": 3468,
+          "p50_us": 1500,
+          "p95_us": 2100,
+          "p99_us": 2400
+        }
+      },
+      "profile_samples": 27,
+      "profiles": [
+        "balanced"
+      ],
+      "frequency_khz_per_core": {
+        "cpu3": {
+          "min": 2281588,
+          "median": 3200008,
+          "max": 3515987
+        },
+        "cpu1": {
+          "min": 2097537,
+          "median": 3199946,
+          "max": 3555970
+        },
+        "cpu2": {
+          "min": 2439196,
+          "median": 3199767,
+          "max": 3254161
+        },
+        "cpu0": {
+          "min": 2925073,
+          "median": 3199973,
+          "max": 3439376
+        }
+      },
+      "temperature_millidegrees": {
+        "thermal_zone2": {
+          "min": 77000,
+          "median": 79000,
+          "max": 83000
+        },
+        "thermal_zone0": {
+          "min": 40000,
+          "median": 40000,
+          "max": 40000
+        },
+        "thermal_zone3": {
+          "min": 77000,
+          "median": 79000,
+          "max": 83000
+        },
+        "thermal_zone1": {
+          "min": 74000,
+          "median": 75000,
+          "max": 78000
+        },
+        "thermal_zone4": {
+          "min": 45000,
+          "median": 45000,
+          "max": 46000
+        }
+      },
+      "mutter_power_values": [
+        0
+      ],
+      "raw_sha256": {
+        "result.json": "27ed1854bd4466b1199b49dba61424d98960f41d2d07b93fcd2819a0d24fdb82",
+        "metrics.ndjson": "8d9f84bfd4cbffd565c0a1821ae9802adb2cb5728859261eca91578629410032",
+        "process.json": "79512fb7b6c26b59ad9709ec297025fb8687fc7fdc5d01a1656cdbb8d239de23",
+        "sender.tsv": "affe346cb590f94b0a58ee877a68fc22d1fb02f68dfbc37e30f19b5d32a1a62d"
+      }
+    },
+    {
+      "name": "4-off",
+      "mean_fps": 55.75,
+      "p10_fps": 55,
+      "latency": {
+        "p95_us": null,
+        "p99_us": null
+      },
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 105.83563808997897
+      },
+      "performance_thresholds_short_only": false,
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.8300014864799637,
+        "rss_min_bytes": 410537984,
+        "rss_max_bytes": 413421568
+      },
+      "sender": {
+        "frames": 4440,
+        "lateness_p95_us": 139.072,
+        "lateness_p99_us": 178.618,
+        "lateness_max_us": 3233.613,
+        "late_over_frame": 0,
+        "send_p99_us": 925.3,
+        "interval_p1_us": 16580.498,
+        "interval_p99_us": 16757.262
+      },
+      "counters": {
+        "complete": 3661,
+        "consumed": 3661,
+        "decoded": 3661,
+        "prepared": 3399,
+        "submitted_total": 3400,
+        "shown_total": 3400,
+        "mailbox_replaced": 0,
+        "queue_expired": 0,
+        "decoded_replaced": 261,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 0,
+        "correlated_submitted": 0,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "timings": {},
+      "profile_samples": 27,
+      "profiles": [
+        "balanced"
+      ],
+      "frequency_khz_per_core": {
+        "cpu3": {
+          "min": 2320666,
+          "median": 3199908,
+          "max": 3201393
+        },
+        "cpu1": {
+          "min": 1694148,
+          "median": 3200011,
+          "max": 3263626
+        },
+        "cpu2": {
+          "min": 2532276,
+          "median": 3199971,
+          "max": 3402751
+        },
+        "cpu0": {
+          "min": 1758986,
+          "median": 3199897,
+          "max": 3205555
+        }
+      },
+      "temperature_millidegrees": {
+        "thermal_zone2": {
+          "min": 77000,
+          "median": 79000,
+          "max": 84000
+        },
+        "thermal_zone0": {
+          "min": 40000,
+          "median": 40000,
+          "max": 40000
+        },
+        "thermal_zone3": {
+          "min": 77000,
+          "median": 79000,
+          "max": 84000
+        },
+        "thermal_zone1": {
+          "min": 74000,
+          "median": 75000,
+          "max": 79000
+        },
+        "thermal_zone4": {
+          "min": 45000,
+          "median": 45000,
+          "max": 46000
+        }
+      },
+      "mutter_power_values": [
+        0
+      ],
+      "raw_sha256": {
+        "result.json": "f11690ff779627c61a535743c4978f63a35e2176deb359ea55c1d6a0fe98b3b1",
+        "metrics.ndjson": "385f0c1e983a0188f838d1522805da8370708ba9ce57ce4db3323438b7920249",
+        "process.json": "235682fe375eaf1072ea148211a1eda0f4d2139e0adb5fef2b6fcb287479b4c5",
+        "sender.tsv": "a431116507bae9920340142a3e89d2d705d953e9af8e453815b94a401e7a67d1"
+      }
+    }
+  ],
+  "scope": "Engineering comparison 10/60, all rounds retained; no formal 180/1800 performance grade. Frequency/profile summaries exclude 15 seconds at round start and 8 at end, not an exact alignment to submission windows. Mutter power state is not physical scanout proof.",
+  "profile_restored": true,
+  "display_restore_errors": []
+}

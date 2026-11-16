@@ -1,0 +1,185 @@
+{
+  "created": 1794815202.3684583,
+  "stage": "functional",
+  "suite_status": "completed",
+  "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "package": {
+    "path": "/home/minipc/qixuan/processing/rm-r5-20261115/delivery-88bf17a-v1/rm-ubuntu2404-88bf17a",
+    "manifest_sha256": "ab1a457bb15fb6da977cb14a92e21b5816bc77e0565f432a23f4a8144bec0205",
+    "commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+    "verified_files": 500,
+    "dependency_lock_sha256": "513cc4c0329a1fa0dd8522fa01c188176819950281760c88e0f04c11fb931866",
+    "dependency_kind": "developer",
+    "runtime_kind": "self-contained exported package",
+    "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+    "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+  },
+  "native_sha256": "32af73a97a4dc73c7d9388524406a253a36e81bb52218ec880bd1a2575e56cc5",
+  "assembly_sha256": "1214eb533c807498b78f93a14359e31790a1644ccfbeca38d9542ab9dd1a3d52",
+  "display_restored": true,
+  "display_observations": 8,
+  "locked_values": [
+    false
+  ],
+  "power_values": [
+    0,
+    3
+  ],
+  "observer_errors": [],
+  "limits": "Mode and drawability do not prove physical scanout; record all compositor power observations. X11 runs use Xwayland on the inventoried Wayland session.",
+  "errors": [],
+  "functional_source": "/home/minipc/qixuan/processing/rm-intel-display-20261116/functional-v1",
+  "lifecycle": {
+    "cycles": 60,
+    "max_stop_ms": 17,
+    "memory_per_10_cycles": [
+      {
+        "first": 43135237,
+        "last": 43677265
+      },
+      {
+        "first": 43615307,
+        "last": 43639667
+      },
+      {
+        "first": 43623323,
+        "last": 43660699
+      },
+      {
+        "first": 43704393,
+        "last": 43723645
+      },
+      {
+        "first": 43657059,
+        "last": 43672583
+      },
+      {
+        "first": 43674995,
+        "last": 43694495
+      }
+    ],
+    "resource_quartiles": [
+      {
+        "samples": 17,
+        "rss_bytes": 399433728,
+        "threads": 31,
+        "fds": 76
+      },
+      {
+        "samples": 18,
+        "rss_bytes": 400359424.0,
+        "threads": 30.0,
+        "fds": 76.0
+      },
+      {
+        "samples": 18,
+        "rss_bytes": 400252928.0,
+        "threads": 30.0,
+        "fds": 76.0
+      },
+      {
+        "samples": 18,
+        "rss_bytes": 401190912.0,
+        "threads": 30.0,
+        "fds": 76.0
+      }
+    ],
+    "native_sha256": "32af73a97a4dc73c7d9388524406a253a36e81bb52218ec880bd1a2575e56cc5",
+    "script_sha256": "b77838bff5635bdb16e7bbee6c9aec6d1839a938e49de4a129e231ebedab665c",
+    "raw_sha256": "79500176ee4ba801b16a5c157b0d7648d595db853a1a7b7b003cf65005ddb91a",
+    "scope": "Dedicated scene with exact released native library, not sixty release GUI-button cycles."
+  },
+  "passed": true,
+  "faults": {
+    "status": "passed",
+    "errors": [],
+    "exit": 0,
+    "forced": false,
+    "port_rebind": {
+      "passed": true,
+      "attempts": 1
+    },
+    "scope": "functional packaged UDP faults; metrics may be inspected between phases, no throughput/latency performance claim",
+    "phases": [
+      {
+        "name": "normal_wrap",
+        "sent": 240,
+        "mutated": 0,
+        "seconds": 3.9863623599958373
+      },
+      {
+        "name": "fragment_reorder_duplicate",
+        "sent": 240,
+        "mutated": 240,
+        "seconds": 3.99061201299628
+      },
+      {
+        "name": "missing_fragment_recovery",
+        "sent": 240,
+        "mutated": 1,
+        "seconds": 3.9870847850033897
+      },
+      {
+        "name": "conflicting_fragment_recovery",
+        "sent": 240,
+        "mutated": 1,
+        "seconds": 3.9874865720048547
+      },
+      {
+        "name": "damaged_hevc_recovery",
+        "sent": 240,
+        "mutated": 0,
+        "seconds": 3.9968022190005286
+      },
+      {
+        "name": "silence",
+        "seconds": 3.2078973300012876
+      },
+      {
+        "name": "source_restart_resolution",
+        "sent": 240,
+        "mutated": 0,
+        "seconds": 3.9984722809967934
+      },
+      {
+        "name": "range_change",
+        "sent": 240,
+        "mutated": 0,
+        "seconds": 4.00342633100081
+      },
+      {
+        "name": "overload_input",
+        "sent": 1800,
+        "seconds": 0.28169160099787405
+      },
+      {
+        "name": "overload_recovery",
+        "sent": 240,
+        "mutated": 0,
+        "seconds": 4.001799345998734
+      }
+    ]
+  },
+  "recovery": {
+    "status": "passed",
+    "errors": [],
+    "exit": 0,
+    "forced": false,
+    "port_rebind": {
+      "passed": true,
+      "attempts": 1
+    },
+    "scope": "A deliberate source restart with withheld IRAP; sender wait and native processing are separate clock domains. Not a formal performance measurement.",
+    "deliberate_upstream_wait_ms": 2006.205953,
+    "native_first_keyframe_ingress_to_submit_ms": 33.108,
+    "native_parser_output_to_submit_ms": 14.625,
+    "polling_resolution_ms": 50,
+    "clock_note": "Polling only discovers stored native timestamps; polling time is not substituted for processing latency."
+  },
+  "full_source": {
+    "path": "processing/2026-11-16-rm-intel-display/followup-records-v1/functional-v2/audit.json",
+    "bytes": 1407218,
+    "sha256": "05c220bfaf64c3cfdf92912a57f541d6a42f1256c5296b2968fc2d8fdae5ab2f"
+  },
+  "publication_scope": "Projection of the completed audit; full snapshots remain in the verified 960-member archive."
+}

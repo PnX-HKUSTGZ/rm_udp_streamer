@@ -1,0 +1,207 @@
+{
+  "passed": true,
+  "original_suite_status": "failed",
+  "correction": "Wrapper expected nonexistent cpu_yuv. Frozen source cpu_preparer.cpp:169 reports cpu_nv12 or cpu_yuv420p. Raw validations and images rechecked without rerunning, overwriting, or changing results.",
+  "performance_passed": false,
+  "performance_limit": "Primary engineering run 55.9fps/P10 55 and ingress P95 62ms do not reach 1080p60 gates. Functional pass does not confer that grade.",
+  "display_restored": true,
+  "cases": [
+    {
+      "name": "wayland-mobile-yuv",
+      "passed": true,
+      "actual_decoder": "vaapi",
+      "mode": "cpu_nv12",
+      "mean_fps": 55.9,
+      "p10_fps": 55,
+      "latency_p95_p99_us": [
+        62000,
+        68000
+      ],
+      "original_wrapper_errors": [
+        "YUV path not active"
+      ],
+      "engine_header": "WARNING: Can't obtain the XDG decoration manager. Libdecor will be used for drawing CSDs, if available.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5635)\nWARNING: xdg-toplevel-icon protocol not found! Cannot set window icon.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5642)\nWARNING: FIFO protocol not found! Frame pacing will be degraded.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5657)\nGodot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nVulkan 1.4.318 - Forward Mobile - Using Device #0: Intel - Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "028ebf7f86b4e68d1dbf815356098966cd4e2c3bda2aaec4409afe21d6f5c672"
+    },
+    {
+      "name": "wayland-mobile-rgba",
+      "passed": true,
+      "actual_decoder": "vaapi",
+      "mode": "cpu_rgba",
+      "mean_fps": 35.15,
+      "p10_fps": 35,
+      "latency_p95_p99_us": [
+        88000,
+        93000
+      ],
+      "original_wrapper_errors": [],
+      "engine_header": "WARNING: Can't obtain the XDG decoration manager. Libdecor will be used for drawing CSDs, if available.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5635)\nWARNING: xdg-toplevel-icon protocol not found! Cannot set window icon.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5642)\nWARNING: FIFO protocol not found! Frame pacing will be degraded.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5657)\nGodot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nVulkan 1.4.318 - Forward Mobile - Using Device #0: Intel - Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "233a67d1c21d7466d65547da32dcb68032a66a7ab3eb6917c50f6a046fed2c6a"
+    },
+    {
+      "name": "wayland-gl_compatibility-yuv",
+      "passed": true,
+      "actual_decoder": "vaapi",
+      "mode": "cpu_nv12",
+      "mean_fps": 56.25,
+      "p10_fps": 55,
+      "latency_p95_p99_us": [
+        59000,
+        68000
+      ],
+      "original_wrapper_errors": [
+        "YUV path not active"
+      ],
+      "engine_header": "WARNING: Can't obtain the XDG decoration manager. Libdecor will be used for drawing CSDs, if available.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5635)\nWARNING: xdg-toplevel-icon protocol not found! Cannot set window icon.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5642)\nWARNING: FIFO protocol not found! Frame pacing will be degraded.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5657)\nGodot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nOpenGL API 4.6 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Intel - Mesa Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "87b8a284be1ceb8720e9e6712f3002cc370c9b667e9100d7399c82e871817e4b"
+    },
+    {
+      "name": "wayland-gl_compatibility-rgba",
+      "passed": true,
+      "actual_decoder": "vaapi",
+      "mode": "cpu_rgba",
+      "mean_fps": 35.25,
+      "p10_fps": 35,
+      "latency_p95_p99_us": [
+        87000,
+        92000
+      ],
+      "original_wrapper_errors": [],
+      "engine_header": "WARNING: Can't obtain the XDG decoration manager. Libdecor will be used for drawing CSDs, if available.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5635)\nWARNING: xdg-toplevel-icon protocol not found! Cannot set window icon.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5642)\nWARNING: FIFO protocol not found! Frame pacing will be degraded.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5657)\nGodot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nOpenGL API 4.6 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Intel - Mesa Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "c27c6f3b18d71ecb8fe5beb24e57b1b3a1157cc2fb2047a6757f8ce21075f166"
+    },
+    {
+      "name": "x11-mobile-yuv",
+      "passed": true,
+      "actual_decoder": "vaapi",
+      "mode": "cpu_nv12",
+      "mean_fps": 55.0,
+      "p10_fps": 53,
+      "latency_p95_p99_us": [
+        64000,
+        72000
+      ],
+      "original_wrapper_errors": [
+        "YUV path not active"
+      ],
+      "engine_header": "Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nVulkan 1.4.318 - Forward Mobile - Using Device #0: Intel - Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "ca3cc0a483164e41d0685fafe6c8921c499c03b9646dabb154f0f694bf1d444f"
+    },
+    {
+      "name": "x11-mobile-rgba",
+      "passed": true,
+      "actual_decoder": "vaapi",
+      "mode": "cpu_rgba",
+      "mean_fps": 35.25,
+      "p10_fps": 34,
+      "latency_p95_p99_us": [
+        85000,
+        91000
+      ],
+      "original_wrapper_errors": [],
+      "engine_header": "Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nVulkan 1.4.318 - Forward Mobile - Using Device #0: Intel - Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "4c4c15ed0e78c1112bab6381601242561dca2b39f2e3049738daaa543bb1208a"
+    },
+    {
+      "name": "x11-gl_compatibility-yuv",
+      "passed": true,
+      "actual_decoder": "vaapi",
+      "mode": "cpu_nv12",
+      "mean_fps": 55.3,
+      "p10_fps": 54,
+      "latency_p95_p99_us": [
+        63000,
+        72000
+      ],
+      "original_wrapper_errors": [
+        "YUV path not active"
+      ],
+      "engine_header": "Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nOpenGL API 4.6 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Intel - Mesa Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "72e40dd7ef3ae0f4a8c370c807af33a46f2a042be3fcf2f80e70554d50c07c64"
+    },
+    {
+      "name": "x11-gl_compatibility-rgba",
+      "passed": true,
+      "actual_decoder": "vaapi",
+      "mode": "cpu_rgba",
+      "mean_fps": 35.2,
+      "p10_fps": 35,
+      "latency_p95_p99_us": [
+        86000,
+        93000
+      ],
+      "original_wrapper_errors": [],
+      "engine_header": "Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nOpenGL API 4.6 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.4 - Compatibility - Using Device: Intel - Mesa Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "9f549413796d09bffc83f279c01f9169e32de0e4e6e93fdc55a04ae821f4df8b"
+    },
+    {
+      "name": "auto-transfer",
+      "passed": true,
+      "actual_decoder": "vaapi",
+      "mode": "cpu_nv12",
+      "mean_fps": 56.35,
+      "p10_fps": 55,
+      "latency_p95_p99_us": [
+        59000,
+        67000
+      ],
+      "original_wrapper_errors": [
+        "YUV path not active"
+      ],
+      "engine_header": "WARNING: Can't obtain the XDG decoration manager. Libdecor will be used for drawing CSDs, if available.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5635)\nWARNING: xdg-toplevel-icon protocol not found! Cannot set window icon.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5642)\nWARNING: FIFO protocol not found! Frame pacing will be degraded.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5657)\nGodot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nVulkan 1.4.318 - Forward Mobile - Using Device #0: Intel - Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "9a5b8e353b48e9295599d8d3b885cfcf02d748395f509b974ef9ab46de099914"
+    },
+    {
+      "name": "identity-software-fallback",
+      "passed": true,
+      "actual_decoder": "software",
+      "mode": "cpu_yuv420p",
+      "mean_fps": 58.6,
+      "p10_fps": 57,
+      "latency_p95_p99_us": [
+        49000,
+        66000
+      ],
+      "original_wrapper_errors": [
+        "YUV path not active"
+      ],
+      "engine_header": "WARNING: Can't obtain the XDG decoration manager. Libdecor will be used for drawing CSDs, if available.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5635)\nWARNING: xdg-toplevel-icon protocol not found! Cannot set window icon.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5642)\nWARNING: FIFO protocol not found! Frame pacing will be degraded.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5657)\nGodot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nVulkan 1.4.318 - Forward Mobile - Using Device #0: Intel - Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "c0155f5dea53c9365c92268c0fbaaae6dda9276640a1b4a6de8fc6edd29cfba9"
+    },
+    {
+      "name": "software-explicit",
+      "passed": true,
+      "actual_decoder": "software",
+      "mode": "cpu_yuv420p",
+      "mean_fps": 58.65,
+      "p10_fps": 57,
+      "latency_p95_p99_us": [
+        49000,
+        65000
+      ],
+      "original_wrapper_errors": [
+        "YUV path not active"
+      ],
+      "engine_header": "WARNING: Can't obtain the XDG decoration manager. Libdecor will be used for drawing CSDs, if available.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5635)\nWARNING: xdg-toplevel-icon protocol not found! Cannot set window icon.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5642)\nWARNING: FIFO protocol not found! Frame pacing will be degraded.\n     at: init (platform/linuxbsd/wayland/wayland_thread.cpp:5657)\nGodot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org\nVulkan 1.4.318 - Forward Mobile - Using Device #0: Intel - Intel(R) Graphics (ADL-N)\n\n",
+      "raw_result_sha256": "16466ac11b93b88e32475b92ea3ca159a0dde6ea4153a133a542f30c592a49e0"
+    },
+    {
+      "name": "unknown-device",
+      "passed": true,
+      "expected_exit": 2,
+      "exit": 2
+    },
+    {
+      "name": "forced-vaapi-gpu",
+      "passed": true,
+      "expected_exit": 2,
+      "exit": 2
+    },
+    {
+      "name": "cuda-unavailable",
+      "passed": true,
+      "expected_exit": 2,
+      "exit": 2
+    }
+  ]
+}

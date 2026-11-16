@@ -1,0 +1,273 @@
+{
+  "created": 1794818029.0843554,
+  "observations_valid": true,
+  "errors": [],
+  "rounds": [
+    {
+      "name": "1-baseline",
+      "mean_fps": 55.81666666666667,
+      "p10_fps": 55,
+      "latency_p95_p99_us": [
+        61000,
+        69000
+      ],
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 105.65115160001098
+      },
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.8541178815080149,
+        "rss_min_bytes": 438349824,
+        "rss_max_bytes": 440971264
+      },
+      "ui_costs_all_calls_including_startup_and_shutdown": {
+        "refresh_ms": {
+          "count": 309,
+          "sum_ms": 156.497429,
+          "mean_ms": 0.5064641715210356,
+          "p50_ms": 0.466901,
+          "p95_ms": 0.711008,
+          "p99_ms": 1.024366,
+          "max_ms": 5.199936
+        },
+        "diagnostic_ms": {
+          "count": 77,
+          "sum_ms": 283.402748,
+          "mean_ms": 3.6805551688311686,
+          "p50_ms": 3.008593,
+          "p95_ms": 6.117343,
+          "p99_ms": 35.287599,
+          "max_ms": 35.287599
+        }
+      },
+      "prepared_wait": {
+        "count": 3405,
+        "sum_us": 21567394,
+        "p50_us": 4200,
+        "p95_us": 36000,
+        "p99_us": 41000,
+        "percentile_upper_bound": true
+      },
+      "prepare_total": {
+        "count": 3404,
+        "sum_us": 19896651,
+        "p50_us": 6200,
+        "p95_us": 7200,
+        "p99_us": 7700,
+        "percentile_upper_bound": true
+      },
+      "raw_sha256": {
+        "result.json": "4515d3551316dbaef40bc85be14d3d3f01126b6b31b41c172a2cc06cdff864b7",
+        "metrics.ndjson": "793543915b4cb7dae43e6442ec809a773680c984a520ae06e649a1d4f7228401",
+        "engine.log": "508569df3b58b3823ac4ea9e1f6e04ff49697c882607c67077a9bb48c6403286",
+        "process.json": "f12f9c91308221f09246a4e6dc5daef3f2a76198b3b093dcf383386ae8571d0d",
+        "sender.tsv": "cff67bb82f3a922a054b0fb082cc1aee6ed1fa5bdc794ae121284529b861fead"
+      }
+    },
+    {
+      "name": "2-slow-ui",
+      "mean_fps": 59.483333333333334,
+      "p10_fps": 59,
+      "latency_p95_p99_us": [
+        36000,
+        41000
+      ],
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 118.07887406899539
+      },
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.8447646638571596,
+        "rss_min_bytes": 380956672,
+        "rss_max_bytes": 383578112
+      },
+      "ui_costs_all_calls_including_startup_and_shutdown": {
+        "refresh_ms": {
+          "count": 40,
+          "sum_ms": 32.742354,
+          "mean_ms": 0.81855885,
+          "p50_ms": 0.556032,
+          "p95_ms": 1.270505,
+          "p99_ms": 5.523414,
+          "max_ms": 5.523414
+        },
+        "diagnostic_ms": {
+          "count": 77,
+          "sum_ms": 291.746788,
+          "mean_ms": 3.7889193246753248,
+          "p50_ms": 3.101315,
+          "p95_ms": 6.378388,
+          "p99_ms": 36.802279,
+          "max_ms": 36.802279
+        }
+      },
+      "prepared_wait": {
+        "count": 3635,
+        "sum_us": 15671331,
+        "p50_us": 3900,
+        "p95_us": 7800,
+        "p99_us": 9500,
+        "percentile_upper_bound": true
+      },
+      "prepare_total": {
+        "count": 3635,
+        "sum_us": 23688361,
+        "p50_us": 6500,
+        "p95_us": 7900,
+        "p99_us": 8700,
+        "percentile_upper_bound": true
+      },
+      "raw_sha256": {
+        "result.json": "060ed3034ba5c666626c7973ad41e600d9e5a1e7ba0d841c58588d100eb9acfc",
+        "metrics.ndjson": "a0c0a7ad293143411b8e3e1462c10b95f74aac0fbe5c811fe6a7367843a8b637",
+        "engine.log": "350883263ce2e831ec3446bbb260627a15185ad5d140ed24b368bd1516e212cf",
+        "process.json": "cd43143e402f592ed595fbb80e0ead0a4d670b5ca00183bd44e47b6fc1c59605",
+        "sender.tsv": "11ba246676c1fce120b124d2e1ca3ac7741f19cf601f9c1b07cb1df236ed7396"
+      }
+    },
+    {
+      "name": "3-slow-ui",
+      "mean_fps": 59.45,
+      "p10_fps": 58,
+      "latency_p95_p99_us": [
+        36000,
+        42000
+      ],
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 118.07895945913157
+      },
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 63,
+        "mean_cpu_cores": 0.8509639578497408,
+        "rss_min_bytes": 380641280,
+        "rss_max_bytes": 383262720
+      },
+      "ui_costs_all_calls_including_startup_and_shutdown": {
+        "refresh_ms": {
+          "count": 40,
+          "sum_ms": 29.855009,
+          "mean_ms": 0.746375225,
+          "p50_ms": 0.589126,
+          "p95_ms": 1.344675,
+          "p99_ms": 4.591755,
+          "max_ms": 4.591755
+        },
+        "diagnostic_ms": {
+          "count": 77,
+          "sum_ms": 278.664263,
+          "mean_ms": 3.6190164025974028,
+          "p50_ms": 3.121272,
+          "p95_ms": 6.043518,
+          "p99_ms": 16.482199,
+          "max_ms": 16.482199
+        }
+      },
+      "prepared_wait": {
+        "count": 3631,
+        "sum_us": 14942609,
+        "p50_us": 3900,
+        "p95_us": 7900,
+        "p99_us": 9600,
+        "percentile_upper_bound": true
+      },
+      "prepare_total": {
+        "count": 3632,
+        "sum_us": 23191751,
+        "p50_us": 6400,
+        "p95_us": 7800,
+        "p99_us": 8500,
+        "percentile_upper_bound": true
+      },
+      "raw_sha256": {
+        "result.json": "b9e964d1df04eaeee4f441803c2ce2cf1a4ec25f2eb1f1c5b74f82ff69bb64fc",
+        "metrics.ndjson": "15825af89616ef33c4c7eb808b70247125313c6a79f4fb4626982e6f578d4b65",
+        "engine.log": "fa7159f037939d9fa44d67ce44f108f03cd37d62cfdb707750145ef6092f9905",
+        "process.json": "04214561ab4b4913fef4e61a2d4eb2cebbb00837c7f12f87e59b186622a351fe",
+        "sender.tsv": "bd5348ee48b83310bc95d59b4aed299cfadb8ab58cd2b5e475af1d8b6f2086c7"
+      }
+    },
+    {
+      "name": "4-baseline",
+      "mean_fps": 55.81666666666667,
+      "p10_fps": 55,
+      "latency_p95_p99_us": [
+        61000,
+        69000
+      ],
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 105.70936059992584
+      },
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.8342876725575218,
+        "rss_min_bytes": 381628416,
+        "rss_max_bytes": 384118784
+      },
+      "ui_costs_all_calls_including_startup_and_shutdown": {
+        "refresh_ms": {
+          "count": 309,
+          "sum_ms": 160.898002,
+          "mean_ms": 0.5207055080906149,
+          "p50_ms": 0.470217,
+          "p95_ms": 0.77661,
+          "p99_ms": 0.989179,
+          "max_ms": 6.729924
+        },
+        "diagnostic_ms": {
+          "count": 77,
+          "sum_ms": 283.087324,
+          "mean_ms": 3.676458753246753,
+          "p50_ms": 2.988587,
+          "p95_ms": 5.759582,
+          "p99_ms": 35.648007,
+          "max_ms": 35.648007
+        }
+      },
+      "prepared_wait": {
+        "count": 3407,
+        "sum_us": 21304000,
+        "p50_us": 4100,
+        "p95_us": 36000,
+        "p99_us": 42000,
+        "percentile_upper_bound": true
+      },
+      "prepare_total": {
+        "count": 3407,
+        "sum_us": 19176524,
+        "p50_us": 6000,
+        "p95_us": 7100,
+        "p99_us": 7500,
+        "percentile_upper_bound": true
+      },
+      "raw_sha256": {
+        "result.json": "4bcafdc8417c2f5eee29d33318636cadddbcd9bbf07167f93c4dc5423496a569",
+        "metrics.ndjson": "95dee5b2aadb72b0085e06662f6402f5a65250637762b76b2315fe0dd7f24807",
+        "engine.log": "29c6f870eefddae0b8a5a10201a644d9c68e429a8f2289d71b6ee275b0ffbe62",
+        "process.json": "e634e0738f431df095154d767bff46d6abc550ee70236e8851fc9681e32e8db1",
+        "sender.tsv": "1e29d2b68c685647ee3d8b589c8d797449bbb6d266e8d435d6cac4f17e783fa5"
+      }
+    }
+  ],
+  "scope": "Temporary managed source projects, identical instrumented code except recurring UI refresh period 0.25 versus 2 seconds. Released SO and frozen sender/statistics unchanged. Not exported release performance.",
+  "cost_scope": "Stopwatch elapsed time around Refresh and RecordDiagnostics, all calls including setup/shutdown; UI deferred layout/render work is outside these method durations. Frozen video windows and receiver CPU remain separately measured."
+}

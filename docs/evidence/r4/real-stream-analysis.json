@@ -1,0 +1,126 @@
+{
+  "packet_errors": {},
+  "group_count": 475,
+  "complete_groups": 474,
+  "first_frame_ids": [
+    31606,
+    31607,
+    31608,
+    31609,
+    31610,
+    31611,
+    31612,
+    31613
+  ],
+  "first_group_prefix_hex": "000000010201d04226cd6fd375bab834cdd17a2ca3fdd99c",
+  "annexb_nals": 474,
+  "h264_type_histogram": {
+    "2": 466,
+    "8": 8
+  },
+  "hevc_type_histogram": {
+    "1": 466,
+    "20": 8
+  },
+  "first_nal_headers": [
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d04226cd6fd3",
+      "bytes": 37696
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d0c248eddff7",
+      "bytes": 815
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d14258c60144",
+      "bytes": 10641
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d1c258e67b2f",
+      "bytes": 8431
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d24226f3d996",
+      "bytes": 34921
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d2c248f16f17",
+      "bytes": 914
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d34258c54280",
+      "bytes": 10173
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d3c278e8b250",
+      "bytes": 9931
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d44278c4dfcb",
+      "bytes": 10060
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d4c226caa043",
+      "bytes": 35460
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d54248f16e82",
+      "bytes": 787
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d5c258c72e2f",
+      "bytes": 10877
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d64278e8c940",
+      "bytes": 9651
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d6c226cd0e6e",
+      "bytes": 34808
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d74248ec3c01",
+      "bytes": 898
+    },
+    {
+      "h264_type": 2,
+      "hevc_type": 1,
+      "first_8_hex": "0201d7c258e9069a",
+      "bytes": 11130
+    }
+  ],
+  "reassembled_bytes": 7922419,
+  "sha256": "be8468b7cf185c5b1845dbce77c03d4f51ccd3e9646b6f05cbb58eec4cad7591",
+  "note": "Both interpretations shown for identification, not evidence both codecs are present."
+}

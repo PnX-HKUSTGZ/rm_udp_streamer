@@ -1,0 +1,10 @@
+{
+  "verified": true,
+  "created": 1794818678.3068964,
+  "archive_bytes": 29624892,
+  "archive_sha256": "39d10a8aec02cfdee80390474baa1a63b618166270502e29f09d0e1304a21d09",
+  "all_payload_members_verified": 960,
+  "manifest_sha256": "29d846a8b67ccef76a8d97ed31b35ca2a36f4e9ca514afeb9b82cf1cdfb7965d",
+  "extracted_review_members": 277,
+  "scope": "Every archived file verified, including runtime caches; review subset extraction does not replace the complete archive."
+}

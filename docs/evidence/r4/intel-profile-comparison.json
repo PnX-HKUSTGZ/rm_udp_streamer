@@ -1,0 +1,980 @@
+{
+  "created": 1794816321.9025936,
+  "observations_valid": true,
+  "errors": [],
+  "order": [
+    "balanced",
+    "performance",
+    "performance",
+    "balanced"
+  ],
+  "rounds": [
+    {
+      "name": "1-balanced",
+      "mean_fps": 55.86666666666667,
+      "p10_fps": 55,
+      "latency": {
+        "count": 3406,
+        "p50_us": 31000,
+        "p95_us": 60000,
+        "p99_us": 69000
+      },
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 105.96389665924674
+      },
+      "performance_thresholds_short_only": false,
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.8349221745568832,
+        "rss_min_bytes": 411394048,
+        "rss_max_bytes": 413884416
+      },
+      "sender": {
+        "frames": 4440,
+        "lateness_p95_us": 149.543,
+        "lateness_p99_us": 209.442,
+        "lateness_max_us": 2422.572,
+        "late_over_frame": 0,
+        "send_p99_us": 876.199,
+        "interval_p1_us": 16542.97,
+        "interval_p99_us": 16786.727
+      },
+      "counters": {
+        "complete": 3659,
+        "consumed": 3659,
+        "decoded": 3659,
+        "prepared": 3407,
+        "submitted_total": 3406,
+        "shown_total": 3407,
+        "mailbox_replaced": 0,
+        "queue_expired": 0,
+        "decoded_replaced": 253,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 0,
+        "correlated_submitted": 3406,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "timings": {
+        "assembly_time": {
+          "count": 3659,
+          "p50_us": 0,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "compressed_queue_wait": {
+          "count": 3659,
+          "p50_us": 1000,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "cpu_readback": {
+          "count": 3407,
+          "p50_us": 5300,
+          "p95_us": 6400,
+          "p99_us": 6900
+        },
+        "decode_receive_cpu": {
+          "count": 7318,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "decode_send_cpu": {
+          "count": 3659,
+          "p50_us": 400,
+          "p95_us": 600,
+          "p99_us": 700
+        },
+        "dequeue_to_packet": {
+          "count": 3659,
+          "p50_us": 18000,
+          "p95_us": 19000,
+          "p99_us": 19000
+        },
+        "ingress_to_submit": {
+          "count": 3406,
+          "p50_us": 31000,
+          "p95_us": 60000,
+          "p99_us": 69000
+        },
+        "order_wait": {
+          "count": 3659,
+          "p50_us": 0,
+          "p95_us": 0,
+          "p99_us": 0
+        },
+        "packet_prepare_cpu": {
+          "count": 3659,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 200
+        },
+        "packet_to_decoded": {
+          "count": 3659,
+          "p50_us": 500,
+          "p95_us": 700,
+          "p99_us": 900
+        },
+        "parser_cpu": {
+          "count": 7318,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 200
+        },
+        "plane_pack": {
+          "count": 3407,
+          "p50_us": 800,
+          "p95_us": 1100,
+          "p99_us": 1200
+        },
+        "preparation_queue_wait": {
+          "count": 3406,
+          "p50_us": 100,
+          "p95_us": 6800,
+          "p99_us": 15000
+        },
+        "prepare_total": {
+          "count": 3407,
+          "p50_us": 6200,
+          "p95_us": 7200,
+          "p99_us": 7700
+        },
+        "prepared_wait": {
+          "count": 3406,
+          "p50_us": 4100,
+          "p95_us": 36000,
+          "p99_us": 42000
+        },
+        "render_dispatch_wait": {
+          "count": 3406,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "rgba_conversion": {
+          "count": 0,
+          "p50_us": null,
+          "p95_us": null,
+          "p99_us": null
+        },
+        "submission_commit_wait": {
+          "count": 3406,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "submit_to_main_accept": {
+          "count": 3407,
+          "p50_us": 6900,
+          "p95_us": 8400,
+          "p99_us": 46000
+        },
+        "upload_cpu": {
+          "count": 3406,
+          "p50_us": 1500,
+          "p95_us": 2200,
+          "p99_us": 2500
+        }
+      },
+      "profile_samples": 27,
+      "profiles": [
+        "balanced"
+      ],
+      "frequency_khz_per_core": {
+        "cpu3": {
+          "min": 3002214,
+          "median": 3199987,
+          "max": 3405974
+        },
+        "cpu1": {
+          "min": 3049681,
+          "median": 3199896,
+          "max": 3480456
+        },
+        "cpu2": {
+          "min": 1416432,
+          "median": 3199965,
+          "max": 3318555
+        },
+        "cpu0": {
+          "min": 1416472,
+          "median": 3199967,
+          "max": 3384630
+        }
+      },
+      "temperature_millidegrees": {
+        "thermal_zone2": {
+          "min": 73000,
+          "median": 77000,
+          "max": 79000
+        },
+        "thermal_zone0": {
+          "min": 40000,
+          "median": 40000,
+          "max": 40000
+        },
+        "thermal_zone3": {
+          "min": 73000,
+          "median": 77000,
+          "max": 79000
+        },
+        "thermal_zone1": {
+          "min": 69000,
+          "median": 72000,
+          "max": 74000
+        },
+        "thermal_zone4": {
+          "min": 43000,
+          "median": 44000,
+          "max": 44000
+        }
+      },
+      "mutter_power_values": [
+        0
+      ],
+      "raw_sha256": {
+        "result.json": "103cc8482ae94b967ec1c3b3975089589c16d4fb1c4f6ecba24f5cffcbb23fea",
+        "metrics.ndjson": "e33d08bcd0d54ae135c27385bd1ae31f0c772f322b313dd03dc78154554e8d49",
+        "process.json": "53a75e44c096be9a71c65eed7f42cbbcd7428636b93f28571378e70d9257bb8e",
+        "sender.tsv": "622ec61f258abdcbbe353d43aaa8652394e68f10f93c2f1ebb9c5c4861b9d77e"
+      }
+    },
+    {
+      "name": "2-performance",
+      "mean_fps": 57.56666666666667,
+      "p10_fps": 56,
+      "latency": {
+        "count": 3521,
+        "p50_us": 27000,
+        "p95_us": 51000,
+        "p99_us": 60000
+      },
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 107.77904315452292
+      },
+      "performance_thresholds_short_only": false,
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.5746033666027852,
+        "rss_min_bytes": 409899008,
+        "rss_max_bytes": 412258304
+      },
+      "sender": {
+        "frames": 4440,
+        "lateness_p95_us": 143.634,
+        "lateness_p99_us": 159.062,
+        "lateness_max_us": 4235.576,
+        "late_over_frame": 0,
+        "send_p99_us": 393.164,
+        "interval_p1_us": 16581.678,
+        "interval_p99_us": 16753.801
+      },
+      "counters": {
+        "complete": 3671,
+        "consumed": 3671,
+        "decoded": 3671,
+        "prepared": 3520,
+        "submitted_total": 3521,
+        "shown_total": 3520,
+        "mailbox_replaced": 0,
+        "queue_expired": 0,
+        "decoded_replaced": 150,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 0,
+        "correlated_submitted": 3521,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "timings": {
+        "assembly_time": {
+          "count": 3671,
+          "p50_us": 0,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "compressed_queue_wait": {
+          "count": 3671,
+          "p50_us": 0,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "cpu_readback": {
+          "count": 3520,
+          "p50_us": 3500,
+          "p95_us": 4100,
+          "p99_us": 4600
+        },
+        "decode_receive_cpu": {
+          "count": 7342,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "decode_send_cpu": {
+          "count": 3671,
+          "p50_us": 300,
+          "p95_us": 300,
+          "p99_us": 500
+        },
+        "dequeue_to_packet": {
+          "count": 3671,
+          "p50_us": 18000,
+          "p95_us": 19000,
+          "p99_us": 19000
+        },
+        "ingress_to_submit": {
+          "count": 3521,
+          "p50_us": 27000,
+          "p95_us": 51000,
+          "p99_us": 60000
+        },
+        "order_wait": {
+          "count": 3671,
+          "p50_us": 0,
+          "p95_us": 0,
+          "p99_us": 0
+        },
+        "packet_prepare_cpu": {
+          "count": 3671,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "packet_to_decoded": {
+          "count": 3671,
+          "p50_us": 300,
+          "p95_us": 400,
+          "p99_us": 600
+        },
+        "parser_cpu": {
+          "count": 7342,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "plane_pack": {
+          "count": 3520,
+          "p50_us": 400,
+          "p95_us": 600,
+          "p99_us": 800
+        },
+        "preparation_queue_wait": {
+          "count": 3521,
+          "p50_us": 100,
+          "p95_us": 6500,
+          "p99_us": 15000
+        },
+        "prepare_total": {
+          "count": 3520,
+          "p50_us": 3900,
+          "p95_us": 4600,
+          "p99_us": 5200
+        },
+        "prepared_wait": {
+          "count": 3521,
+          "p50_us": 3400,
+          "p95_us": 28000,
+          "p99_us": 37000
+        },
+        "render_dispatch_wait": {
+          "count": 3521,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "rgba_conversion": {
+          "count": 0,
+          "p50_us": null,
+          "p95_us": null,
+          "p99_us": null
+        },
+        "submission_commit_wait": {
+          "count": 3521,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "submit_to_main_accept": {
+          "count": 3520,
+          "p50_us": 7500,
+          "p95_us": 8000,
+          "p99_us": 42000
+        },
+        "upload_cpu": {
+          "count": 3521,
+          "p50_us": 900,
+          "p95_us": 1500,
+          "p99_us": 1900
+        }
+      },
+      "profile_samples": 28,
+      "profiles": [
+        "performance"
+      ],
+      "frequency_khz_per_core": {
+        "cpu3": {
+          "min": 1399994,
+          "median": 3200006.5,
+          "max": 3507693
+        },
+        "cpu1": {
+          "min": 1399973,
+          "median": 3199958.5,
+          "max": 3504396
+        },
+        "cpu2": {
+          "min": 1399118,
+          "median": 3200000.0,
+          "max": 3488655
+        },
+        "cpu0": {
+          "min": 1399890,
+          "median": 3200010.0,
+          "max": 3311579
+        }
+      },
+      "temperature_millidegrees": {
+        "thermal_zone2": {
+          "min": 79000,
+          "median": 90000.0,
+          "max": 95000
+        },
+        "thermal_zone0": {
+          "min": 40000,
+          "median": 40000.0,
+          "max": 40000
+        },
+        "thermal_zone3": {
+          "min": 79000,
+          "median": 90000.0,
+          "max": 95000
+        },
+        "thermal_zone1": {
+          "min": 80000,
+          "median": 87000.0,
+          "max": 91000
+        },
+        "thermal_zone4": {
+          "min": 45000,
+          "median": 45000.0,
+          "max": 45000
+        }
+      },
+      "mutter_power_values": [
+        0
+      ],
+      "raw_sha256": {
+        "result.json": "5dfb6a10fc4e294ec51ea3c4e59dcc84677a05c80f437c516032e59159e36070",
+        "metrics.ndjson": "5f74539b9489ad4c1edf41d226a20ad0d15e0c1560fafe9e6fb0070af640c65b",
+        "process.json": "cc7272b9209205d32a9fc51eb0cd6e0baa21d78668a4499f8f6d4e614c61cc15",
+        "sender.tsv": "f51d49816bf38dc1d3c67c042d860cc49c65af36870e31a8316e383a57e5bbb0"
+      }
+    },
+    {
+      "name": "3-performance",
+      "mean_fps": 57.05,
+      "p10_fps": 56,
+      "latency": {
+        "count": 3488,
+        "p50_us": 29000,
+        "p95_us": 54000,
+        "p99_us": 62000
+      },
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 108.31937784619385
+      },
+      "performance_thresholds_short_only": false,
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.5722223997655754,
+        "rss_min_bytes": 410787840,
+        "rss_max_bytes": 413278208
+      },
+      "sender": {
+        "frames": 4440,
+        "lateness_p95_us": 142.327,
+        "lateness_p99_us": 172.507,
+        "lateness_max_us": 2032.543,
+        "late_over_frame": 0,
+        "send_p99_us": 395.466,
+        "interval_p1_us": 16561.181,
+        "interval_p99_us": 16771.201
+      },
+      "counters": {
+        "complete": 3670,
+        "consumed": 3670,
+        "decoded": 3670,
+        "prepared": 3489,
+        "submitted_total": 3488,
+        "shown_total": 3489,
+        "mailbox_replaced": 0,
+        "queue_expired": 0,
+        "decoded_replaced": 181,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 0,
+        "correlated_submitted": 3488,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "timings": {
+        "assembly_time": {
+          "count": 3670,
+          "p50_us": 0,
+          "p95_us": 0,
+          "p99_us": 1000
+        },
+        "compressed_queue_wait": {
+          "count": 3670,
+          "p50_us": 1000,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "cpu_readback": {
+          "count": 3489,
+          "p50_us": 3700,
+          "p95_us": 4200,
+          "p99_us": 4600
+        },
+        "decode_receive_cpu": {
+          "count": 7340,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "decode_send_cpu": {
+          "count": 3670,
+          "p50_us": 300,
+          "p95_us": 400,
+          "p99_us": 500
+        },
+        "dequeue_to_packet": {
+          "count": 3670,
+          "p50_us": 18000,
+          "p95_us": 19000,
+          "p99_us": 19000
+        },
+        "ingress_to_submit": {
+          "count": 3488,
+          "p50_us": 29000,
+          "p95_us": 54000,
+          "p99_us": 62000
+        },
+        "order_wait": {
+          "count": 3670,
+          "p50_us": 0,
+          "p95_us": 0,
+          "p99_us": 0
+        },
+        "packet_prepare_cpu": {
+          "count": 3670,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "packet_to_decoded": {
+          "count": 3670,
+          "p50_us": 300,
+          "p95_us": 400,
+          "p99_us": 500
+        },
+        "parser_cpu": {
+          "count": 7340,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "plane_pack": {
+          "count": 3489,
+          "p50_us": 400,
+          "p95_us": 700,
+          "p99_us": 800
+        },
+        "preparation_queue_wait": {
+          "count": 3489,
+          "p50_us": 100,
+          "p95_us": 4100,
+          "p99_us": 14000
+        },
+        "prepare_total": {
+          "count": 3489,
+          "p50_us": 4100,
+          "p95_us": 4700,
+          "p99_us": 5200
+        },
+        "prepared_wait": {
+          "count": 3488,
+          "p50_us": 4700,
+          "p95_us": 30000,
+          "p99_us": 38000
+        },
+        "render_dispatch_wait": {
+          "count": 3488,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "rgba_conversion": {
+          "count": 0,
+          "p50_us": null,
+          "p95_us": null,
+          "p99_us": null
+        },
+        "submission_commit_wait": {
+          "count": 3488,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "submit_to_main_accept": {
+          "count": 3489,
+          "p50_us": 7600,
+          "p95_us": 8100,
+          "p99_us": 42000
+        },
+        "upload_cpu": {
+          "count": 3488,
+          "p50_us": 800,
+          "p95_us": 1400,
+          "p99_us": 1800
+        }
+      },
+      "profile_samples": 27,
+      "profiles": [
+        "performance"
+      ],
+      "frequency_khz_per_core": {
+        "cpu3": {
+          "min": 3198433,
+          "median": 3199991,
+          "max": 3388566
+        },
+        "cpu1": {
+          "min": 3194083,
+          "median": 3199967,
+          "max": 3531140
+        },
+        "cpu2": {
+          "min": 3193532,
+          "median": 3199957,
+          "max": 3474632
+        },
+        "cpu0": {
+          "min": 3199288,
+          "median": 3199983,
+          "max": 3230095
+        }
+      },
+      "temperature_millidegrees": {
+        "thermal_zone2": {
+          "min": 85000,
+          "median": 88000,
+          "max": 95000
+        },
+        "thermal_zone0": {
+          "min": 40000,
+          "median": 40000,
+          "max": 40000
+        },
+        "thermal_zone3": {
+          "min": 86000,
+          "median": 88000,
+          "max": 95000
+        },
+        "thermal_zone1": {
+          "min": 82000,
+          "median": 86000,
+          "max": 88000
+        },
+        "thermal_zone4": {
+          "min": 45000,
+          "median": 45000,
+          "max": 45000
+        }
+      },
+      "mutter_power_values": [
+        0
+      ],
+      "raw_sha256": {
+        "result.json": "9eeb8338ea5418708eb188fd5cef9ae5d17ac5e89c6a054d46db4b1fe641f009",
+        "metrics.ndjson": "2a6e9c7810e91ab4b85a2475753f244c2e0c13c6bb84ef806727e9a1ae9f56e2",
+        "process.json": "5c566cb1c5b89707b0fc9e240c0dfae6367a43fc5a505cc3cd25e587da19755c",
+        "sender.tsv": "9f5ae5de1eb3ee5164ca1103d00b7577901f58809254e37879f3e7367b1f2343"
+      }
+    },
+    {
+      "name": "4-balanced",
+      "mean_fps": 55.85,
+      "p10_fps": 55,
+      "latency": {
+        "count": 3408,
+        "p50_us": 31000,
+        "p95_us": 60000,
+        "p99_us": 68000
+      },
+      "cadence": {
+        "cadence_requested": "responsive",
+        "cadence_applied": "responsive",
+        "engine_max_fps": 120,
+        "vsync_mode": 3,
+        "observed_process_fps": 105.76850964894734
+      },
+      "performance_thresholds_short_only": false,
+      "process": {
+        "interval_basis": "sender clock after warmup, until input ends",
+        "samples": 64,
+        "mean_cpu_cores": 0.8288901350265295,
+        "rss_min_bytes": 410480640,
+        "rss_max_bytes": 412839936
+      },
+      "sender": {
+        "frames": 4440,
+        "lateness_p95_us": 137.697,
+        "lateness_p99_us": 186.2,
+        "lateness_max_us": 2001.989,
+        "late_over_frame": 0,
+        "send_p99_us": 887.173,
+        "interval_p1_us": 16565.008,
+        "interval_p99_us": 16775.431
+      },
+      "counters": {
+        "complete": 3662,
+        "consumed": 3662,
+        "decoded": 3662,
+        "prepared": 3407,
+        "submitted_total": 3408,
+        "shown_total": 3407,
+        "mailbox_replaced": 0,
+        "queue_expired": 0,
+        "decoded_replaced": 254,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 0,
+        "correlated_submitted": 3408,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "timings": {
+        "assembly_time": {
+          "count": 3662,
+          "p50_us": 0,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "compressed_queue_wait": {
+          "count": 3662,
+          "p50_us": 1000,
+          "p95_us": 1000,
+          "p99_us": 1000
+        },
+        "cpu_readback": {
+          "count": 3407,
+          "p50_us": 5400,
+          "p95_us": 6400,
+          "p99_us": 6900
+        },
+        "decode_receive_cpu": {
+          "count": 7324,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "decode_send_cpu": {
+          "count": 3662,
+          "p50_us": 400,
+          "p95_us": 600,
+          "p99_us": 700
+        },
+        "dequeue_to_packet": {
+          "count": 3662,
+          "p50_us": 18000,
+          "p95_us": 19000,
+          "p99_us": 19000
+        },
+        "ingress_to_submit": {
+          "count": 3408,
+          "p50_us": 31000,
+          "p95_us": 60000,
+          "p99_us": 68000
+        },
+        "order_wait": {
+          "count": 3662,
+          "p50_us": 0,
+          "p95_us": 0,
+          "p99_us": 0
+        },
+        "packet_prepare_cpu": {
+          "count": 3662,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 200
+        },
+        "packet_to_decoded": {
+          "count": 3662,
+          "p50_us": 500,
+          "p95_us": 700,
+          "p99_us": 900
+        },
+        "parser_cpu": {
+          "count": 7324,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 200
+        },
+        "plane_pack": {
+          "count": 3407,
+          "p50_us": 700,
+          "p95_us": 1000,
+          "p99_us": 1100
+        },
+        "preparation_queue_wait": {
+          "count": 3408,
+          "p50_us": 100,
+          "p95_us": 7200,
+          "p99_us": 15000
+        },
+        "prepare_total": {
+          "count": 3407,
+          "p50_us": 6100,
+          "p95_us": 7200,
+          "p99_us": 7800
+        },
+        "prepared_wait": {
+          "count": 3408,
+          "p50_us": 4100,
+          "p95_us": 36000,
+          "p99_us": 42000
+        },
+        "render_dispatch_wait": {
+          "count": 3408,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "rgba_conversion": {
+          "count": 0,
+          "p50_us": null,
+          "p95_us": null,
+          "p99_us": null
+        },
+        "submission_commit_wait": {
+          "count": 3408,
+          "p50_us": 100,
+          "p95_us": 100,
+          "p99_us": 100
+        },
+        "submit_to_main_accept": {
+          "count": 3407,
+          "p50_us": 6900,
+          "p95_us": 11000,
+          "p99_us": 47000
+        },
+        "upload_cpu": {
+          "count": 3408,
+          "p50_us": 1500,
+          "p95_us": 2400,
+          "p99_us": 2700
+        }
+      },
+      "profile_samples": 28,
+      "profiles": [
+        "balanced"
+      ],
+      "frequency_khz_per_core": {
+        "cpu3": {
+          "min": 2043575,
+          "median": 3199964.0,
+          "max": 3571378
+        },
+        "cpu1": {
+          "min": 2314632,
+          "median": 3199976.0,
+          "max": 3483114
+        },
+        "cpu2": {
+          "min": 2355361,
+          "median": 3199954.5,
+          "max": 3501987
+        },
+        "cpu0": {
+          "min": 2023120,
+          "median": 3199976.5,
+          "max": 3576727
+        }
+      },
+      "temperature_millidegrees": {
+        "thermal_zone2": {
+          "min": 77000,
+          "median": 78000.0,
+          "max": 84000
+        },
+        "thermal_zone0": {
+          "min": 40000,
+          "median": 40000.0,
+          "max": 40000
+        },
+        "thermal_zone3": {
+          "min": 77000,
+          "median": 78000.0,
+          "max": 84000
+        },
+        "thermal_zone1": {
+          "min": 71000,
+          "median": 74000.0,
+          "max": 76000
+        },
+        "thermal_zone4": {
+          "min": 45000,
+          "median": 45000.0,
+          "max": 45000
+        }
+      },
+      "mutter_power_values": [
+        0
+      ],
+      "raw_sha256": {
+        "result.json": "aa8c61ff8caf9a2270b1eb8e0f3e00f30fc93457ac3a2c776905f4d3b97918ed",
+        "metrics.ndjson": "a4a8dff54d105596eede041de6ec1e859463f5957e87cf84e4eb693b9be2290b",
+        "process.json": "a8de70f339e5d55c449228126e225363fbc60a8b9a3b91953ebcdd20dd452c75",
+        "sender.tsv": "9af6eef959f7b86c65daae6561b0d6d1e32e7c70471861c919478092ba59cc82"
+      }
+    }
+  ],
+  "scope": "Engineering comparison 10/60, all rounds retained; no formal 180/1800 performance grade. Frequency/profile summaries exclude 15 seconds at round start and 8 at end, not an exact alignment to submission windows. Mutter power state is not physical scanout proof.",
+  "profile_restored": true,
+  "display_restore_errors": []
+}

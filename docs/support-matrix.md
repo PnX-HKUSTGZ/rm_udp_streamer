@@ -8,7 +8,7 @@
 | --- | --- | --- | --- |
 | Windows / NVIDIA RTX 5070 Laptop | CUDA硬解，CPU YUV/RGBA；同设备CUDA/OpenGL GPU桥接 | 88bf17a包CUDA/GPU完成180/1800、完整诊断对照、故障与60轮原生库生命周期；身份和颜色有对应证据 | 完整R4/R6验收；CUDA/CPU及RGBA没有同等正式性能等级 |
 | Windows / Intel Arc 140T | D3D11VA硬解与CPU回读上传 | 实际硬件帧、身份、新包原始/重链接播放及准备指标；88bf17a包D3D11VA/YUV/Mobile完成180/1800及完整诊断对照 | 完整R4/R6验收；不扩展到未测的D3D设备 |
-| Ubuntu 24.04 / Intel N250 | VAAPI 硬解与 CPU 回读上传 | 核心像素、身份、帧寿命、恢复、格式变化、Main10 策略 | 当前没有连接物理显示器，桌面与性能待验证 |
+| Ubuntu 24.04 / Intel N250 | VAAPI 硬解与 CPU 回读上传 | 已接物理屏幕；核心像素、身份、帧寿命、恢复、格式变化、Main10策略；14项桌面/回退矩阵、4项收流截图、故障/恢复和60轮原生库生命周期通过 | 当前发行包未达到1080p60门槛；X11通过Xwayland，非原生Xorg；完整R4/R6验收未完成 |
 | Ubuntu 24.04 / AMD Radeon 780M | VAAPI硬解与CPU回读上传 | 核心像素、身份、帧寿命、桌面/回退矩阵；88bf17a包Wayland/Vulkan Mobile/低延迟组合完成180/1800、完整诊断对照、故障/恢复及60轮原生库生命周期 | 完整R4/R6验收；没有物理扫描测量，其他渲染组合没有同等性能声明 |
 | Windows / Ubuntu 软件解码 | HEVC 软件解码，CPU YUV/RGBA | 功能、恢复、颜色及已有桌面样本检查 | 性能等级须对应具体设备、配置和最终二进制 |
 | WSL / WSLg | 已验证的软件及部分 CUDA/CPU 路径 | 开发环境回归 | 不替代原生 Ubuntu GPU 桌面验收 |
@@ -40,7 +40,9 @@ Windows同一新DLL的原版/逐轮写盘探针也各完成60轮GPU/YUV/RGBA/aut
 
 `--transfer gpu` 要求明确选择 CUDA，不满足条件时失败。`--transfer auto` 允许 GPU 尝试失败后保留解码并回退 CPU YUV，界面报告实际路径和原因。VAAPI 仅交付 CPU 回读路径；VAAPI/DMA-BUF/Vulkan、D3D11/Vulkan 直传尚未实现。
 
-固定样本与模拟发送器能验证协议处理及恢复逻辑，真实 RoboMaster 图传设备验收仍待完成。没有实机证据时不声明具体固件兼容或相机到屏幕延迟。
+Intel接屏后的完整10/60工程对照中，balanced为55.8667/55.85fps，performance为57.5667/57.05fps，均未达到门槛。临时UI刷新探针有改善，但不是发行候选的正式性能证据。实际画面、生命周期、失败记录、恢复状态及完整归档见[Intel补验报告](evidence/r4/report.md)。
+
+固定样本与模拟发送器能验证协议处理及恢复逻辑。真实UDP现已接入本机`192.168.12.2:3334`，重组正常；捕获流有IDR但没有VPS/SPS/PPS，发行包180秒检查解码仍为0，独立FFmpeg也失败，见[真实流检查](evidence/r4/real-stream.md)。尚未通过真实视频解码或完整设备验收，不声明具体固件兼容或相机到屏幕延迟。
 
 ## 运行与依赖
 

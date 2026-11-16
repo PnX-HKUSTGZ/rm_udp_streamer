@@ -1,3 +1,4 @@
 # Preserve independent review evidence exactly across Windows/Linux checkouts.
 docs/evidence/m6/independent/** -text whitespace=cr-at-eol
 docs/evidence/m6/review.md -text whitespace=cr-at-eol
+docs/evidence/r4/*.json -text whitespace=cr-at-eol

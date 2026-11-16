@@ -44,4 +44,4 @@ Windows发行DLL的原版和逐轮写盘探针各完成60轮，最大停止49/42
 
 AMD正式/诊断、功能、逐轮写盘生命周期和历史04737bd四份完整归档均已取回并校验，详见[取回索引](amd-retrieval-index.json)及[性能](amd-performance-archive.json)、[功能](amd-functional-archive.json)、[生命周期](amd-streamed-lifecycle-archive.json)归档收据。本目录只发布摘要，完整原始归档保存在外层`processing/2026-11-16-rm-r6-integration`，提取记录子集不替代完整原件。
 
-未完成门槛包括原生Ubuntu NVIDIA、Intel物理接屏桌面、Windows AMD和真实RoboMaster。其他RGBA、CUDA/CPU、WSL及未做正式长测的配置没有同等1080p60性能声明。最终文档刷新候选的逐成员及迁移启动核验收据随交付提供，这些检查不替代R4/R6剩余门槛。
+后续[Intel接屏补验](../r4/report.md)已完成实际桌面功能、故障/恢复及60轮精确发行SO生命周期，但该机现包未达到1080p60门槛。[真实UDP输入](../r4/real-stream.md)已接入且重组正常，当前缺少初始化参数，尚未解码出图。未完成门槛仍包括Intel相应性能、原生Ubuntu NVIDIA、Windows AMD及真实设备完整验收。其他RGBA、CUDA/CPU、WSL及未做正式长测的配置没有同等1080p60性能声明。最终文档刷新候选的逐成员及迁移启动核验收据随交付提供，这些检查不替代R4/R6剩余门槛。

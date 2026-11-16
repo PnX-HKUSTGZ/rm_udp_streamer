@@ -1,0 +1,116 @@
+{
+  "runtime_commit": "88bf17a9e046db6d75d3301e09d893fb1e8f4ed5",
+  "stage_completed": false,
+  "scope": "Intel display follow-up and real-input failure evidence; no R4/R6 completion or new performance grade.",
+  "files": [
+    {
+      "published": "intel-matrix-review.json",
+      "source": "processing/2026-11-16-rm-intel-display/followup-records-v1/matrix-review-v1.json",
+      "bytes": 10877,
+      "sha256": "a3eb81bb4c463deb2a60d5c34b592fcd6993541092b93aa7677fe2bd3891b1da",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "intel-profile-comparison.json",
+      "source": "processing/2026-11-16-rm-intel-display/followup-records-v1/profile-comparison-v3/analysis.json",
+      "bytes": 24871,
+      "sha256": "28ae9555f9839c7411cf7dc284626f5bb8c3ee3d92ffc6a339f29bc733feef2e",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "intel-diagnostics-comparison.json",
+      "source": "processing/2026-11-16-rm-intel-display/followup-records-v1/diagnostics-comparison-v1/analysis.json",
+      "bytes": 19023,
+      "sha256": "72ce9e5a2fa1a2e9d2865981e21b9bb8909a99490eefa66f1fd2674387cb9825",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "intel-ui-comparison.json",
+      "source": "processing/2026-11-16-rm-intel-display/followup-records-v1/ui-comparison-v1/analysis.json",
+      "bytes": 8858,
+      "sha256": "b8cd1fb3dfdd26ce09da4862ba147f1433cec7f44a10bfebc930b5298d531d02",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "intel-live-pictures.json",
+      "source": "processing/2026-11-16-rm-intel-display/followup-records-v1/live-picture-review-v1.json",
+      "bytes": 3593,
+      "sha256": "743706aa7520d384dab84743d2a80abf8d3a72b8741d619ab2e57b7183f043e6",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "intel-matrix-archive.json",
+      "source": "processing/2026-11-16-rm-intel-display/matrix-v1-archive.json",
+      "bytes": 144,
+      "sha256": "6c50477218a5fb9a1c8078b654fe9b425f50b9f03771f330e46ac86ca20827a7",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "intel-followup-archive.json",
+      "source": "processing/2026-11-16-rm-intel-display/followup-archive-v1.json",
+      "bytes": 342,
+      "sha256": "0c347c33219d9b7454a2b0f2343613bf26f9615644c86b8f1cfa32415cb67cf9",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "intel-followup-verification.json",
+      "source": "processing/2026-11-16-rm-intel-display/followup-local-verification-v1.json",
+      "bytes": 478,
+      "sha256": "471acfee7c01aa0beb3e9bcf3096ff8fa0a746149dc22c9e086df21e9404df7d",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "intel-live-pictures.jpg",
+      "source": "processing/2026-11-16-rm-intel-display/live-pictures/preview.jpg",
+      "bytes": 296251,
+      "sha256": "050c61ea9417d848bbdf180dca839e801dba7f79cd05e2a4237aa9ad856c4297",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "intel-functional-summary.json",
+      "source": {
+        "path": "processing/2026-11-16-rm-intel-display/followup-records-v1/functional-v2/audit.json",
+        "bytes": 1407218,
+        "sha256": "05c220bfaf64c3cfdf92912a57f541d6a42f1256c5296b2968fc2d8fdae5ab2f"
+      },
+      "bytes": 5477,
+      "sha256": "e8c9f3d0a35e193b01a79de1dc8feef4150afe96feaabdf2507f89d37d56a19e",
+      "kind": "selected-field projection"
+    },
+    {
+      "published": "real-stream-capture.json",
+      "source": "processing/2026-11-16-rm-real-stream/capture-v1/result.json",
+      "bytes": 8008,
+      "sha256": "dfaf3fc41977cf64d52fab5e1ae9335c93af5388aea3fb3a131db294b15df6bd",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-analysis.json",
+      "source": "processing/2026-11-16-rm-real-stream/capture-analysis-v1/result.json",
+      "bytes": 2662,
+      "sha256": "dc020d1a14ba93d61d2bb4b4e371726a6530e2cf155c279074ac5e1c78a6a1ba",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-ffmpeg.json",
+      "source": "processing/2026-11-16-rm-real-stream/capture-analysis-v1/ffmpeg-check.json",
+      "bytes": 511,
+      "sha256": "2d20ed837c596c4087c88b5d07c59a5dad33a2b5cb4a49906b8eab2f5654dc9f",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-20s.json",
+      "source": "processing/2026-11-16-rm-real-stream/auto-yuv-v1/result.json",
+      "bytes": 2786,
+      "sha256": "345029a97d396508cfbf236d69834c8be2dddfa7c1f3b5b719680d7f21cf6740",
+      "kind": "byte-identical copy"
+    },
+    {
+      "published": "real-stream-180s.json",
+      "source": "processing/2026-11-16-rm-real-stream/awaiting-headers-v1/result.json",
+      "bytes": 2804,
+      "sha256": "7e57cd91e9647270f1a81f876f0cb4b459c2a51edfdd7f54118130bec1830d4f",
+      "kind": "byte-identical copy"
+    }
+  ]
+}
