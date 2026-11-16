@@ -83,6 +83,8 @@ private:
     enum class Discard { Stop, Generation, Failure };
     // Caller holds mutex_. The epoch also invalidates same-format recovery.
     void discard_pending(Discard);
+    // Caller holds mutex_. A capability notification cannot fault a stopping session.
+    void fallback_presentation(const std::string &);
     void complete_preparation(std::shared_ptr<PreparedFrame>, uint64_t epoch);
     void prepare(MediaConfig) noexcept;
     void run(MediaConfig) noexcept;

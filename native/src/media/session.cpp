@@ -131,18 +131,20 @@ void MediaSession::presentation_attempted() {
 bool MediaSession::presentation_failed(const std::string &error, bool gpu_failure) {
     std::lock_guard<std::mutex> lock(mutex_);
     if (gpu_failure && state_.requested_transfer == "auto" && !quit_.load()) {
-        if (!state_.gpu_disabled) {
-            state_.gpu_disabled = true; ++state_.presentation_fallbacks;
-            state_.presentation_fallback = "GPU transfer -> CPU: " + error;
-            discard_pending(Discard::Generation);
-            state_.path = "cpu_pending"; state_.state = "Recovering";
-            state_.recovery_reason = state_.presentation_fallback;
-        }
+        fallback_presentation(error);
         return true;
     }
     quit_.store(true); state_.error=error;state_.state="Faulted";
     discard_pending(Discard::Failure);
     return false;
+}
+void MediaSession::fallback_presentation(const std::string &reason) {
+    if (quit_.load() || state_.gpu_disabled) return;
+    state_.gpu_disabled = true; ++state_.presentation_fallbacks;
+    state_.presentation_fallback = "GPU transfer -> CPU: " + reason;
+    discard_pending(Discard::Generation);
+    state_.path = "cpu_pending"; state_.state = "Recovering";
+    state_.recovery_reason = state_.presentation_fallback;
 }
 void MediaSession::discard_pending(Discard reason) {
     if (decoded_latest_.frame) {
@@ -208,12 +210,12 @@ void MediaSession::run(MediaConfig config) noexcept {
     try {
         std::unique_ptr<Decoder> decoder;
         decoder = std::make_unique<Decoder>(config, [&](FrameLease frame) {
-            if (config.transfer == "auto" && frame.info.decoder != "cuda")
-                presentation_failed("CUDA/OpenGL bridge is unavailable for " + frame.info.decoder, true);
             uint64_t epoch;
             bool gpu;
             {
                 std::lock_guard<std::mutex> lock(mutex_);
+                if (config.transfer == "auto" && frame.info.decoder != "cuda")
+                    fallback_presentation("CUDA/OpenGL bridge is unavailable for " + frame.info.decoder);
                 frame.info.presentation_generation = state_.gpu_disabled ? 1 : 0;
                 state_.last_decoded = frame.info;
                 state_.decode=decoder->counters();
@@ -285,8 +287,10 @@ void MediaSession::run(MediaConfig config) noexcept {
                     update_decoder_status();
                     throw MediaError(MediaFailure::Backend, decoder->backend()+": "+error.what());
                 }
-                if (config.transfer == "auto" && decoder->backend() != "cuda")
-                    presentation_failed("decoder changed to " + decoder->backend(), true);
+                if (config.transfer == "auto" && decoder->backend() != "cuda") {
+                    std::lock_guard<std::mutex> lock(mutex_);
+                    fallback_presentation("decoder changed to " + decoder->backend());
+                }
             } else { update_decoder_status(); throw error; }
         };
         while (!quit_.load()) {
