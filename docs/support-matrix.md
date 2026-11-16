@@ -1,6 +1,6 @@
 # 当前候选的能力与验收边界
 
-更新时间：2026-11-16。当前运行代码候选为 `ae15111`，其构建、功能、实机接入和剩余缺项见[当前候选记录](evidence/r6/candidate-ae15111.md)。下述正式性能及历史独立审查结论对应 `88bf17a9e046db6d75d3301e09d893fb1e8f4ed5`，不自动适用于后续运行文件。R4、R6 尚未完成。后续版本已修复 Intel 界面文字重复更新、同源断流参数缓存及硬件初始化时丢失参数的问题；当前实机中途启动仍未取得初始化参数，未验收通过。[固定输入回归](evidence/r4/real-input-regression.md)和[启动参数记录](evidence/r4/startup-parameters.md)分别说明覆盖与缺口。[R3 独立审查](evidence/r3/report.md)限定下述三条历史性能组合。
+更新时间：2026-11-16。当前实现已在 `ae15111` 基础上增加用户要求的默认参数与自动保存，真实 3334 默认启动和双平台参数更新验证见[默认参数记录](evidence/r4/persisted-parameters.md)。此前不使用启动缓存的观察及长测保留在[ae15111 候选记录](evidence/r6/candidate-ae15111.md)。下述正式性能及历史独立审查结论对应 `88bf17a9e046db6d75d3301e09d893fb1e8f4ed5`，不自动适用于后续运行文件。R4、R6 尚未完成。[固定输入回归](evidence/r4/real-input-regression.md)和[启动参数记录](evidence/r4/startup-parameters.md)分别说明既有修复与缺口。[R3 独立审查](evidence/r3/report.md)限定下述三条历史性能组合。
 
 ## 平台、后端与传输
 

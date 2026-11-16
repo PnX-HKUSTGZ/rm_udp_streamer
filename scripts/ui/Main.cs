@@ -20,6 +20,10 @@ public partial class Main : Control
     private long _lastComplete, _lastDecoded, _lastPrepared, _lastSubmitted;
     private double _receiveFps, _decodeFps, _prepareFps, _submitFps;
     private RuntimeOptions _options = new();
+	private HevcParameterCache? _parameterCache;
+	private long _parametersRevision;
+	private string _parameterOrigin = "", _parameterNotice = "";
+	private bool _parametersUpdated;
     private StreamWriter? _diagnostics;
     private double _uptime, _diagnosticTime;
     private readonly Stopwatch _wallClock = new();
@@ -94,10 +98,22 @@ public partial class Main : Control
         {
             var settings = ReadConfiguration();
             byte[]? hevcParameters = null;
+			string hevcParametersSource = "";
             try
             {
                 settings.Validate();
                 hevcParameters = _options.ReadHevcParameters();
+				_parameterCache = null; _parametersRevision = 0; _parameterNotice = ""; _parametersUpdated = false;
+				_parameterOrigin = hevcParameters != null ? "指定图传参数" : "";
+				if (_options.ParameterCache)
+				{
+					_parameterCache = HevcParameterCache.Load(_session, out _parameterNotice);
+					if (hevcParameters == null)
+					{
+						hevcParameters = _parameterCache.Bytes; hevcParametersSource = _parameterCache.Source;
+						_parameterOrigin = _parameterCache.Origin;
+					}
+				}
                 if (_configurationBlock.Length > 0) throw new ArgumentException(_configurationBlock);
                 if (_interactiveSettings) ReceiverSettings.Save(settings);
             }
@@ -110,7 +126,7 @@ public partial class Main : Control
             _lastComplete=_lastDecoded=_lastPrepared=_lastSubmitted=0; _rateTime=0; _receiveFps=_decodeFps=_prepareFps=_submitFps=0;
             _session.Start(settings.Address, settings.Port, settings.Decoder, settings.Device, settings.Transfer,
                 _options.Diagnostics ?? (_options.Metrics.Length > 0), settings.SourceAddress, settings.SourcePort,
-                hevcParameters);
+				hevcParameters, hevcParametersSource);
         }
         Refresh();
     }
@@ -119,6 +135,7 @@ public partial class Main : Control
         if (_session == null) return;
         _session.Native.Call("poll_stop");
         using var data = _session.Snapshot(false); using var presentation = SnapshotAccess.Read(_surface, "get_metrics", false);
+		SaveLearnedParameters(data.Number("hevc_parameters_revision"));
         _running = data.Flag("running"); string state=data.Text("state"); long age=data.Number("frame_age_ms");
         _cadenceActive = _running && state != "Faulted";
         _cadencePolicy?.Apply(Cadences[_cadence.Selected], _cadenceActive);
@@ -132,7 +149,8 @@ public partial class Main : Control
         string source = data.Text("source"); _source.Text = "来源："+(source.Length==0 ? "等待数据" : source);
         string path = $"解码：{data.Text("decoder")} · {data.Text("decode_device")}  |  传输：{data.Text("mode")}  |  {data.Number("width")} × {data.Number("height")}";
         if (data.Flag("color_defaulted")) path += " · 未标注颜色采用 SDR 默认值";
-        if (data.Flag("initial_parameters_supplied")) path += " · 已加载指定图传参数";
+		if (_parametersUpdated) path += " · 码流参数已更新";
+		else if (data.Flag("initial_parameters_applied")) path += " · " + _parameterOrigin;
         path += $"\n渲染：{RenderingServer.GetVideoAdapterName()}";
         if (_cadencePolicy != null) path += "  |  " + _cadencePolicy.Description;
         if (_path.Text != path) _path.Text = path;
@@ -147,7 +165,22 @@ public partial class Main : Control
             $"  |  缺失 {data.Number("missing")} · 恢复 {data.Number("recoveries")} · 显示替换 {data.Number("mailbox_replaced")} · 像素回读 {data.Number("cpu_readbacks")}";
         string failure=data.Text("error"), uploadError=presentation.Text("error");
         _error.Text = failure.Length>0 ? failure : uploadError.Length>0 ? uploadError :
-            state=="Recovering" ? data.Text("recovery_reason") : data.Text("fallback");
+			state=="Recovering" ? data.Text("recovery_reason") : _parameterNotice.Length>0 ? _parameterNotice : data.Text("fallback");
+	}
+	private void SaveLearnedParameters(long revision)
+	{
+		if (_session == null || _parameterCache == null || revision == 0 || revision == _parametersRevision) return;
+		try
+		{
+			using var learned = _session.HevcParameters();
+			_parametersRevision = learned.Number("revision");
+			using var value = learned["parameters"];
+			string source = learned.Text("source_address"); byte[] bytes = value.AsByteArray();
+			_parametersUpdated |= source != _parameterCache.Source || !_parameterCache.Bytes.AsSpan().SequenceEqual(bytes);
+			_parameterCache.SaveValidated(_session, source, bytes);
+			_parameterNotice = "";
+		}
+		catch (Exception error) { _parametersRevision = revision; _parameterNotice = "视频参数未保存：" + error.Message; }
     }
     public override void _Process(double delta)
     {
@@ -181,6 +214,8 @@ public partial class Main : Control
         record.Put("engine_max_fps", Engine.MaxFps); record.Put("vsync_mode", (int)DisplayServer.WindowGetVsyncMode());
         record.Put("engine_process_frames", Engine.GetProcessFrames());
         record.Put("frame_timer_status", _cadencePolicy?.TimerStatus ?? "not requested");
+		record.Put("parameter_cache_enabled", _options.ParameterCache); record.Put("parameter_origin", _parameterOrigin);
+		record.Put("parameter_cache_error", _parameterNotice);
         record.Put("window_mode", (int)DisplayServer.WindowGetMode());
         record.Put("window_can_draw", DisplayServer.WindowCanDraw());
         record.Put("display_refresh_hz", DisplayServer.ScreenGetRefreshRate(DisplayServer.WindowGetCurrentScreen()));

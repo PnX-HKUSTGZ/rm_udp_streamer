@@ -81,7 +81,7 @@ public partial class Main
     {
         Address=_address.Text.Trim(), Port=(int)_port.Value, Decoder=Decoders[_decoder.Selected], Device=_device.Text.Trim(),
         Transfer=Transfers[_transfer.Selected], Cadence=Cadences[_cadence.Selected], SourceAddress=_sourceFilter.Text.Trim(), SourcePort=(int)_sourcePort.Value,
-        HevcParameters=_options.HevcParameters
+		HevcParameters=_options.HevcParameters, ParameterCache=_options.ParameterCache
     };
     private void ReloadDevices()
     {
@@ -173,6 +173,7 @@ public partial class Main
                 "--source-port",settings.SourcePort.ToString(CultureInfo.InvariantCulture) });
             if(settings.SourceAddress.Length>0) args.AddRange(new[] { "--source-ip",settings.SourceAddress });
             if(_options.HevcParameters.Length>0) args.AddRange(new[] { "--hevc-parameters",_options.HevcParameters });
+			args.AddRange(new[] { "--parameter-cache", _options.ParameterCache ? "on" : "off" });
             OS.SetRestartOnExit(true,args.ToArray()); GetTree().Quit();
         }
         catch(Exception error)

@@ -14,7 +14,7 @@ bool MediaSession::start(const TransportConfig &network, const MediaConfig &medi
             state_.upload_stale_after+state_.gpu_slot_drops+state_.upload_failures) return false;
     }
     auto invalid = media.validate();
-    if (!media.initial_parameters.empty() && !network.source_address)
+    if (!media.initial_parameters.empty() && !network.source_address && !media.initial_parameters_source)
         invalid = "Explicit HEVC parameters require a source IP filter";
     if (!invalid.empty()) {
         std::lock_guard<std::mutex> lock(mutex_); state_.error = invalid; state_.state = "Faulted"; return false;
@@ -22,6 +22,7 @@ bool MediaSession::start(const TransportConfig &network, const MediaConfig &medi
     {
         std::lock_guard<std::mutex> lock(mutex_);
         state_ = {}; preparation_ = {}; latest_.reset(); decoded_latest_ = {};
+        learned_parameters_ = {};
         preparation_error_ = {}; preparation_epoch_ = 0;
         state_.state = "Starting"; state_.started_ms = monotonic_ms();
         state_.requested_decoder = media.decoder; state_.requested_transfer = media.transfer;
@@ -74,6 +75,10 @@ MediaSnapshot MediaSession::snapshot() const {
       snapshot.snapshot_us=monotonic_us();
       snapshot.worker_done=done_.load(); }
     snapshot.receiver = receiver_.snapshot(); return snapshot;
+}
+LearnedParameters MediaSession::hevc_parameters() const {
+    std::lock_guard<std::mutex> lock(mutex_);
+    return learned_parameters_;
 }
 bool MediaSession::accepts(const FrameInfo &info) const {
     std::lock_guard<std::mutex> lock(mutex_);
@@ -250,6 +255,11 @@ void MediaSession::run(MediaConfig config) noexcept {
             state_.backend = decoder->backend(); state_.device = decoder->device_identity();
             state_.fallback = decoder->fallback();
             state_.decode = decoder->counters(); state_.format_changes = state_.decode.format_changes;
+            state_.initial_parameters_applied = decoder->initial_parameters_applied();
+            if (learned_parameters_.revision != decoder->parameters_revision()) {
+                learned_parameters_ = {decoder->validated_parameters(), decoder->parameters_source(), decoder->parameters_revision()};
+                state_.hevc_parameters_revision = learned_parameters_.revision;
+            }
         };
         update_decoder_status();
         {

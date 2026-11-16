@@ -6,6 +6,7 @@
 #include <godot_cpp/godot.hpp>
 #include <godot_cpp/variant/packed_byte_array.hpp>
 #include <stdexcept>
+#include <algorithm>
 using namespace godot;
 namespace {
 int64_t integer(const Dictionary &values, const char *key, int64_t fallback, int64_t minimum, int64_t maximum) {
@@ -33,6 +34,25 @@ void RmVideoSession::_bind_methods() {
     ClassDB::bind_method(D_METHOD("poll_stop"), &RmVideoSession::poll_stop);
     ClassDB::bind_method(D_METHOD("snapshot", "detailed"), &RmVideoSession::snapshot, DEFVAL(true));
     ClassDB::bind_method(D_METHOD("capabilities"), &RmVideoSession::capabilities);
+    ClassDB::bind_method(D_METHOD("hevc_parameters"), &RmVideoSession::hevc_parameters);
+    ClassDB::bind_method(D_METHOD("validate_hevc_parameters", "parameters"), &RmVideoSession::validate_hevc_parameters);
+}
+String RmVideoSession::validate_hevc_parameters(const PackedByteArray &parameters) const {
+    rm::MediaConfig config;
+    if (parameters.is_empty() || parameters.size() > 256*1024) return "HEVC parameters need 1..262144 bytes";
+    config.initial_parameters.assign(parameters.ptr(), parameters.ptr()+parameters.size());
+    return String(config.validate().c_str());
+}
+Dictionary RmVideoSession::hevc_parameters() const {
+    const auto state = receiver_.hevc_parameters();
+    Dictionary result; PackedByteArray bytes;
+    bytes.resize(state.bytes.size());
+    if (!state.bytes.empty()) std::copy(state.bytes.begin(), state.bytes.end(), bytes.ptrw());
+    auto source = state.source; source.port = 0;
+    auto address = source.text(); address.resize(address.find(':'));
+    result["source_address"] = String(address.c_str());
+    result["parameters"] = bytes; result["revision"] = int64_t(state.revision);
+    return result;
 }
 Dictionary RmVideoSession::capabilities() const {
     Dictionary result; Array backends;
@@ -95,6 +115,12 @@ bool RmVideoSession::start(const Dictionary &values) {
             if (parameters.size() > 256*1024) throw std::invalid_argument("Initial HEVC parameters exceed 256 KiB");
             if (!parameters.is_empty()) media.initial_parameters.assign(parameters.ptr(), parameters.ptr()+parameters.size());
         }
+        const auto parameter_source = string(values, "hevc_parameters_source", "");
+        if (!parameter_source.empty()) {
+            const auto address = rm::parse_ipv4(parameter_source);
+            if (!address || !*address) throw std::invalid_argument("hevc_parameters_source must be a nonzero IPv4 address");
+            media.initial_parameters_source = *address;
+        }
         config_error_.clear();
         return receiver_.start(config, media);
     } catch (const std::exception &error) { config_error_ = error.what(); return false; }
@@ -108,6 +134,8 @@ Dictionary RmVideoSession::snapshot(bool detailed) const {
     auto sample_us=state.snapshot_us;
     result["snapshot_us"]=sample_us;result["diagnostics_enabled"]=state.diagnostics;result["timing_schema"]=1;
     result["initial_parameters_supplied"] = state.initial_parameters_supplied;
+    result["initial_parameters_applied"] = state.initial_parameters_applied;
+    result["hevc_parameters_revision"] = int64_t(state.hevc_parameters_revision);
     result["accounting_schema"]=2;
     if(detailed) {
         result["last_decoded"]=rm::binding::frame(state.last_decoded);

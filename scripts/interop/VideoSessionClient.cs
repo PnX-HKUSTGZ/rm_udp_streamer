@@ -13,18 +13,30 @@ public sealed class VideoSessionClient : IDisposable
     }
     public GodotObject Native => _native!;
     public bool Start(string bindAddress, int port, string decoder = "auto", string device = "0", string transfer = "yuv", bool diagnostics = false,
-        string sourceAddress = "", int sourcePort = 0, byte[]? hevcParameters = null)
+		string sourceAddress = "", int sourcePort = 0, byte[]? hevcParameters = null, string hevcParametersSource = "")
     {
         using var config = new Godot.Collections.Dictionary();
         config.Put("version", 1); config.Put("bind_address", bindAddress); config.Put("port", port);
         config.Put("decoder", decoder); config.Put("device", device); config.Put("transfer", transfer); config.Put("diagnostics", diagnostics);
         config.Put("source_address", sourceAddress); config.Put("source_port", sourcePort);
         if (hevcParameters != null) config.Put("hevc_parameters", hevcParameters);
+		config.Put("hevc_parameters_source", hevcParametersSource);
         using var argument = Variant.From(config);
         using var result = _native!.Call("start", argument);
         return result.AsBool();
     }
     public void Stop() => _native?.Call("request_stop");
+	public string ValidateHevcParameters(byte[] parameters)
+	{
+		using var bytes = Variant.From(parameters);
+		using var result = _native!.Call("validate_hevc_parameters", bytes);
+		return result.AsString();
+	}
+	public Godot.Collections.Dictionary HevcParameters()
+	{
+		using var result = _native!.Call("hevc_parameters");
+		return result.AsGodotDictionary();
+	}
     public Godot.Collections.Dictionary Capabilities()
     {
         using var result = _native!.Call("capabilities");

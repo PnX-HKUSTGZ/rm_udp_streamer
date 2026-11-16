@@ -42,6 +42,10 @@ public:
     const std::string &backend() const { return backend_; }
     const std::string &device_identity() const { return identity_; }
     const std::string &fallback() const { return fallback_; }
+    uint64_t parameters_revision() const { return parameters_revision_; }
+    std::vector<uint8_t> validated_parameters() const { return validated_parameters_.all(); }
+    Endpoint parameters_source() const { return validated_source_; }
+    bool initial_parameters_applied() const { return initial_parameters_selected_ && !config_.initial_parameters.empty(); }
 private:
     MediaConfig config_;
     Output output_;
@@ -68,6 +72,9 @@ private:
     HevcConfiguration initial_parameters_;
     HevcConfiguration validated_parameters_;
     uint64_t validated_configuration_generation_ = 0;
+    uint64_t parameters_revision_ = 0;
+    Endpoint input_source_, validated_source_;
+    bool initial_parameters_selected_ = false;
     void open(const std::string &backend);
     void open_next();
     void record_failure(const std::string &reason);

@@ -2,6 +2,7 @@
 #include "media/session.hpp"
 #include <godot_cpp/classes/ref_counted.hpp>
 #include <godot_cpp/variant/dictionary.hpp>
+#include <godot_cpp/variant/packed_byte_array.hpp>
 
 class RmVideoSession : public godot::RefCounted {
     GDCLASS(RmVideoSession, godot::RefCounted)
@@ -20,6 +21,8 @@ public:
     void poll_stop();
     godot::Dictionary snapshot(bool detailed=true) const;
     godot::Dictionary capabilities() const;
+    godot::Dictionary hevc_parameters() const;
+    godot::String validate_hevc_parameters(const godot::PackedByteArray &parameters) const;
     rm::MediaSession &core() { return receiver_; }
     void retain_gpu() { ++gpu_holders_; }
     void release_gpu() { --gpu_holders_; }

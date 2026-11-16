@@ -1,0 +1,81 @@
+{
+  "scope": "Functional startup-hint persistence and source isolation; not formal performance or complete R4/R6 acceptance.",
+  "native_sha256": {
+    "rm_video.dll": "af44d5499881d2493b9ad66724bf51a73bf9ef6503796430be55ec61f5cb48c4",
+    "librm_video.so": "1c01e4adc2cf36fb417e8755271e57d09c7d460f24d3309f1e9424ef36267821"
+  },
+  "records": {
+    "windows_cache": {
+      "path": "cache-checks-v3\\result.json",
+      "sha256": "682195029d5dfa3d2b0cac2c3f5b060d81bbb9bfb3f68ac9b0813bbe4c4aaea8",
+      "status": "passed"
+    },
+    "linux_cache": {
+      "path": "cache-linux-result.json",
+      "sha256": "bf1bbf27cd44623aaa21fe295f4c7682675f59950d8f798c758e5375f67bc7d1",
+      "status": "passed"
+    },
+    "windows_core": {
+      "path": "core-windows-v1\\result.json",
+      "sha256": "1bf01c812f360f7e36c319628236c878d170c0d2c32f1c9c19a21bbbf57b240c",
+      "status": "passed"
+    },
+    "linux_core": {
+      "path": "core-linux-result.json",
+      "sha256": "2c23e576a59278b816181fa847599114d45e9c44f0c06730b69961d13660baab",
+      "status": "passed"
+    },
+    "live_first_implementation": {
+      "path": "live-default-v1\\result.json",
+      "sha256": "a595d14ec104027eaf9cf88537298ebdaee7ad71380855aad3d302e749706507",
+      "status": "passed"
+    }
+  },
+  "port_restart": {
+    "windows": {
+      "source_tuples": [
+        "127.0.0.1:63521",
+        "127.0.0.1:51646"
+      ],
+      "decoded_after_port_change": 89,
+      "submitted_after_port_change": 89,
+      "widths": [
+        0,
+        1280,
+        1920
+      ],
+      "metrics_sha256": "bb78d239ee89ee0e9192b52ca64383c6347a75b0754588da9e8fb259554f5349"
+    },
+    "linux": {
+      "source_tuples": [
+        "127.0.0.1:48805",
+        "127.0.0.1:44803"
+      ],
+      "decoded_after_port_change": 89,
+      "submitted_after_port_change": 89,
+      "widths": [
+        1280,
+        1920
+      ],
+      "metrics_sha256": "aa37c3ec6fe01852f35ada4f447ebebb30151110fc9ee4e5fa80ec9f8fd409c8"
+    }
+  },
+  "built_in_source": "192.168.12.1",
+  "built_in_parameters_sha256": "16ed4637880580da04bc3314f3c828fdd5bfdce893132d40ba186a8f0c7af9c8",
+  "live_scope": "20 seconds on the first implementation (DLL 4ed20959...), before the same-IPv4 port-restart refinement. Final Windows/Linux binaries passed the core and 8-case UI regressions. User subsequently announced the physical stream would be stopped; further checks used recorded input.",
+  "live": {
+    "packets": 14985,
+    "decoded": 1105,
+    "submitted_total": 1099,
+    "shown_total": 1098,
+    "width": 1920,
+    "height": 1080,
+    "decoder": "d3d11va",
+    "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU LUID=0:95085",
+    "source": "192.168.12.1:63045",
+    "initial_parameters_supplied": true,
+    "initial_parameters_applied": true,
+    "hevc_parameters_revision": 1,
+    "error": ""
+  }
+}

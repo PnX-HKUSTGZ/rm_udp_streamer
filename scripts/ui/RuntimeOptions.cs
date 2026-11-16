@@ -17,6 +17,7 @@ public sealed class RuntimeOptions
     public double Duration;
     public string Metrics = "", Snapshot = "";
     public string HevcParameters = "";
+    public bool ParameterCache = true;
     public static RuntimeOptions Parse(string[] args)
     {
         var result = new RuntimeOptions();
@@ -41,6 +42,7 @@ public sealed class RuntimeOptions
                 case "--metrics": result.Metrics = Path.GetFullPath(value); break;
                 case "--snapshot": result.Snapshot = Path.GetFullPath(value); break;
                 case "--hevc-parameters": result.HevcParameters = Path.GetFullPath(value); break;
+                case "--parameter-cache": result.ParameterCache = value switch { "on" => true, "off" => false, _ => throw new ArgumentException("Parameter cache must be on or off") }; break;
                 case "--diagnostics": result.Diagnostics = value switch { "on" => true, "off" => false, _ => throw new ArgumentException("Diagnostics must be on or off") }; break;
                 default: throw new ArgumentException("Unknown receiver option: " + option);
             }
@@ -81,8 +83,9 @@ public sealed class RuntimeOptions
     }
     public const string Usage = "Receiver options (after --): --start --bind IPv4 --port 3334 --source-ip IPv4 --source-port 0 " +
         "--decoder auto|software|cuda|d3d11va|vaapi --device index-or-identity --transfer yuv|rgba|gpu|auto " +
-        "--duration seconds --metrics new-file.ndjson --snapshot new-file.png --hevc-parameters file.hevc --diagnostics on|off --cadence auto|display|responsive|engine\n" +
+        "--duration seconds --metrics new-file.ndjson --snapshot new-file.png --hevc-parameters file.hevc --parameter-cache on|off --diagnostics on|off --cadence auto|display|responsive|engine\n" +
         "An explicit HEVC parameter file contains only known Annex-B VPS/SPS/PPS and requires --source-ip. In-band updates supersede it; no configuration is guessed.\n" +
+        "Parameter cache defaults to on: use the last successfully decoded configuration for its source IPv4, or the bundled 192.168.12.1 startup hint. New valid in-band parameters replace it. Off disables both automatic loading and saving.\n" +
         "Auto uses a bounded 120 Hz loop on Windows hardware renderers (Mailbox on Vulkan; VSync off on OpenGL). " +
         "Linux/software rendering, nonzero launch FPS caps and nondefault VSync retain their launch policy. Display uses VSync; engine always preserves launch settings.\n" +
         "Device accepts a backend-local index, cuda:GPU-UUID, d3d11va:LUID=high:low (current boot), " +

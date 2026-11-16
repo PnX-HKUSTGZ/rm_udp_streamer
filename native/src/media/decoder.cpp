@@ -72,7 +72,8 @@ AVPixelFormat Decoder::choose_format(AVCodecContext *context, const AVPixelForma
 Decoder::Decoder(MediaConfig config, Output output, bool defer_backend) : config_(std::move(config)), output_(std::move(output)) {
     auto invalid = config_.validate();
     if (!invalid.empty()) throw std::invalid_argument(invalid);
-    if (!config_.initial_parameters.empty())
+    initial_parameters_selected_ = config_.initial_parameters_source == 0;
+    if (initial_parameters_selected_ && !config_.initial_parameters.empty())
         initial_parameters_.observe(config_.initial_parameters.data(), config_.initial_parameters.size());
     try {
         candidates_ = decoder_candidates(config_.decoder, config_.transfer, config_.device);
@@ -159,7 +160,14 @@ void Decoder::reset(uint64_t generation, uint64_t configuration_generation) {
     if (!parser_) throw std::bad_alloc();
     if (avcodec_is_open(codec_)) avcodec_flush_buffers(codec_);
     if (configuration_generation_ != configuration_generation) {
-        parameters_ = initial_parameters_; validated_parameters_.clear(); validated_configuration_generation_ = 0;
+        // Automatic persisted hints are scoped by IPv4 rather than an
+        // ephemeral UDP port. Prefer this sender's newer decoded configuration
+        // when its port changes; never carry it to a different address.
+        if (config_.initial_parameters_source && validated_configuration_generation_ &&
+            input_source_.address == validated_source_.address)
+            parameters_ = validated_parameters_;
+        else parameters_ = initial_parameters_;
+        validated_parameters_.clear(); validated_configuration_generation_ = 0;
     } else if (generation_ != generation) {
         // Only configuration that actually decoded a frame survives an idle
         // restart of this sender. Parser/codec output still retires below.
@@ -191,6 +199,14 @@ void Decoder::recover() {
     reset(generation_, configuration_generation_);
 }
 void Decoder::feed(EncodedGroup group) {
+    input_source_ = group.source;
+    const bool selected = !config_.initial_parameters_source || config_.initial_parameters_source == input_source_.address;
+    if (selected != initial_parameters_selected_) {
+        initial_parameters_.clear();
+        if (selected && !config_.initial_parameters.empty())
+            initial_parameters_.observe(config_.initial_parameters.data(), config_.initial_parameters.size());
+        initial_parameters_selected_ = selected;
+    }
     const uint64_t configuration_generation = group.configuration_generation ? group.configuration_generation : group.generation;
     if (generation_ != group.generation || configuration_generation_ != configuration_generation || group.discontinuity_before)
         reset(group.generation, configuration_generation);
@@ -362,6 +378,7 @@ void Decoder::receive() {
         output_({std::move(info), std::move(source)});
         if (validated_configuration_generation_ != configuration_generation_ || validated_parameters_.revision() != parameters_.revision()) {
             validated_parameters_ = parameters_; validated_configuration_generation_ = configuration_generation_;
+            validated_source_ = input_source_; ++parameters_revision_;
         }
     }
 }

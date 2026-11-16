@@ -2,7 +2,7 @@
 
 基于 Godot 4.7 Mono 的 RoboMaster UDP HEVC 视频接收工程，目标为 Windows 与 Ubuntu、1080p60。
 
-当前分支正在实施 R0–R6 审查改进，运行代码候选为 `ae15111`。历史候选的 R0、R1、R2、R3、R5 已通过指定的独立审查；R4、R6 尚未完成。当前候选修复了同源断流的参数缓存及 GPU 初始化时丢失首组参数的问题，已完成双平台构建和相关功能验证，完整性能与实机自动接入仍在验收，见[当前候选记录](docs/evidence/r6/candidate-ae15111.md)。默认从本次接收的码流获取参数，当前实机中途直接启动尚未通过。
+当前分支正在实施 R0–R6 审查改进。历史候选的 R0、R1、R2、R3、R5 已通过指定的独立审查；R4、R6 尚未完成。在 `ae15111` 的启动/恢复修复基础上，按用户要求加入默认参数与自动更新：先使用已核验的固定来源参数，新的带内参数优先，成功解码后保存供下次启动使用。真实 3334 流已完成默认启动播放，Windows/Ubuntu 的参数更新、重启与来源隔离验证见[默认参数记录](docs/evidence/r4/persisted-parameters.md)。此前不使用启动缓存的观察和长测保留在[ae15111 候选记录](docs/evidence/r6/candidate-ae15111.md)，不自动覆盖新实现。
 
 Windows NVIDIA 已实现零视频像素回读的 CUDA/OpenGL 路径；原生 Ubuntu 已实现 VAAPI 与设备身份核验。`88bf17a` 的 Windows CUDA、D3D11VA 与 AMD VAAPI 指定组合曾完成 30 分钟有效收流及完整诊断开销对照，见[R3 独立审查](docs/evidence/r3/report.md)。这些结果及此前 M0–M6 的 D3 发布记录保留为历史基线，各版本证据和支持范围分别记录。
 

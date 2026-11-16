@@ -58,6 +58,7 @@ struct EncodedGroup {
     // once. Keep their scope separate from the frame generation. Zero lets
     // callers without transport provenance use generation as the scope.
     uint64_t configuration_generation = 0;
+    Endpoint source;
 };
 
 struct TransportStats {

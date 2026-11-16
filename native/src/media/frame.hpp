@@ -18,6 +18,9 @@ struct MediaConfig {
     bool diagnostics = false;
     // Optional explicit Annex-B VPS/SPS/PPS for a fixed, source-filtered input.
     std::vector<uint8_t> initial_parameters;
+    // A persisted hint is only applied to groups from this IPv4 address.
+    // Zero retains the explicit-parameter API's required transport filter.
+    uint32_t initial_parameters_source = 0;
     std::string validate() const;
 };
 struct FrameInfo {

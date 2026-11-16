@@ -137,6 +137,7 @@ void ProtocolCore::emit(uint64_t serial, Entry &entry, Millis now) {
     EncodedGroup group;
     group.frame_id = uint16_t(serial); group.serial = serial; group.generation = stats_.generation;
     group.configuration_generation = configuration_generation_;
+    group.source = stats_.source;
     group.first_packet_ms = entry.first; group.complete_ms = entry.completed_at;
     group.queued_ms = now;
     if (config_.diagnostics) stats_.order_wait.observe((now-entry.completed_at)*1000);

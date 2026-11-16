@@ -40,7 +40,14 @@ struct MediaSnapshot {
     bool worker_done = true;
     bool diagnostics = false;
     bool initial_parameters_supplied = false;
+    bool initial_parameters_applied = false;
+    uint64_t hevc_parameters_revision = 0;
     Millis last_frame_ms = 0, started_ms = 0;
+};
+struct LearnedParameters {
+    std::vector<uint8_t> bytes;
+    Endpoint source;
+    uint64_t revision = 0;
 };
 class MediaSession {
 public:
@@ -59,6 +66,7 @@ public:
     // Returns true only for a recoverable automatic GPU -> CPU transition.
     bool presentation_failed(const std::string &error, bool gpu_failure = false);
     MediaSnapshot snapshot() const;
+    LearnedParameters hevc_parameters() const;
 private:
     UdpReceiver receiver_;
     mutable std::mutex mutex_;
@@ -66,6 +74,7 @@ private:
     std::condition_variable prepare_ready_;
     std::atomic<bool> quit_{false}, done_{true};
     MediaSnapshot state_;
+    LearnedParameters learned_parameters_;
     CpuPreparationCounters preparation_;
     FrameLease decoded_latest_;
     uint64_t preparation_epoch_ = 0;
