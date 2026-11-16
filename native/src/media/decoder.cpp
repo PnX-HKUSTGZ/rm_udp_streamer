@@ -69,14 +69,21 @@ AVPixelFormat Decoder::choose_format(AVCodecContext *context, const AVPixelForma
     self->negotiation_failed_ = true;
     return AV_PIX_FMT_NONE; // A requested hardware path cannot return software silently.
 }
-Decoder::Decoder(MediaConfig config, Output output) : config_(std::move(config)), output_(std::move(output)) {
+Decoder::Decoder(MediaConfig config, Output output, bool defer_backend) : config_(std::move(config)), output_(std::move(output)) {
     auto invalid = config_.validate();
     if (!invalid.empty()) throw std::invalid_argument(invalid);
     if (!config_.initial_parameters.empty())
         initial_parameters_.observe(config_.initial_parameters.data(), config_.initial_parameters.size());
     try {
         candidates_ = decoder_candidates(config_.decoder, config_.transfer, config_.device);
-        open_next();
+        if (defer_backend) {
+            // av_parser_parse2 needs a codec context, but not an opened decoder.
+            // Do not spend the only configuration's queue lifetime opening a GPU.
+            auto *codec = avcodec_find_decoder(AV_CODEC_ID_HEVC);
+            if (!codec) throw std::runtime_error("Pinned FFmpeg HEVC decoder is unavailable");
+            codec_ = avcodec_alloc_context3(codec);
+            if (!codec_) throw std::bad_alloc();
+        } else open_next();
         parser_ = av_parser_init(AV_CODEC_ID_HEVC);
         packet_ = av_packet_alloc(); scratch_ = av_frame_alloc();
         if (!parser_ || !packet_ || !scratch_) throw std::bad_alloc();
@@ -150,7 +157,7 @@ void Decoder::reset(uint64_t generation, uint64_t configuration_generation) {
     if (parser_) av_parser_close(parser_);
     parser_ = av_parser_init(AV_CODEC_ID_HEVC);
     if (!parser_) throw std::bad_alloc();
-    avcodec_flush_buffers(codec_);
+    if (avcodec_is_open(codec_)) avcodec_flush_buffers(codec_);
     if (configuration_generation_ != configuration_generation) {
         parameters_ = initial_parameters_; validated_parameters_.clear(); validated_configuration_generation_ = 0;
     } else if (generation_ != generation) {
@@ -256,6 +263,12 @@ void Decoder::send(const uint8_t *data, int size, FrameTiming timing) {
     }
     if (discard_rasl_ && picture.rasl) { ++counters_.skipped_rasl; return; }
     if (discard_rasl_ && picture.has_vcl && !picture.leading && picture.random_access < 0) discard_rasl_ = false;
+    if (!avcodec_is_open(codec_)) {
+        // The first eligible picture already owns its matched VPS/SPS/PPS in
+        // prefixed. Opening a device can now shed later pictures safely: after
+        // this picture decodes, ordinary discontinuity recovery retains them.
+        close_codec(); open_next();
+    }
     check(av_new_packet(packet_, size), "allocate parser packet");
     struct PacketScope {
         AVPacket *packet;
@@ -356,6 +369,7 @@ void Decoder::finish() {
     uint8_t *data = nullptr; int size = 0;
     check(av_parser_parse2(parser_, codec_, &data, &size, nullptr, 0, AV_NOPTS_VALUE, AV_NOPTS_VALUE, parser_input_offset_), "finish parser");
     send(data, size, packet_timing(size, true));
+    if (!avcodec_is_open(codec_)) return;
     int result = avcodec_send_packet(codec_, nullptr);
     if (result == AVERROR(EAGAIN)) { receive(); result = avcodec_send_packet(codec_, nullptr); }
     check_decode(result, "finish decoder"); receive();

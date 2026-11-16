@@ -24,7 +24,9 @@ struct DecodeCounters : CpuPreparationCounters {
 class Decoder {
 public:
     using Output = std::function<void(FrameLease)>;
-    explicit Decoder(MediaConfig config, Output output);
+    // Live sessions parse the first in-band configuration before a potentially
+    // slow device open, so the bounded UDP queue cannot discard it meanwhile.
+    explicit Decoder(MediaConfig config, Output output, bool defer_backend = false);
     ~Decoder();
     Decoder(const Decoder &) = delete;
     Decoder &operator=(const Decoder &) = delete;

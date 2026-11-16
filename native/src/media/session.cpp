@@ -244,7 +244,7 @@ void MediaSession::run(MediaConfig config) noexcept {
             }
             std::lock_guard<std::mutex> lock(mutex_);
             state_.preparing=false;complete_preparation(std::move(prepared), epoch);
-        });
+        }, true);
         auto update_decoder_status = [&] {
             std::lock_guard<std::mutex> lock(mutex_);
             state_.backend = decoder->backend(); state_.device = decoder->device_identity();
