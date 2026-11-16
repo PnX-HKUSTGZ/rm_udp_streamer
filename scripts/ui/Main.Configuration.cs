@@ -80,7 +80,8 @@ public partial class Main
     private RuntimeOptions ReadConfiguration() => new()
     {
         Address=_address.Text.Trim(), Port=(int)_port.Value, Decoder=Decoders[_decoder.Selected], Device=_device.Text.Trim(),
-        Transfer=Transfers[_transfer.Selected], Cadence=Cadences[_cadence.Selected], SourceAddress=_sourceFilter.Text.Trim(), SourcePort=(int)_sourcePort.Value
+        Transfer=Transfers[_transfer.Selected], Cadence=Cadences[_cadence.Selected], SourceAddress=_sourceFilter.Text.Trim(), SourcePort=(int)_sourcePort.Value,
+        HevcParameters=_options.HevcParameters
     };
     private void ReloadDevices()
     {
