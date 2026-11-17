@@ -63,4 +63,4 @@ Windows 硬件渲染的自动节奏可使用 120 次/秒处理上限，Vulkan �
 
 产品构建锁定 Godot、godot-cpp、FFmpeg、SDK 和工具版本，并检查完整 FFmpeg 头文件、静态库及配置输入。重新构建依赖需要独立 developer 锁，不能继承旧产物的验证结论。静态 FFmpeg 的源码、许可和可重链接对象随发布包提供；VAAPI 另依赖系统 libva/libdrm 和 GPU 驱动。
 
-原生 Ubuntu Intel/AMD 的核心硬解、回读、身份、帧引用寿命、桌面功能和回退已有实机证据。当前 `1366817` 的两台 Ubuntu 独立包通过指定 VAAPI/YUV/Wayland/Mobile 组合的正式长测及诊断对照；Windows CUDA 与 Intel D3D11VA 的正式平均帧率未达门槛，详见[性能记录](evidence/r6/candidate-1366817-performance.md)。完整集成审查尚未完成。Windows CUDA/OpenGL 为已实现 GPU 桥接；D3D11/Vulkan、VAAPI/DMA-BUF/Vulkan 直传仍不能列为已实现。WSL 不能替代原生 Ubuntu，模拟发送样本不能替代真实 RoboMaster 设备。
+原生 Ubuntu Intel/AMD 的核心硬解、回读、身份、帧引用寿命、桌面功能和回退已有实机证据。当前 `1366817` 的四条正式本地回放路径均达到用户新接受的平均 55 fps 目标；两台 Ubuntu 独立包的指定 VAAPI/YUV/Wayland/Mobile 组合还通过原 1080p60 等级及诊断对照。Windows 原 60 fps 档失败、短时卡顿和 LAN 短测失败仍保留，详见[当前性能接受范围](evidence/r6/acceptance-55fps.md)。完整集成审查尚未完成。Windows CUDA/OpenGL 为已实现 GPU 桥接；D3D11/Vulkan、VAAPI/DMA-BUF/Vulkan 直传仍不能列为已实现。WSL 不能替代原生 Ubuntu，模拟发送样本不能替代真实 RoboMaster 设备。

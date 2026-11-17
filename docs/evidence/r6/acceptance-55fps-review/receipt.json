@@ -1,0 +1,19 @@
+{
+  "reviewer": "gpt-6-astra",
+  "scope": "Independent mean-55 fps evidence and LAN publication review; not full R4/R6 approval.",
+  "original_directory": "processing\\2026-11-17-rm-55fps-review",
+  "files": {
+    "review.md": {
+      "sha256": "6683f6ae07505b7027f8016c3ef5b1c80509f652e74ee5e326a7c7a901a62f86",
+      "bytes": 6815
+    },
+    "recomputed-counts.json": {
+      "sha256": "c9f7d6fd825dedd872ea4cf465b2821f9fd1d60f3b67d2c78b26b33e0eea91e0",
+      "bytes": 2478
+    },
+    "reevaluation-crosscheck.json": {
+      "sha256": "8508760cd34189b07f007d465c37e907058f7357e369f206b6ef3297ffd465f7",
+      "bytes": 504
+    }
+  }
+}

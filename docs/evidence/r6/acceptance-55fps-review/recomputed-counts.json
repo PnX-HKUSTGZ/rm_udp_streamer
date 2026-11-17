@@ -1,0 +1,77 @@
+[
+  {
+    "path": "processing/2026-11-17-rm-stop-race/windows-performance-v2/formal-cuda/result.json",
+    "sha256": "801f3caf2efccca565502ec63ebe4d025daf90f51ab6f8d70eb305bd85221e19",
+    "count": 1800,
+    "mean": 56.169444444444444,
+    "zero": 13,
+    "reportedMean": 56.169444444444444,
+    "p10": 57,
+    "exit": 0,
+    "rebind": {
+      "passed": true,
+      "attempts": 1
+    },
+    "native": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7"
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-pacing/windows-d3d11va-performance-v1/formal-d3d11va/result.json",
+    "sha256": "1a0c6a1c531d3659e9ba1555daed91a9caa5300657f20462d422793ffb06758b",
+    "count": 1800,
+    "mean": 57.208888888888886,
+    "zero": 10,
+    "reportedMean": 57.208888888888886,
+    "p10": 59,
+    "exit": 0,
+    "rebind": {
+      "passed": true,
+      "attempts": 1
+    },
+    "native": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7"
+  },
+  {
+    "path": "processing/2026-11-17-rm-stop-race/intel-1366817-performance-v1-verified/intel-performance-v1/formal/result.json",
+    "sha256": "4e75aa5831b543fed66afc2d0645c188de19f4ef67a4c889f0a5a5bf2c9f1abc",
+    "count": 1800,
+    "mean": 59.93055555555556,
+    "zero": 0,
+    "reportedMean": 59.93055555555556,
+    "p10": 59,
+    "exit": 0,
+    "rebind": {
+      "passed": true,
+      "attempts": 1
+    },
+    "native": "5e75ed631410f944fa912a617a6e58ae78557fb9cbc00c40f4af84c3dcc5797e"
+  },
+  {
+    "path": "processing/2026-11-17-rm-stop-race/amd-1366817-performance-v1-verified/amd-performance-v1/formal/result.json",
+    "sha256": "f0dbeab0d20a220f2fb89a77b7dd32a3da46c833105550fe92ecbfdbf50e786e",
+    "count": 1800,
+    "mean": 60.0,
+    "zero": 0,
+    "reportedMean": 60.0,
+    "p10": 60,
+    "exit": 0,
+    "rebind": {
+      "passed": true,
+      "attempts": 1
+    },
+    "native": "b54ba0c54f1d0b3f319205ef9a0e05566bbe1984f693f839083aebe08d528870"
+  },
+  {
+    "path": "processing/2026-11-17-rm-55fps-acceptance/remote-input-after-firewall-v1/run/result.json",
+    "sha256": "010303e0e65da78c1e67f591eaa14cfce219280fa5a03b97dfeb844b98af1a5f",
+    "count": 60,
+    "mean": 36.86666666666667,
+    "zero": 6,
+    "reportedMean": 36.86666666666667,
+    "p10": 0,
+    "exit": 0,
+    "rebind": {
+      "passed": true,
+      "attempts": 1
+    },
+    "native": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7"
+  }
+]

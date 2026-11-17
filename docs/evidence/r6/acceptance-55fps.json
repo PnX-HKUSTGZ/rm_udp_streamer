@@ -1,0 +1,557 @@
+{
+  "product_commit": "136681794a862d9086ec196590fc886491d55c4d",
+  "user_requirement": {
+    "date_local": "2026-11-17",
+    "timezone": "Asia/Shanghai",
+    "text": "\u8fd9\u6837\u591f\u4e86\uff0c55 \u4ee5\u4e0a\u5373\u53ef",
+    "mean_new_submissions_fps_min": 55,
+    "interpretation": "Mean over all 1800 closed one-second windows after the separate 180-second warmup; not a minimum for every second. P10 and all stalled windows remain reported.",
+    "not_changed": [
+      "Original records and historical 1080p60 grade",
+      "Input, warmup, full window selection and percentile calculations",
+      "Latency, ownership and normal-stop checks",
+      "Hardware and real-device acceptance scope"
+    ],
+    "scope": "Re-evaluation of existing measurements after an explicit user requirement change. No new formal run or runtime rebuild."
+  },
+  "analysis_script_sha256": "17a0384831f2faf3d5338ec1456e3fee4c7d7a34bca0d8d248becd19402090d4",
+  "frozen_measurement_runner_sha256": "975b617d12c5423c89e84e56e86511b3158dae4ee37bade0d4a74f8df85222b1",
+  "formal_runs": {
+    "windows-cuda": {
+      "raw_directory": "processing\\2026-11-17-rm-stop-race\\windows-performance-v2\\formal-cuda",
+      "files": {
+        "result.json": "801f3caf2efccca565502ec63ebe4d025daf90f51ab6f8d70eb305bd85221e19",
+        "metrics.ndjson": "e55d9196914ddc46946c35057c4611be0a0fb5fc8968f68a0d8fadbbaf454472",
+        "process.json": "a2c8da60c9f8776408fa6e65ba38f36aaaca2529598fe1a9e14ce1cf6e827c2b",
+        "sender.tsv": "1fc250598257a45e1d6ab06b7602a199616a238f0ee095a4693b94eff941cb97"
+      },
+      "release_package": {
+        "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-stop-race\\windows-release-v1\\package",
+        "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+        "commit": "136681794a862d9086ec196590fc886491d55c4d",
+        "verified_files": 588,
+        "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+        "dependency_kind": "official",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "engine_sha256": "27fc0a42f8bddbaffc6a58e629102f2155e9ff78a7f04cf906cff6cfaeef36bd",
+      "assembly_sha256": "c4968b78e97dd695d79bb6b03d43c4faa88f97c6116aa9283806d0ec6ced5446",
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "backend": "cuda",
+      "transfer": "gpu",
+      "actual_mode": "gpu_cuda_gl_nv12",
+      "mean_fps": 56.169444444444444,
+      "p10_fps": 57,
+      "mean_55_target": "passed",
+      "original_1080p60_grade": "failed",
+      "latency_gate": "passed",
+      "latency": {
+        "count": 101173,
+        "sum_us": 2624687869,
+        "p50_us": 26000,
+        "p95_us": 33000,
+        "p99_us": 40000,
+        "percentile_upper_bound": true
+      },
+      "complete_seconds": 1800,
+      "zero_submission_seconds": 13,
+      "seconds_below_55": 165,
+      "longest_zero_submission_seconds": 1,
+      "native_counters": {
+        "complete": 107864,
+        "consumed": 107683,
+        "decoded": 102592,
+        "prepared": 102592,
+        "submitted_total": 101173,
+        "shown_total": 101169,
+        "mailbox_replaced": 1408,
+        "queue_expired": 45,
+        "decoded_replaced": 0,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 136,
+        "timeouts": 201,
+        "missing": 201,
+        "recoveries": 258,
+        "correlated_submitted": 101173,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 2,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 119040,
+        "lateness_p95_us": 3949.934,
+        "lateness_p99_us": 23794.8,
+        "lateness_max_us": 166752.9,
+        "late_over_frame": 1923,
+        "send_p99_us": 30533.9,
+        "interval_p1_us": 572.5,
+        "interval_p99_us": 31098.0
+      },
+      "actual_decode_devices": [
+        "NVIDIA GeForce RTX 5070 Laptop GPU CUDA=0 UUID=GPU-f5fa1209-475c-a7fb-6b7a-4762512ca75a"
+      ],
+      "actual_render_devices": [
+        "NVIDIA GeForce RTX 5070 Laptop GPU"
+      ],
+      "normal_stop_ms": 88.0517,
+      "ownership_checks": "passed",
+      "port_rebind": "passed",
+      "diagnostics_abba": "not performed on current candidate"
+    },
+    "windows-intel": {
+      "raw_directory": "processing\\2026-11-17-rm-windows-pacing\\windows-d3d11va-performance-v1\\formal-d3d11va",
+      "files": {
+        "result.json": "1a0c6a1c531d3659e9ba1555daed91a9caa5300657f20462d422793ffb06758b",
+        "metrics.ndjson": "8009efad097f131fdc9f81704e81521941db73a1b5376c01577f3fc3cf5002ee",
+        "process.json": "95a0dd6fb814097c69ae9eae66f2f441d640f2b882f43704c03a0f002cf5be52",
+        "sender.tsv": "a9d086b2e26bc34f2048e1bdba6e1afc65b485f1ba706bdbea49d9a0957f477d"
+      },
+      "release_package": {
+        "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-stop-race\\windows-release-v1\\package",
+        "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+        "commit": "136681794a862d9086ec196590fc886491d55c4d",
+        "verified_files": 588,
+        "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+        "dependency_kind": "official",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "engine_sha256": "27fc0a42f8bddbaffc6a58e629102f2155e9ff78a7f04cf906cff6cfaeef36bd",
+      "assembly_sha256": "c4968b78e97dd695d79bb6b03d43c4faa88f97c6116aa9283806d0ec6ced5446",
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "backend": "d3d11va",
+      "transfer": "yuv",
+      "actual_mode": "cpu_nv12",
+      "mean_fps": 57.208888888888886,
+      "p10_fps": 59,
+      "mean_55_target": "passed",
+      "original_1080p60_grade": "failed",
+      "latency_gate": "passed",
+      "latency": {
+        "count": 103071,
+        "sum_us": 3074477002,
+        "p50_us": 30000,
+        "p95_us": 37000,
+        "p99_us": 48000,
+        "percentile_upper_bound": true
+      },
+      "complete_seconds": 1800,
+      "zero_submission_seconds": 10,
+      "seconds_below_55": 110,
+      "longest_zero_submission_seconds": 1,
+      "native_counters": {
+        "complete": 107895,
+        "consumed": 107773,
+        "decoded": 103811,
+        "prepared": 103079,
+        "submitted_total": 103077,
+        "shown_total": 103075,
+        "mailbox_replaced": 0,
+        "queue_expired": 34,
+        "decoded_replaced": 726,
+        "decoded_discarded_generation": 3,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 88,
+        "timeouts": 204,
+        "missing": 204,
+        "recoveries": 236,
+        "correlated_submitted": 103071,
+        "unknown_submitted": 6,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 119040,
+        "lateness_p95_us": 3554.267,
+        "lateness_p99_us": 20020.267,
+        "lateness_max_us": 113137.067,
+        "late_over_frame": 1472,
+        "send_p99_us": 25550.0,
+        "interval_p1_us": 649.5,
+        "interval_p99_us": 27048.4
+      },
+      "actual_decode_devices": [
+        "Intel(R) Arc(TM) 140T GPU (16GB) LUID=0:92536"
+      ],
+      "actual_render_devices": [
+        "NVIDIA GeForce RTX 5070 Laptop GPU"
+      ],
+      "normal_stop_ms": 114.3732,
+      "ownership_checks": "passed",
+      "port_rebind": "passed",
+      "diagnostics_abba": "not performed on current candidate"
+    },
+    "ubuntu-intel": {
+      "raw_directory": "processing\\2026-11-17-rm-stop-race\\intel-1366817-performance-v1-verified\\intel-performance-v1\\formal",
+      "files": {
+        "result.json": "4e75aa5831b543fed66afc2d0645c188de19f4ef67a4c889f0a5a5bf2c9f1abc",
+        "metrics.ndjson": "867fc857c239a79fb448a2c1d5dc2dd078c0d01db9d3b7efc46d1a5eff193dbd",
+        "process.json": "34e0bfd2d3f41adbe86f0ba97ed933025ab9048028b6406849ee7fc29cbb40b7",
+        "sender.tsv": "6b507be1b9e1d7d5b7aedf7df9d690127f07360a515fe647ab29156f4c3e04f1"
+      },
+      "release_package": {
+        "path": "/home/minipc/qixuan/processing/rm-stop-race-20261117/linux-release-v1/package",
+        "manifest_sha256": "c4f50b2b5e57824cc2877bc210b8b81a9e0a64f56371257ba568a44b9ddc3f0f",
+        "commit": "136681794a862d9086ec196590fc886491d55c4d",
+        "verified_files": 556,
+        "dependency_lock_sha256": "bfb64e720cb6ee4d697f2dfc072d425b274c48164ab824c39413725ea6c5cd01",
+        "dependency_kind": "developer",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "native_sha256": "5e75ed631410f944fa912a617a6e58ae78557fb9cbc00c40f4af84c3dcc5797e",
+      "engine_sha256": "05c2a8e5632d8a49588e8a63e170209432a6fa2e011fd6aa6a8c798c6e86aadf",
+      "assembly_sha256": "c4968b78e97dd695d79bb6b03d43c4faa88f97c6116aa9283806d0ec6ced5446",
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "backend": "vaapi",
+      "transfer": "yuv",
+      "actual_mode": "cpu_nv12",
+      "mean_fps": 59.93055555555556,
+      "p10_fps": 59,
+      "mean_55_target": "passed",
+      "original_1080p60_grade": "passed",
+      "latency_gate": "passed",
+      "latency": {
+        "count": 107936,
+        "sum_us": 3406336072,
+        "p50_us": 31000,
+        "p95_us": 43000,
+        "p99_us": 49000,
+        "percentile_upper_bound": true
+      },
+      "complete_seconds": 1800,
+      "zero_submission_seconds": 0,
+      "seconds_below_55": 0,
+      "longest_zero_submission_seconds": 0,
+      "native_counters": {
+        "complete": 108061,
+        "consumed": 108061,
+        "decoded": 108061,
+        "prepared": 107937,
+        "submitted_total": 107936,
+        "shown_total": 107937,
+        "mailbox_replaced": 0,
+        "queue_expired": 0,
+        "decoded_replaced": 125,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 0,
+        "correlated_submitted": 107936,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 119040,
+        "lateness_p95_us": 153.205,
+        "lateness_p99_us": 211.41,
+        "lateness_max_us": 6403.368,
+        "late_over_frame": 0,
+        "send_p99_us": 1512.847,
+        "interval_p1_us": 16554.413,
+        "interval_p99_us": 16779.048
+      },
+      "actual_decode_devices": [
+        "DRM 0x8086:0x46d3 PCI=0000:00:02.0 NODE=/dev/dri/renderD128 DRM=226:128"
+      ],
+      "actual_render_devices": [
+        "Intel(R) Graphics (ADL-N)"
+      ],
+      "normal_stop_ms": 41.1999,
+      "ownership_checks": "passed",
+      "port_rebind": "passed",
+      "diagnostics_abba": {
+        "off_cpu_cores": 0.8476907096175438,
+        "on_cpu_cores": 0.840709104217569,
+        "relative_percent": -0.8236029156347358,
+        "within_2_percent_point_estimate": true,
+        "pair_relative_percent": [
+          -0.8442859852068052,
+          -0.8030770595710557
+        ]
+      }
+    },
+    "ubuntu-amd": {
+      "raw_directory": "processing\\2026-11-17-rm-stop-race\\amd-1366817-performance-v1-verified\\amd-performance-v1\\formal",
+      "files": {
+        "result.json": "f0dbeab0d20a220f2fb89a77b7dd32a3da46c833105550fe92ecbfdbf50e786e",
+        "metrics.ndjson": "b0251338a13b86b926914e40f094b00f4a2d1486a8586b54c3c8bdfb849fefe8",
+        "process.json": "5ed2404b78ef7dfddd3983f50be1b34613c327a2f3a9352ba9cabe6bf3f2f62e",
+        "sender.tsv": "66cc568e81ee7d8bf35cf434aa623a8c0c02feb63339125ce2a1936ced282cd5"
+      },
+      "release_package": {
+        "path": "/home/luckiop/qixuan/processing/rm-stop-race-20261117/linux-release-v1/package",
+        "manifest_sha256": "9e54b8238b93f26f9786b3323c26cb458c7e2f33cf25232ea6c8f65ffb80d39a",
+        "commit": "136681794a862d9086ec196590fc886491d55c4d",
+        "verified_files": 556,
+        "dependency_lock_sha256": "bfb64e720cb6ee4d697f2dfc072d425b274c48164ab824c39413725ea6c5cd01",
+        "dependency_kind": "developer",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "native_sha256": "b54ba0c54f1d0b3f319205ef9a0e05566bbe1984f693f839083aebe08d528870",
+      "engine_sha256": "05c2a8e5632d8a49588e8a63e170209432a6fa2e011fd6aa6a8c798c6e86aadf",
+      "assembly_sha256": "c4968b78e97dd695d79bb6b03d43c4faa88f97c6116aa9283806d0ec6ced5446",
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "backend": "vaapi",
+      "transfer": "yuv",
+      "actual_mode": "cpu_nv12",
+      "mean_fps": 60.0,
+      "p10_fps": 60,
+      "mean_55_target": "passed",
+      "original_1080p60_grade": "passed",
+      "latency_gate": "passed",
+      "latency": {
+        "count": 108101,
+        "sum_us": 2903680179,
+        "p50_us": 27000,
+        "p95_us": 31000,
+        "p99_us": 33000,
+        "percentile_upper_bound": true
+      },
+      "complete_seconds": 1800,
+      "zero_submission_seconds": 0,
+      "seconds_below_55": 0,
+      "longest_zero_submission_seconds": 0,
+      "native_counters": {
+        "complete": 108101,
+        "consumed": 108101,
+        "decoded": 108101,
+        "prepared": 108101,
+        "submitted_total": 108101,
+        "shown_total": 108101,
+        "mailbox_replaced": 0,
+        "queue_expired": 0,
+        "decoded_replaced": 0,
+        "decoded_discarded_generation": 0,
+        "decoded_discarded_failure": 0,
+        "queue_dropped": 0,
+        "timeouts": 0,
+        "missing": 0,
+        "recoveries": 0,
+        "correlated_submitted": 108101,
+        "unknown_submitted": 0,
+        "gpu_slot_drops": 0,
+        "upload_busy_polls": 0
+      },
+      "sender": {
+        "frames": 119040,
+        "lateness_p95_us": 100.578,
+        "lateness_p99_us": 133.565,
+        "lateness_max_us": 490.894,
+        "late_over_frame": 0,
+        "send_p99_us": 609.13,
+        "interval_p1_us": 16609.281,
+        "interval_p99_us": 16725.364
+      },
+      "actual_decode_devices": [
+        "DRM 0x1002:0x15bf PCI=0000:c6:00.0 NODE=/dev/dri/renderD128 DRM=226:128"
+      ],
+      "actual_render_devices": [
+        "AMD Radeon 780M Graphics (RADV PHOENIX)"
+      ],
+      "normal_stop_ms": 13.7794,
+      "ownership_checks": "passed",
+      "port_rebind": "passed",
+      "diagnostics_abba": {
+        "off_cpu_cores": 0.2951155809575972,
+        "on_cpu_cores": 0.2968811959446387,
+        "relative_percent": 0.5982791492446404,
+        "within_2_percent_point_estimate": true,
+        "pair_relative_percent": [
+          0.6048753168549581,
+          0.5917050729196127
+        ]
+      }
+    }
+  },
+  "lan_after_firewall": {
+    "scope": "Independent LAN reachability/decode diagnostic, 10s warmup and 60s measurement. Completed does not mean throughput or latency passed.",
+    "raw_directory": "processing\\2026-11-17-rm-55fps-acceptance\\remote-input-after-firewall-v1\\run",
+    "files": {
+      "result.json": "010303e0e65da78c1e67f591eaa14cfce219280fa5a03b97dfeb844b98af1a5f",
+      "metrics.ndjson": "35ce65a69fd470bdecf8683733e7da983cb18d4e7ac5992990599a9ff9665fa6",
+      "process.json": "f99cd11936729ea6a0438f85c17ee43f82274bc18c63fb4fff87dd3ce80258d2",
+      "sender.tsv": "a576b2838a92de60ad430a604ed44fc1ec218a42d5db651792d0a8b84135c88f"
+    },
+    "remote_control_sha256": "08b673476a607acd934847138b935c38d196c636f8e3c905dcd8493068cb39b5",
+    "ready": {
+      "event": "ready",
+      "pid": 2428080,
+      "source_ip": "10.7.168.196",
+      "source_port": 54943,
+      "target": [
+        "10.4.151.171",
+        3334
+      ],
+      "frames": 4440,
+      "sample_sha256": "17d8f0835ee58c8f1948f01a4f91dc901018418eb5a6d4f13f3e5d1acee16ba6",
+      "packetizer_sha256": "b62e474794c345b9b7fd506227b99ab08ad3e5abf5b27cdaa982d792d80fc849",
+      "script_sha256": "9cec6ee168b1128a9b8897af35d081eb4921648a1e71d91f463420631db386d7",
+      "clock": "Ubuntu time.perf_counter_ns; not the Windows clock"
+    },
+    "release_package": {
+      "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-stop-race\\windows-release-v1\\package",
+      "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+      "commit": "136681794a862d9086ec196590fc886491d55c4d",
+      "verified_files": 588,
+      "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+      "dependency_kind": "official",
+      "runtime_kind": "self-contained exported package",
+      "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+      "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+    },
+    "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+    "mean_fps": 36.86666666666667,
+    "p10_fps": 0,
+    "mean_55_target": "failed",
+    "latency": {
+      "count": 2286,
+      "sum_us": 82195810,
+      "p50_us": 36000,
+      "p95_us": 51000,
+      "p99_us": 62000,
+      "percentile_upper_bound": true
+    },
+    "zero_submission_seconds": 6,
+    "native_counters": {
+      "complete": 3366,
+      "consumed": 3323,
+      "decoded": 2562,
+      "prepared": 2562,
+      "submitted_total": 2286,
+      "shown_total": 2286,
+      "mailbox_replaced": 276,
+      "queue_expired": 5,
+      "decoded_replaced": 0,
+      "decoded_discarded_generation": 0,
+      "decoded_discarded_failure": 0,
+      "queue_dropped": 36,
+      "timeouts": 315,
+      "missing": 318,
+      "recoveries": 71,
+      "correlated_submitted": 2286,
+      "unknown_submitted": 0,
+      "gpu_slot_drops": 0,
+      "upload_busy_polls": 0
+    },
+    "sender": {
+      "frames": 4440,
+      "lateness_p95_us": 680.388,
+      "lateness_p99_us": 251694.845,
+      "lateness_max_us": 350060.634,
+      "late_over_frame": 173,
+      "send_p99_us": 16704.542,
+      "interval_p1_us": 10806.463,
+      "interval_p99_us": 17588.801
+    },
+    "expected_datagrams_entire_input": 102675,
+    "received_datagrams_entire_run": 102043,
+    "decoded_entire_run": 3091,
+    "submitted_entire_run": 2755,
+    "accepted_entire_run": 2755,
+    "foreign_datagrams": 0,
+    "invalid_datagrams": 0,
+    "normal_stop_ms": 131.6756,
+    "port_rebind": "passed",
+    "ownership_checks": "passed",
+    "clock_note": "Receive diagnostics only. Sender deltas remain in their original remote clock. No cross-machine CPU interval or diagnostics-overhead estimate is computed.",
+    "limits": [
+      "No wire capture to attribute missing datagrams to a specific network component.",
+      "Input route and source differ from local replay and real RoboMaster input.",
+      "This short run cannot establish a new formal performance grade or negate the separately scoped local-loopback measurements."
+    ]
+  },
+  "remaining": [
+    "Current-candidate Windows diagnostic overhead comparison has not run.",
+    "The independently tested campus LAN route did not meet mean 55 fps or P95 <=50ms in this short diagnostic.",
+    "Native Ubuntu NVIDIA and Windows AMD devices are unavailable.",
+    "Current-candidate real RoboMaster input and complete R4/R6 acceptance remain unproven."
+  ],
+  "reevaluation_sha256": "3d0da2433e522f46cceac2276eae54a2c6e459d7546029aba480e326657891f0",
+  "archive": {
+    "label": "acceptance-55fps-records-v1",
+    "folders": [
+      "remote-input-after-firewall-v1",
+      "remote-originals-v1"
+    ],
+    "sha256": "cbdb2a14b863bf323739e464cab292b2692e97f4ea059b92c16f9f2426becb77",
+    "bytes": 505555,
+    "members": 30,
+    "excluded_directories": [
+      "__pycache__",
+      "build",
+      "native-project",
+      "product",
+      "relinked-package",
+      "ui-product"
+    ],
+    "excluded_files": [
+      "Probe.exe",
+      "Probe.x86_64"
+    ],
+    "scope": "Raw results, logs, metrics, screenshots, process observations, validation scripts and package identities. Duplicate runtimes, build trees and UI product clones excluded; original packages remain on their hosts."
+  },
+  "archive_verification": {
+    "status": "passed",
+    "label": "acceptance-55fps-records-v1",
+    "local_archive": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-55fps-acceptance\\acceptance-55fps-records-v1.tar.gz",
+    "sha256": "cbdb2a14b863bf323739e464cab292b2692e97f4ea059b92c16f9f2426becb77",
+    "bytes": 505555,
+    "verified_members": 30,
+    "verification": "Archive SHA256 and all member names, sizes and SHA256 hashes match; verified directly without extraction.",
+    "verifier_sha256": "4c091f2115a79c0f5425fc380479177efeeb4df43b060524aeb00edfd4402ba6"
+  },
+  "firewall": {
+    "at": "2026-11-17T04:54:32.2471694+00:00",
+    "scope": "Read-only observation after the user reported completing the firewall change. The prepared constrained script was not executed.",
+    "rules": [
+      {
+        "name": "TCP Query User{5BC0B929-C958-4DBB-AEA8-2A2542818469}D:\\code\\udp_streamer_godot\\processing\\2026-11-17-rm-stop-race\\windows-release-v1\\package\\rmvideoreceiver.exe",
+        "enabled": "True",
+        "action": "Allow",
+        "profile": "Private, Public",
+        "direction": "Inbound",
+        "protocol": "TCP",
+        "local_port": "Any",
+        "remote_address": "Any",
+        "local_address": "Any"
+      },
+      {
+        "name": "UDP Query User{D875C19E-07F0-455E-B696-CB3781B8572B}D:\\code\\udp_streamer_godot\\processing\\2026-11-17-rm-stop-race\\windows-release-v1\\package\\rmvideoreceiver.exe",
+        "enabled": "True",
+        "action": "Allow",
+        "profile": "Private, Public",
+        "direction": "Inbound",
+        "protocol": "UDP",
+        "local_port": "Any",
+        "remote_address": "Any",
+        "local_address": "Any"
+      }
+    ],
+    "port3334": []
+  },
+  "remote_records_verification": {
+    "status": "passed",
+    "members": 3,
+    "remote_result_matches_control": true,
+    "remote_sender_records_match_local": true,
+    "raw_byte_identity": false,
+    "comparison_note": "Remote originals exactly match remote hashes. Local sender.tsv uses Windows CRLF; the only difference from the remote LF TSV is newline encoding. No values are changed.",
+    "remote_process_exited": true,
+    "remote_sender_sha256": "6fad4c6b83c81f16abb88e59db70e436c5422112eff853d658e22c494b53193a",
+    "local_sender_sha256": "a576b2838a92de60ad430a604ed44fc1ec218a42d5db651792d0a8b84135c88f",
+    "verifier_sha256": "886ddd4c6104178ae2ace0c93420e43c5b8b37528deb8b40fb5063c020e97bf1"
+  }
+}

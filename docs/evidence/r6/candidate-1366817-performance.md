@@ -1,12 +1,12 @@
 # 1366817 候选性能验收
 
-2026-11-17。运行源码固定为 `136681794a862d9086ec196590fc886491d55c4d`。两台原生 Ubuntu 的各自候选包通过本轮正式性能和完整诊断对照；Windows CUDA 和 Intel D3D11VA 正式帧率均未达标。原始记录全部保留并逐成员校验：[首轮机器可读摘要](candidate-1366817-performance.json)记录 Linux 与 CUDA 结果，[后续 D3D11VA 摘要](windows-d3d11va-performance-1366817.json)记录独立运行的 Intel 路径。功能验证见[候选功能记录](candidate-1366817.md)。
+2026-11-17。运行源码固定为 `136681794a862d9086ec196590fc886491d55c4d`。本文保留原 1080p60 档验收：两台原生 Ubuntu 的各自候选包通过正式性能和完整诊断对照；Windows CUDA 和 Intel D3D11VA 未达到原门槛。用户随后明确接受平均至少 55 fps，四条路径已有正式数据均满足，见[新用户目标与 LAN 检查](acceptance-55fps.md)；原数据和下列旧等级结果不改写。原始记录全部保留并逐成员校验：[首轮机器可读摘要](candidate-1366817-performance.json)记录 Linux 与 CUDA 结果，[后续 D3D11VA 摘要](windows-d3d11va-performance-1366817.json)记录独立运行的 Intel 路径。功能验证见[候选功能记录](candidate-1366817.md)。
 
 ## 固定条件与结果
 
 使用同一 1920×1080、60 fps、8 位 HEVC 回放样本、本地随机回环端口和 responsive 调度。正式测量单独预热 180 秒，再计算完整 1800 个秒窗；要求平均新提交 ≥59.4 fps、秒窗 P10≥58 fps、首包到提交 P95≤50 ms/P99≤100 ms、窗口持续可绘制且刷新率≥60 Hz。测量期间同机没有构建、其他测试、活动指标读取或归档传输。用户将关闭真实 3334 推流，本次不属于新包的实时图传验收。
 
-| 设备与路径 | 平均 / P10 fps | P95 / P99 | 正常停止 | 结论 |
+| 设备与路径 | 平均 / P10 fps | P95 / P99 | 正常停止 | 原 1080p60 档结论 |
 | --- | ---: | ---: | ---: | --- |
 | Ubuntu Intel N250，VAAPI/YUV/Wayland/Mobile，balanced | 59.930556 / 59 | 43 / 49 ms | 41.20 ms | 正式门槛通过 |
 | Ubuntu AMD 780M，VAAPI/YUV/Wayland/Mobile，performance | 60 / 60 | 31 / 33 ms | 13.78 ms | 正式门槛通过 |

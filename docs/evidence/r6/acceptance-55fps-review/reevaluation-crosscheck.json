@@ -1,0 +1,26 @@
+[
+  {
+    "run": "windows-cuda",
+    "fourRawHashes": "passed",
+    "fullWindowMean": "passed",
+    "windows": 1800
+  },
+  {
+    "run": "windows-intel",
+    "fourRawHashes": "passed",
+    "fullWindowMean": "passed",
+    "windows": 1800
+  },
+  {
+    "run": "ubuntu-intel",
+    "fourRawHashes": "passed",
+    "fullWindowMean": "passed",
+    "windows": 1800
+  },
+  {
+    "run": "ubuntu-amd",
+    "fourRawHashes": "passed",
+    "fullWindowMean": "passed",
+    "windows": 1800
+  }
+]
