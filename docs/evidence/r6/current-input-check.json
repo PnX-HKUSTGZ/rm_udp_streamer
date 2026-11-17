@@ -1,0 +1,577 @@
+{
+  "product_commit": "136681794a862d9086ec196590fc886491d55c4d",
+  "scope": "Functional live-source observations and invalid Windows ABBA attempts; no new performance acceptance or complete R4/R6 claim.",
+  "live_checks": {
+    "clean-current-package-v1": {
+      "started": 1794894416.1851184,
+      "command": [
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-stop-race\\windows-release-v1\\package\\RmVideoReceiver.exe",
+        "--rendering-method",
+        "mobile",
+        "--audio-driver",
+        "Dummy",
+        "--windowed",
+        "--resolution",
+        "1280x900",
+        "--",
+        "--start",
+        "--bind",
+        "192.168.12.2",
+        "--port",
+        "3334",
+        "--decoder",
+        "auto",
+        "--transfer",
+        "yuv",
+        "--duration",
+        "20",
+        "--metrics",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-live-closure\\clean-current-package-v1\\metrics.ndjson",
+        "--diagnostics",
+        "on",
+        "--snapshot",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-live-closure\\clean-current-package-v1\\window.png"
+      ],
+      "package": {
+        "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-stop-race\\windows-release-v1\\package",
+        "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+        "commit": "136681794a862d9086ec196590fc886491d55c4d",
+        "verified_files": 588,
+        "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+        "dependency_kind": "official",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "appdata": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-live-closure\\clean-current-package-v1\\isolated-appdata",
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "assembly_sha256": "c4968b78e97dd695d79bb6b03d43c4faa88f97c6116aa9283806d0ec6ced5446",
+      "scope": "Current fixed physical sender, receive/decode/present/normal-stop functional check. No 55 fps or latency performance claim.",
+      "pid": 54276,
+      "finished": 1794894442.221626,
+      "exit": 0,
+      "forced": false,
+      "actual": {
+        "state": "Running",
+        "bound_port": 3334,
+        "generation": 1,
+        "source": "192.168.12.1:49810",
+        "decoder": "d3d11va",
+        "decode_device": "NVIDIA GeForce RTX 5070 Laptop GPU LUID=0:95085",
+        "hardware": true,
+        "mode": "cpu_nv12",
+        "width": 1920,
+        "height": 1080,
+        "packets": 5534,
+        "complete": 444,
+        "decoded": 371,
+        "prepared": 369,
+        "submitted_total": 369,
+        "shown_total": 369,
+        "decode_errors": 0,
+        "recoveries": 1,
+        "missing": 0,
+        "invalid": 0,
+        "error": "",
+        "fallback": "",
+        "frame_age_ms": 2025,
+        "initial_parameters_supplied": true,
+        "initial_parameters_applied": true,
+        "hevc_parameters_revision": 1
+      },
+      "parameter_origin": "内置启动参数",
+      "parameter_cache_error": "",
+      "render_device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "window_can_draw": true,
+      "terminal": {
+        "event": "stopped",
+        "exit_code": 0,
+        "stop_elapsed_ms": 46.273,
+        "stop_error": ""
+      },
+      "terminal_core": {
+        "stop_terminal": true,
+        "worker_done": true,
+        "decoder_done": true,
+        "render_retired": true,
+        "render_pending": 0,
+        "render_retirement_failed": false,
+        "error": ""
+      },
+      "port_rebind": true,
+      "errors": [],
+      "passed": true,
+      "files": {
+        "window.png": "24132e98730aefd0e08ce7a97377f83fd5bbb553183784d7dce748a3d576d630",
+        "engine.log": "acb5234c1d937149149154390b0e9849a3856dbfa51418dbea7528ca1b1e825d",
+        "metrics.ndjson": "e13aeab0b47ee9904f6b620baac99efd7092a6336ff28a9194308cd3762a9f20"
+      },
+      "result_sha256": "5603b274e00a3a9b7eccf4720f43e73eec3e906418a3f5e7bc733f8ca5b02516",
+      "observation": {
+        "sources": [
+          "192.168.12.1:49810"
+        ],
+        "first_nonzero_packet_sample_seconds": 11.3478448,
+        "first_nonzero_shown_sample_seconds": 12.3728678,
+        "last_frame_age_ms": 2025,
+        "visual_scope": "Recorded image, not physical scanout verification."
+      }
+    },
+    "restart-saved-current-package-v1": {
+      "started": 1794894528.9281344,
+      "command": [
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-stop-race\\windows-release-v1\\package\\RmVideoReceiver.exe",
+        "--rendering-method",
+        "mobile",
+        "--audio-driver",
+        "Dummy",
+        "--windowed",
+        "--resolution",
+        "1280x900",
+        "--",
+        "--start",
+        "--bind",
+        "192.168.12.2",
+        "--port",
+        "3334",
+        "--decoder",
+        "auto",
+        "--transfer",
+        "yuv",
+        "--duration",
+        "25",
+        "--metrics",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-live-closure\\restart-saved-current-package-v1\\metrics.ndjson",
+        "--diagnostics",
+        "on",
+        "--snapshot",
+        "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-live-closure\\restart-saved-current-package-v1\\window.png"
+      ],
+      "package": {
+        "path": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-stop-race\\windows-release-v1\\package",
+        "manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+        "commit": "136681794a862d9086ec196590fc886491d55c4d",
+        "verified_files": 588,
+        "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+        "dependency_kind": "official",
+        "runtime_kind": "self-contained exported package",
+        "source_scope": "bundled native adapter sources; managed code is identified by the release assembly and Git commit",
+        "sdk_environment": "absent SDK roots, minimal OS PATH, isolated user configuration"
+      },
+      "appdata": "D:\\Code\\udp_streamer_godot\\processing\\2026-11-17-rm-live-closure\\clean-current-package-v1\\isolated-appdata",
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "assembly_sha256": "c4968b78e97dd695d79bb6b03d43c4faa88f97c6116aa9283806d0ec6ced5446",
+      "scope": "Current fixed physical sender, receive/decode/present/normal-stop functional check. No 55 fps or latency performance claim.",
+      "pid": 43500,
+      "finished": 1794894558.4266574,
+      "exit": 0,
+      "forced": false,
+      "actual": {
+        "state": "WaitingConfig",
+        "bound_port": 3334,
+        "generation": 1,
+        "source": "",
+        "decoder": "",
+        "decode_device": "",
+        "hardware": false,
+        "mode": "",
+        "width": 0,
+        "height": 0,
+        "packets": 0,
+        "complete": 0,
+        "decoded": 0,
+        "prepared": 0,
+        "submitted_total": 0,
+        "shown_total": 0,
+        "decode_errors": 0,
+        "recoveries": 0,
+        "missing": 0,
+        "invalid": 0,
+        "error": "",
+        "fallback": "",
+        "frame_age_ms": -1,
+        "initial_parameters_supplied": true,
+        "initial_parameters_applied": false,
+        "hevc_parameters_revision": 0
+      },
+      "parameter_origin": "已保存的启动参数",
+      "parameter_cache_error": "",
+      "render_device": "NVIDIA GeForce RTX 5070 Laptop GPU",
+      "window_can_draw": true,
+      "terminal": {
+        "event": "stopped",
+        "exit_code": 0,
+        "stop_elapsed_ms": 13.0924,
+        "stop_error": ""
+      },
+      "terminal_core": {
+        "stop_terminal": true,
+        "worker_done": true,
+        "decoder_done": true,
+        "render_retired": true,
+        "render_pending": 0,
+        "render_retirement_failed": false,
+        "error": ""
+      },
+      "port_rebind": true,
+      "errors": [
+        "insufficient actual decoded/displayed frames",
+        "unexpected real source"
+      ],
+      "passed": false,
+      "files": {
+        "window.png": "845a3317acf1f6b327d32b571b5b2a0fad684dcbc6940c99016ab17d324345cb",
+        "engine.log": "a1efbcb85d3107f7650642580adde407cda938018c4db650fbbd153a3b1ca974",
+        "metrics.ndjson": "83109aae64b6d04840daef98fcac1bb61a19d85ceabca19a7873b746cfe5bd50"
+      },
+      "result_sha256": "b6088e68b5546726b51d9c1b3f8bf730e512cd8b1048d9c6381897c016a5e8b7",
+      "observation": {
+        "sources": [],
+        "first_nonzero_packet_sample_seconds": null,
+        "first_nonzero_shown_sample_seconds": null,
+        "last_frame_age_ms": -1,
+        "visual_scope": "Recorded image, not physical scanout verification."
+      }
+    }
+  },
+  "invalid_abba_attempts": {
+    "v1": {
+      "status": "failed",
+      "errors": [
+        "missing stop terminal",
+        "RuntimeError('test window minimized, hidden, cloaked or absent')",
+        "measurement coverage: StopIteration()"
+      ],
+      "exit": 0,
+      "forced": false,
+      "port_rebind": {
+        "passed": true,
+        "attempts": 1
+      },
+      "display_restored": true,
+      "sender_frames": 201,
+      "result_sha256": "7e07d642a97d6e454495560f8cc45841175af0501c89c138068c3b3040b6c73e",
+      "last_window_observation": [
+        {
+          "hwnd": 3609932,
+          "visible": true,
+          "minimized": true,
+          "cloaked": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "hwnd": 1576484,
+          "visible": false,
+          "minimized": false,
+          "cloaked": 0,
+          "width": 1914,
+          "height": 994
+        },
+        {
+          "hwnd": 3610276,
+          "visible": false,
+          "minimized": false,
+          "cloaked": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "hwnd": 2559512,
+          "visible": false,
+          "minimized": false,
+          "cloaked": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "hwnd": 17764610,
+          "visible": false,
+          "minimized": false,
+          "cloaked": 0,
+          "width": 0,
+          "height": 0
+        }
+      ],
+      "conclusion": "No completed first measurement round or valid ABBA comparison. Preserve without claiming diagnostics overhead or performance failure."
+    },
+    "v2": {
+      "status": "failed",
+      "errors": [
+        "missing stop terminal",
+        "RuntimeError('test window minimized, hidden, cloaked or absent')",
+        "measurement coverage: StopIteration()"
+      ],
+      "exit": 0,
+      "forced": false,
+      "port_rebind": {
+        "passed": true,
+        "attempts": 1
+      },
+      "display_restored": true,
+      "sender_frames": 364,
+      "result_sha256": "a53da5565cbf17b9a3d89834467361f052b64d505258bdba6fd00fda3d951cd8",
+      "last_window_observation": [
+        {
+          "hwnd": 2103024,
+          "visible": true,
+          "minimized": true,
+          "cloaked": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "hwnd": 12195388,
+          "visible": false,
+          "minimized": false,
+          "cloaked": 0,
+          "width": 1914,
+          "height": 994
+        },
+        {
+          "hwnd": 1444290,
+          "visible": false,
+          "minimized": false,
+          "cloaked": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "hwnd": 6816894,
+          "visible": false,
+          "minimized": false,
+          "cloaked": 0,
+          "width": 0,
+          "height": 0
+        },
+        {
+          "hwnd": 2296752,
+          "visible": false,
+          "minimized": false,
+          "cloaked": 0,
+          "width": 0,
+          "height": 0
+        }
+      ],
+      "conclusion": "No completed first measurement round or valid ABBA comparison. Preserve without claiming diagnostics overhead or performance failure."
+    }
+  },
+  "formal_input_scope": {
+    "windows-cuda": {
+      "samples": 1942,
+      "generations": [
+        1
+      ],
+      "session_starts": 1,
+      "requested_port": 52369,
+      "actual_ports": [
+        52369
+      ],
+      "actual_sources": [
+        "127.0.0.1:53625"
+      ],
+      "metrics_sha256": "e55d9196914ddc46946c35057c4611be0a0fb5fc8968f68a0d8fadbbaf454472",
+      "passed": true
+    },
+    "windows-intel": {
+      "samples": 1939,
+      "generations": [
+        1
+      ],
+      "session_starts": 1,
+      "requested_port": 51759,
+      "actual_ports": [
+        51759
+      ],
+      "actual_sources": [
+        "127.0.0.1:65319"
+      ],
+      "metrics_sha256": "8009efad097f131fdc9f81704e81521941db73a1b5376c01577f3fc3cf5002ee",
+      "passed": true
+    },
+    "ubuntu-intel": {
+      "samples": 1958,
+      "generations": [
+        1
+      ],
+      "session_starts": 1,
+      "requested_port": 38487,
+      "actual_ports": [
+        38487
+      ],
+      "actual_sources": [
+        "127.0.0.1:52743"
+      ],
+      "metrics_sha256": "867fc857c239a79fb448a2c1d5dc2dd078c0d01db9d3b7efc46d1a5eff193dbd",
+      "passed": true
+    },
+    "ubuntu-amd": {
+      "samples": 1933,
+      "generations": [
+        1
+      ],
+      "session_starts": 1,
+      "requested_port": 32792,
+      "actual_ports": [
+        32792
+      ],
+      "actual_sources": [
+        "127.0.0.1:59848"
+      ],
+      "metrics_sha256": "b0251338a13b86b926914e40f094b00f4a2d1486a8586b54c3c8bdfb849fefe8",
+      "passed": true
+    }
+  },
+  "limits": [
+    "Real restart check received zero packets; live recovery remains unverified on this candidate.",
+    "First live check used automatic NVIDIA D3D11VA/CPU NV12, not the Intel D3D11VA or CUDA GPU paths from the formal performance table.",
+    "Real input stopped before the first snapshot; an actual video image exists but it is marked stale.",
+    "Single-source cache retains only the last successful source. Test loopback cache does not match fixed physical source; normal user cache was not modified.",
+    "No third ABBA retry, runtime changes, firewall changes or original 30-minute reruns in this task."
+  ],
+  "records": {
+    "processing/2026-11-17-rm-live-closure/check_live_v1.py": {
+      "sha256": "ed710ff72e79eeef582335560cbb2bf647fe61fda37f6c051ed4ecccca0be7df",
+      "bytes": 5430
+    },
+    "processing/2026-11-17-rm-live-closure/publish_observations_v1.py": {
+      "sha256": "e5925cb12eba8abce3c70728a28a4a87cbd9d1fe0367d2f66075c2d1f5be429b",
+      "bytes": 4857
+    },
+    "processing/2026-11-17-rm-live-closure/aborted-session-timeline-v1.json": {
+      "sha256": "82fb65b892c917344555c905452f9dfdd8d9fb249446d122836bb1af66404391",
+      "bytes": 19323
+    },
+    "processing/2026-11-17-rm-windows-abba/formal-input-scope-check-v1.json": {
+      "sha256": "44db4c7c9ffa2ce55e46d5120129ef79d9ce6e82028a3ed9204a44da8a71cdfb",
+      "bytes": 1432
+    },
+    "processing/2026-11-17-rm-live-closure/clean-current-package-v1/result.json": {
+      "sha256": "5603b274e00a3a9b7eccf4720f43e73eec3e906418a3f5e7bc733f8ca5b02516",
+      "bytes": 3633
+    },
+    "processing/2026-11-17-rm-live-closure/clean-current-package-v1/engine.log": {
+      "sha256": "acb5234c1d937149149154390b0e9849a3856dbfa51418dbea7528ca1b1e825d",
+      "bytes": 41688
+    },
+    "processing/2026-11-17-rm-live-closure/clean-current-package-v1/metrics.ndjson": {
+      "sha256": "e13aeab0b47ee9904f6b620baac99efd7092a6336ff28a9194308cd3762a9f20",
+      "bytes": 237796
+    },
+    "processing/2026-11-17-rm-live-closure/clean-current-package-v1/window.png": {
+      "sha256": "24132e98730aefd0e08ce7a97377f83fd5bbb553183784d7dce748a3d576d630",
+      "bytes": 356482
+    },
+    "processing/2026-11-17-rm-live-closure/restart-saved-current-package-v1/result.json": {
+      "sha256": "b6088e68b5546726b51d9c1b3f8bf730e512cd8b1048d9c6381897c016a5e8b7",
+      "bytes": 3652
+    },
+    "processing/2026-11-17-rm-live-closure/restart-saved-current-package-v1/engine.log": {
+      "sha256": "a1efbcb85d3107f7650642580adde407cda938018c4db650fbbd153a3b1ca974",
+      "bytes": 27862
+    },
+    "processing/2026-11-17-rm-live-closure/restart-saved-current-package-v1/metrics.ndjson": {
+      "sha256": "83109aae64b6d04840daef98fcac1bb61a19d85ceabca19a7873b746cfe5bd50",
+      "bytes": 231002
+    },
+    "processing/2026-11-17-rm-live-closure/restart-saved-current-package-v1/window.png": {
+      "sha256": "845a3317acf1f6b327d32b571b5b2a0fad684dcbc6940c99016ab17d324345cb",
+      "bytes": 156495
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v1/status.json": {
+      "sha256": "5b2054fdd61c50f15b2fe603cdf9a165a0a74024fc8161625f2b470a20c36849",
+      "bytes": 4777
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off.log": {
+      "sha256": "ff06b80f9f75b63f7c5bddca77cfa68fd5d008b4bc49f6f7ad8b98253fb09ee0",
+      "bytes": 395
+    },
+    "processing/2026-11-17-rm-windows-abba/windows_abba_v1.py": {
+      "sha256": "6bc8f06171c79d08e21a44e2f02628d73c939ce07c4e4bb58b134951369bc958",
+      "bytes": 8070
+    },
+    "processing/2026-11-17-rm-windows-abba/audit_abba_v1.py": {
+      "sha256": "1b1bcd95220a6b56b846189c7ae93e788d7730f2b96645664292f8fc40350002",
+      "bytes": 8311
+    },
+    "processing/2026-11-17-rm-windows-abba/provenance-v1.json": {
+      "sha256": "e3c74de4b958c27e37d39db7570fa727461b88a4671d954e59339c63ffd69d45",
+      "bytes": 821
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/result.json": {
+      "sha256": "7e07d642a97d6e454495560f8cc45841175af0501c89c138068c3b3040b6c73e",
+      "bytes": 7351
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/engine.log": {
+      "sha256": "69fe306e9190d8411f1ece38bfb7f106fb2a87314b80382e63ce94d7ddf54bc4",
+      "bytes": 63793
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/metrics.ndjson": {
+      "sha256": "bc7ce1413f3f24ffda8850a70f17f7fe3dabf5b96d7dd98bfc0610b4eed6aa2d",
+      "bytes": 193087
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/process.json": {
+      "sha256": "c73b9d3deec362e8d14ec35cf6ee8cd76b93c31ce68514caff58badd05e2074e",
+      "bytes": 57015
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/sender.tsv": {
+      "sha256": "1ab85ea8863ee5a25c67e3f8e9cd15ea2e4a6962ec497cda4f1878e341a2cc57",
+      "bytes": 10573
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/wrapper-provenance.json": {
+      "sha256": "f3574610af8eaf26830955a4b690f143edc0cf6a28aaa56d29dbcad14c873afe",
+      "bytes": 591
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v2/status.json": {
+      "sha256": "c57a5d023f2ef000034f1c321281932e71d2056eccb6c6de67637f8259fbbc78",
+      "bytes": 4989
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off.log": {
+      "sha256": "dc113dd8d7d524d91fda803ca9e52e5c964c04d30f347cbcc31374622336edbe",
+      "bytes": 381
+    },
+    "processing/2026-11-17-rm-windows-abba/windows_abba_v2.py": {
+      "sha256": "5e30fa346e805afc26e542556451f4a3a29e45f5f7c91d37fe4a643c9430a32e",
+      "bytes": 8812
+    },
+    "processing/2026-11-17-rm-windows-abba/audit_abba_v2.py": {
+      "sha256": "37149e0d73df2bd2249dfb5fcc7e232dce1367d0f19bee4ca377bde3d5e50c69",
+      "bytes": 8779
+    },
+    "processing/2026-11-17-rm-windows-abba/provenance-v2.json": {
+      "sha256": "51e13238a30a020026b5222af15b6df8127f289957aec3901ec83e19c094715e",
+      "bytes": 599
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/result.json": {
+      "sha256": "a53da5565cbf17b9a3d89834467361f052b64d505258bdba6fd00fda3d951cd8",
+      "bytes": 7116
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/engine.log": {
+      "sha256": "890f600bdaed054597d4e75f167af8023a1e1a4e93d71f6d04ac65c61f50056b",
+      "bytes": 3193
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/metrics.ndjson": {
+      "sha256": "74a6c5f43cb402268ba6aad12ad2e5af7fb8d5157e4509974a6b2ba28e8354dd",
+      "bytes": 35462
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/process.json": {
+      "sha256": "c5e911f2ce6a8ed56ba347fc67c9b5c7c3d5127a69a22489e9cd8a405dfe6ee3",
+      "bytes": 9341
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/sender.tsv": {
+      "sha256": "f89e2de14c737437a0f2afe799eef0631aae0b661eea5cbcde5998ac2b782570",
+      "bytes": 19212
+    },
+    "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/wrapper-provenance.json": {
+      "sha256": "f3574610af8eaf26830955a4b690f143edc0cf6a28aaa56d29dbcad14c873afe",
+      "bytes": 591
+    }
+  },
+  "archive": {
+    "path": "processing/2026-11-17-rm-live-closure/current-input-check-records-v1.tar.gz",
+    "sha256": "e1b01f8e39b9c3308fe0e6b47dcde6ad96a7417e973119c33e5aacff55bb8206",
+    "bytes": 578311,
+    "members": 34,
+    "verified": true
+  }
+}

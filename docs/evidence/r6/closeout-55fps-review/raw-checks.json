@@ -1,0 +1,107 @@
+{
+  "windows-cuda": {
+    "samples": 1942,
+    "generations": [
+      1
+    ],
+    "ports": [
+      52369
+    ],
+    "sources": [
+      "",
+      "127.0.0.1:53625"
+    ],
+    "events": [
+      "",
+      "stop_requested",
+      "stopped"
+    ]
+  },
+  "windows-intel": {
+    "samples": 1939,
+    "generations": [
+      1
+    ],
+    "ports": [
+      51759
+    ],
+    "sources": [
+      "",
+      "127.0.0.1:65319"
+    ],
+    "events": [
+      "",
+      "stop_requested",
+      "stopped"
+    ]
+  },
+  "ubuntu-intel": {
+    "samples": 1958,
+    "generations": [
+      1
+    ],
+    "ports": [
+      38487
+    ],
+    "sources": [
+      "",
+      "127.0.0.1:52743"
+    ],
+    "events": [
+      "",
+      "stop_requested",
+      "stopped"
+    ]
+  },
+  "ubuntu-amd": {
+    "samples": 1933,
+    "generations": [
+      1
+    ],
+    "ports": [
+      32792
+    ],
+    "sources": [
+      "",
+      "127.0.0.1:59848"
+    ],
+    "events": [
+      "",
+      "stop_requested",
+      "stopped"
+    ]
+  },
+  "clean-current-package-v1": {
+    "event": "stopped",
+    "terminal": {
+      "exit_code": 0,
+      "stop_elapsed_ms": 46.273,
+      "stop_error": ""
+    },
+    "counts": {
+      "packets": 5534,
+      "decoded": 371,
+      "submitted_total": 369,
+      "shown_total": 369,
+      "worker_done": true,
+      "render_pending": 0
+    }
+  },
+  "restart-saved-current-package-v1": {
+    "event": "stopped",
+    "terminal": {
+      "exit_code": 0,
+      "stop_elapsed_ms": 13.0924,
+      "stop_error": ""
+    },
+    "counts": {
+      "packets": 0,
+      "decoded": 0,
+      "submitted_total": 0,
+      "shown_total": 0,
+      "worker_done": true,
+      "render_pending": 0
+    }
+  },
+  "archive_members_verified": 34
+}

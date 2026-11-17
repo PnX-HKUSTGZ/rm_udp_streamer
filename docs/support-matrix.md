@@ -2,14 +2,14 @@
 
 更新时间：2026-11-17。当前运行候选 `1366817` 已完成 Windows CUDA/D3D11VA、Ubuntu Intel/AMD VAAPI 的新包功能回归，包含默认参数、断链恢复、组件启停，以及 Ubuntu 的独立进程退出和桌面矩阵；见[当前候选记录](evidence/r6/candidate-1366817.md)。用户将当前目标调整为平均至少 55 fps，四条路径的已有 180/1800 正式本地回放数据均满足，关联延迟和正常退出检查通过；详见[55 fps 目标记录](evidence/r6/acceptance-55fps.md)。Windows 的短时卡顿和原 1080p60 档失败保留，不承诺每秒最低 55；两台 Ubuntu 指定组合仍通过原等级及完整诊断对照。放行后的 LAN 短测 36.87 fps 未达标，不能与本地结果混用。R4、R6 尚未完成。
 
-默认参数与自动保存的来源及此前真实 3334 默认启动见[默认参数记录](evidence/r4/persisted-parameters.md)。用户将关闭真实推流后，新候选通过回放验证，不称为新包实流验收。此前不使用启动缓存的观察及长测保留在[ae15111 候选记录](evidence/r6/candidate-ae15111.md)。下述正式性能及历史独立审查结论对应 `88bf17a9e046db6d75d3301e09d893fb1e8f4ed5`，不自动适用于后续运行文件。[固定输入回归](evidence/r4/real-input-regression.md)和[启动参数记录](evidence/r4/startup-parameters.md)分别说明既有修复与缺口。[R3 独立审查](evidence/r3/report.md)限定下述三条历史性能组合。
+用户确认本轮按平均 55 fps 收尾，Windows 当前包诊断开销保留未验收，不再补测。随后当前包的 NVIDIA D3D11VA/CPU NV12/Mobile 路径已直接接收、解码、显示真实 3334 画面并正常停止；再启动时无输入，实时恢复仍未验证，见[当前输入与收尾记录](evidence/r6/current-input-check.md)。默认参数来源见[默认参数记录](evidence/r4/persisted-parameters.md)。此前不使用启动缓存的观察及长测保留在[ae15111 候选记录](evidence/r6/candidate-ae15111.md)。下方历史基线段落中的正式性能及 R3 独立审查对应 `88bf17a9e046db6d75d3301e09d893fb1e8f4ed5`，不自动适用于后续运行文件；本页平台能力表中的当前候选为 `1366817`。[固定输入回归](evidence/r4/real-input-regression.md)和[启动参数记录](evidence/r4/startup-parameters.md)分别说明既有修复与缺口。[R3 独立审查](evidence/r3/report.md)限定下述三条历史性能组合。
 
 ## 平台、后端与传输
 
 | 平台与设备 | 已实现路径 | 当前实测范围 | 未完成项目 |
 | --- | --- | --- | --- |
-| Windows / NVIDIA RTX 5070 Laptop | CUDA硬解，CPU YUV/RGBA；同设备CUDA/OpenGL GPU桥接 | 1366817包功能、恢复及60轮生命周期通过；CUDA/GPU本地正式56.17fps/P10=57，达到新平均55目标；13个零提交秒，原60fps档未通过 | 当前包诊断对照、真实输入及完整R4/R6验收；LAN短测未达到55；CUDA/CPU及RGBA没有同等性能声明 |
-| Windows / Intel Arc 140T | D3D11VA硬解与CPU回读上传 | 1366817包原始/重链接播放、恢复及60轮生命周期通过；D3D11VA/YUV/Mobile本地正式57.21fps/P10=59、P95/P99=37/48ms，达到新平均55目标；10个零提交秒，原60fps档未通过 | 当前包诊断对照、真实输入及完整R4/R6验收；不扩展到未测的D3D设备 |
+| Windows / NVIDIA RTX 5070 Laptop | CUDA硬解，CPU YUV/RGBA；同设备CUDA/OpenGL GPU桥接；D3D11VA/CPU路径 | 1366817包功能、恢复及60轮生命周期通过；CUDA/GPU本地正式56.17fps/P10=57，达到新平均55目标；13个零提交秒，原60fps档未通过；D3D11VA/CPU NV12/Mobile短时实流解码/显示/停止通过 | 当前包诊断开销保留未验收；实流恢复及完整R4/R6验收；LAN短测未达到55；CUDA/CPU及RGBA没有同等性能声明，不能将D3D11VA实流结果套用到CUDA |
+| Windows / Intel Arc 140T | D3D11VA硬解与CPU回读上传 | 1366817包原始/重链接播放、恢复及60轮生命周期通过；D3D11VA/YUV/Mobile本地正式57.21fps/P10=59、P95/P99=37/48ms，达到新平均55目标；10个零提交秒，原60fps档未通过 | 当前包诊断开销保留未验收；真实输入及完整R4/R6验收；不扩展到未测的D3D设备 |
 | Ubuntu 24.04 / Intel N250 | VAAPI 硬解与 CPU 回读上传 | 1366817独立包14项桌面/回退、60轮组件与60次进程退出通过；VAAPI/YUV/Wayland/Mobile正式59.93fps/P10=59，P95/P99=43/49ms，完整诊断对照通过 | RGBA及其他渲染组合没有同等性能等级；X11通过Xwayland，非原生Xorg；完整R4/R6验收未完成 |
 | Ubuntu 24.04 / AMD Radeon 780M | VAAPI硬解与CPU回读上传 | 1366817独立包14项桌面/回退、60轮组件与60次进程退出通过；VAAPI/YUV/Wayland/Mobile正式60fps/P10=60，P95/P99=31/33ms，完整诊断对照通过 | 完整R4/R6验收；没有物理扫描测量，其他渲染组合没有同等性能声明；原生库摘要与Intel包不同 |
 | Windows / Ubuntu 软件解码 | HEVC 软件解码，CPU YUV/RGBA | 功能、恢复、颜色及已有桌面样本检查 | 性能等级须对应具体设备、配置和最终二进制 |
@@ -44,7 +44,7 @@ Windows同一新DLL的原版/逐轮写盘探针也各完成60轮GPU/YUV/RGBA/aut
 
 Intel接屏后的完整10/60工程对照中，balanced为55.8667/55.85fps，performance为57.5667/57.05fps，均未达到门槛。临时UI刷新探针有改善，但不是发行候选的正式性能证据。实际画面、生命周期、失败记录、恢复状态及完整归档见[Intel补验报告](evidence/r4/report.md)。
 
-固定样本与模拟发送器能验证协议处理及恢复逻辑。真实UDP曾接入本机`192.168.12.2:3334`：先前中途捕获有IDR而没有VPS/SPS/PPS，解码失败；随后提前监听并重新开流，网卡抓到第1组参数集与IDR，同一发行包已实际D3D11VA硬解1920×1080并显示真实画面，独立FFmpeg也成功。历史观察见[真实流检查](evidence/r4/real-stream.md)。bac87ac 的显式启动参数、直接接收和进程重启记录见[断流与重连验收](evidence/r4/disconnect-recovery.md)，其中 Ubuntu 首轮进程退出失败保留为历史问题。后续 1366817 包的停止修复和两台 Ubuntu 各 60 次独立进程退出已通过，见[当前候选记录](evidence/r6/candidate-1366817.md)。当前自动缓存可复用匹配来源的已验证参数；没有带内参数或匹配缓存时仍等待参数。用户关闭真实推流后的新候选使用回放验证，完整平台、性能和阶段验收仍未完成，不声明新的实流验收或相机到屏幕延迟。
+固定样本与模拟发送器能验证协议处理及恢复逻辑。真实UDP曾接入本机`192.168.12.2:3334`：先前中途捕获有IDR而没有VPS/SPS/PPS，解码失败；随后提前监听并重新开流，网卡抓到第1组参数集与IDR，同一发行包已实际D3D11VA硬解1920×1080并显示真实画面，独立FFmpeg也成功。历史观察见[真实流检查](evidence/r4/real-stream.md)。bac87ac 的显式启动参数、直接接收和进程重启记录见[断流与重连验收](evidence/r4/disconnect-recovery.md)，其中 Ubuntu 首轮进程退出失败保留为历史问题。后续 1366817 包的停止修复和两台 Ubuntu 各 60 次独立进程退出已通过，见[当前候选记录](evidence/r6/candidate-1366817.md)。当前自动缓存可复用匹配来源的已验证参数；没有带内参数或匹配缓存时仍等待参数。1366817 后续真实输入检查限定本页开头列出的 NVIDIA D3D11VA 路径和收流/解码/显示/停止，不能称为完整实流恢复验收或相机到屏幕延迟证据。
 
 ## 运行与依赖
 

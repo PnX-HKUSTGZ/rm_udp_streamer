@@ -8,6 +8,8 @@ Windows NVIDIA 已实现零视频像素回读的 CUDA/OpenGL 路径；原生 Ubu
 
 2026-11-17 按用户新目标核对：当前 `1366817` 的 Windows CUDA、Intel D3D11VA、Ubuntu Intel/AMD VAAPI 四条本地回放长测平均分别为 56.17、57.21、59.93、60 fps，均达到平均 55 fps。Windows 短时卡顿仍存在；新 LAN 短测未达标，不能将本地结论外推到它。详情见[当前接受范围](docs/evidence/r6/acceptance-55fps.md)。
 
+用户确认本轮按平均 55 fps 收尾，Windows 当前包诊断开销保留未验收，不再补测。当前包已直接显示真实 3334 图传画面并正常停止；随后重启时无输入，实时恢复仍待验证。结论与两次对照中止记录见[本轮交付边界](docs/evidence/r6/current-input-check.md)。
+
 - [当前实现架构](docs/current-architecture.md)：线程、最新帧准备、缓冲复用、代际和资源所有权。
 - [当前能力与验收边界](docs/support-matrix.md)：逐设备的实测范围、性能证据与待验证项目。
 - [交互使用与渲染切换](docs/usage.md)、[设备身份](docs/devices.md)、[固定依赖构建](docs/building.md)、[外部验证与CI](docs/validation.md)。

@@ -1,0 +1,138 @@
+[
+  {
+    "path": "processing/2026-11-17-rm-live-closure/check_live_v1.py",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-live-closure/publish_observations_v1.py",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-live-closure/aborted-session-timeline-v1.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/formal-input-scope-check-v1.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-live-closure/clean-current-package-v1/result.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-live-closure/clean-current-package-v1/engine.log",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-live-closure/clean-current-package-v1/metrics.ndjson",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-live-closure/clean-current-package-v1/window.png",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-live-closure/restart-saved-current-package-v1/result.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-live-closure/restart-saved-current-package-v1/engine.log",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-live-closure/restart-saved-current-package-v1/metrics.ndjson",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-live-closure/restart-saved-current-package-v1/window.png",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v1/status.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off.log",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows_abba_v1.py",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/audit_abba_v1.py",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/provenance-v1.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/result.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/engine.log",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/metrics.ndjson",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/process.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/sender.tsv",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v1/cuda-diagnostics-1-off/wrapper-provenance.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v2/status.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off.log",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows_abba_v2.py",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/audit_abba_v2.py",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/provenance-v2.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/result.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/engine.log",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/metrics.ndjson",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/process.json",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/sender.tsv",
+    "verified": true
+  },
+  {
+    "path": "processing/2026-11-17-rm-windows-abba/windows-abba-v2/cuda-diagnostics-1-off/wrapper-provenance.json",
+    "verified": true
+  }
+]

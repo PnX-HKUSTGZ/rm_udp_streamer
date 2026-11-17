@@ -1,0 +1,56 @@
+[
+  {
+    "version": "v1",
+    "samples": 36,
+    "generations": [
+      1,
+      2
+    ],
+    "ports": [
+      0,
+      3334,
+      53543
+    ],
+    "sources": [
+      "",
+      "127.0.0.1:50846",
+      "192.168.12.1:51713"
+    ],
+    "maxDecoded": 39.0,
+    "maxSubmitted": 32.0,
+    "senderFrames": 201,
+    "measurementPresent": false,
+    "errors": [
+      "missing stop terminal",
+      "RuntimeError('test window minimized, hidden, cloaked or absent')",
+      "measurement coverage: StopIteration()"
+    ],
+    "exit": 0,
+    "forced": false
+  },
+  {
+    "version": "v2",
+    "samples": 6,
+    "generations": [
+      1
+    ],
+    "ports": [
+      53992
+    ],
+    "sources": [
+      "",
+      "127.0.0.1:50370"
+    ],
+    "maxDecoded": 246.0,
+    "maxSubmitted": 244.0,
+    "senderFrames": 364,
+    "measurementPresent": false,
+    "errors": [
+      "missing stop terminal",
+      "RuntimeError('test window minimized, hidden, cloaked or absent')",
+      "measurement coverage: StopIteration()"
+    ],
+    "exit": 0,
+    "forced": false
+  }
+]
