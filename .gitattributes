@@ -4,3 +4,7 @@ docs/evidence/m6/review.md -text whitespace=cr-at-eol
 docs/evidence/r4/*.json -text whitespace=cr-at-eol
 # Unified diffs require leading context spaces, including before tabs.
 build/patches/*.patch text eol=lf -whitespace
+# Preserve the accepted native libraries and their corresponding redistribution kits.
+addons/rm_video/bin/*.dll binary
+addons/rm_video/bin/*.so binary
+addons/rm_video/redistribution/*.zip binary

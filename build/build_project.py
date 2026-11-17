@@ -91,10 +91,11 @@ def build_environment(dotnet=None, compiler=None, make=None):
 def prepare_extension_discovery(repo):
     """Register built extensions before the editor's first filesystem scan.
 
-    The pinned Linux editor crashes on shutdown when it first discovers an
+    The pinned editor can crash on shutdown when it first discovers an
     extension class during that scan (also reproduced with an empty class).
     Its normal startup extension list avoids the late-registration path.
     Preserve other installed extensions when preparing a new checkout.
+    The managed project also seeds this list for prebuilt-library checkouts.
     """
     manifest = repo / '.godot/extension_list.cfg'
     manifest.parent.mkdir(parents=True, exist_ok=True)

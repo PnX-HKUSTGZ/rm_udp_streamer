@@ -7,4 +7,22 @@
     <TargetLatestRuntimePatch>false</TargetLatestRuntimePatch>
     <DefaultItemExcludes>$(DefaultItemExcludes);out/**;dist/**</DefaultItemExcludes>
   </PropertyGroup>
+  <!-- Register extensions before the pinned editor's first filesystem scan.
+       Keep existing entries, including extensions installed by the project user. -->
+  <Target Name="PrepareNativeExtensionDiscovery" BeforeTargets="PrepareForBuild">
+    <MakeDir Directories="$(MSBuildProjectDirectory)/.godot" />
+    <ReadLinesFromFile File="$(MSBuildProjectDirectory)/.godot/extension_list.cfg"
+                       Condition="Exists('$(MSBuildProjectDirectory)/.godot/extension_list.cfg')">
+      <Output TaskParameter="Lines" ItemName="_RmExistingExtension" />
+    </ReadLinesFromFile>
+    <ItemGroup>
+      <_RmExtension Include="addons/**/*.gdextension" />
+      <_RmExtensionPath Include="@(_RmExtension->'res://%(Identity)')" />
+    </ItemGroup>
+    <RemoveDuplicates Inputs="@(_RmExistingExtension);@(_RmExtensionPath->Replace('\', '/'))">
+      <Output TaskParameter="Filtered" ItemName="_RmExtensionList" />
+    </RemoveDuplicates>
+    <WriteLinesToFile File="$(MSBuildProjectDirectory)/.godot/extension_list.cfg"
+                      Lines="@(_RmExtensionList)" Overwrite="true" WriteOnlyWhenDifferent="true" />
+  </Target>
 </Project>

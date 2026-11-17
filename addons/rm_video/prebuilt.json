@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "runtime_source_commit": "136681794a862d9086ec196590fc886491d55c4d",
+  "acceptance": "Named local replay combinations meet the user accepted mean 55 fps scope. See docs/evidence/r6/current-input-check.md.",
+  "artifacts": {
+    "windows-x86_64": {
+      "runtime_commit": "136681794a862d9086ec196590fc886491d55c4d",
+      "source_manifest_sha256": "83ba80bb2387909b3201762ba9254f641fc6cc4e796620232489bb287a8349ba",
+      "native_sha256": "1a8788fec8694e88c339771bcba485467a1dcee71db6b74507ed831f317b93e7",
+      "native_bytes": 6918144,
+      "platform": "windows",
+      "dependency_kind": "official",
+      "dependency_lock_sha256": "7c95c80cdb7b46c8a0fff07a1fd57a110a602e956a021aff8a67e88960e07043",
+      "kit_archive_sha256": "1d53f9d5a994866d9801599e769c5deee80470f5e6a80fef4c2642e72da61789",
+      "kit_archive_bytes": 21089722,
+      "kit_members": 254,
+      "source_package_members": 588,
+      "source_package_verified": true,
+      "kit_members_verified": true,
+      "library": "bin/rm_video.dll",
+      "redistribution": "redistribution/native-windows-x86_64.zip"
+    },
+    "ubuntu2404-intel-x86_64": {
+      "runtime_commit": "136681794a862d9086ec196590fc886491d55c4d",
+      "source_manifest_sha256": "c4f50b2b5e57824cc2877bc210b8b81a9e0a64f56371257ba568a44b9ddc3f0f",
+      "native_sha256": "5e75ed631410f944fa912a617a6e58ae78557fb9cbc00c40f4af84c3dcc5797e",
+      "native_bytes": 7518952,
+      "platform": "linux",
+      "dependency_kind": "developer",
+      "dependency_lock_sha256": "bfb64e720cb6ee4d697f2dfc072d425b274c48164ab824c39413725ea6c5cd01",
+      "kit_archive_sha256": "f1aa4ce6192844ed0cf14322e2c995444f098097f874f9f0fb6827c41398769b",
+      "kit_archive_bytes": 21268314,
+      "kit_members": 222,
+      "source_package_members": 556,
+      "source_package_verified": true,
+      "kit_members_verified": true,
+      "library": "bin/librm_video.so",
+      "redistribution": "redistribution/native-ubuntu2404-intel-x86_64.zip"
+    }
+  },
+  "linux_scope": "The checked-in SO is the measured Intel N250 Ubuntu 24.04 artifact. AMD 780M has a separately measured package and SO; do not treat these bytes as tested on AMD.",
+  "required_environment": {
+    "project": "Godot 4.7.2 Mono and .NET SDK 8.0.428; build the managed project before running.",
+    "windows": "Windows x86_64 and appropriate GPU drivers.",
+    "linux": "Ubuntu 24.04 x86_64, libva2, libva-drm2, libdrm2 and GPU drivers; additional Godot/.NET runtime system libraries apply."
+  }
+}

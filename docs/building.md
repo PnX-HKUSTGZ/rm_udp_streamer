@@ -1,6 +1,6 @@
 # 固定依赖构建与打包
 
-产品源码在独立Git仓库`rm_udp_streamer`。临时验证放外层processing；正式工程仅含运行代码、构建工具和文档。
+产品源码在独立Git仓库`rm_udp_streamer`。临时验证放外层processing；正式工程包含运行代码、构建工具、文档，以及明确随工程交付的已测原生库和对应许可/重链接材料。当前主分支交付入口见[交付说明](delivery.md)。
 
 ## 官方构建基线
 
@@ -94,7 +94,7 @@ Linux的输出目录改为`dist/R-candidate-linux`，其余参数按实际路径
 
 VAAPI 的发布包与重链接工具会保留 `libva`、`libva-drm`、`libdrm` 的系统链接依赖；更换 FFmpeg 前缀时按所选前缀重新选择这些库。Linux 链接要求所有符号已解析，避免生成缺少外部库、直到启动才报错的 SO。运行机器需要发行版的 `libva2 libva-drm2 libdrm2` 及 Intel/AMD 媒体驱动；开发/重链接机器另需相应 `-dev` 包。编入 VAAPI 的原生库在启动时就需要这些运行库，即使本次选择软件解码也一样。
 
-`manifest.json`覆盖包中每个交付文件；`build-manifest.json`记录真正使用的工具版本/路径/摘要与库摘要。导出产物不提交到Git，审查与性能证据按阶段提交到docs/evidence。
+`manifest.json`覆盖包中每个交付文件；`build-manifest.json`记录真正使用的工具版本/路径/摘要与库摘要。完整自包含导出包放在忽略的`dist/`，审查与性能证据按阶段提交到docs/evidence。工程所需的`addons/rm_video/bin/rm_video.dll`与`librm_video.so`例外纳入Git，同时提交`prebuilt.json`和`redistribution/`中的对应许可/重链接材料；未知构建输出仍忽略。更新这些预构建文件时应一起更新身份及材料，不能只替换库而沿用旧验证结论。
 
 当前构建、无SDK运行、重链接与交互检查见[R5报告](evidence/r5/report.md)。可复跑的独立归档、命令和CI范围见[外部验证](validation.md)。构建导出完成不自动构成性能或真实图传验收。
 

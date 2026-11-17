@@ -2,6 +2,8 @@
 .vs/
 out/
 dist/
-addons/rm_video/bin/
+addons/rm_video/bin/*
+!addons/rm_video/bin/rm_video.dll
+!addons/rm_video/bin/librm_video.so
 *.user
 __pycache__/
